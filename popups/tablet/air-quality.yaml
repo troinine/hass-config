@@ -1,0 +1,149 @@
+action: fire-dom-event
+browser_mod:
+  command: popup
+  title: Ilmanlaatu
+  style:
+    .: |
+      :host .content {
+        width: 80vw;
+        max-width: 90vw;
+      }
+    layout-card:
+      $grid-layout$:
+        .: |
+          #root {
+            margin: 0 !important;
+          }
+        hui-vertical-stack-card:
+          $hui-entities-card:
+            $: |
+              .card-content {
+                #padding: 1.5em 2.7em 2.3em 2em;
+              }
+              ha-card {
+                border-right: 1.5px solid rgba(0, 0, 0, 0.2);
+                border-radius: 0;
+                transition: none;
+                box-shadow: none;
+              }
+
+  card:
+    type: custom:layout-card
+    layout_type: custom:grid-layout
+    layout:
+      grid-template-columns: repeat(3, 1fr)
+      grid-template-rows: fit-content(100%) fit-content(100%)
+      grid-template-areas: |
+        "livingroom otso sisu"
+        "bedroom work outside"
+      place-items: start stretch
+    cards:
+      - type: vertical-stack
+        view_layout:
+          grid-area: livingroom
+        cards: 
+          - type: entities
+            title: Olohuone
+            show_header_toggle: false
+            entities:
+              - entity: sensor.mqtt_airthings_waveplus_living_room_temperature
+                name: Lämpötila
+              - entity: sensor.mqtt_airthings_waveplus_living_room_humidity
+                name: Kosteus
+              - entity: sensor.mqtt_airthings_waveplus_living_room_co2
+                name: CO2
+              - entity: sensor.mqtt_airthings_waveplus_living_room_voc
+                name: VOC
+              - entity: sensor.mqtt_airthings_waveplus_living_room_radon_short_term
+                name: Radon, lyhyt
+              - entity: sensor.mqtt_airthings_waveplus_living_room_radon_long_term
+                name: Radon, pitkä
+
+      - type: vertical-stack
+        view_layout:
+          grid-area: bedroom
+        cards: 
+          - type: entities
+            title: Makuuhuone
+            show_header_toggle: false
+            entities:
+              - entity: sensor.netatmo_koti_olohuone_makuuhuone_temperature
+                name: Lämpötila
+              - entity: sensor.netatmo_koti_olohuone_makuuhuone_humidity
+                name: Kosteus
+              - entity: sensor.netatmo_koti_olohuone_makuuhuone_co2
+                name: CO2
+
+      - type: vertical-stack
+        view_layout:
+          grid-area: otso
+        cards: 
+          - type: entities
+            title: Otson huone
+            show_header_toggle: false
+            entities:
+              - entity: sensor.mqtt_otso_temperature
+                name: Lämpötila
+              - entity: sensor.mqtt_otso_humidity
+                name: Kosteus
+              - entity: sensor.mqtt_otso_pressure
+                name: Paine
+
+      - type: vertical-stack
+        view_layout:
+          grid-area: sisu
+        cards: 
+          - type: entities
+            title: Sisun huone
+            show_header_toggle: false
+            entities:
+              - entity: sensor.mqtt_airthings_waveplus_sisu_temperature
+                name: Lämpötila
+              - entity: sensor.mqtt_airthings_waveplus_sisu_humidity
+                name: Kosteus
+              - entity: sensor.mqtt_airthings_waveplus_sisu_co2
+                name: CO2
+              - entity: sensor.mqtt_airthings_waveplus_sisu_voc
+                name: VOC
+              - entity: sensor.mqtt_airthings_waveplus_sisu_radon_short_term
+                name: Radon, lyhyt
+              - entity: sensor.mqtt_airthings_waveplus_sisu_radon_long_term
+                name: Radon, pitkä
+
+      - type: vertical-stack
+        view_layout:
+          grid-area: work
+        cards: 
+          - type: entities
+            title: Työhuone
+            show_header_toggle: false
+            entities:
+              - entity: sensor.netatmo_koti_olohuone_temperature
+                name: Lämpötila
+              - entity: sensor.netatmo_koti_olohuone_humidity
+                name: Kosteus
+              - entity: sensor.netatmo_koti_olohuone_co2
+                name: CO2
+              - entity: sensor.netatmo_koti_olohuone_pressure
+                name: Paine
+              - entity: sensor.netatmo_koti_olohuone_noise
+                name: Äänenvoimakkuus
+
+      - type: vertical-stack
+        view_layout:
+          grid-area: outside
+        cards: 
+          - type: entities
+            title: Ulko
+            show_header_toggle: false
+            entities:
+              - entity: sensor.netatmo_koti_olohuone_ulko_temperature
+                name: Lämpötila
+              - entity: sensor.netatmo_koti_olohuone_ulko_humidity
+                name: Kosteus
+              - entity: sensor.netatmo_koti_olohuone_sade_rain
+                name: Sademäärä
+              - entity: sensor.netatmo_koti_olohuone_sade_rain_today
+                name: Sademäärä tänään
+              - entity: sensor.netatmo_koti_olohuone_ulko_battery_percent
+                name: Akku

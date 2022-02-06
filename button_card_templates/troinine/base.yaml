@@ -1,0 +1,167 @@
+base:
+  variables:
+    is_active: |
+      [[[ return ['on', 'open'].indexOf(entity === undefined || entity.state) !== -1; ]]]
+  template:
+    - language_variables
+
+base_card:
+  variables:
+    state_colors: false
+    card_glow: false
+  aspect_ratio: 1/1
+  template:
+    - base
+  styles:
+    name:
+      - font-size: 1.1vw
+      - font-weight: 500
+    label:
+      - font-size: 0.9vw
+    state:
+      - font-size: 1vw
+      - font-weight: 500
+
+    card:
+      - border-radius: "var(--border-radius)"
+      - padding: "2vmin"
+      - '-webkit-box-shadow': |
+          [[[ 
+            if (!variables.card_glow) {
+              return 'var(--box-shadow)'
+            }
+
+            var state = entity.state
+            if (variables.state_colors) {
+              var color = variables.state_colors[state]
+              if (color) {
+                return '0 0 0.95rem 0.2rem ' + color
+              }
+            }
+
+            if (variables.icon_color) {
+              return '0 0 0.95rem 0.2rem ' + variables.icon_color
+            }
+
+            return 'var(--box-shadow)'
+          ]]]
+      - box-shadow: |
+          [[[ 
+            if (!variables.card_glow) {
+              return 'var(--box-shadow)'
+            }
+
+            var state = entity.state
+            if (variables.state_colors) {
+              var color = variables.state_colors[state]
+              if (color) {
+                return '0 0 0.95rem 0.2rem ' + color
+              }
+            }
+
+            if (variables.icon_color) {
+              return '0 0 0.95rem 0.2rem ' + variables.icon_color
+            }
+
+            return 'var(--box-shadow)'
+          ]]]
+      - transition: |
+          [[[
+            if (!variables.card_glow) {
+              return 'none'
+            } else {
+              return 'all 2s ease'
+            }
+          ]]]
+
+base_icon:
+  template:
+    - base
+  variables:
+    icon_glow: false
+    state_colors: false
+    icon_color: false
+  show_icon: true
+  styles:
+    icon:
+      - width: 1.55vw
+      - color: |
+          [[[ 
+            var state = entity.state
+            if (variables.state_colors) {
+              var color = variables.state_colors[state]
+              if (color) {
+                return color
+              }
+            }
+
+            if (variables.icon_color) {
+              return variables.icon_color
+            }
+
+            return 'var(--custom-icon-color-not-active)'
+          ]]]
+      - transition: all 2s ease
+    img_cell:
+      - background-color: "rgba(var(--color-theme),0.05)"
+      - border-radius: "50%"
+      - justify-self: start
+      - '-webkit-box-shadow': |
+          [[[ 
+            if (!variables.icon_glow) {
+              return 'none'
+            }
+
+            var state = entity.state
+            if (variables.state_colors) {
+              var color = variables.state_colors[state]
+              if (color) {
+                return '0 0 0.95rem 0.2rem ' + color
+              }
+            }
+
+            if (variables.icon_color) {
+              return variables.icon_color
+            }
+
+            return 'none'
+          ]]]
+      - box-shadow: |
+          [[[ 
+            if (!variables.icon_glow) {
+              return 'none'
+            }
+
+            var state = entity.state
+            if (variables.state_colors) {
+              var color = variables.state_colors[state]
+              if (color) {
+                return '0 0 0.95rem 0.2rem ' + color
+              }
+            }
+
+            if (variables.icon_color) {
+              return variables.icon_color
+            }
+
+            return 'none'
+          ]]]
+      - transition: all 2s ease
+
+base_icon_name:
+  show_icon: true
+  show_name: true
+  show_label: false
+  show_state: false
+  template:
+    - base_icon
+  styles:
+    img_cell:
+      - background-color: rgba(var(--color-theme),0.05)
+      - border-radius: 50%
+      - width: 3vw
+      - height: 3vw
+      - place-self: center
+    name:
+      - justify-self: start
+      - align-self: center

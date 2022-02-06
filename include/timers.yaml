@@ -1,0 +1,15 @@
+motion_at_night:
+  name: Valojen yöajastin
+  duration: '00:01:00'
+go_to_sleep_transition:
+  name: Nukkumaan himmennys
+  duration: '00:15:00'
+hot_water_pump_on:
+  name: Käyttöveden kerto päällä
+  duration: '00:15:00'
+hot_water_pump_off:
+  name: Käyttöveden kierto pois
+  duration: '00:45:00'
+garage_dehumidifier_still_on:
+  name: Ilmankuivain edelleen päällä
+  duration: '12:00:00'

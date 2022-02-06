@@ -1,0 +1,223 @@
+- sensor:
+  - name: "Radonin tila"
+    unique_id: 'radon_warning'
+    icon: mdi:radioactive
+    state: |
+      {% if states('sensor.mqtt_airthings_waveplus_sisu_radon_short_term') | float(0) > 150 or states('sensor.mqtt_airthings_waveplus_living_room_radon_short_term') | float(0) > 150 %}
+        Korkea
+      {% elif states('sensor.mqtt_airthings_waveplus_sisu_radon_short_term') | float(0) > 100 or states('sensor.mqtt_airthings_waveplus_living_room_radon_short_term') | float(0) > 100 %}
+        Nousussa
+      {% else %}
+        Alhainen
+      {% endif %}
+    attributes:
+      reporting_entity: |
+        {% if states('sensor.radon_warning') == 'Korkea' and states('sensor.mqtt_airthings_waveplus_sisu_radon_short_term') | float(0) > 150 %}
+          sensor.mqtt_airthings_waveplus_sisu_radon_short_term
+        {% elif states('sensor.radon_warning') == 'Korkea' and states('sensor.mqtt_airthings_waveplus_living_room_radon_short_term') | float(0) > 150 %}
+          sensor.mqtt_airthings_waveplus_living_room_radon_short_term
+        {% elif states('sensor.radon_warning') == 'Nousussa' and states('sensor.mqtt_airthings_waveplus_sisu_radon_short_term') | float(0) > 100 %}
+          sensor.mqtt_airthings_waveplus_sisu_radon_short_term
+        {% elif states('sensor.radon_warning') == 'Nousussa' and states('sensor.mqtt_airthings_waveplus_living_room_radon_short_term') | float(0) > 100 %}
+          sensor.mqtt_airthings_waveplus_living_room_radon_short_term
+        {% endif %}
+
+  - name: "CO2 tila"
+    unique_id: 'co2_state' 
+    icon: mdi:molecule-co2
+    state: |
+      {% if (states('sensor.mqtt_airthings_waveplus_sisu_co2') | float(0) < 1000) and (states('sensor.mqtt_airthings_waveplus_living_room_co2') | float(0) < 1000) and (states('sensor.netatmo_koti_olohuone_co2') | float(0) < 1000) and (states('sensor.netatmo_koti_olohuone_makuuhuone_co2') | float(0) < 1000) %}
+        Alhainen
+      {% else %}
+        Korkea
+      {% endif %}
+
+  - name: "Kosteus tila"
+    unique_id: 'humidity_state'
+    icon: |
+      {% if (states('sensor.mqtt_airthings_waveplus_sisu_humidity') | float(0) < 25) or (states('sensor.mqtt_airthings_waveplus_living_room_humidity') | float(0) < 25) or (states('sensor.netatmo_koti_olohuone_humidity') | float(0) < 25) or (states('sensor.mqtt_otso_humidity') | float(0) < 25) %}
+        mdi:water-minus
+      {% elif (states('sensor.mqtt_airthings_waveplus_sisu_humidity') | float(0) > 60) or (states('sensor.mqtt_airthings_waveplus_living_room_humidity') | float(0) > 60) or (states('sensor.netatmo_koti_olohuone_humidity') | float(0) > 60) or (states('sensor.mqtt_otso_humidity') | float(0) > 60) %}
+        mdi:water-alert
+      {% else %}
+        mdi:water-check
+      {% endif %}     
+    state: |
+      {% if (states('sensor.mqtt_airthings_waveplus_sisu_humidity') | float(0) < 25) or (states('sensor.mqtt_airthings_waveplus_living_room_humidity') | float(0) < 25) or (states('sensor.netatmo_koti_olohuone_humidity') | float(0) < 25) or (states('sensor.mqtt_otso_humidity') | float(0) < 25) %}
+        Alhainen
+      {% elif (states('sensor.mqtt_airthings_waveplus_sisu_humidity') | float(0) > 60) or (states('sensor.mqtt_airthings_waveplus_living_room_humidity') | float(0) > 60) or (states('sensor.netatmo_koti_olohuone_humidity') | float(0) > 60) or (states('sensor.mqtt_otso_humidity') | float(0) > 60) %}
+        Korkea
+      {% else %}
+        Normaali
+      {% endif %}
+    attributes:
+      reporting_entity: |
+        {% if (states('sensor.mqtt_airthings_waveplus_sisu_humidity') | float(0) < 25) or (states('sensor.mqtt_airthings_waveplus_sisu_humidity') | float(0) > 60) %}
+          sensor.mqtt_airthings_waveplus_sisu_humidity
+        {% elif (states('sensor.mqtt_airthings_waveplus_living_room_humidity') | float(0) < 25) or (states('sensor.mqtt_airthings_waveplus_living_room_humidity') | float(0) > 60) %}
+          sensor.mqtt_airthings_waveplus_living_room_humidity
+        {% elif (states('sensor.netatmo_koti_olohuone_humidity') | float(0) < 25) or (states('sensor.netatmo_koti_olohuone_humidity') | float(0) > 60) %}
+          sensor.netatmo_koti_olohuone_humidity
+        {% elif (states('sensor.mqtt_otso_humidity') | float(0) < 25) or (states('sensor.mqtt_otso_humidity') | float(0) > 60) %}
+          sensor.mqtt_otso_humidity
+        {% endif %}
+
+  - name: "Ilmanlaatu"
+    unique_id: 'air_quality'
+    icon: |
+      {% if states('sensor.radon_warning') != 'Alhainen' %}
+        mdi:radioactive
+      {% elif states('sensor.co2_state') != 'Alhainen' %}
+        mdi:molecule-co2
+      {% elif states('sensor.humidity_state') != 'Normaali' %}
+        mdi:water-alert
+      {% else %}
+        mdi:leaf
+      {% endif %}
+    state: |
+      {% if states('sensor.radon_warning') == 'Nousussa' %}
+        Radon nousussa
+      {% elif states('sensor.radon_warning') == 'Korkea' %}
+        Radon korkealla
+      {% elif states('sensor.co2_state') != 'Alhainen' %}
+        CO2 korkealla
+      {% elif states('sensor.humidity_state') == 'Alhainen' %}
+        Matala ilmankosteus
+      {% elif states('sensor.humidity_state') == 'Korkea' %}
+        Korkea ilmankosteus
+      {% else %}
+        Hyvä
+      {% endif %}
+    attributes:
+      reporting_entity: |
+        {% if states('sensor.humidity_state') == 'Alhainen' or states('sensor.humidity_state') == 'Korkea' %}
+          {{ state_attr('sensor.humidity_state', 'reporting_entity') }}
+        {% else %}
+          sensor.mqtt_airthings_waveplus_living_room_temperature
+        {% endif %}
+
+  - name: "home_state"
+    unique_id: "home_state"
+    icon: mdi:home
+    state: "{{ states('input_select.home_state') }}"
+
+  - name: "sauna_state"
+    unique_id: "sauna_state"
+    icon: mdi:shower
+    state: "{{ states('input_select.sauna_state') }}"
+
+
+- binary_sensor:
+  - name: "Liiketunnistimet sisällä"
+    unique_id: 'indoor_motion_sensors'
+    device_class: motion
+    state: |
+      {% if (is_state('binary_sensor.hue_motion_sensor_1', 'on') or is_state('binary_sensor.hue_motion_sensor_2', 'on')) %}
+        on
+      {% else %}
+        off
+      {% endif %}
+
+  - name: "Autotallin ilmankuivaimen tila"
+    unique_id: 'garage_dehumidifier'
+    state: '{{ states("sensor.garage_dehumidifier_energy_consumption_current") | float > 10.0 }}'
+
+  - name: "Ovet"
+    unique_id: 'doors'
+    device_class: door
+    state: |
+      {% if (is_state('binary_sensor.mqtt_garage_door', 'on') or is_state('lock.ulko_ovi', 'unlocked')) %} 
+        on
+      {% else %}
+        off
+      {% endif %}
+
+  - name: "Home Assistant update available"
+    unique_id: "hass_update_available"
+    icon: mdi:update
+    state: |
+      {% if states('sensor.hass_version_installed') != states('sensor.hass_version_latest') %}
+        on
+      {% else %}
+        off
+      {% endif %}
+    attributes:
+      latest_version: "{{ states('sensor.hass_version_latest') }}"
+      icon_color: green
+      text_summary: 'Home Assistant päivitys saatavilla'
+      text_description: "Uusin version on {{ states('sensor.hass_version_latest') }}"
+
+  ### Notifications ###
+
+  - name: "notification_heat_pump_alarm"
+    unique_id: "notification_heat_pump_alarm"
+    icon: mdi:alert-outline
+    state: |
+      {% if is_state('sensor.nibe_alarm_number', '0') %}
+        off
+      {% else %}
+        on
+      {% endif %}
+    attributes:
+      icon_color: 'var(--warning-color)'
+      text_summary: "Maalämpöpumpun hälytys {{ states('sensor.nibe_alarm_number') }}. <a href='https://ammattilaiset.nibe.fi/tuki/vikakoodihaku/'>Tarkista vikakoodi</a"
+      tap_action: url
+      tap_action_url_path: "https://ammattilaiset.nibe.fi/tuki/vikakoodihaku/"
+
+  - name: "notification_todays_precipitation"
+    unique_id: "notification_todays_precipitation"
+    icon: |
+        {% set forecast = state_attr('weather.koti_custom', 'forecast') %}
+        {% if forecast[0] and forecast[0].precipitation | float > 0.0 and forecast[0].condition == 'snowy' %}
+          mdi:weather-snowy-heavy
+        {% elif forecast[0] and forecast[0].precipitation | float > 0.0 and forecast[0].condition %}
+          mdi:weather-rainy
+        {% else %}
+          mdi:weather-cloudly-alert
+        {% endif %}
+    state: |
+      {% set precipitation = states('sensor.koti_precipitation' ) %}
+      {% if precipitation | float > 0.0 %}
+        on
+      {% else %}
+        off
+      {% endif %}
+    attributes:
+      icon_color: 'rgb(var(--color-blue))'
+      text_summary: |
+        {% set forecast = state_attr('weather.koti_custom', 'forecast') %}
+        {% set precipitation = states('sensor.koti_precipitation' ) %}
+        {% if forecast[0] and precipitation | float > 0.0 and forecast[0].condition == 'snowy' %}
+          Odotettavissa lumisadetta {{ precipitation }} mm
+        {% elif forecast[0] and precipitation | float > 0.0 and forecast[0].condition %}
+          Odotettavissa vesisadetta {{ precipitation }} mm
+        {% else %}
+          Sadetyyppi ei tiedossa
+        {% endif %}
+      text_description: |
+        {% set forecast = state_attr('weather.koti_custom', 'forecast') %}
+        {% if forecast[0] and forecast[0].precipitation %}
+          Koko päivän ennuste {{ forecast[0].precipitation }} mm. Todennäköisyys tänään {{ forecast[0].precipitation_probability }} %.
+        {% endif %}
+      tap_action: more-info
+      tap_action_entity: weather.koti_custom
+
+  - name: "notification_synology_update_available"
+    unique_id: "notification_synology_update_available"
+    icon: "mdi:update"
+    state: "{{ states('binary_sensor.synology_update_available') }}"
+    attributes:
+      icon_color: 'green'
+      text_summary: "Synology päivitys saatavilla"
+      text_description: "Uusin version on {{ state_attr('binary_sensor.synology_update_available', 'latest_available_version') }}"
+
+  - name: "notification_hass_update_available"
+    unique_id: "notification_hass_update_available"
+    icon: "mdi:update"
+    state: "{{ states('binary_sensor.updater') }}"
+    attributes:
+      icon_color: 'green'
+      text_summary: "Home Assistant päivitys saatavilla"
+      text_description: "Uusin version on {{ state_attr('binary_sensor.updater', 'newest_version') }}. <a href='{{ state_attr('binary_sensor.updater', 'release_notes') }}'>Release notes.</a"
+      tap_action: url
+      tap_action_url_path: "{{ state_attr('binary_sensor.updater', 'release_notes') }}"

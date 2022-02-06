@@ -1,0 +1,27 @@
+- platform: "mqtt"
+  name: "Autotallin ovi"
+  object_id: "mqtt_garage_door"
+  state_topic: "/home/ruuvi/garage-door"
+  device_class: "garage_door"
+  expire_after: 300
+  value_template: >
+    {% set accY = value_json.accelerationY %}
+    {% if accY > 0.9 and accY < 1.1 %}
+      OFF
+    {% else %}
+      ON
+    {% endif %}
+
+- platform: "command_line"
+  command: !secret raspberry_pi_nibe_availability
+  name: "Nibe Raspberry Pi Zero status"
+  payload_on: 1
+  payload_off: 0
+  scan_interval: 180
+
+- platform: "command_line"
+  command: !secret ps5_availability
+  name: "PS5 status"
+  payload_on: 1
+  payload_off: 0
+  scan_interval: 180

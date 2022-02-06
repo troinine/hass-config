@@ -1,0 +1,44 @@
+info:
+  template:
+    - "base_card"
+    - "base_icon_name"
+  variables:
+    extra_entity: false
+  show_state: true
+  show_last_changed: true
+  custom_fields:
+    state2: |
+      [[[
+        if (variables.extra_entity) {
+          var extra_entity = states[variables.extra_entity]
+          return `${extra_entity.state} ${extra_entity.attributes.unit_of_measurement}`
+        } 
+
+        return ''
+      ]]]
+  styles:
+    grid:
+      - grid-template-areas: |
+          "i state2"
+          "n n"
+          "s s"
+          "l l"
+      - grid-template-columns: 2.5vw 3.5fr
+      - grid-template-rows: 2.5vw 1.25fr 1.25fr 1fr
+    label:
+      - justify-self: start
+      - align-self: end
+      - filter: opacity(40%)
+    state:
+      - align-self: start
+      - justify-self: start
+      - filter: opacity(40%)
+    name:
+      - justify-self: start
+      - align-self: end
+    custom_fields:
+      state2:
+        - align-self: center
+        - justify-self: end
+        - filter: opacity(40%)
+        - font-size: 1vw

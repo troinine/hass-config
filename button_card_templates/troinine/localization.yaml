@@ -1,0 +1,4 @@
+language_variables:
+  variables:
+    text_state_on: "Päällä"
+    text_state_off: "Pois"

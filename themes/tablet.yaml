@@ -1,0 +1,124 @@
+---
+tablet:
+
+  ### Card mod
+  card-mod-theme: "tablet"
+
+  card-mod-root: |
+    ha-app-layout {
+      background: url('/local/img/background.png');
+      background-size: cover;
+    }
+    app-toolbar {
+      display: none;
+    }
+
+  card-mod-view-yaml: |
+    "*:first-child$": |
+      #columns .column > * {
+        padding-left: 5px;
+        padding-right: 5px;
+        padding-bottom: 5px;
+      }
+
+    .: |
+      hui-view {
+        background: none !important;
+        min-height: 100vh;
+      }
+
+  card-mod-more-info-yaml: |
+    $: |
+      .mdc-dialog__scrim {
+        -webkit-backdrop-filter: blur(var(--mdc-dialog-backdrop-blur));
+        backdrop-filter: blur(var(--mdc-dialog-backdrop-blur));
+        #transition: none !important;
+      }
+      .mdc-dialog .mdc-dialog__container {
+        #background: none;
+      }
+
+  modes:
+    dark:
+      state-icon-color: "rgb(var(--color-theme))"
+      error-color: "var(--google-red)"
+      warning-color: "var(--google-yellow)"
+      success-color: "var(--google-green)"
+      info-color: "var(--google-blue)"
+      divider-color: "rgba(var(--color-theme),.12)"
+      accent-color: "var(--google-yellow)"
+      primary-text-color: "#DDDDDD"
+      
+      # Main interface colors
+      primary-color: "#89B3F8"
+      google-red: "#F18B82"
+      google-green: "#80C994"
+      google-yellow: "#FCD663"
+      google-blue: "#89B3F8"
+      google-violet: "#BB86FC"
+      google-grey: "#BBBBBB"
+      color-red: "241, 139, 130"
+      color-green: "128, 201, 148"
+      color-yellow: "252, 214, 99"
+      color-blue: "137, 179, 248"
+      color-theme: "221,221,221"
+      color-purple: "102, 31, 255"
+      color-grey: "187, 187, 187"
+      color-pink: "233, 30, 99"
+      color-background-yellow: "var(--color-yellow)"
+      color-background-blue: "var(--color-blue)"
+      color-background-green: "var(--color-green)"
+      color-background-red: "var(--color-red)"
+      color-background-pink: "var(--color-pink)"
+      color-background-purple: "var(--color-purple)"
+      color-yellow-text: "var(--color-yellow)"
+      color-blue-text: "var(--color-blue)"
+      color-green-text: "var(--color-green)"
+      color-red-text: "var(--color-red)"
+      color-pink-text: "var(--color-pink)"
+      color-purple-text: "var(--color-purple)"
+      opacity-bg: "0.1"
+
+      # Floating button text color
+      mdc-theme-on-secondary: "var(--card-background-color)"
+
+      # Background and sidebar
+      card-background-color: "#1D1D1D"
+      primary-background-color: "#121212"
+      secondary-background-color: "#121212"
+
+      # Header
+      app-header-text-color: "var(--primary-text-color)"
+      app-header-background-color: "var(--primary-background-color)"
+      paper-tabs-selection-bar-color: "var(--primary-text-color)"
+
+      # Sidebar
+      sidebar-selected-text-color: "rgb(var(--color-blue))"
+      sidebar-selected-icon-color: "rgb(var(--color-blue))"
+
+      # Slider
+      slider-color: "rgb(var(--color-blue))"
+      slider-bar-color: "rgba(var(--color-blue),0.38)"
+      
+      # Card
+      border-radius: "2.5vmin"
+      box-shadow: "0px 6px 8px 0px rgba(0,0,0,0.6)"
+      ha-card-box-shadow: "var(--box-shadow)"
+      card-background-color-rgb: "29, 29, 29"
+
+      # Grid
+      grid-card-gap: 5%
+
+      # Dialog
+      mdc-dialog-scrim-color: rgba(0, 0, 0, 0.4)
+      mdc-dialog-backdrop-blur: 0.1vw
+      ha-dialog-border-radius: var(--border-radius)
+      mdc-dialog-min-width: 500px
+
+      # Media player
+      mini-media-player-accent-color: "var(--google-blue)"
+
+      # Custom
+      warning-color-rgb: 255, 145, 1
+      custom-icon-color: "dodgerblue"
+      custom-icon-color-not-active: "rgba(var(--color-theme),0.2)"

@@ -1,0 +1,107 @@
+- platform: mqtt
+  name: mqtt_airthings_waveplus_living_room_radon_short_term
+  unique_id: mqtt_airthings_waveplus_living_room_radon_short_term
+  state_topic: "/home/airthings/waveplus/living-room"
+  unit_of_measurement: "Bq/m3"
+  icon: "mdi:radioactive"
+  expire_after: 7200
+  value_template: '{{ value_json.radon_short_term }}'
+
+- platform: mqtt
+  name: mqtt_airthings_waveplus_living_room_radon_long_term
+  unique_id: mqtt_airthings_waveplus_living_room_radon_long_term
+  state_topic: "/home/airthings/waveplus/living-room"
+  unit_of_measurement: "Bq/m3"
+  icon: "mdi:radioactive"
+  expire_after: 7200
+  value_template: '{{ value_json.radon_long_term }}'
+
+- platform: mqtt
+  name: mqtt_airthings_waveplus_living_room_voc
+  unique_id: mqtt_airthings_waveplus_living_room_voc
+  state_topic: "/home/airthings/waveplus/living-room"
+  unit_of_measurement: "ppb"
+  expire_after: 7200
+  value_template: '{{ value_json.voc | float | round(0) }}'
+
+- platform: mqtt
+  name: mqtt_airthings_waveplus_living_room_co2
+  unique_id: mqtt_airthings_waveplus_living_room_co2
+  state_topic: "/home/airthings/waveplus/living-room"
+  unit_of_measurement: ppm
+  device_class: carbon_dioxide
+  icon: 'mdi:molecule-co2'
+  expire_after: 7200
+  value_template: '{{ value_json.co2 | float | round(0) }}'
+
+- platform: mqtt
+  name: mqtt_airthings_waveplus_living_room_temperature
+  unique_id: mqtt_airthings_waveplus_living_room_temperature
+  state_topic: "/home/airthings/waveplus/living-room"
+  unit_of_measurement: "°C"
+  device_class: temperature
+  expire_after: 7200
+  value_template: '{{ value_json.temperature | float | round(1) }}'
+
+- platform: mqtt
+  name: mqtt_airthings_waveplus_living_room_humidity
+  unique_id: mqtt_airthings_waveplus_living_room_humidity
+  state_topic: "/home/airthings/waveplus/living-room"
+  unit_of_measurement: "%"
+  device_class: humidity
+  expire_after: 7200
+  value_template: '{{ value_json.humidity | float | round(0) }}'
+
+- platform: mqtt
+  name: mqtt_airthings_waveplus_sisu_radon_short_term
+  unique_id: mqtt_airthings_waveplus_sisu_radon_short_term
+  state_topic: "/home/airthings/waveplus/sisu"
+  unit_of_measurement: "Bq/m3"
+  icon: "mdi:radioactive"
+  expire_after: 7200
+  value_template: '{{ value_json.radon_short_term }}'
+
+- platform: mqtt
+  name: mqtt_airthings_waveplus_sisu_radon_long_term
+  unique_id: mqtt_airthings_waveplus_sisu_radon_long_term
+  state_topic: "/home/airthings/waveplus/sisu"
+  unit_of_measurement: "Bq/m3"
+  icon: "mdi:radioactive"
+  expire_after: 7200
+  value_template: '{{ value_json.radon_long_term }}'
+
+- platform: mqtt
+  name: mqtt_airthings_waveplus_sisu_voc
+  unique_id: mqtt_airthings_waveplus_sisu_voc
+  state_topic: "/home/airthings/waveplus/sisu"
+  unit_of_measurement: "ppb"
+  expire_after: 7200
+  value_template: '{{ value_json.voc | float | round(0) }}'
+
+- platform: mqtt
+  name: mqtt_airthings_waveplus_sisu_co2
+  unique_id: mqtt_airthings_waveplus_sisu_co2
+  state_topic: "/home/airthings/waveplus/sisu"
+  unit_of_measurement: ppm
+  device_class: carbon_dioxide
+  icon: 'mdi:molecule-co2' 
+  expire_after: 7200
+  value_template: '{{ value_json.co2 | float | round(0) }}'
+
+- platform: mqtt
+  name: mqtt_airthings_waveplus_sisu_temperature
+  unique_id: mqtt_airthings_waveplus_sisu_temperature
+  state_topic: "/home/airthings/waveplus/sisu"
+  unit_of_measurement: "°C"
+  device_class: temperature
+  expire_after: 7200
+  value_template: '{{ value_json.temperature | float | round(1) }}'
+
+- platform: mqtt
+  name: mqtt_airthings_waveplus_sisu_humidity
+  unique_id: mqtt_airthings_waveplus_sisu_humidity
+  state_topic: "/home/airthings/waveplus/sisu"
+  unit_of_measurement: "%"
+  device_class: humidity
+  expire_after: 7200
+  value_template: '{{ value_json.humidity | float | round(0) }}'

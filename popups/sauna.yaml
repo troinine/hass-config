@@ -1,0 +1,75 @@
+action: fire-dom-event
+browser_mod:
+  command: popup
+  title: Sauna
+  style:
+    $: |
+      .mdc-dialog .mdc-dialog__surface {
+        background-color: var(--primary-background-color) !important;
+      }
+  card:
+    type: custom:mod-card
+    card_mod:
+      style: |
+        ha-card {
+          padding: 16px
+        }
+        ha-card.type-custom-mod-card {
+          background-color: var(--primary-background-color);
+        }
+    card:
+      type: vertical-stack
+      cards:
+        - type: custom:button-card
+          template: card_generic_swap
+          entity: input_select.sauna_state
+          icon: mdi:shower
+          name: Tila
+          styles:
+            icon:
+              - color: |
+                  [[[
+                    var state = states['input_select.sauna_state'].state
+
+                    if (state == 'Lämpenee') {
+                      return 'yellow';
+                    } else if (state == 'Lämmin') {
+                      return 'red';
+                    } else if (state == 'Jäähtyy') {
+                      return '#00ccf5'
+                    } else {
+                      return 'var(--custom-icon-color-not-active)'
+                    }
+                  ]]]
+        - type: custom:mini-graph-card
+          style: |
+            ha-card {
+              border-radius: 20px;
+            }
+          entities:
+            - entity: sensor.mqtt_sauna_temperature
+          name: Lämpötila
+          decimals: 1
+          hours_to_show: 3
+          points_per_hour: 8
+          color_thresholds:
+            - value: 20
+              color: "#1E90FF"
+            - value: 35
+              color: "#008000"
+            - value: 50
+              color: "#FFFF00"
+            - value: 65
+              color: "#FF0000"
+        - type: custom:mini-graph-card
+          style: |
+            ha-card {
+              border-radius: 20px;
+            }
+          entities:
+            - entity: sensor.mqtt_sauna_humidity
+          name: Kosteus
+          decimals: 1
+          hours_to_show: 3
+          points_per_hour: 8
+          line_color: 'dodgerblue'

@@ -1,0 +1,33 @@
+- platform: mqtt
+  name: "Päivittäinen sähkönkulutus"
+  unique_id: mqtt_electricity_consumption_daily
+  state_topic: "/home/electricity/daily"
+  unit_of_measurement: "kWh"
+  device_class: energy
+  expire_after: 86400
+  value_template: '{{ value_json.value }}'
+
+- platform: mqtt
+  name: "Kuukausittainen sähkönkulutus"
+  unique_id: mqtt_electricity_consumption_monthly
+  state_topic: "/home/electricity/monthly"
+  unit_of_measurement: "kWh"
+  device_class: energy
+  expire_after: 86400
+  value_template: '{{ value_json.value }}'
+
+- platform: mqtt
+  name: "Kuukausittainen sähkönkulutus, ennuste"
+  unique_id: mqtt_electricity_consumption_monthly_prediction
+  state_topic: "/home/electricity/monthly"
+  unit_of_measurement: "kWh"
+  device_class: energy
+  expire_after: 86400
+  value_template: '{{ value_json.prediction }}'
+
+- platform: mqtt
+  name: "Päivän energiankulutustiedot päivitetty"
+  unique_id: mqtt_electricity_consumption_daily_updated
+  state_topic: "/home/electricity/daily"
+  expire_after: 86400
+  value_template: '{{ value_json.day }}.{{ value_json.month }}.{{ value_json.year }}'

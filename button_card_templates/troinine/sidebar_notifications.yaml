@@ -1,0 +1,47 @@
+---
+sidebar_notifications:
+  show_state: false
+  show_icon: false
+  show_label: false
+  show_name: false
+  variables:
+    entities: false
+  # custom_fields: |
+  #   [[[
+  #     var custom_fields = {}
+  #     for (let i = 0; i < variables.entities.length; i++) {
+  #       custom_fields[`item-${i}`]['type'] = 'custom:button-card'
+  #       custom_fields[`item-${i}`]['template'] = 'notification'
+  #       custom_fields[`item-${i}`]['entity'] = variables.entities[i]
+  #     }
+
+  #     console.log(custom_fields)
+  #     return custom_fields
+  #   ]]]
+  style: 
+    grid:
+      - grid-template-areas: |
+          [[[
+            var areas = ''
+            for (let i = 0; i < variables.entities.length; i++) {
+              areas += `"item-${i}" `
+            }
+
+            return areas
+          ]]]
+      - grid-template-columns: min-content
+      - grid-template-rows: |
+          [[[
+            var rows = ''
+            for (let i = 0; i < variables.entities.length; i++) {
+              rows += '"min-content"'
+            }
+
+            return rows
+          ]]]
+    card:
+      - background-color: transparent
+      - justify-self: start
+      - border-radius: 0
+      - box-shadow: none
+      - padding: 0 0.5vh 0 0.5vh

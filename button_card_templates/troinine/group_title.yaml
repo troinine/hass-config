@@ -1,0 +1,18 @@
+group_title:
+  tap_action:
+    action: none
+  show_icon: false
+  show_name: true
+  styles:
+    card:
+      - background-color: transparent
+      - box-shadow: none
+      - padding: 0 0 0.3vw 0.4vw
+    grid:
+      - grid-template-areas: "'n' 'l'"
+      - grid-template-columns: 1fr
+      - grid-template-rows: min-content min-content
+    name:
+      - place-self: start
+      - font-weight: normal
+      - font-size: 1.5vw

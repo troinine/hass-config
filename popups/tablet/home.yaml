@@ -1,0 +1,138 @@
+action: fire-dom-event
+browser_mod:
+  command: popup
+  title: Koti
+  style:
+    .: |
+      :host .content {
+        width: calc(390px + 390px + 390px);
+        max-width: 90vw;
+      }
+    layout-card:
+      $grid-layout$:
+        .: |
+          #root {
+            margin: 0 !important;
+          }
+        hui-vertical-stack-card:
+          $hui-entities-card:
+            $: |
+              .card-content {
+                #padding: 1.5em 2.7em 2.3em 2em;
+              }
+              ha-card {
+                border-right: 1.5px solid rgba(0, 0, 0, 0.2);
+                border-radius: 0;
+                transition: none;
+                box-shadow: none;
+              }
+        mini-graph-card:
+          $: |
+            ha-card {
+              border-right: 1.5px solid rgba(0, 0, 0, 0.2);
+              border-radius: 0;
+              box-shadow: none;
+            }
+
+  card:
+    type: custom:layout-card
+    layout_type: custom:grid-layout
+    layout:
+      grid-template-columns: 1fr 1fr 1fr
+      grid-template-rows: fit-content(100%) 1fr
+      grid-template-areas: |
+        "home electricity sauna"
+        "home graph1 graph2"
+      place-items: start stretch
+    cards:
+      - type: vertical-stack
+        view_layout:
+          grid-area: home
+        cards: 
+          - type: entities
+            title: Koti
+            show_header_toggle: false
+            entities:
+              - entity: sensor.home_state
+                name: Tila
+              - entity: lock.ulko_ovi
+                name: Ulko-ovi
+              - entity: input_boolean.on_vacation
+              - type: section
+                label: Automaatiot
+              - entity: automation.liike_eteisessa
+              - entity: automation.aloita_iltarutiinit
+              - entity: automation.start_go_to_sleep
+              - entity: automation.aloita_nukkumaanmeno_viikonloppuisin
+                name: Aloita nukkumaanmeno vkl
+              - entity: automation.herata_arkisin
+
+      - type: vertical-stack
+        view_layout:
+          grid-area: electricity
+        cards: 
+          - type: entities
+            title: Sähkönkulutus
+            show_header_toggle: false
+            entities:
+              - entity: sensor.mqtt_electricity_consumption_daily_updated
+                name: Päivitetty
+              - entity: sensor.mqtt_electricity_consumption_daily
+                name: Päivän kulutus
+              - entity: sensor.mqtt_electricity_consumption_monthly
+                name: Kuukauden kulutus
+              - entity: sensor.mqtt_electricity_consumption_monthly_prediction
+                name: Kuukauden ennuste
+      - type: custom:mini-graph-card
+        view_layout:
+          grid-area: graph1
+        entities:
+          - entity: sensor.mqtt_electricity_consumption_daily
+        name: Päivittäiset kulutusarvot
+        show:
+          graph: bar
+          icon: false
+        decimals: 1
+        aggregate_func: max
+        group_by: date
+        hours_to_show: 720
+        color_thresholds:
+          - value: 0
+            color: dodgerblue
+          - value: 20
+            color: green
+          - value: 30
+            color: yellow
+          - value: 50
+            color: red
+
+      - type: vertical-stack
+        view_layout:
+          grid-area: sauna
+        cards: 
+          - type: entities
+            title: Sauna
+            show_header_toggle: false
+            entities:
+              - entity: sensor.sauna_state
+                name: Tila
+              - entity: sensor.mqtt_sauna_humidity
+                name: Kosteus
+      - type: custom:mini-graph-card
+        view_layout:
+          grid-area: graph2
+        entities:
+          - entity: sensor.mqtt_sauna_temperature
+        name: Lämpötila
+        decimals: 1
+        hours_to_show: 3
+        points_per_hour: 8
+        color_thresholds:
+          - value: 20
+            color: "#1E90FF"
+          - value: 35
+            color: "#008000"
+          - value: 50
+            color: "#FFFF00"
+          - value: 65
+            color: "#FF0000"

@@ -1,0 +1,104 @@
+action: fire-dom-event
+browser_mod:
+  command: popup
+  title: Valaistus
+  style:
+    $: |
+      .mdc-dialog .mdc-dialog__surface {
+        background-color: var(--primary-background-color) !important;
+      }
+  card:
+    type: custom:mod-card
+    card_mod:
+      style: |
+        ha-card {
+          padding: 16px
+        }
+        ha-card.type-custom-mod-card {
+          background-color: var(--primary-background-color);
+        }
+    card:
+      type: vertical-stack
+      cards: 
+        - type: custom:button-card
+          template: title
+          label: Tilanteet
+        - type: horizontal-stack
+          cards:
+            - type: custom:button-card
+              template: vertical_script_button
+              entity: script.scene_evening_routines
+            - type: custom:button-card
+              template: vertical_script_button
+              entity: script.scene_day_lights
+              styles:
+                icon:
+                  - color: yellow
+            - type: custom:button-card
+              template: vertical_script_button
+              entity: script.scene_kids_go_to_sleep
+
+        - type: custom:button-card
+          template: title
+          label: Valot
+        - type: horizontal-stack
+          cards:
+            - type: 'custom:button-card'
+              template: card_light_slider_collapse_color
+              variables:
+                ulm_card_light_slider_collapse_color_name: Olohuone
+              entity: light.olohuone
+            - type: 'custom:button-card'
+              template: card_light_slider_collapse_color
+              variables:
+                ulm_card_light_slider_collapse_color_name: Keittiö
+              entity: light.keittio
+        - type: horizontal-stack
+          cards:
+            - type: 'custom:button-card'
+              template: card_light_slider_collapse_color
+              variables:
+                ulm_card_light_slider_collapse_color_name: Makuuhuone
+              entity: light.makuuhuone
+            - type: 'custom:button-card'
+              template: card_light_slider_collapse_color
+              variables:
+                ulm_card_light_slider_collapse_color_name: Työhuone
+              entity: light.tyohuone
+        - type: horizontal-stack
+          cards:
+            - type: 'custom:button-card'
+              template: card_light_slider_collapse_color
+              variables:
+                ulm_card_light_slider_collapse_color_name: Otson huone
+              entity: light.otson_huone
+            - type: 'custom:button-card'
+              template: card_light_slider_collapse_color
+              variables:
+                ulm_card_light_slider_collapse_color_name: Sisun huone
+              entity: light.sisun_huone
+        - type: horizontal-stack
+          cards:
+            - type: 'custom:button-card'
+              template: card_light_slider_collapse_color
+              variables:
+                ulm_card_light_slider_collapse_color_name: Eteinen
+              entity: light.eteinen
+        - type: custom:button-card
+          template: title
+          label: Alueet
+        - type: 'custom:button-card'
+          template: card_light_slider_collapse_color
+          entity: light.koti
+          variables:
+            ulm_card_light_slider_collapse_color_name: Koti
+        - type: 'custom:button-card'
+          template: card_light_slider_collapse_color
+          entity: light.oleskelutilat
+          variables:
+            ulm_card_light_slider_collapse_color_name: Oleskelutilat
+        - type: 'custom:button-card'
+          template: card_light_slider_collapse_color
+          entity: light.lasten_huoneet
+          variables:
+            ulm_card_light_slider_collapse_color_name: Lasten huoneet          

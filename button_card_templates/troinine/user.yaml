@@ -1,0 +1,29 @@
+user:
+  template:
+    - "info"
+  variables:
+    battery_charge_entity: false
+    battery_charging_status_entity: false
+  show_state: true
+  show_last_changed: true
+  show_label: false
+  show_name: true
+  show_entity_picture: true
+  custom_fields:
+    state2: |
+      [[[
+        var extra_info = ''
+        if (variables.battery_charging_status_entity && states[variables.battery_charging_status_entity].state === 'on') {
+          extra_info = `<ha-icon icon="mdi:flash" style="--mdc-icon-size: 0.9vw;"></ha-icon>`
+        }
+
+        if (variables.battery_charge_entity) {
+          var extra_entity = states[variables.battery_charge_entity]
+          extra_info += ` ${extra_entity.state} ${extra_entity.attributes.unit_of_measurement}`
+        } 
+
+        return extra_info
+      ]]]
+  styles:
+    icon:
+      - width: 3vw

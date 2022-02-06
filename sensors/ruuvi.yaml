@@ -1,0 +1,50 @@
+- platform: mqtt
+  name: "Saunan lämpötila"
+  unique_id: mqtt_sauna_temperature
+  state_topic: "/home/ruuvi/sauna"
+  unit_of_measurement: "°C"
+  device_class: temperature
+  expire_after: 900
+  value_template: '{{ value_json.temperature | float | round(1) }}'
+
+- platform: mqtt
+  name: "Saunan kosteus"
+  unique_id: mqtt_sauna_kosteus
+  state_topic: "/home/ruuvi/sauna"
+  unit_of_measurement: "%"
+  device_class: humidity
+  expire_after: 900
+  value_template: '{{ value_json.humidity | float | round(1) }}'
+
+- platform: mqtt
+  name: "Otson huoneen lämpötila"
+  unique_id: mqtt_otso_temperature
+  state_topic: "/home/ruuvi/otso"
+  unit_of_measurement: "°C"
+  device_class: temperature
+  expire_after: 900
+  value_template: '{{ value_json.temperature | float | round(1) }}'
+
+- platform: mqtt
+  name: "Otson huoneen kosteus"
+  unique_id: mqtt_otso_humidity
+  state_topic: "/home/ruuvi/otso"
+  unit_of_measurement: "%"
+  device_class: humidity
+  expire_after: 900
+  value_template: '{{ value_json.humidity | float | round(0) }}'
+
+- platform: mqtt
+  name: "Otson huoneen paine"
+  unique_id: mqtt_otso_pressure
+  state_topic: "/home/ruuvi/otso"
+  unit_of_measurement: "hPa"
+  device_class: pressure
+  expire_after: 900
+  value_template: |
+    {% set value = value_json.pressure %}
+    {% if value == None %}
+      N/A
+    {% else %}
+      {{ (value * 0.01) | round(0) }}
+    {% endif %}

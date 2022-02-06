@@ -1,0 +1,129 @@
+action: fire-dom-event
+browser_mod:
+  command: popup
+  title: Valaistus
+  style:
+    .: |
+      :host .content {
+        width: 50vw;
+        max-width: 50vw;
+      }
+    layout-card:
+      $grid-layout$:
+        .: |
+          #root {
+            margin: 1rem !important;
+          }
+        hui-horizontal-stack-card:
+          .: |
+            #root {
+              justify-content: space-evenly;
+            }
+          $button-card:
+            $: |
+              ha-card {
+              }
+        hui-vertical-stack-card:
+          $hui-entities-card:
+            $: |
+              .card-content {
+                #padding: 1.5em 2.7em 2.3em 2em;
+              }
+              ha-card {
+                border-right: 1.5px solid rgba(0, 0, 0, 0.2);
+                border-radius: 0;
+                transition: none;
+                box-shadow: none;
+              }
+
+  card:
+    type: custom:layout-card
+    layout_type: custom:grid-layout
+    layout:
+      grid-template-columns: 0.5fr 1fr 0.5fr
+      grid-template-rows: min-content min-content
+      grid-template-areas: |
+        ". scenes ."
+        "rooms rooms rooms"
+      place-items: start stretch
+    cards:
+      - type: vertical-stack
+        view_layout:
+          grid-area: scenes
+        cards:
+          - type: 'custom:button-card'
+            template: group_title
+            name: Valaistuksen esiasetukset
+          - type: grid
+            columns: 3
+            view_layout:
+              grid-area: scenes
+            cards: 
+              - type: custom:button-card
+                template: run_scene
+                entity: script.scene_evening_routines
+                variables:
+                  card_glow: false
+                  icon_color: rgb(255,184, 123)
+              - type: custom:button-card
+                template: run_scene
+                entity: script.scene_day_lights
+                variables:
+                  card_glow: false
+                  icon_color: rgb(255,211, 175)
+              - type: custom:button-card
+                template: run_scene
+                entity: script.scene_kids_go_to_sleep
+                variables:
+                  card_glow: false
+                  icon_color: rgb(0, 255, 6)
+      - type: vertical-stack
+        view_layout:
+          grid-area: rooms
+        cards:
+          - type: 'custom:button-card'
+            template: group_title
+            name: Huoneet
+          - type: grid
+            columns: 4
+            cards:
+              - type: custom:button-card
+                template: light
+                entity: light.eteinen
+                variables:
+                  card_glow: true
+              - type: custom:button-card
+                template: light
+                entity: light.keittio
+                variables:
+                  card_glow: true
+              - type: custom:button-card
+                template: light
+                entity: light.olohuone
+                variables:
+                  card_glow: true
+              - type: custom:button-card
+                template: light
+                entity: light.makuuhuone
+                variables:
+                  card_glow: true
+              - type: custom:button-card
+                template: light
+                entity: light.otson_huone
+                variables:
+                  card_glow: true
+              - type: custom:button-card
+                template: light
+                entity: light.sisun_huone  
+                variables:
+                  card_glow: true
+              - type: custom:button-card
+                template: light
+                entity: light.tyohuone  
+                variables:
+                  card_glow: true
+              - type: custom:button-card
+                template: light
+                entity: switch.tplink_hs100_3  
+                variables:
+                  card_glow: true

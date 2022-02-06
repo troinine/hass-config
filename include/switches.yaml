@@ -1,0 +1,8 @@
+- platform: template
+  switches:
+    huawei_lte_integration:
+      value_template: "{{ is_state('input_boolean.huawei_lte_integration_state', 'on') }}"
+      turn_on:
+        service: script.start_huawei_lte_integration
+      turn_off:
+        service: script.stop_huawei_lte_integration

@@ -1,0 +1,42 @@
+footer_info:
+  variables:
+    icon_color: 'var(--custom-icon-color-not-active)'
+    icon_glow: false
+  template:
+    - "base_card"
+    - "base_icon"
+  aspect_ratio: ''
+  show_icon: true
+  show_state: true
+  show_name: true
+  show_label: false
+  show_last_changed: false
+  styles:
+    grid:
+      - grid-template-areas: |
+          "i n s"
+      - grid-template-columns: min-content min-content min-content
+      - grid-template-rows: min-content
+    icon:
+      - width: 0.9vw
+      #- filter: "opacity(40%)"
+    img_cell:
+      - background-color: transparent
+      - border-radius: 0
+      - justify-self: center
+    state:
+      - padding: 0 0 0 0.5vw
+      - filter: "opacity(40%)"
+      - font-size: 0.9vw
+      - justify-self: start
+    name:
+      - padding: 0 0 0 0.5vw
+      - filter: "opacity(40%)"
+      - font-size: 0.9vw
+      - justify-self: start     
+    card:
+      - background-color: transparent
+      - justify-self: start
+      - border-radius: 0
+      - box-shadow: none
+      - padding: 0 0.5vh 0 0.5vh

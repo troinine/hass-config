@@ -1,0 +1,162 @@
+---
+light:
+  variables:
+    brightness: |
+      [[[ 
+        if (entity.attributes.brightness) {
+          return Math.round(entity.attributes.brightness / 2.54) 
+        } else {
+          return undefined
+        }
+      ]]]
+    opacity: |
+      [[[
+        var brightness = Math.round(entity.attributes.brightness / 2.54); 
+        return brightness < 15 ? 0.15 : brightness / 100;
+      ]]]
+    light_color: |
+      [[[
+        var color = entity.attributes.rgb_color;
+        var brightness = Math.round(entity.attributes.brightness / 2.54);
+        var opacity = brightness < 15 ? 0.2 : brightness / 100;
+
+        if (color) {
+          return 'rgba(' + color + ',' + opacity + ')'
+        } 
+
+        return 'var(--button-card-light-color)'
+      ]]]
+    state_colors:
+      'on': |
+        [[[
+          var color = entity.attributes.rgb_color;
+          var brightness = Math.round(entity.attributes.brightness / 2.54);
+          var opacity = brightness < 15 ? 0.2 : brightness / 100;
+
+          if (color) {
+            return 'rgba(' + color + ',' + opacity + ')'
+          } 
+
+          return 'var(--button-card-light-color)'
+        ]]]
+    card_glow: true
+    icon_glow: false
+  show_last_changed: false
+  show_state: false
+  template:
+    - base
+    - info
+  hold_action:
+    action: toggle
+  tap_action:
+    action: fire-dom-event
+    browser_mod:
+      command: popup
+      title: 'Säädä valaistusta'
+      card:
+        type: custom:light-entity-card
+        card_mod:
+          style: |
+            .light-entity-card__header {
+              padding: 0 20px 0 20px;
+            }
+            .light-entity-card-sliders {
+              padding: 0 20px 0 20px;
+            }
+        entity: "[[[ return entity.entity_id ]]]"
+        brightness: true
+        color_temp: true
+        white_value: true
+        full_width_sliders: true
+        hide_header: false
+        show_slider_percent: true
+        smooth_color_wheel: true
+        persist_features: true
+        consolidate_entities: true
+  custom_fields:
+    brightness: |
+      [[[ 
+        if (variables.is_active) {
+          return variables.brightness ? `${variables.brightness} %` : ''           
+        }
+        return 'Pois'
+      ]]]
+    slider:
+      card:
+        type: "custom:my-slider"
+        entity: "[[[ return entity.entity_id ]]]"
+        radius: "10px"
+        height: "1.5vw"
+        mainSliderColor: >-
+          [[[
+            if (entity.state == "unavailable") {
+              return "rgba(var(--color-grey),1)";
+            }
+
+            return variables.light_color;
+          ]]]
+        secondarySliderColor: >-
+          [[[
+            var color = entity.attributes.rgb_color;
+            if (entity.state == "unavailable") {
+              return "rgba(var(--color-grey),0.2)";
+            }
+            
+            return 'rgba(' + entity.attributes.rgb_color + ',' + variables.opacity * 0.5 + ')'
+          ]]]
+        mainSliderColorOff: "rgba(var(--color-theme),0.05)"
+        secondarySliderColorOff: "rgba(var(--color-theme),0.05)"
+        thumbHorizontalPadding: "0px"
+        thumbVerticalPadding: "0px"
+        thumbWidth: "0px"
+        card_mod:
+          style: |
+            ha-card {
+              border-radius: 14px;
+              box-shadow: none;
+            }
+  styles:
+    grid:
+      - grid-template-areas: |
+          "i brightness"
+          "n n"
+          "slider slider"
+      - grid-template-columns: 2.5vw 3.5fr
+      - grid-template-rows: 2.5vw 1.5fr 2fr
+    icon:
+      - transition: all 2s ease
+    img_cell:
+      - transition: all 2s ease
+    custom_fields:
+      brightness:
+        - align-self: center
+        - justify-self: end
+        - filter: "opacity(40%)"
+        - font-size: 1vw
+      slider:
+        - align-self: end
+
+light_wide:
+  template:
+    - "custom_card_light"
+  aspect_ratio: 2/0.9843
+  styles:
+    grid:
+      - grid-template-columns: 2.5vw 4.25fr
+      - grid-template-rows: 2.5vw 1.5fr 2fr
+
+run_scene:
+  template:
+    - "base_card"
+    - "base_icon_name"
+  tap_action:
+    action: toggle
+  styles:
+    grid:
+      - grid-template-areas: |
+          ". i ."
+          "n n n"
+      - grid-template-columns: 1fr 1fr 1fr
+      - grid-template-rows: 1fr 2fr
+    img_cell:
+      - justify-self: center

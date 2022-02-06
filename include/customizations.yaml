@@ -1,0 +1,64 @@
+sensor.nibe_supply_temp:
+  friendly_name: 'Lämmöntuotto sisään'
+sensor.nibe_supply_return_temp:
+  friendly_name: "Lämmöntuotto paluu"
+sensor.nibe_calculated_supply_temp:
+  friendly_name: "Laskennallinen lämmöntuotto sisään"
+sensor.nibe_brine_in_temp:
+  friendly_name: "Lämmönkeruu sisään"
+sensor.nibe_brine_out_temp:
+  friendly_name: "Lämmönkeruu ulos"
+sensor.nibe_outdoor_temp:
+  friendly_name: "Ulkolämpötila"
+sensor.nibe_average_outdoor_temp:
+  friendly_name: "Keskimääräinen ulkolämpötila"
+sensor.nibe_hot_water_top_temp:
+  friendly_name: "Käyttöveden yläosa"
+sensor.nibe_hot_water_fill_temp:
+  friendly_name: "Käyttöveden täyttö"
+sensor.nibe_degree_minutes:
+  friendly_name: "Asteminuutit"
+sensor.nibe_alarm_number:
+  friendly_name: "Hälytyksen numero"
+sensor.nibe_data_age:
+  friendly_name: "Viimeisin mittaus"
+sensor.nibe_supply_pump_speed:
+  friendly_name: "Kiertovesipumpun nopeus"
+sensor.nibe_brine_pump_speed:
+  friendly_name: "Lämmönkeruupumpun nopeus"
+sensor.nibe_daily_num_starts:
+  friendly_name: "Käynnistykset tänään"
+sensor.nibe_daily_brine_min_input_temp:
+  friendly_name: "Päivän matalin maapiirin tulo"
+sensor.nibe_daily_brine_min_output_temp:
+  friendly_name: "Päivän matalin maapiirin meno"
+sensor.nibe_average_heating_cycle:
+  friendly_name: "Keskimääräinen käyntiaika"
+sensor.nibe_average_resting_cycle:
+  friendly_name: "Keskimääräinen lepoaika"
+
+sensor.todays_precipitation:
+  friendly_name: "Päivän sademäärä"
+
+# Lights
+
+light.group_office:
+  friendly_name: "Työhuoneen valot"
+light.group_living_areas:
+  friendly_name: "Oleskelutilojen valot"
+light.group_kitchen:
+  friendly_name: "Keittiön valot"
+light.group_living_room:
+  friendly_name: "Olohuoneen valot"
+light.group_bedroom:
+  friendly_name: "Makuuhuoneen valot"
+light.group_entrance:
+  friendly_name: "Eteisen valot"
+light.group_otsos_room:
+  friendly_name: "Otson huoneen valot"
+light.group_sisus_room:
+  friendly_name: "Sisun huoneen valot"
+light.group_kids_rooms:
+  friendly_name: "Lasten valot"
+light.group_all:
+  friendly_name: "Kaikki valot"

@@ -1,0 +1,142 @@
+clock:
+  variables:
+    entity_weather: false
+    entity_date: false
+  show_name: false
+  show_icon: false
+  show_state: true
+  show_label: false
+  show_last_changed: false
+  entity: sensor.time
+  custom_fields:
+    weather: 
+      card: 
+        type: custom:button-card
+        show_state: true
+        show_icon: false
+        show_label: false
+        show_name: false
+        show_entity_picture: true
+        entity: "[[[ return variables.entity_weather ]]]"
+        entity_picture: "[[[ return `/local/img/weather/${states[variables.entity_weather].state}.svg` ]]]"     
+        state_display: |
+          [[[
+            var temperature = states[variables.entity_weather].attributes.temperature
+            return `<div><span class="value">${temperature}</span><span class="unit">&degC</span></div>`
+          ]]]
+        extra_styles: |
+          span.unit {
+            font-size: 1.4vw;
+          }
+        styles:
+          grid:
+            - grid-template-areas: |
+                "i"
+                "s"
+            - grid-template-columns: 1fr
+            - grid-template-rows: 1fr 1fr
+          img_cell:
+            - justify-content: center
+            - align-self: end
+          icon:
+            - width: 4vw
+            - height: 3vw
+            - align-self: end
+          state:
+            - justify-self: center
+            - align-self: center
+            - font-weight: 300
+            - font-size: 2vw
+            - filter: "opacity(40%)"
+          card:
+            - border-radius: 0
+            - background-color: transparent
+            - box-shadow: none
+            - padding: 0vw 0vw 0vw 0.8vw
+    date: 
+      card: 
+        type: custom:button-card
+        show_state: true
+        show_icon: false
+        show_label: false
+        show_name: false
+        entity: "[[[ return variables.entity_date ]]]"
+        state_display: |
+          [[[
+            if (variables.entity_date) {
+              var date = variables.entity_date.state
+              var lang = navigator.language || navigator.userLanguage
+              const opts = { weekday: 'long', month: 'long', day: 'numeric' }
+              return new Intl.DateTimeFormat(lang, opts).format(date)
+            }
+
+            return ''
+          ]]]
+        styles:
+          grid:
+            - grid-template-areas: |
+                "s"
+            - grid-template-columns: min-content
+            - grid-template-rows: min-content
+          state:
+            - background-color: transparent
+            - font-size: 1.2vw
+            - justify-self: end
+            - align-self: start
+            - filter: "opacity(40%)"
+          card:
+            - border-radius: 0
+            - background-color: transparent
+            - box-shadow: none
+            - padding: 0vw 1vw 0vw 0vw
+            - border-right: 0.1vw solid var(--primary-text-color)
+            - justify-self: end
+  styles:
+    grid:
+      - grid-template-areas: |
+          [[[
+            if (variables.entity_weather && variables.entity_date) {
+              return '"s weather" "date weather"'
+            } else if (variables.entity_weather && !variables.entity_date) {
+              return '"s weather"'
+            } else if (variables.entity_date) {
+              return '"s" "date"'
+            } else {
+              return '"s"'
+            }
+          ]]]
+      - grid-template-columns: |
+          [[[
+            if (variables.entity_weather) {
+              return 'min-content max-content'
+            } else {
+              return 'min-content'
+            }
+          ]]]
+      - grid-template-rows: |
+          [[[
+            if (variables.entity_date) {
+              return '1fr min-content'
+            } else {
+              return '1fr'
+            }
+          ]]]
+    state:
+      - font-weight: 200
+      - font-size: 5vw
+      - background-color: transparent
+      - justify-self: end
+      - align-self: end
+      - padding-right: 0.8vw
+      - border-right: 0.1vw solid var(--primary-text-color)
+    card:
+      - background-color: transparent
+      - border-radius: none
+      - box-shadow: none
+      - width: 100%
+    custom_fields:
+      weather:
+        - background-color: transparent
+      date:
+        - align-self: start
+        - justify-self: end

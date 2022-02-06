@@ -1,0 +1,146 @@
+homeassistant:
+  auth_providers:
+    - type: homeassistant
+    - type: trusted_networks
+      trusted_networks:
+        - !secret hass_trusted_network_1
+  name: "Koti"
+  latitude: !secret hass_latitude
+  longitude: !secret hass_longitude
+  unit_system: metric
+  temperature_unit: C
+  currency: EUR
+  time_zone: "Europe/Helsinki"
+  internal_url: !secret hass_internal_url
+  external_url: !secret hass_external_url
+  customize: !include include/customizations.yaml
+  allowlist_external_dirs:
+    - /config
+
+default_config:
+
+http:
+  use_x_forwarded_for: true
+  trusted_proxies:
+    - !secret hass_trusted_proxies_1
+    - !secret hass_trusted_proxies_2
+
+recorder:
+  db_url: !secret postgresql_url
+  purge_keep_days: 30
+
+discovery:
+
+tts:
+  - platform: google_translate
+
+logger:
+  default: info
+
+frontend:
+  themes: !include_dir_merge_named themes
+  extra_module_url:
+    - /local/community_cards/card-mod.js
+
+lovelace:
+  mode: yaml
+  resources: 
+    - url: /local/community_cards/button-card.js
+      type: module
+    - url: /local/community_cards/mini-graph-card-bundle.js?v=0.10.0
+      type: module
+    - url: /local/community_cards/fold-entity-row.js
+      type: module
+    - url: /local/community_cards/slider-entity-row.js
+      type: module
+    - url: /local/community_cards/my-cards.js
+      type: module
+    - url: /local/community_cards/state-switch.js
+      type: module
+    - url: /local/community_cards/layout-card.js
+      type: module
+    - url: /local/community_cards/light-popup-card.js
+      type: module
+    - url: /local/community_cards/light-entity-card.js
+      type: module   
+  dashboards:
+    lovelace-mobile:
+      mode: yaml
+      title: Mobiili
+      show_in_sidebar: true
+      filename: ui-mobile.yaml
+    lovelace-tablet:
+      mode: yaml
+      title: Tabletti
+      show_in_sidebar: true
+      filename: ui-tablet.yaml
+    lovelace-mobile-new:
+      mode: yaml
+      title: Mobiili (uusi)
+      show_in_sidebar: true
+      filename: ui-mobile-new.yaml
+
+netatmo:
+  client_id: !secret netatmo_client_id
+  client_secret: !secret netatmo_client_secret
+
+mqtt:
+  broker: mqtt-broker
+  username: !secret mqtt_broker_username
+  password: !secret mqtt_broker_password
+
+huawei_lte:
+  - url: !secret huawei_lte_url
+    username: !secret huawei_gateway_username
+    password: !secret huawei_gateway_password
+
+weather:
+  - platform: template
+    name: "Sää"
+    unique_id: koti_custom
+    condition_template: "{{ states('weather.koti') }}"
+    temperature_template: "{{ states('sensor.netatmo_koti_olohuone_ulko_temperature') | float }}"
+    humidity_template: "{{ state_attr('weather.koti', 'humidity') | float }}"
+    forecast_template: "{{ state_attr('weather.koti', 'forecast') }}"
+    pressure_template: "{{ state_attr('weather.koti', 'pressure') }}"
+    wind_speed_template: "{{ state_attr('weather.koti', 'wind_speed') }}"
+    wind_bearing_template: "{{ state_attr('weather.koti', 'wind_bearing') }}"
+    ozone_template: "{{ state_attr('weather.koti', 'ozone') }}"
+    visibility_template: "{{ state_attr('weather.koti', 'visibility') }}"
+
+browser_mod:
+
+input_select:
+  home_state:
+    name: "Tila"
+    icon: mdi:home
+    options:
+      - Kotona
+      - Poissa
+      - Nukkumassa
+    initial: Kotona
+  sauna_state:
+    name: "Saunan tila"
+    icon: mdi:shower
+    options:
+      - Pois
+      - Lämpenee
+      - Lämmin
+      - Jäähtyy
+    initial: Pois
+
+input_boolean:
+  on_vacation:
+    name: Lomalla
+    icon: mdi:palm-tree
+
+sensor: !include_dir_merge_list sensors/
+binary_sensor: !include template_sensors/binary-sensors.yaml
+template: !include template_sensors/sensors.yaml
+
+automation: !include include/automations.yaml
+timer: !include include/timers.yaml
+script: !include include/scripts.yaml
+scene: !include include/scenes.yaml
+switch: !include include/switches.yaml
+light: !include include/lights.yaml

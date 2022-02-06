@@ -1,0 +1,105 @@
+action: fire-dom-event
+browser_mod:
+  command: popup
+  title: Autotalli
+  style:
+    .: |
+      :host .content {
+        width: calc(300px + 305px);
+        max-width: 90vw;
+      }
+    layout-card:
+      $grid-layout$:
+        .: |
+          #root {
+            justify-content: center !important;
+            margin: 0 !important;
+          }
+        hui-entities-card:
+          $: |
+            .card-content {
+              #padding: 1.5em 2.7em 2.3em 2em;
+            }
+            ha-card {
+              border-right: 1.5px solid rgba(0, 0, 0, 0.2);
+              border-radius: 0;
+              transition: none;
+              box-shadow: none;
+            }
+
+        mini-graph-card:
+          $: |
+            ha-card {
+              border-radius: 0;
+              box-shadow: none;
+              border-right: 1.5px solid rgba(0, 0, 0, 0.2);
+            }
+
+  card:
+    type: custom:layout-card
+    layout_type: custom:grid-layout
+    layout:
+      grid-template-columns: 1fr 1fr
+      grid-template-rows: fit-content(100%) fit-content(100%)
+      grid-template-areas: |
+        "info automations"
+        "temperature humidity"
+      place-items: center center
+    cards:
+      - type: entities
+        title: Tila
+        show_header_toggle: false
+        view_layout:
+          grid-area: info
+        entities:
+          - entity: binary_sensor.mqtt_garage_door
+            name: Ovi
+          - entity: switch.tplink_hs110_2
+            name: Ilmankuivain
+          - entity: binary_sensor.garage_dehumidifier
+            name: Tämänhetkinen tila
+            secondary_info: last-changed
+      - type: entities
+        title: Automaatiot
+        show_header_toggle: false
+        view_layout:
+          grid-area: automations
+        entities:
+          - entity: automation.sammuta_ilmankuivain
+            secondary_info: last-triggered
+          - entity: automation.kaynnista_ilmankuivain
+            secondary_info: last-triggered
+          - entity: automation.tyhjenna_ilmankuivain
+            secondary_info: last-triggered
+
+      - type: custom:mini-graph-card
+        view_layout:
+          grid-area: temperature
+        entities:
+          - entity: sensor.netatmo_koti_olohuone_autotalli_temperature
+        name: Lämpötila
+        decimals: 1
+        hours_to_show: 24
+        points_per_hour: 2
+        line_width: 3
+        color_thresholds:
+          - value: 10
+            color: "#1E90FF"
+          - value: 13
+            color: "#008000"
+          - value: 16
+            color: "#FFFF00"
+          - value: 20
+            color: "#FF0000"
+
+      - type: custom:mini-graph-card
+        view_layout:
+          grid-area: humidity
+        entities:
+          - entity: sensor.netatmo_koti_olohuone_autotalli_humidity
+        name: Kosteus
+        decimals: 1
+        line_width: 3
+        hours_to_show: 24
+        points_per_hour: 2
+        line_color: 'rgb(var(--color-blue))'

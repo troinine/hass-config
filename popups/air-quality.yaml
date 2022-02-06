@@ -1,0 +1,251 @@
+action: fire-dom-event
+browser_mod:
+  command: popup
+  title: Ilmanlaatu
+  style:
+    $: |
+      .mdc-dialog .mdc-dialog__surface {
+        background-color: var(--primary-background-color) !important;
+      }
+  card:
+    type: custom:mod-card
+    card_mod:
+      style: |
+        ha-card {
+          padding: 16px
+        }
+        ha-card.type-custom-mod-card {
+          background-color: var(--primary-background-color);
+        }
+    card:
+      type: vertical-stack
+      cards: 
+        - type: custom:button-card
+          template: title
+          label: Olohuone
+        - type: horizontal-stack
+          cards:
+            - type: custom:button-card
+              template: card_generic_icon_small
+              entity: sensor.mqtt_airthings_waveplus_living_room_humidity
+              name: Kosteus
+              styles:
+                icon:
+                  - color: "#2565AE"
+            - type: custom:button-card
+              template: card_generic_icon_small
+              entity: sensor.mqtt_airthings_waveplus_living_room_co2
+              label: "[[[ return (entity.attributes.value) ]]]"
+              name: CO2
+              styles:
+                icon:
+                  - color: "green"
+        - type: horizontal-stack
+          cards:
+            - type: custom:button-card
+              template: card_radon
+              entity: sensor.mqtt_airthings_waveplus_living_room_radon_short_term
+              name: Radon
+            - type: custom:button-card
+              template: card_radon
+              entity: sensor.mqtt_airthings_waveplus_living_room_radon_long_term
+              name: Radon, pitkäaikainen
+        - type: custom:mini-graph-card
+          style: |
+            ha-card {
+              border-radius: 20px;
+            }
+          entities:
+            - entity: sensor.mqtt_airthings_waveplus_living_room_temperature
+          name: Lämpötila
+          decimals: 1
+          hours_to_show: 24
+          points_per_hour: 8
+          color_thresholds:
+            - value: 19
+              color: "#1E90FF"
+            - value: 22
+              color: "#008000"
+            - value: 25
+              color: "#FFFF00"
+            - value: 28
+              color: "#FF0000"
+          show:
+            icon: false
+        - type: custom:button-card
+          template: title
+          label: Makuuhuone
+        - type: horizontal-stack
+          cards:
+            - type: custom:button-card
+              template: card_generic_icon_small
+              entity: sensor.netatmo_koti_olohuone_makuuhuone_humidity
+              name: Kosteus
+              styles:
+                icon:
+                  - color: "#2565AE"
+            - type: custom:button-card
+              template: card_generic_icon_small
+              entity: sensor.netatmo_koti_olohuone_makuuhuone_co2
+              label: "[[[ return (entity.attributes.value) ]]]"
+              name: CO2
+              styles:
+                icon:
+                  - color: "green"
+        - type: custom:mini-graph-card
+          style: |
+            ha-card {
+              border-radius: 20px;
+            }
+          entities:
+            - entity: sensor.netatmo_koti_olohuone_makuuhuone_temperature
+          name: Lämpötila
+          decimals: 1
+          hours_to_show: 24
+          points_per_hour: 8
+          color_thresholds:
+            - value: 19
+              color: "#1E90FF"
+            - value: 22
+              color: "#008000"
+            - value: 25
+              color: "#FFFF00"
+            - value: 28
+              color: "#FF0000"
+          show:
+            icon: false
+        - type: custom:button-card
+          template: title
+          label: Eteinen
+        - type: horizontal-stack
+          cards:
+            - type: custom:button-card
+              template: card_generic_icon_small
+              entity: sensor.netatmo_koti_olohuone_humidity
+              name: Kosteus
+              styles:
+                icon:
+                  - color: "#2565AE"
+            - type: custom:button-card
+              template: card_generic_icon_small
+              entity: sensor.netatmo_koti_olohuone_co2
+              label: "[[[ return (entity.attributes.value) ]]]"
+              name: CO2
+              styles:
+                icon:
+                  - color: "green"
+        - type: custom:mini-graph-card
+          style: |
+            ha-card {
+              border-radius: 20px;
+            }
+          entities:
+            - entity: sensor.netatmo_koti_olohuone_temperature
+          name: Lämpötila
+          decimals: 1
+          hours_to_show: 24
+          points_per_hour: 8
+          color_thresholds:
+            - value: 19
+              color: "#1E90FF"
+            - value: 22
+              color: "#008000"
+            - value: 25
+              color: "#FFFF00"
+            - value: 28
+              color: "#FF0000"
+          show:
+            icon: false
+        - type: custom:button-card
+          template: title
+          label: Otson huone
+        - type: horizontal-stack
+          cards:
+            - type: custom:button-card
+              template: card_generic_icon_small
+              entity: sensor.mqtt_otso_humidity
+              name: Kosteus
+              styles:
+                icon:
+                  - color: "#2565AE"
+            - type: custom:button-card
+              template: card_generic_icon_small
+              entity: sensor.mqtt_otso_pressure
+              name: Paine
+              styles:
+                icon:
+                  - color: "green"
+        - type: custom:mini-graph-card
+          style: |
+            ha-card {
+              border-radius: 20px;
+            }
+          entities:
+            - entity: sensor.mqtt_otso_temperature
+          name: Lämpötila
+          decimals: 1
+          hours_to_show: 24
+          points_per_hour: 8
+          color_thresholds:
+            - value: 19
+              color: "#1E90FF"
+            - value: 22
+              color: "#008000"
+            - value: 25
+              color: "#FFFF00"
+            - value: 28
+              color: "#FF0000"
+          show:
+            icon: false
+        - type: custom:button-card
+          template: title
+          label: Sisun huone
+        - type: horizontal-stack
+          cards:
+            - type: custom:button-card
+              template: card_generic_icon_small
+              entity: sensor.mqtt_airthings_waveplus_sisu_humidity
+              name: Kosteus
+              styles:
+                icon:
+                  - color: "#2565AE"
+            - type: custom:button-card
+              template: card_generic_icon_small
+              entity: sensor.mqtt_airthings_waveplus_sisu_co2
+              label: "[[[ return (entity.attributes.value) ]]]"
+              name: CO2
+              styles:
+                icon:
+                  - color: "green"
+        - type: horizontal-stack
+          cards:
+            - type: custom:button-card
+              template: card_radon
+              entity: sensor.mqtt_airthings_waveplus_sisu_radon_short_term
+              name: Radon
+            - type: custom:button-card
+              template: card_radon
+              entity: sensor.mqtt_airthings_waveplus_sisu_radon_long_term
+              name: Radon, pitkäaikainen
+        - type: custom:mini-graph-card
+          style: |
+            ha-card {
+              border-radius: 20px;
+            }
+          entities:
+            - entity: sensor.mqtt_airthings_waveplus_sisu_temperature
+          name: Lämpötila
+          decimals: 1
+          hours_to_show: 24
+          points_per_hour: 8
+          color_thresholds:
+            - value: 19
+              color: "#1E90FF"
+            - value: 22
+              color: "#008000"
+            - value: 25
+              color: "#FFFF00"
+            - value: 28
+              color: "#FF0000"
+          show:
+            icon: false

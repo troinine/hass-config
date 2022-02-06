@@ -1,0 +1,205 @@
+action: fire-dom-event
+browser_mod:
+  command: popup
+  title: Lämmitys
+  style:
+    .: |
+      :host .content {
+        width: calc(310px * 4);
+        max-width: 90vw;
+      }
+    layout-card:
+      $grid-layout$:
+        .: |
+          #root {
+            margin: 0 !important;
+          }
+        hui-entities-card:
+          $: |
+            .card-content {
+            }
+            ha-card {
+              border-right: 1.5px solid rgba(0, 0, 0, 0.2);
+              border-radius: 0;
+              transition: none;
+              box-shadow: none;
+            }
+        mini-graph-card:
+          $: |
+            ha-card {
+              border-radius: 0;
+              box-shadow: none;
+
+  card:
+    type: custom:layout-card
+    layout_type: custom:grid-layout
+    layout:
+      grid-template-columns: 1fr 1fr 1fr 1fr
+      grid-template-rows: 60% 40% #repeat(2, min-content)
+      grid-template-areas: |
+        "heat-pump    hot-water        supply        brine"
+        "starts-graph hot-water-graph  supply-graph  brine-graph"
+      place-items: start stretch
+    cards:
+      - type: entities
+        title: Nibe
+        show_header_toggle: false
+        view_layout:
+          grid-area: heat-pump
+        entities:
+          - entity: sensor.nibe_heat_pump_state
+          - entity: sensor.nibe_degree_minutes
+          - entity: sensor.nibe_alarm_number
+            name: Hälytys
+          - entity: sensor.nibe_average_heating_cycle
+            name: Käyntiaika
+          - entity: sensor.nibe_average_resting_cycle
+            name: Lepoaika
+          - entity: sensor.nibe_daily_num_starts
+
+      - type: entities
+        title: Käyttövesi
+        show_header_toggle: false
+        view_layout:
+          grid-area: hot-water
+        entities:
+          - entity: switch.tplink_hs100_1
+            name: Kiertovesipumppu
+          - entity: sensor.nibe_hot_water_top_temp
+            name: Yläosa
+          - entity: sensor.nibe_hot_water_fill_temp
+            name: Alaosa
+
+      - type: entities
+        title: Lämmöntuotto
+        show_header_toggle: false
+        view_layout:
+          grid-area: supply
+        entities:
+          - entity: sensor.nibe_calculated_supply_temp
+            name: Laskennallinen
+          - entity: sensor.nibe_supply_temp
+            name: Meno
+          - entity: sensor.nibe_supply_return_temp
+            name: Paluu
+          - entity: sensor.nibe_supply_pump_speed
+            name: Pumpun nopeus
+
+      - type: entities
+        title: Lämmönkeruu
+        show_header_toggle: false
+        view_layout:
+          grid-area: brine
+        entities:
+          - entity: sensor.nibe_brine_in_temp
+            name: Sisään
+          - entity: sensor.nibe_brine_out_temp
+            name: Ulos
+          - entity: sensor.nibe_daily_brine_min_input_temp
+            name: Matalin sisään
+          - entity: sensor.nibe_daily_brine_min_output_temp
+            name: Matalin ulos
+          - entity: sensor.nibe_brine_pump_speed
+            name: Pumpun nopeus
+
+      - type: custom:mini-graph-card
+        view_layout:
+          grid-area: starts-graph
+          place-self: end center
+        entities:
+          - entity: sensor.nibe_daily_num_starts
+        name: Käynnistykset
+        icon: mdi:play
+        color_thresholds:
+          - value: 0
+            color: dodgerblue
+          - value: 8
+            color: green
+          - value: 12
+            color: orange
+          - value: 14
+            color: red
+        color_thresholds_transition: hard
+        hours_to_show: 744
+        aggregate_func: max
+        group_by: date
+        height: 205 # Ugly hack to get the graphs equal height
+        show:
+          graph: bar
+          extrema: true
+          name: false
+          icon: false
+
+      - type: custom:mini-graph-card
+        view_layout:
+          grid-area: hot-water-graph
+          place-self: end center
+        name: Käyttövesi
+        entities:
+          - entity: sensor.nibe_hot_water_top_temp
+            name: Yläosa
+            color: 'red'
+          - entity: sensor.nibe_hot_water_fill_temp
+            name: Täyttö
+            show_state: true
+        show:
+          extrema: true
+          name: false
+          icon: false
+        decimals: 1
+        hours_to_show: 24
+        points_per_hour: 3
+        hour24: true
+        height: 150
+        line_width: 3
+
+      - type: custom:mini-graph-card
+        view_layout:
+          grid-area: supply-graph
+          place-self: end center
+        entities:
+          - entity: sensor.nibe_supply_temp
+            name: Meno
+          - entity: sensor.nibe_supply_return_temp
+            name: Paluu
+            show_state: true
+            color: dodgerblue
+        color_thresholds:
+          - value: 35
+            color: var(--accent-color)
+          - value: 37
+            color: red
+        decimals: 1
+        hours_to_show: 24
+        points_per_hour: 8
+        hour24: true
+        show:
+          extrema: true
+          name: false
+          icon: false
+        height: 150
+        line_width: 3
+
+      - type: custom:mini-graph-card
+        view_layout:
+          grid-area: brine-graph
+          place-self: end center
+        name: Lämmönkeruu
+        entities:
+          - entity: sensor.nibe_brine_in_temp
+            name: Sisään
+            color: 'var(--google-green)'
+          - entity: sensor.nibe_brine_out_temp
+            name: Ulos
+            show_state: true
+            color: dodgerblue
+        decimals: 1
+        hours_to_show: 24
+        points_per_hour: 8
+        hour24: true
+        show:
+          extrema: true
+          name: false
+          icon: false
+        height: 150
+        line_width: 3

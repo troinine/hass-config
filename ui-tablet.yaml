@@ -1,0 +1,597 @@
+---
+button_card_templates: !include_dir_merge_named button_card_templates/
+
+views:
+  - title: "Tabletti"
+    path: home
+    icon: mdi:home
+    type: custom:grid-layout
+    layout:
+      grid-template-columns: 0 repeat(4, 1fr) 0
+      grid-template-rows: 0fr 1fr 1fr 0fr
+      grid-gap: 3vw 2vw
+      grid-template-areas: |
+        ". .        .       .        .       ."
+        ". sidebar  home    lvi      devices ."
+        ". sidebar  lights  children family  ."
+        ". .        footer  footer   footer  ."
+    cards:
+
+      ###
+      ### Sidebar
+      ###
+
+      - type: custom:layout-card
+        layout_type: custom:grid-layout
+        view_layout:
+          grid-area: sidebar
+        layout:
+          grid-template-columns: 1fr
+          grid-template-rows: min-content min-content
+          grid-template-areas: |
+            "clock" 
+            "notifications"
+        cards:
+          - type: custom:button-card
+            view_layout:
+              grid-area: "clock"
+              place-self: "start center"
+            template: clock
+            entity: sensor.time
+            variables:
+              entity_weather: weather.koti_custom
+              entity_date: sensor.date
+
+          - type: vertical-stack
+            view_layout:
+              grid-area: "notifications"
+              place-self: "start stretch"
+            cards:
+
+              ### Notifications ###
+
+              - type: conditional
+                conditions: 
+                  - entity: binary_sensor.notification_heat_pump_alarm
+                    state: 'on'
+                  - entity: sensor.nibe_alarm_number
+                    state_not: 'unavailable'
+                card:
+                  type: custom:button-card
+                  template: auto_notification
+                  entity: binary_sensor.notification_heat_pump_alarm
+                  show_last_changed: true
+                  variables:
+                    show_last_changed: true # Hack as root variables are not availabe in JS
+
+              - type: conditional
+                conditions: 
+                  - entity: sensor.radon_warning
+                    state_not: 'Alhainen'
+                card:
+                  type: custom:button-card
+                  template: notification
+                  entity: sensor.radon_warning
+                  variables:
+                    summary: |
+                      [[[
+                        if (entity.state == 'Nousussa') {
+                          return 'Radon nousussa'
+                        } else if (entity.state == 'Korkealla') {
+                          return 'Radon korkealla!'
+                        }
+                      ]]]
+                    description: |
+                      [[[
+                        return `Sisun huone ${states['sensor.mqtt_airthings_waveplus_sisu_radon_short_term'].state} ${states['sensor.mqtt_airthings_waveplus_sisu_radon_short_term'].attributes.unit_of_measurement}. Olohuone ${states['sensor.mqtt_airthings_waveplus_living_room_radon_short_term'].state} ${states['sensor.mqtt_airthings_waveplus_living_room_radon_short_term'].attributes.unit_of_measurement}`
+                      ]]]
+                    state_colors:
+                      "Nousussa": "yellow" 
+                      "Korkealla": "red"      
+
+              - type: conditional
+                conditions: 
+                  - entity: binary_sensor.mqtt_garage_door
+                    state_not: 'off'
+                card:
+                  type: custom:button-card
+                  template: notification
+                  entity: binary_sensor.mqtt_garage_door
+                  show_last_changed: true
+                  variables:
+                    summary: 'Autotallin ovi on auki'
+                    show_last_changed: true # Hack as root variables are not availabe in JS
+                    state_colors:
+                      "on": "yellow"
+
+              - type: conditional
+                conditions: 
+                  - entity: lock.ulko_ovi
+                    state_not: 'locked'
+                card:
+                  type: custom:button-card
+                  template: notification
+                  entity: lock.ulko_ovi
+                  show_last_changed: true
+                  variables:
+                    summary: 'Ulko-ovi on auki'
+                    show_last_changed: true # Hack as root variables are not availabe in JS  
+                    state_colors:
+                      "unlocked": "yellow"
+
+              - type: conditional
+                conditions: 
+                  - entity: switch.tplink_hs110_2
+                    state: 'on'
+                card:
+                  type: custom:button-card
+                  template: notification
+                  entity: switch.tplink_hs110_2
+                  icon: mdi:fan
+                  show_last_changed: true
+                  variables:
+                    summary: 'Autotallin ilmankuivain on päällä'
+                    show_last_changed: true # Hack as root variables are not availabe in JS  
+                    state_colors:
+                      "on": "yellow"
+
+              - type: conditional
+                conditions:
+                  - entity: input_select.sauna_state
+                    state_not: 'Pois'
+                card:
+                  type: custom:button-card
+                  template: notification
+                  icon: mdi:shower
+                  entity: input_select.sauna_state
+                  variables:
+                    summary: |
+                      [[[ return 'Sauna ' + states['input_select.sauna_state'].state.toLowerCase() ]]]
+                    description: |
+                      [[[  
+                          var temperature = states['sensor.mqtt_sauna_temperature']
+                          var humidity = states['sensor.mqtt_sauna_humidity']
+                          return `Lämpötila ${temperature.state} ${temperature.attributes.unit_of_measurement}. Kosteus ${humidity.state} ${humidity.attributes.unit_of_measurement}`
+                      ]]]
+                    state_colors:
+                      'Jäähtyy': '#00ccf5'
+                      'Lämpenee': 'yellow'
+                      'Lämmin': 'red'
+
+              - type: conditional
+                conditions:
+                  - entity: sensor.co2_state
+                    state_not: 'Alhainen'
+                card:
+                  type: 'custom:button-card'
+                  template: notification
+                  entity: sensor.co2_state
+                  variables:
+                    summary: 'Korkea CO&#8322; taso.'
+                    description: 'Laita ilmastoinin tehostus päälle'
+                    icon_state_color:
+                      "Korkea": 'green'
+
+              - type: conditional
+                conditions:
+                  - entity: sensor.humidity_state
+                    state_not: 'Normaali'
+                card:
+                  type: custom:button-card
+                  template: notification
+                  entity: sensor.humidity_state
+                  variables:
+                    summary: |
+                      [[[ return entity.state + ' ilmankosteus' ]]]
+                    description: Harkitse ilmankuivaimen käynnistämistä
+                    state_colors:
+                      'Alhainen': '#00ccf5'
+                      'Korkea': 'lightblue'
+
+              - type: conditional
+                conditions:
+                  - entity: binary_sensor.notification_todays_precipitation
+                    state: 'on'
+                card:
+                  type: 'custom:button-card'
+                  template: auto_notification
+                  entity: binary_sensor.notification_todays_precipitation
+
+              - type: conditional
+                conditions:
+                  - entity: input_boolean.on_vacation
+                    state: 'on'
+                card:
+                  type: 'custom:button-card'
+                  template: notification
+                  entity: input_boolean.on_vacation
+                  variables:
+                    summary: 'Lomamoodi on päällä!'
+                    state_colors:
+                      "on": "green"
+    
+              - type: conditional
+                conditions:
+                  - entity: binary_sensor.synology_security_status
+                    state: 'on'
+                card:
+                  type: 'custom:button-card'
+                  template: notification
+                  entity: binary_sensor.synology_security_status
+                  variables:
+                    summary: 'Synologyn turvataso puutteellinen'
+                    state_colors:
+                      "on": "yellow"
+
+              - type: conditional
+                conditions:
+                  - entity: binary_sensor.notification_synology_update_available
+                    state: 'on'
+                card:
+                  type: 'custom:button-card'
+                  template: auto_notification
+                  entity: binary_sensor.notification_synology_update_available
+
+              - type: conditional
+                conditions:
+                  - entity: binary_sensor.notification_hass_update_available
+                    state: 'on'
+                card:
+                  type: 'custom:button-card'
+                  template: auto_notification
+                  entity: binary_sensor.notification_hass_update_available
+
+      ###
+      ### Home
+      ###
+
+      - type: vertical-stack
+        view_layout:
+          grid-area: "home"
+        cards:
+          - type: 'custom:button-card'
+            template: group_title
+            name: Koti
+            tap_action:
+              !include popups/tablet/home.yaml
+
+          - type: grid
+            columns: 2
+            cards:
+              - type: 'custom:button-card'
+                template: info
+                entity: input_select.home_state
+                variables:
+                  icon_glow: false
+                  state_colors:
+                    'Kotona': '#66bb6a'
+                    'Nukkumassa': '#0097a7'
+
+              - type: 'custom:button-card'
+                template: info
+                entity: sensor.air_quality
+                name: Ilmanlaatu
+                tap_action:
+                  !include popups/tablet/air-quality.yaml
+                variables:
+                  extra_entity: "[[[ return entity.attributes.reporting_entity ]]]"
+                  icon_glow: true
+                  state_colors:
+                    "Hyvä": 'green'
+                    "Radon nousussa": 'yellow'
+                    "Radon korkealla": 'red'
+                    "CO2 korkealla": 'yellow'
+                    "Matala ilmankosteus": '#00ccf5'
+                    "Korkea ilmankosteus": 'dodgerblue'
+
+              - type: 'custom:button-card'
+                template: info
+                entity: lock.ulko_ovi
+                variables:
+                  icon_glow: true
+                  state_colors:
+                    'unlocked': 'var(--warning-color)'
+
+              - type: 'custom:button-card'
+                template: info
+                entity: binary_sensor.mqtt_garage_door
+                name: Autotalli
+                tap_action:
+                  !include popups/tablet/garage.yaml
+                variables:
+                  extra_entity: sensor.netatmo_koti_olohuone_autotalli_temperature
+                  icon_glow: true
+                  state_colors:
+                    'on': 'var(--warning-color)'
+    
+      ###
+      ### Lights
+      ###
+
+      - type: vertical-stack
+        view_layout:
+          grid-area: "lights"
+        cards:
+          - type: 'custom:button-card'
+            template: group_title
+            name: Valaistus
+            tap_action:
+              !include popups/tablet/lights.yaml
+
+          - type: grid
+            columns: 2
+            cards:
+              - type: 'custom:button-card'
+                template: light
+                entity: light.group_all
+                name: Kaikki
+              - type: 'custom:button-card'
+                template: light
+                entity: light.group_living_areas
+                name: Oleskelutilat
+              - type: 'custom:button-card'
+                template: light
+                entity: light.group_office
+                name: Työhuone
+              - type: 'custom:button-card'
+                template: light
+                entity: light.group_bedroom     
+                name: Makuuhuone
+
+      ###
+      ### LVI
+      ###
+
+      - type: vertical-stack
+        view_layout:
+          grid-area: "lvi"
+        cards:
+          - type: 'custom:button-card'
+            template: group_title
+            name: Lämmitys ja vesi
+            tap_action:
+              !include popups/tablet/heating.yaml
+
+          - type: grid
+            columns: 2
+            cards:
+              - type: 'custom:button-card'
+                template: info
+                entity: sensor.nibe_heat_pump_state
+                name: Maalämpö
+                variables:
+                  icon_glow: true
+                  state_colors:
+                    "Käyttövesi": dodgerblue
+                    "Lämmitys": orangered
+
+              - type: 'custom:button-card'
+                template: sensor
+                entity: sensor.nibe_daily_num_starts
+                name: Käynnistykset
+                styles:
+                  icon: 
+                    - color: |
+                        [[[
+                          var color = "red";
+                          var current_temp = entity.state;
+                          if (current_temp < 10) {
+                            color = "green";
+                          } else if (current_temp < 13) {
+                            color = "yellow";
+                          } else if (current_temp < 0.0) {
+                            color = "orange";
+                          } else {
+                            color = "red";
+                          }
+
+                          return color;
+                        ]]]
+
+              - type: 'custom:button-card'
+                template: info
+                entity: switch.tplink_hs100_1
+                name: Käyttövesi
+                icon: mdi:water-sync
+                variables:
+                  extra_entity: sensor.nibe_hot_water_top_temp
+                  state_colors:
+                    "on": dodgerblue
+
+              - type: custom:button-card
+                template: sensor
+                entity: sensor.nibe_daily_brine_min_input_temp
+                name: Matalin keruu
+                styles:
+                  icon: 
+                    - color: |
+                        [[[
+                          var color = "red";
+                          var current_temp = entity.state;
+                          if (current_temp < -0.6) {
+                            color = "blue";
+                          } else if (current_temp < -0.3) {
+                            color = "dodgerblue";
+                          } else if (current_temp < 0.0) {
+                            color = "yellow";
+                          } else {
+                            color = "green";
+                          }
+
+                          return color;
+                        ]]]
+
+      ###
+      ### Devices
+      ###
+
+      - type: vertical-stack
+        view_layout:
+          grid-area: "devices"
+        cards:
+          - type: 'custom:button-card'
+            template: group_title
+            name: Media ja laitteet
+            tap_action:
+              !include popups/tablet/devices.yaml
+
+          - type: grid
+            columns: 2
+            cards:
+              - type: 'custom:button-card'
+                template: info
+                entity: media_player.samsung_q90_series_65
+                name: Olohuone TV
+                variables:
+                  state_colors:
+                    "on": 'rgb(var(--color-green)'
+
+              - type: 'custom:button-card'
+                template: info
+                entity: binary_sensor.ps5_status
+                name: Playstation 5
+                icon: mdi:sony-playstation
+                variables:
+                  state_colors:
+                    "on": 'rgb(var(--color-green)'
+
+              - type: 'custom:button-card'
+                template: info
+                entity: sensor.synology_status
+                name: Synology
+                icon: |
+                  [[[
+                    var security_state = states['binary_sensor.synology_security_status']
+                    if (security_state === 'on') {
+                      return 'mdi:shield-alert'
+                    } else {
+                      return entity.attributes.icon
+                    }                    
+                  ]]]
+                state_display: |
+                  [[[
+                    var security_state = states['binary_sensor.synology_security_status']
+                    if (security_state === 'on') {
+                      return 'Tietoturvaongelma'
+                    } else if (entity.state !== 'normal') {
+                      return entity.state
+                    } else {
+                      return 'Normaali'
+                    }
+                  ]]]
+                variables:
+                  state_colors:
+                    "normal": 'rgb(var(--color-green)'
+                  extra_entity: sensor.synology_temperature_3
+
+              - type: 'custom:button-card'
+                template: info
+                entity: binary_sensor.nibe_raspberry_pi_zero_status
+                name: Nibe Pi Zero
+                icon: |
+                  [[[
+                    if (entity.state === 'on') {
+                      return 'mdi:checkbox-marked-circle-outline'
+                    } else {
+                      return entity.attributes.icon
+                    }
+                  ]]]
+                variables:
+                  state_colors:
+                    "on": 'rgb(var(--color-green)'
+
+      ###
+      ### Family
+      ###
+
+      - type: vertical-stack
+        view_layout:
+          grid-area: "family"
+        cards:
+          - type: 'custom:button-card'
+            template: group_title
+            name: Perhe
+
+          - type: grid
+            columns: 2
+            cards:
+              - type: 'custom:button-card'
+                template: user
+                entity: person.tero
+                variables:
+                  battery_charge_entity: sensor.tero_akun_varaustaso
+                  battery_charging_status_entity: binary_sensor.tero_latautuu
+
+              - type: 'custom:button-card'
+                template: user
+                entity: person.pia
+                variables:
+                  battery_charge_entity: sensor.pia_akun_varaustaso  
+                  battery_charging_status_entity: binary_sensor.pia_latautuu     
+
+              - type: 'custom:button-card'
+                template: user
+                entity: person.otso
+                show_state: false # No device
+                show_last_changed: false
+
+              - type: 'custom:button-card'
+                template: user
+                entity: person.sisu
+                show_state: false # No device
+                show_last_changed: false
+
+      ###
+      ### Children
+      ###
+
+      - type: vertical-stack
+        view_layout:
+          grid-area: "children"
+        cards:
+          - type: 'custom:button-card'
+            template: group_title
+            name: Lasten huoneet
+
+          - type: grid
+            columns: 2
+            cards:
+              - type: 'custom:button-card'
+                template: light
+                entity: light.group_otsos_room
+                name: Otson huone
+
+              - type: 'custom:button-card'
+                template: light
+                entity: light.group_sisus_room
+                name: Sisun huone
+
+              - type: 'custom:button-card'
+                template: sensor_graph
+                entity: sensor.mqtt_otso_temperature
+                variables:
+                  name_override: Lämpötila
+                  line_color: 'rgb(var(--color-green))'
+
+              - type: 'custom:button-card'
+                template: sensor_graph
+                entity: sensor.mqtt_airthings_waveplus_sisu_temperature
+                variables:
+                  name_override: Lämpötila
+                  line_color: 'rgb(var(--color-green))'
+
+      ###
+      ### Footer
+      ###
+
+      - type: 'custom:button-card'
+        view_layout:
+          grid-area: "footer"
+          place-self: "start center"
+        template: footer_info
+        show_name: false
+        icon: mdi:emoticon-happy-outline
+        entity: sensor.zen_quote
+        styles:
+          state:
+            - font-style: italic

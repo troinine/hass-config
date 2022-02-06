@@ -1,0 +1,76 @@
+- platform: group
+  name: group_office
+  entities:
+    - light.tyohuone_poytalamppu
+    - light.tyohuone_nauha
+    - light.tyohuone_katto
+
+- platform: group
+  name: group_kitchen
+  entities:
+    - light.keittio_ohio_1
+    - light.keittio_ohio_2
+    - light.keittio_ohio_3
+    - light.keittio_nauha_1
+    - light.keittio_nauha_2
+
+- platform: group
+  name: group_living_room
+  entities:
+    - light.olohuone_nauha
+    - light.olohuone_oikea_yla
+    - light.olohuone_oikea_ala
+    - light.olohuone_vasen_yla
+    - light.olohuone_vasen_ala
+
+- platform: group
+  name: group_bedroom
+  entities:
+    - light.makuuhuone_nauha
+    - light.lundia_jalkalamppu
+
+- platform: group
+  name: group_entrance
+  entities:
+    - light.eteinen_oikea_yla
+    - light.eteinen_oikea_ala
+    - light.eteinen_vasen_yla
+    - light.eteinen_vasen_ala
+    - light.eteisen_poytalamppu
+
+- platform: group
+  name: group_otsos_room
+  entities:
+    - light.otson_katto
+
+- platform: group
+  name: group_sisus_room
+  entities:
+    - light.sisun_katto
+    - light.sisun_poytalamppu
+
+# Group of groups
+
+- platform: group
+  name: group_living_areas
+  entities:
+    - light.group_kitchen
+    - light.group_living_room
+    - light.group_entrance
+
+- platform: group
+  name: group_kids_rooms
+  entities:
+    - light.group_otsos_room
+    - light.group_sisus_room
+
+- platform: group
+  name: group_all
+  entities:
+    - light.group_otsos_room
+    - light.group_sisus_room
+    - light.group_kitchen
+    - light.group_living_room
+    - light.group_entrance
+    - light.group_office
+    - light.group_bedroom

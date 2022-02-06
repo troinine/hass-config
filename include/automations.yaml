@@ -1,0 +1,1025 @@
+- id: turn_off_lights_when_not_at_home
+  alias: Aseta Poissa tila
+  description: Asettaa poissa kotoa tilan kun ketään ei havaita
+  trigger:
+  - platform: state
+    entity_id: binary_sensor.indoor_motion_sensors
+    to: 'off'
+    for: 00:05:00
+  condition:
+  - condition: time
+    after: 08:00
+    before: '21:00'
+  - condition: state
+    entity_id: device_tracker.tero
+    state: not_home
+  - condition: state
+    entity_id: device_tracker.pia
+    state: not_home
+  action:
+  - service: input_select.select_option
+    data:
+      option: Poissa
+    entity_id: input_select.home_state
+  - service: light.turn_off
+    data: {}
+    entity_id: light.koti
+  - service: remote.turn_off
+    data: {}
+    entity_id: remote.olohuone
+  mode: single
+- id: turn_on_lights_when_arriving_to_home
+  alias: Saapuminen kotiin
+  description: ''
+  trigger:
+  - type: motion
+    platform: device
+    device_id: abac2c95eb025d0b7c5ae3a4d20f2681
+    entity_id: binary_sensor.hue_motion_sensor_2
+    domain: binary_sensor
+  - platform: state
+    entity_id: binary_sensor.mqtt_garage_door
+    from: 'off'
+    to: 'on'
+  condition:
+  - condition: state
+    entity_id: input_select.home_state
+    state: Poissa
+  action:
+  - service: light.turn_on
+    data: {}
+    entity_id: light.eteinen
+  mode: single
+- id: '1607110684755'
+  alias: Matala lämmönkeruu sisään
+  description: ''
+  trigger:
+  - platform: numeric_state
+    entity_id: sensor.nibe_daily_brine_min_input_temp
+    below: '-0.5'
+  condition: []
+  action:
+  - service: notify.mobile_app_tero
+    data:
+      title: Alhainen lämmönkeruun tulolämpötila
+      message: Alin tulolämpötila tällä hetkellä {{ states.sensor.nibe_daily_brine_min_input_temp.state
+        }} °C
+      data:
+        group: Lämmitys
+        tag: low_brine_in
+  mode: single
+- id: '1607111828899'
+  alias: Korkea lämpöpumpun käynnistysten määrä
+  description: ''
+  trigger:
+  - platform: numeric_state
+    entity_id: sensor.nibe_daily_num_starts
+    above: '15'
+  condition: []
+  action:
+  - service: notify.mobile_app_tero
+    data:
+      title: Paljon lämpöpumpun käynnistyksiä
+      message: Käynnistyksiä tänään {{ states.sensor.nibe_daily_num_starts.state }}
+        kappaletta
+      data:
+        group: Lämmitys
+        tag: compressor_starts
+  mode: single
+- id: '1607261966933'
+  alias: Aseta Kotona tila
+  description: ''
+  trigger:
+  - type: motion
+    platform: device
+    device_id: 4a7c786c2440d89b8401bce84b2f40f0
+    entity_id: binary_sensor.hue_motion_sensor_1
+    domain: binary_sensor
+  condition:
+  - condition: state
+    entity_id: input_select.home_state
+    state: Poissa
+  action:
+  - service: input_select.select_option
+    data:
+      option: Kotona
+    entity_id: input_select.home_state
+  - service: light.turn_on
+    entity_id:
+    - light.eteinen
+    - light.keittio
+    - light.olohuone
+  - service: automation.trigger
+    data: {}
+    entity_id: automation.hot_water_pump_on
+  mode: single
+- id: '1607263423396'
+  alias: Aloita nukkumaanmeno
+  description: Aloittaa nukkumaan menon kun ketään ei havaita
+  trigger:
+  - platform: state
+    entity_id: binary_sensor.indoor_motion_sensors
+    to: 'off'
+    for: 00:05:00
+  condition:
+  - condition: time
+    after: '22:30'
+    before: 01:00
+    weekday:
+    - mon
+    - tue
+    - wed
+    - thu
+    - sun
+  - condition: state
+    entity_id: timer.go_to_sleep_transition
+    state: idle
+  - condition: not
+    conditions:
+    - condition: device
+      device_id: 71658d918c2f67ec2651f5a5151482f8
+      domain: media_player
+      entity_id: media_player.samsung_q90_series_65
+      type: is_on
+  action:
+  - service: scene.create
+    data:
+      scene_id: before_go_to_sleep_transition
+      snapshot_entities:
+      - light.group_living_areas
+  - service: timer.start
+    data:
+      duration: '0'
+    target:
+      entity_id: timer.go_to_sleep_transition
+  - service: scene.turn_on
+    data:
+      transition: 900
+    entity_id: scene.nukkumassa
+  mode: restart
+- id: '1607352333578'
+  alias: Herätä arkisin
+  description: Säätää valot makuuhuoneessa heräämistä varten
+  trigger:
+  - platform: time
+    at: '6:30'
+  condition:
+  - condition: state
+    entity_id: input_select.home_state
+    state: Nukkumassa
+  - condition: time
+    weekday:
+    - mon
+    - tue
+    - wed
+    - thu
+    - fri
+  - condition: state
+    entity_id: input_boolean.on_vacation
+    state: 'off'
+  action:
+  - service: scene.turn_on
+    data:
+      transition: 900
+    entity_id: scene.heratys
+  mode: single
+- id: '1607363879066'
+  alias: Aseta Hereillä tila
+  description: ''
+  trigger:
+  - type: motion
+    platform: device
+    device_id: 4a7c786c2440d89b8401bce84b2f40f0
+    entity_id: binary_sensor.hue_motion_sensor_1
+    domain: binary_sensor
+  - type: motion
+    platform: device
+    device_id: abac2c95eb025d0b7c5ae3a4d20f2681
+    entity_id: binary_sensor.hue_motion_sensor_2
+    domain: binary_sensor
+  condition:
+  - condition: state
+    entity_id: input_select.home_state
+    state: Nukkumassa
+  - condition: time
+    after: '6:30'
+    before: '10:00'
+  action:
+  - service: input_select.select_option
+    data:
+      option: Kotona
+    entity_id: input_select.home_state
+  - service: scene.turn_on
+    data: {}
+    entity_id: scene.hereilla
+  - service: automation.trigger
+    data: {}
+    entity_id: automation.hot_water_pump_on
+  mode: single
+- id: '1607454733839'
+  alias: Valot päälle yöllä
+  description: ''
+  trigger:
+  - type: motion
+    platform: device
+    device_id: abac2c95eb025d0b7c5ae3a4d20f2681
+    entity_id: binary_sensor.hue_motion_sensor_2
+    domain: binary_sensor
+  - type: motion
+    platform: device
+    device_id: 4a7c786c2440d89b8401bce84b2f40f0
+    entity_id: binary_sensor.hue_motion_sensor_1
+    domain: binary_sensor
+  condition:
+  - condition: state
+    entity_id: input_select.home_state
+    state: Nukkumassa
+  action:
+  - service: timer.start
+    data: {}
+    entity_id: timer.motion_at_night
+  - scene: scene.liike_yolla
+  mode: single
+- id: '1607455390592'
+  alias: Valojen palautus yöllä
+  description: ''
+  trigger:
+  - platform: event
+    event_type: timer.finished
+    event_data:
+      entity_id: timer.motion_at_night
+  condition:
+  - condition: state
+    entity_id: input_select.home_state
+    state: Nukkumassa
+  action:
+  - service: scene.turn_on
+    data:
+      transition: 30
+    entity_id: scene.takaisin_nukkumaan
+  mode: single
+- id: '1607759502859'
+  alias: Autotallin ovi auki
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: binary_sensor.mqtt_garage_door
+    from: 'off'
+    to: 'on'
+  condition: []
+  action:
+  - service: notify.mobile_app_tero
+    data:
+      message: Autotallin ovi avattu
+      data:
+        group: Autotalli
+        tag: door_state
+  mode: single
+- id: '1607773398816'
+  alias: Autotallin ovi edelleen auki
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: binary_sensor.mqtt_garage_door
+    to: 'on'
+    for: 00:05:00
+  condition: []
+  action:
+  - service: notify.mobile_app_tero
+    data:
+      title: Autotallin ovi edelleen auki
+      message: Autotallin ovi on ollut auki 5 minuuttia. Lämpötila {{ states.sensor.netatmo_koti_olohuone_autotalli_temperature.state
+        }} °C
+      data:
+        group: Autotalli
+        tag: door_still_open
+  - service: notify.mobile_app_pia
+    data:
+      title: Autotallin ovi edelleen auki
+      message: Autotallin ovi on ollut auki 5 minuuttia. Lämpötila {{ states.sensor.netatmo_koti_olohuone_autotalli_temperature.state
+        }} °C
+      data:
+        group: Autotalli
+        tag: door_still_open
+  mode: single
+- id: '1607795690760'
+  alias: Aseta Poissa tila
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: binary_sensor.indoor_motion_sensors
+    to: 'off'
+    for: 00:05:00
+  - platform: state
+    entity_id: device_tracker.tero, device_tracker.pia
+    from: home
+    to: not_home
+  condition:
+  - condition: state
+    entity_id: device_tracker.tero
+    state: not_home
+  - condition: state
+    entity_id: device_tracker.pia
+    state: not_home
+  - condition: state
+    entity_id: binary_sensor.indoor_motion_sensors
+    state: 'off'
+  action:
+  - service: input_select.select_option
+    data:
+      option: Poissa
+    entity_id: input_select.home_state
+  - service: light.turn_off
+    data: {}
+    entity_id: light.koti
+  - service: remote.turn_off
+    data: {}
+    entity_id: remote.olohuone
+  - service: automation.trigger
+    data: {}
+    entity_id: automation.hot_water_pump_off
+  mode: single
+- id: '1607807219023'
+  alias: Aseta Nukkumassa tila
+  description: ''
+  trigger:
+  - platform: event
+    event_type: timer.finished
+    event_data:
+      entity_id: timer.go_to_sleep_transition
+  condition: []
+  action:
+  - service: input_select.select_option
+    data:
+      option: Nukkumassa
+    entity_id: input_select.home_state
+  mode: single
+- id: '1607808344160'
+  alias: Aloita nukkumaanmeno alusta
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: binary_sensor.indoor_motion_sensors
+    from: 'off'
+    to: 'on'
+  condition:
+  - condition: state
+    entity_id: timer.go_to_sleep_transition
+    state: active
+  - condition: state
+    entity_id: input_select.home_state
+    state: Kotona
+  action:
+  - service: scene.turn_on
+    data:
+      transition: 2
+    target:
+      entity_id: scene.before_go_to_sleep_transition
+  - service: timer.cancel
+    data: {}
+    entity_id: timer.go_to_sleep_transition
+  - service: automation.trigger
+    data: {}
+    entity_id: automation.start_go_to_sleep
+  - delay:
+      hours: 0
+      minutes: 1
+      seconds: 0
+      milliseconds: 0
+  mode: single
+  max_exceeded: silent
+- id: '1607980854735'
+  alias: Aloita iltarutiinit
+  description: ''
+  trigger:
+  - platform: time
+    at: '19:15'
+  condition:
+  - condition: state
+    entity_id: input_select.home_state
+    state: Kotona
+  action:
+  - service: light.turn_on
+    data_template:
+      entity_id: '{% set lights = [''light.tyohuone'', ''light.eteinen'', ''light.otson_huone'',
+        ''light.sisun_huone'', ''light.olohuone'', ''light.keittio'', ''light.makuuhuone'']
+        %}  {{ expand(lights) | selectattr(''state'', ''eq'', ''on'') | map(attribute=''entity_id'')
+        | join('','') }}
+
+        '
+      brightness: 100
+      color_temp: 346
+      transition: 900
+  mode: single
+- id: '1608235357887'
+  alias: Sauna lämmin
+  description: ''
+  trigger:
+  - platform: numeric_state
+    entity_id: sensor.mqtt_sauna_temperature
+    above: '47'
+  condition:
+  - condition: state
+    entity_id: input_select.sauna_state
+    state: Lämpenee
+  action:
+  - service: input_select.select_option
+    data:
+      option: Lämmin
+    entity_id: input_select.sauna_state
+  - service: notify.mobile_app_tero
+    data:
+      title: Sauna on lämmin
+      message: Saunan lämpötila {{ states.sensor.mqtt_sauna_temperature.state | round(1)
+        }} °C ja kosteus {{ states.sensor.mqtt_sauna_humidity.state | round(0) }}
+        %
+      data:
+        group: Sauna
+        tag: sauna
+  - service: notify.mobile_app_pia
+    data:
+      title: Sauna on lämmin
+      message: Saunan lämpötila {{ states.sensor.mqtt_sauna_temperature.state | round(1)
+        }} °C ja kosteus {{ states.sensor.mqtt_sauna_humidity.state | round(0) }}
+        %
+      data:
+        group: Sauna
+        tag: sauna
+  mode: single
+- id: '1608321130499'
+  alias: Sytytä kodinhoitohuoneen valot
+  description: ''
+  trigger:
+  - type: motion
+    platform: device
+    device_id: d55f008442ba43bd14b3b2f19137c147
+    entity_id: binary_sensor.hue_motion_sensor_1_motion
+    domain: binary_sensor
+  condition:
+  - condition: state
+    entity_id: switch.tplink_hs100_3
+    state: 'off'
+  - condition: state
+    entity_id: input_select.home_state
+    state: Kotona
+  action:
+  - service: switch.turn_on
+    data: {}
+    entity_id: switch.tplink_hs100_3
+  mode: single
+- id: '1608321246976'
+  alias: Sammuta kodinhoitohuoneen valot
+  description: ''
+  trigger:
+  - type: no_motion
+    platform: device
+    device_id: d55f008442ba43bd14b3b2f19137c147
+    entity_id: binary_sensor.hue_motion_sensor_1_motion
+    domain: binary_sensor
+    for:
+      hours: 0
+      minutes: 15
+      seconds: 0
+  condition:
+  - condition: state
+    entity_id: switch.tplink_hs100_3
+    state: 'on'
+  action:
+  - service: switch.turn_off
+    data: {}
+    entity_id: switch.tplink_hs100_3
+  mode: single
+- id: '1608404430581'
+  alias: Sauna jäähtyy
+  description: ''
+  trigger:
+  - platform: numeric_state
+    entity_id: sensor.mqtt_sauna_temperature
+    below: '40'
+  condition:
+  - condition: state
+    entity_id: input_select.sauna_state
+    state: Lämmin
+  action:
+  - service: input_select.select_option
+    data:
+      option: Jäähtyy
+    entity_id: input_select.sauna_state
+  - service: notify.mobile_app_tero
+    data:
+      title: Sauna jäähtyy
+      message: Muista sulkea ikkuna! Saunan lämpötila {{ states.sensor.mqtt_sauna_temperature.state
+        | round(1) }} °C ja kosteus {{ states.sensor.mqtt_sauna_humidity.state | round(0)
+        }} %
+      data:
+        group: Sauna
+        tag: sauna
+  mode: single
+- id: '1608408840414'
+  alias: Sauna lämpenee
+  description: ''
+  trigger:
+  - platform: numeric_state
+    entity_id: sensor.mqtt_sauna_temperature
+    above: '30'
+  condition:
+  - condition: state
+    entity_id: input_select.sauna_state
+    state: Pois
+  action:
+  - service: input_select.select_option
+    data:
+      option: Lämpenee
+    entity_id: input_select.sauna_state
+  mode: single
+- id: '1608408976070'
+  alias: Sauna pois
+  description: ''
+  trigger:
+  - platform: numeric_state
+    below: '29'
+    entity_id: sensor.mqtt_sauna_temperature
+  condition:
+  - condition: state
+    entity_id: input_select.sauna_state
+    state: Jäähtyy
+  action:
+  - service: input_select.select_option
+    data:
+      option: Pois
+    entity_id: input_select.sauna_state
+  mode: single
+- id: '1608580481943'
+  alias: Sammuta joulukuusen valot
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: input_select.home_state
+    from: Kotona
+    to: Nukkumassa
+  - platform: state
+    entity_id: input_select.home_state
+    from: Kotona
+    to: Poissa
+  condition: []
+  action:
+  - service: switch.turn_off
+    data: {}
+    target:
+      entity_id: switch.tplink_hs110_1
+  mode: single
+- id: '1608580568682'
+  alias: Sytytä joulukuusen valot
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: input_select.home_state
+    from: Nukkumassa
+    to: Kotona
+  - platform: state
+    entity_id: input_select.home_state
+    from: Poissa
+    to: Kotona
+  condition: []
+  action:
+  - service: switch.turn_on
+    data: {}
+    target:
+      entity_id: switch.tplink_hs110_1
+  mode: single
+- id: '1609968587796'
+  alias: Sammuta kiertovesipumppu iltaisin
+  description: ''
+  trigger:
+  - platform: time
+    at: '22:00'
+  condition: []
+  action:
+  - service: automation.trigger
+    data: {}
+    entity_id: automation.hot_water_pump_off
+  mode: single
+- id: '1610651209311'
+  alias: Maalämpöpumpun hälytys
+  description: ''
+  trigger:
+  - platform: numeric_state
+    entity_id: sensor.nibe_alarm_number
+    above: '0'
+  condition: []
+  action:
+  - service: notify.mobile_app_tero
+    data:
+      title: Maalämpöpumpun hälytys
+      message: Hälytyksen numero {{ states('sensor.nibe_alarm_number') }}
+      data:
+        group: Lämmitys
+        tag: pump_alarm
+  mode: single
+- id: '1610949724603'
+  alias: Aloita nukkumaanmeno viikonloppuisin
+  description: Aloittaa nukkumaan menon kun ketään ei havaita
+  trigger:
+  - platform: state
+    entity_id: binary_sensor.indoor_motion_sensors
+    to: 'off'
+    for: 00:05:00
+  condition:
+  - condition: time
+    after: '23:00'
+    before: 01:00
+    weekday:
+    - fri
+    - sat
+  - condition: state
+    entity_id: timer.go_to_sleep_transition
+    state: idle
+  - condition: not
+    conditions:
+    - condition: device
+      device_id: 71658d918c2f67ec2651f5a5151482f8
+      domain: media_player
+      entity_id: media_player.samsung_q90_series_65
+      type: is_on
+  action:
+  - service: scene.create
+    data:
+      scene_id: before_go_to_sleep_transition
+      snapshot_entities:
+      - light.group_living_areas
+  - service: timer.start
+    data:
+      duration: '0'
+    target:
+      entity_id: timer.go_to_sleep_transition
+  - service: scene.turn_on
+    data:
+      transition: 900
+    entity_id: scene.nukkumassa
+  mode: restart
+- id: '1612732283884'
+  alias: Tauko käyttöveden kierrossa
+  description: ''
+  trigger:
+  - platform: event
+    event_type: timer.finished
+    event_data:
+      entity_id: timer.hot_water_pump_on
+  condition: []
+  action:
+  - service: switch.turn_off
+    data: {}
+    target:
+      entity_id: switch.tplink_hs100_1
+  - service: timer.start
+    data:
+      duration: '0'
+    target:
+      entity_id: timer.hot_water_pump_off
+  mode: single
+- id: '1612732392058'
+  alias: Tauko käyttöveden kierrossa ohi
+  description: ''
+  trigger:
+  - platform: event
+    event_type: timer.finished
+    event_data:
+      entity_id: timer.hot_water_pump_off
+  condition:
+  - condition: state
+    entity_id: input_select.home_state
+    state: Kotona
+  action:
+  - service: switch.turn_on
+    data: {}
+    target:
+      entity_id: switch.tplink_hs100_1
+  - service: timer.start
+    data:
+      duration: '0'
+    target:
+      entity_id: timer.hot_water_pump_on
+  mode: single
+- id: '1612732939032'
+  alias: Käyttöveden kierto pois
+  description: ''
+  trigger: []
+  condition: []
+  action:
+  - service: switch.turn_off
+    data: {}
+    target:
+      entity_id: switch.tplink_hs100_1
+  - service: timer.cancel
+    data: {}
+    entity_id: timer.hot_water_pump_off
+  - service: timer.cancel
+    data: {}
+    entity_id: timer.hot_water_pump_on
+  mode: single
+- id: '1614320129691'
+  alias: Käynnistä ilmankuivain
+  description: ''
+  trigger:
+  - platform: numeric_state
+    entity_id: sensor.netatmo_koti_olohuone_autotalli_humidity
+    above: '60'
+  condition: []
+  action:
+  - service: switch.turn_on
+    data: {}
+    entity_id: switch.tplink_hs110_2
+  - service: timer.start
+    data: {}
+    entity_id: timer.garage_dehumidifier_still_on
+  - service: notify.mobile_app_tero
+    data:
+      title: Autotallin ilmankuivain käynnistetty
+      message: Autotallin kosteus {{ states.sensor.netatmo_koti_olohuone_autotalli_humidity.state
+        | round(0) }} % ja lämpötila {{ states.sensor.netatmo_koti_olohuone_autotalli_temperature.state
+        | round(1) }} °C
+      data:
+        group: Autotalli
+        tag: dehumidifier
+  mode: single
+- id: '1614320260428'
+  alias: Sammuta ilmankuivain
+  description: ''
+  trigger:
+  - platform: numeric_state
+    entity_id: sensor.netatmo_koti_olohuone_autotalli_humidity
+    below: '50'
+  condition:
+  - condition: state
+    entity_id: binary_sensor.garage_dehumidifier
+    state: 'on'
+  action:
+  - service: switch.turn_off
+    data: {}
+    entity_id: switch.tplink_hs110_2
+  - service: timer.cancel
+    data: {}
+    entity_id: timer.garage_dehumidifier_still_on
+  - service: notify.mobile_app_tero
+    data:
+      title: Autotallin ilmankuivain sammutettu
+      message: Autotallin kosteus {{ states.sensor.netatmo_koti_olohuone_autotalli_humidity.state
+        | round(0) }} % ja lämpötila {{ states.sensor.netatmo_koti_olohuone_autotalli_temperature.state
+        | round(1) }} °C
+      data:
+        group: Autotalli
+        tag: dehumidifier
+  mode: single
+- id: '1614325765365'
+  alias: Tyhjennä ilmankuivain
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: switch.tplink_hs110_2
+    from: 'off'
+    to: 'on'
+    for: 00:15:00
+  condition:
+  - condition: state
+    entity_id: binary_sensor.garage_dehumidifier
+    state: 'off'
+  action:
+  - service: notify.mobile_app_tero
+    data:
+      title: Tyhjennä ilmankuivain
+      message: Ilmankuivaimen säiliö tyhjennettävä.
+      data:
+        group: Autotalli
+        tag: dehumidifier
+  mode: single
+- id: '1614327727537'
+  alias: Ilmankuivain edelleen päällä
+  description: ''
+  trigger:
+  - platform: event
+    event_type: timer.finished
+    event_data:
+      entity_id: timer.garage_dehumidifier_still_on
+  condition:
+  - condition: state
+    entity_id: binary_sensor.garage_dehumidifier
+    state: 'on'
+  action:
+  - service: notify.mobile_app_tero
+    data:
+      title: Autotallin ilmankuivain edelleen päällä
+      message: Ilmankuivain ollut päällä 12 tuntia. Autotallin kosteus {{ states.sensor.netatmo_koti_olohuone_autotalli_humidity.state
+        | round(0) }} %
+      data:
+        group: Autotalli
+        tag: dehumidifier
+  - service: timer.start
+    data: {}
+    entity_id: timer.garage_dehumidifier_still_on
+  mode: single
+- id: '1615883628210'
+  alias: Maalämpöpumppu ei lähetä mittauksia
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: sensor.mqtt_nibe_heat_pump_state
+    to: unavailable
+    for: '5'
+  condition: []
+  action:
+  - service: notify.mobile_app_tero
+    data:
+      message: Maalämpöpumppu ei lähetä dataa
+      data:
+        group: Lämmitys
+        tag: no_data
+  mode: single
+- id: '1629436993018'
+  alias: Hälytä kun Radon nousussa
+  description: ''
+  trigger:
+  - platform: numeric_state
+    entity_id: sensor.mqtt_airthings_waveplus_sisu_radon_short_term
+    above: '100'
+  - platform: numeric_state
+    entity_id: sensor.mqtt_airthings_waveplus_living_room_radon_short_term
+    above: '100'
+  condition: []
+  action:
+  - service: notify.mobile_app_tero
+    data:
+      title: Radon nousussa
+      message: Radonin arvo olohuoneessa {{ states.sensor.mqtt_airthings_waveplus_living_room_radon_short_term.state
+        }} Bq/m3 ja Sisun huoneessa {{ states.sensor.mqtt_airthings_waveplus_sisu_radon_short_term.state
+        }} Bq/m
+      data:
+        group: Ilmanlaatu
+        tag: radon
+  mode: single
+- id: '1629437320002'
+  alias: Hälytä kun Radon korkealla
+  description: ''
+  trigger:
+  - platform: numeric_state
+    entity_id: sensor.mqtt_airthings_waveplus_sisu_radon_short_term
+    above: '200'
+  - platform: numeric_state
+    entity_id: sensor.mqtt_airthings_waveplus_living_room_radon_short_term
+    above: '200'
+  condition: []
+  action:
+  - service: notify.mobile_app_tero
+    data:
+      title: Radon korkealla!
+      message: Radonin arvo olohuoneessa {{ states.sensor.mqtt_airthings_waveplus_living_room_radon_short_term.state
+        }} Bq/m3 ja Sisun huoneessa {{ states.sensor.mqtt_airthings_waveplus_sisu_radon_short_term.state
+        }} Bq/m
+      data:
+        group: Ilmanlaatu
+        tag: radon
+        ttl: 0
+        priority: high
+  mode: single
+- id: '1629460940631'
+  alias: Hälytä kun Radon turvallinen olohuoneessa
+  description: ''
+  trigger:
+  - platform: numeric_state
+    entity_id: sensor.mqtt_airthings_waveplus_living_room_radon_short_term
+    below: '100'
+  condition: []
+  action:
+  - service: notify.mobile_app_tero
+    data:
+      title: Radon turvallisella tasolla
+      message: Radonin arvo olohuoneessa {{ states.sensor.mqtt_airthings_waveplus_living_room_radon_short_term.state
+        }} Bq/m3
+      data:
+        group: Ilmanlaatu
+        tag: radon
+  mode: single
+- id: '1629835804523'
+  alias: Hälytä kun Radon turvallinen Sisun huoneessa
+  description: ''
+  trigger:
+  - platform: numeric_state
+    entity_id: sensor.mqtt_airthings_waveplus_sisu_radon_short_term
+    below: '100'
+  condition: []
+  action:
+  - service: notify.mobile_app_tero
+    data:
+      title: Radon turvallisella tasolla
+      message: 'Radonin arvo Sisun huoneessa {{ states.sensor.mqtt_airthings_waveplus_sisu_radon_short_term.state
+        }} Bq/m3 '
+      data:
+        group: Ilmanlaatu
+        tag: radon
+  mode: single
+- id: '1639421321246'
+  alias: Sytytä ulkovalot auringon laskiessa
+  description: ''
+  trigger:
+  - platform: sun
+    event: sunset
+    offset: '0'
+  condition: []
+  action:
+  - type: turn_on
+    device_id: a1447aaad312dfff591861c284099812
+    entity_id: switch.tplink_hs100_2
+    domain: switch
+  mode: single
+- id: '1639421564882'
+  alias: Sammuta ulkovalot
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: input_select.home_state
+    to: Nukkumassa
+  condition: []
+  action:
+  - type: turn_off
+    device_id: a1447aaad312dfff591861c284099812
+    entity_id: switch.tplink_hs100_2
+    domain: switch
+  mode: single
+- id: '1642711968725'
+  alias: Herätä tabletti
+  description: ''
+  trigger:
+  - type: motion
+    platform: device
+    device_id: abac2c95eb025d0b7c5ae3a4d20f2681
+    entity_id: binary_sensor.hue_motion_sensor_2
+    domain: binary_sensor
+  condition:
+  - condition: state
+    entity_id: input_select.home_state
+    state: Kotona
+  action:
+  - service: notify.mobile_app_galaxy_tab_a8
+    data:
+      message: command_screen_on
+      data:
+        ttl: 0
+        priority: high
+  - delay:
+      hours: 0
+      minutes: 2
+      seconds: 0
+      milliseconds: 0
+  mode: single
+  max_exceeded: silent
+- id: '1643561533140'
+  alias: Liike eteisessä
+  description: ''
+  trigger:
+  - type: motion
+    platform: device
+    device_id: abac2c95eb025d0b7c5ae3a4d20f2681
+    entity_id: binary_sensor.hue_motion_sensor_2
+    domain: binary_sensor
+  condition:
+  - condition: state
+    entity_id: input_select.home_state
+    state: Kotona
+  - condition: time
+    before: '21:00'
+  action:
+  - service: light.turn_on
+    data_template:
+      entity_id: "{% set lights = ['light.eteinen'] %}  \n{{ expand(lights) | selectattr('state',\
+        \ 'eq', 'on') | map(attribute='entity_id') | join(',') }}\n"
+      brightness_pct: 100
+      transition: 2
+  mode: single
+  max_exceeded: silent
+- id: '1643735491586'
+  alias: Liike eteisessä pois
+  description: ''
+  trigger:
+  - type: no_motion
+    platform: device
+    device_id: abac2c95eb025d0b7c5ae3a4d20f2681
+    entity_id: binary_sensor.hue_motion_sensor_2
+    domain: binary_sensor
+    for:
+      hours: 0
+      minutes: 2
+      seconds: 30
+  condition:
+  - condition: state
+    entity_id: input_select.home_state
+    state: Kotona
+  - condition: time
+    before: '21:15'
+  action:
+  - service: light.turn_on
+    data_template:
+      entity_id: "{% set lights = ['light.eteinen'] %}  \n{{ expand(lights) | selectattr('state',\
+        \ 'eq', 'on') | map(attribute='entity_id') | join(',') }}\n"
+      brightness_pct: 20
+      transition: 2
+  mode: single
+  max_exceeded: silent

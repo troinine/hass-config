@@ -1,0 +1,107 @@
+notification:
+  variables:
+    summary: ''
+    description: false
+    active: true
+    icon_color: 'var(--custom-icon-color-not-active)'
+    icon_glow: false
+    show_last_changed: false
+  template:
+    - "base_icon_name"
+  aspect_ratio: ''
+  show_icon: true
+  show_state: true
+  show_name: false
+  show_label: true
+  label: |
+    [[[ 
+      if (variables.description) { 
+        return variables.description
+      } 
+      return undefined
+    ]]]
+  state_display: "[[[ return variables.summary ]]]"
+  styles:
+    grid:
+      - grid-template-areas: |
+          [[[
+            if (variables.description || variables.show_last_changed) {
+              return '"i s" "i l"'
+            } else {
+              return '"i s"'
+            }
+          ]]]
+      - grid-template-columns: 0.15fr 0.85fr
+      - grid-template-rows: |
+          [[[
+            if (variables.description || variables.show_last_changed) {
+              return 'min-content min-content'
+            } else {
+              return 'min-content'
+            }
+          ]]]
+    img_cell:
+      - background-color: transparent
+      - border-radius: 0
+      - justify-self: start
+      - width: 1.5vw
+    state:
+      - padding: 0 0 0 0
+      - font-weight: 300
+      - justify-self: start
+      - font-size: 1.1vw
+    label:
+      - padding: 0 0 0 0
+      - filter: "opacity(40%)"
+      - font-size: 0.9vw
+      - justify-self: start
+      - text-overflow: unset
+      - white-space: unset
+      - word-break: break-word
+      - text-align: initial
+      - text-justify: none
+    card:
+      - background-color: transparent
+      - justify-self: start
+      - border-radius: 0
+      - box-shadow: none
+      - margin: 0 0 0 0
+      - padding: 0 0 0 0
+      - max-width: 100%
+
+auto_notification:
+  template:
+    - notification
+  icon: "[[[ return entity.attributes.icon ]]]"
+  variables:
+    summary: "[[[ return entity.attributes.text_summary ]]]"
+    description: "[[[ return entity.attributes.text_description ]]]"
+    icon_color: "[[[ return entity.attributes.icon_color ]]]"
+  tap_action: 
+    action: |
+      [[[ 
+        var action = entity.attributes.tap_action
+        if (action) {
+          return entity.attributes.tap_action
+        } else {
+          return 'more-info'
+        }
+      ]]]
+    entity: |
+        [[[ 
+          var action = entity.attributes.tap_action
+          if (action === 'more-info') {
+            return entity.attributes.tap_action_entity
+          } else {
+            return undefined
+          }
+        ]]]
+    url_path: |
+      [[[ 
+        var action = entity.attributes.tap_action
+        if (action === 'url') {
+          return entity.attributes.tap_action_url_path
+        } else {
+          return undefined
+        }
+      ]]]      

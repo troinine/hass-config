@@ -1,0 +1,106 @@
+scene_santa_is_coming:
+  alias: Joulupukki tulee flash
+  sequence:
+  - delay:
+      hours: 0
+      minutes: 1
+      seconds: 0
+      milliseconds: 0
+  - service: media_player.turn_off
+    target:
+      entity_id: media_player.samsung_q90_series_65
+  - service: light.turn_off
+    target:
+      entity_id: light.koti
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: 1
+      milliseconds: 0
+  - service: light.turn_on
+    data:
+      color_name: red
+      brightness_pct: 100
+      flash: long
+    target:
+      entity_id:
+      - light.keittio_nauha_1
+      - light.keittio_nauha_2
+      - light.makuuhuone_nauha
+      - light.olohuone_nauha
+      - light.tyohuone_nauha
+      - light.eteisen_poytalamppu
+      - light.otson_huone
+      - light.sisun_huone
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: 15
+      milliseconds: 0
+  - service: light.turn_on
+    target:
+      entity_id: light.koti
+    data:
+      brightness_step_pct: 75
+      kelvin: 4000
+      flash: short
+  - service: media_player.turn_on
+    target:
+      entity_id: media_player.samsung_q90_series_65
+  mode: single
+
+scene_evening_routines:
+  sequence:
+  - service: light.turn_on
+    data_template:
+      entity_id: '{% set lights = [''light.tyohuone'', ''light.eteinen'', ''light.otson_huone'',
+        ''light.sisun_huone'', ''light.olohuone'', ''light.keittio'', ''light.makuuhuone'']
+        %}   {{ expand(lights) | selectattr(''state'', ''eq'', ''on'') | map(attribute=''entity_id'')
+        | join('','') }}
+
+        '
+      brightness_pct: 40
+      color_temp: 346
+  mode: single
+  alias: Iltarutiinit
+  icon: mdi:sleep
+scene_day_lights:
+  sequence:
+  - service: light.turn_on
+    data_template:
+      entity_id: '{% set lights = [''light.olohuone'', ''light.keittio'', ''light.eteinen'',
+        ''light.makuuhuone'', ''light.otson_huone'', ''light.sisun_huone'', ''light.tyohuone'']
+        %}   {{ expand(lights) | selectattr(''state'', ''eq'', ''on'') | map(attribute=''entity_id'')
+        | join('','') }}
+
+        '
+      brightness_pct: 100
+      kelvin: 4200
+  mode: single
+  alias: Päivävalot
+  icon: mdi:sun-compass
+scene_kids_go_to_sleep:
+  sequence:
+  - service: light.turn_on
+    target:
+      entity_id:
+      - light.otson_huone
+    data:
+      rgb_color:
+      - 0
+      - 255
+      - 66
+      brightness_pct: 80
+  - service: light.turn_on
+    target:
+      entity_id:
+      - light.sisun_huone
+    data:
+      rgb_color:
+      - 0
+      - 255
+      - 66
+      brightness_pct: 80
+  mode: single
+  icon: mdi:baby-face
+  alias: Pojat nukkuu

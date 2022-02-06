@@ -1,0 +1,20 @@
+- platform: time_date
+  display_options:
+    - 'time'
+    - 'date'
+    - 'date_time'
+
+- platform: rest
+  name: 'Zen Quote'
+  resource: https://zenquotes.io/api/random
+  value_template: '{{ value_json[0].q }} - {{ value_json[0].a }}'
+  scan_interval: 900
+
+- platform: uptime
+
+- platform: sql
+  db_url: !secret postgresql_url
+  queries:
+    - name: hass_database_size
+      query: SELECT pg_size_pretty (pg_database_size('home-assistant'));
+      column: pg_size_pretty
