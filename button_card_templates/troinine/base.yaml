@@ -14,17 +14,20 @@ base_card:
     - base
   styles:
     name:
-      - font-size: 1.1vw
+      - font-size: 1rem
       - font-weight: 500
     label:
-      - font-size: 0.9vw
+      - font-size: 0.8rem
     state:
-      - font-size: 1vw
+      - font-size: 0.9rem
       - font-weight: 500
+    custom_fields:
+      state2:
+        - font-size: 0.9rem
 
     card:
       - border-radius: "var(--border-radius)"
-      - padding: "2vmin"
+      - padding: "1.4rem"
       - '-webkit-box-shadow': |
           [[[ 
             if (!variables.card_glow) {
@@ -84,7 +87,7 @@ base_icon:
   show_icon: true
   styles:
     icon:
-      - width: 1.55vw
+      - width: 1.6rem
       - color: |
           [[[ 
             var state = entity.state
@@ -159,8 +162,8 @@ base_icon_name:
     img_cell:
       - background-color: rgba(var(--color-theme),0.05)
       - border-radius: 50%
-      - width: 3vw
-      - height: 3vw
+      - width: 3rem
+      - height: 3rem
       - place-self: center
     name:
       - justify-self: start

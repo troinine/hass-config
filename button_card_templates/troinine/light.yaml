@@ -86,7 +86,7 @@ light:
         type: "custom:my-slider"
         entity: "[[[ return entity.entity_id ]]]"
         radius: "10px"
-        height: "1.5vw"
+        height: "1.5rem"
         mainSliderColor: >-
           [[[
             if (entity.state == "unavailable") {
@@ -121,8 +121,8 @@ light:
           "i brightness"
           "n n"
           "slider slider"
-      - grid-template-columns: 2.5vw 3.5fr
-      - grid-template-rows: 2.5vw 1.5fr 2fr
+      - grid-template-columns: 2.5rem 3.5fr
+      - grid-template-rows: 2.5rem 1.5fr 2fr
     icon:
       - transition: all 2s ease
     img_cell:
@@ -132,31 +132,6 @@ light:
         - align-self: center
         - justify-self: end
         - filter: "opacity(40%)"
-        - font-size: 1vw
+        - font-size: 0.9rem
       slider:
         - align-self: end
-
-light_wide:
-  template:
-    - "custom_card_light"
-  aspect_ratio: 2/0.9843
-  styles:
-    grid:
-      - grid-template-columns: 2.5vw 4.25fr
-      - grid-template-rows: 2.5vw 1.5fr 2fr
-
-run_scene:
-  template:
-    - "base_card"
-    - "base_icon_name"
-  tap_action:
-    action: toggle
-  styles:
-    grid:
-      - grid-template-areas: |
-          ". i ."
-          "n n n"
-      - grid-template-columns: 1fr 1fr 1fr
-      - grid-template-rows: 1fr 2fr
-    img_cell:
-      - justify-self: center

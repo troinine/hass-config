@@ -62,7 +62,9 @@ lovelace:
     - url: /local/community_cards/light-popup-card.js
       type: module
     - url: /local/community_cards/light-entity-card.js
-      type: module   
+      type: module
+    - url: /local/style.css
+      type: css
   dashboards:
     lovelace-mobile:
       mode: yaml

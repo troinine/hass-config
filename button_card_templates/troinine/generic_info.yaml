@@ -23,8 +23,8 @@ info:
           "n n"
           "s s"
           "l l"
-      - grid-template-columns: 2.5vw 3.5fr
-      - grid-template-rows: 2.5vw 1.25fr 1.25fr 1fr
+      - grid-template-columns: 2.5rem 3.5fr
+      - grid-template-rows: 2.5rem 1.25fr 1.25fr 1fr
     label:
       - justify-self: start
       - align-self: end
@@ -41,4 +41,3 @@ info:
         - align-self: center
         - justify-self: end
         - filter: opacity(40%)
-        - font-size: 1vw

@@ -48,7 +48,7 @@ sensor:
     ]]]
   extra_styles: |
     span.unit {
-      font-size: 1.2vw;
+      font-size: 1.2rem;
     }
   styles:
     grid:
@@ -57,92 +57,16 @@ sensor:
           "n n"
           "s s"
           "s s"
-      - grid-template-columns: 2.5vw 3.5fr
-      - grid-template-rows: 2.5vw 1.25fr 1.25fr 1fr
+      - grid-template-columns: 2.5rem 3.5fr
+      - grid-template-rows: 2.5rem 1.25fr 1.25fr 1fr
     state:
       - align-self: end
       - justify-self: start
-      - font-size: 1.8vw
+      - font-size: 1.8rem
       - font-weight: 300
     name:
       - justify-self: start
       - align-self: end
-
-sensor_graph_old:
-  variables:
-    line_color: dodgerblue
-  show_last_changed: false
-  show_state: false
-  show_icon: false
-  show_name: false
-  show_label: false
-  template:
-    - base
-    - base_sensor
-    - info
-  hold_action:
-    action: more-info
-  custom_fields:
-    icon_name:
-      card:
-        type: "custom:button-card"
-        template:
-          - base_icon_name
-          - base_sensor
-        show_state: false
-        show_label: false
-        entity: "[[[ return entity.entity_id ]]]"
-        name: "[[[ return variables.name_override ]]]"
-        styles:
-          grid:
-            - grid-template-areas: |
-                "i n"
-            - grid-template-columns: 2.5vw 3fr
-            - grid-template-rows: 2.5vw
-          name:
-            - padding-left: 0.5vw
-            - font-size: 1vw
-          card:
-            - box-shadow: "none"
-            - border-radius: "var(--border-radius) var(--border-radius) 0 0"
-            - padding: "2vmin 2vmin 0 2vmin"
-    graph:
-      card:
-        type: "custom:mini-graph-card"
-        entities:
-          - "[[[ return entity.entity_id ]]]"
-        font_size: 60
-        points_per_hour: 1
-        line_width: 4
-        line_color: "[[[ return variables.line_color ]]]"
-        height: 200
-        align_state: right
-        show:
-          name: false
-          icon: false
-        style: |
-          ha-card {
-            box-shadow: none;
-            border-radius: 0 0 var(--border-radius) var(--border-radius)
-            padding: 0px 0px 0px 0px !important;
-          }
-          ha-card.flex.type-custom-mini-graph-card {
-            padding: 0px 0px 0px 0px !important;
-          }
-  styles:
-    grid:
-      - grid-template-areas: |
-          "icon_name"
-          "graph"
-      - grid-template-columns: 1fr
-      - grid-template-rows: 1fr 3fr
-    card:
-      - border-radius: "var(--border-radius)"
-      - box-shadow: "var(--box-shadow)"
-      - padding: "0px"
-    custom_fields:
-      graph:
-        - align-self: end
 
 sensor_graph:
   variables:
@@ -174,21 +98,21 @@ sensor_graph:
             - grid-template-areas: |
                 "i s"
                 "i n"
-            - grid-template-columns: 2.5vw 3fr
-            - grid-template-rows: 1.25vw 1.25vw
+            - grid-template-columns: 2.5rem 3fr
+            - grid-template-rows: 1.25rem 1.25rem
           name:
-            - padding-left: 0.5vw
-            - font-size: 0.8vw
+            - padding-left: 0.5rem
+            - font-size: 0.8rem
             - filter: opacity(40%)
             - place-self: start
           state:
-            - padding-left: 0.5vw
-            - font-size: 1vw
+            - padding-left: 0.5rem
+            - font-size: 1rem
             - place-self: start
           card:
             - box-shadow: "none"
             - border-radius: "var(--border-radius) var(--border-radius) 0 0"
-            - padding: "2vmin 2vmin 0 2vmin"
+            - padding: "1.4rem 1.4rem 0 1.4rem"
     graph:
       card:
         type: "custom:mini-graph-card"

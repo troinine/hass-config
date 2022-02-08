@@ -7,7 +7,7 @@ group_title:
     card:
       - background-color: transparent
       - box-shadow: none
-      - padding: 0 0 0.3vw 0.4vw
+      - padding: 0 0 0.3rem 0.4rem
     grid:
       - grid-template-areas: "'n' 'l'"
       - grid-template-columns: 1fr
@@ -16,3 +16,13 @@ group_title:
       - place-self: start
       - font-weight: normal
       - font-size: 1.5vw
+
+subtitle:
+  template:
+    - group_title
+  styles:
+    name:
+      - font-size: 1.2rem
+      - filter: "opacity(40%)"
+    card:
+      - padding: 0.5rem 0 0.5rem 0.5rem

@@ -101,13 +101,13 @@ mobile:
       slider-bar-color: "rgba(var(--color-blue),0.38)"
       
       # Card
-      border-radius: "2.5vmin"
+      border-radius: "1.3rem"
       box-shadow: "0px 6px 8px 0px rgba(0,0,0,0.6)"
       ha-card-box-shadow: "var(--box-shadow)"
       card-background-color-rgb: "29, 29, 29"
 
       # Grid
-      grid-card-gap: 2%
+      grid-card-gap: 4%
 
       # Dialog
       mdc-dialog-scrim-color: rgba(0, 0, 0, 0.4)
