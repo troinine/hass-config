@@ -4,6 +4,7 @@ info:
     - "base_icon_name"
   variables:
     extra_entity: false
+    extra_text: false
   show_state: true
   show_last_changed: true
   custom_fields:
@@ -11,7 +12,12 @@ info:
       [[[
         if (variables.extra_entity) {
           var extra_entity = states[variables.extra_entity]
-          return `${extra_entity.state} ${extra_entity.attributes.unit_of_measurement}`
+
+          if (variables.extra_text) {
+            return `${variables.extra_text} ${extra_entity.state} ${extra_entity.attributes.unit_of_measurement}`
+          } else {
+            return `${extra_entity.state} ${extra_entity.attributes.unit_of_measurement}`
+          }
         } 
 
         return ''
@@ -41,3 +47,39 @@ info:
         - align-self: center
         - justify-self: end
         - filter: opacity(40%)
+
+compact_info:
+  template:
+    - info
+    - compact_card
+  styles:
+    grid:
+      - grid-template-areas: |
+          "i n"
+          "i s"
+          "l l"
+      - grid-template-columns: 2.5rem 3.5fr
+      - grid-template-rows: 1.25rem 1.25rem 2fr
+    name:
+      - padding-left: 0.8rem
+      - align-self: end
+    label:
+      - font-size: 0.9rem
+      - align-self: end
+    state:
+      - align-self: start
+      - padding-left: 0.8rem
+
+compact_info_extra:
+  template:
+    - compact_info
+  show_last_changed: false
+  styles:
+    grid:
+      - grid-template-areas: |
+          "i n"
+          "i s"
+          "state2 state2"
+    custom_fields:
+      state2:
+        - place-self: end start

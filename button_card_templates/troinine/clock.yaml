@@ -26,7 +26,7 @@ clock:
           ]]]
         extra_styles: |
           span.unit {
-            font-size: 1.4vw;
+            font-size: 1.4rem;
           }
         styles:
           grid:
@@ -39,20 +39,20 @@ clock:
             - justify-content: center
             - align-self: end
           icon:
-            - width: 4vw
-            - height: 3vw
+            - width: 3rem
+            - height: 2.5rem
             - align-self: end
           state:
             - justify-self: center
             - align-self: center
             - font-weight: 300
-            - font-size: 2vw
+            - font-size: 2rem
             - filter: "opacity(40%)"
           card:
             - border-radius: 0
             - background-color: transparent
             - box-shadow: none
-            - padding: 0vw 0vw 0vw 0.8vw
+            - padding: 0 0 0 0.8rem
     date: 
       card: 
         type: custom:button-card
@@ -80,7 +80,7 @@ clock:
             - grid-template-rows: min-content
           state:
             - background-color: transparent
-            - font-size: 1.2vw
+            - font-size: 1.2rem
             - justify-self: end
             - align-self: start
             - filter: "opacity(40%)"
@@ -88,8 +88,8 @@ clock:
             - border-radius: 0
             - background-color: transparent
             - box-shadow: none
-            - padding: 0vw 1vw 0vw 0vw
-            - border-right: 0.1vw solid var(--primary-text-color)
+            - padding: 0 1rem 0 0
+            - border-right: 0.1rem solid var(--primary-text-color)
             - justify-self: end
   styles:
     grid:
@@ -123,12 +123,12 @@ clock:
           ]]]
     state:
       - font-weight: 200
-      - font-size: 5vw
+      - font-size: 5rem
       - background-color: transparent
       - justify-self: end
       - align-self: end
-      - padding-right: 0.8vw
-      - border-right: 0.1vw solid var(--primary-text-color)
+      - padding-right: 0.8rem
+      - border-right: 0.1rem solid var(--primary-text-color)
     card:
       - background-color: transparent
       - border-radius: none

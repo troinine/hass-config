@@ -1,0 +1,139 @@
+---
+button_card_templates: !include_dir_merge_named button_card_templates/
+
+views:
+  - title: "Mobiili (uusi)"
+    path: home
+    icon: mdi:home
+    cards:
+      - type: vertical-stack
+        cards:
+          - type: custom:button-card
+            view_layout:
+              grid-area: "clock"
+              place-self: "start center"
+            template: clock
+            entity: sensor.time
+            variables:
+              entity_weather: weather.koti_custom
+              entity_date: sensor.date
+
+          - type: custom:button-card
+            template: subtitle
+            name: Koti
+
+          - type: horizontal-stack
+            cards:
+              - type: 'custom:button-card'
+                template: compact_info
+                entity: input_select.home_state
+                variables:
+                  icon_glow: false
+                  state_colors:
+                    'Kotona': '#66bb6a'
+                    'Nukkumassa': '#0097a7'
+
+              - type: 'custom:button-card'
+                template: compact_info
+                entity: lock.ulko_ovi
+                variables:
+                  icon_glow: true
+                  state_colors:
+                    'unlocked': 'var(--warning-color)'
+
+              - type: 'custom:button-card'
+                template: compact_info_extra
+                entity: binary_sensor.mqtt_garage_door
+                name: Autotalli
+                tap_action:
+                  !include popups/tablet/garage.yaml
+                variables:
+                  extra_entity: sensor.netatmo_koti_olohuone_autotalli_temperature
+                  extra_text: Lämpötila
+                  icon_glow: true
+                  state_colors:
+                    'on': 'var(--warning-color)'
+
+          - type: horizontal-stack
+            cards:
+              - type: 'custom:button-card'
+                template: compact_info_extra
+                entity: sensor.air_quality
+                name: Ilmanlaatu
+                tap_action:
+                  !include popups/tablet/air-quality.yaml
+                variables:
+                  extra_entity: "[[[ return entity.attributes.reporting_entity ]]]"
+                  icon_glow: true
+                  state_colors:
+                    "Hyvä": 'green'
+                    "Radon nousussa": 'yellow'
+                    "Radon korkealla": 'red'
+                    "CO2 korkealla": 'yellow'
+                    "Matala ilmankosteus": '#00ccf5'
+                    "Korkea ilmankosteus": 'dodgerblue'
+
+              - type: 'custom:button-card'
+                template: compact_info
+                entity: sensor.nibe_heat_pump_state
+                name: Maalämpö
+                variables:
+                  icon_glow: true
+                  state_colors:
+                    "Käyttövesi": dodgerblue
+                    "Lämmitys": orangered
+
+              - type: custom:button-card
+                template: compact_sensor_graph
+                entity: sensor.mqtt_airthings_waveplus_living_room_temperature
+                variables:
+                  name_override: Olohuone
+
+          - type: custom:button-card
+            template: subtitle
+            name: Valaistus
+          - type: horizontal-stack
+            cards:
+              - type: 'custom:button-card'
+                template: compact_light
+                entity: light.group_entrance
+                name: Eteinen
+              - type: 'custom:button-card'
+                template: compact_light
+                entity: light.group_living_room
+                name: Olohuone
+              - type: 'custom:button-card'
+                template: compact_light
+                entity: light.group_kitchen
+                name: Keittiö
+          - type: horizontal-stack
+            cards:
+              - type: 'custom:button-card'
+                template: compact_light
+                entity: light.group_kids_rooms
+                name: Lapset
+              - type: 'custom:button-card'
+                template: compact_light
+                entity: light.group_office
+                name: Työhuone
+              - type: 'custom:button-card'
+                template: compact_light
+                entity: light.group_bedroom
+                name: Makkari
+          - type: custom:button-card
+            template: subtitle
+            name: Perhe
+          - type: horizontal-stack
+            cards:
+              - type: 'custom:button-card'
+                template: compact_user
+                entity: person.tero
+                variables:
+                  battery_charge_entity: sensor.tero_akun_varaustaso
+                  battery_charging_status_entity: binary_sensor.tero_latautuu
+              - type: 'custom:button-card'
+                template: compact_user
+                entity: person.pia
+                variables:
+                  battery_charge_entity: sensor.pia_akun_varaustaso  
+                  battery_charging_status_entity: binary_sensor.pia_latautuu     

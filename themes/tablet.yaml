@@ -122,3 +122,6 @@ tablet:
       warning-color-rgb: 255, 145, 1
       custom-icon-color: "dodgerblue"
       custom-icon-color-not-active: "rgba(var(--color-theme),0.2)"
+
+      button-card-padding: 1.4rem
+      button-card-compact-height: 12vh

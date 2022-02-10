@@ -26,8 +26,8 @@ base_card:
         - font-size: 0.9rem
 
     card:
-      - border-radius: "var(--border-radius)"
-      - padding: "1.4rem"
+      - border-radius: var(--border-radius)
+      - padding: var(--button-card-padding)
       - '-webkit-box-shadow': |
           [[[ 
             if (!variables.card_glow) {
@@ -76,6 +76,13 @@ base_card:
               return 'all 2s ease'
             }
           ]]]
+
+# Cannot inherit base_card
+compact_card:
+  aspect_ratio: ''
+  styles:
+    card:
+      - height: var(--button-card-compact-height)
 
 base_icon:
   template:

@@ -151,3 +151,8 @@ sensor_graph:
     custom_fields:
       graph:
         - align-self: end
+
+compact_sensor_graph:
+  template:
+    - sensor_graph
+    - compact_card

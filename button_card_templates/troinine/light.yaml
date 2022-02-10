@@ -135,3 +135,40 @@ light:
         - font-size: 0.9rem
       slider:
         - align-self: end
+
+compact_light:
+  template:
+    - light
+    - compact_card
+  styles:
+    grid:
+      - grid-template-areas: |
+          "i n"
+          "i brightness"
+          "slider slider"
+      - grid-template-columns: 2.5rem 3.5fr
+      - grid-template-rows: 1.25rem 1.25rem 2fr
+    name:
+      - padding-left: 0.8rem
+      - align-self: end
+    custom_fields:
+      brightness:
+        - padding-left: 0.8rem
+        - align-self: end
+        - justify-self: start
+
+run_scene:
+  template:
+    - "base_card"
+    - "base_icon_name"
+  tap_action:
+    action: toggle
+  styles:
+    grid:
+      - grid-template-areas: |
+          ". i ."
+          "n n n"
+      - grid-template-columns: 1fr 1fr 1fr
+      - grid-template-rows: 1fr 2fr
+    img_cell:
+      - justify-self: center

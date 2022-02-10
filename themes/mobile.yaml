@@ -107,7 +107,7 @@ mobile:
       card-background-color-rgb: "29, 29, 29"
 
       # Grid
-      grid-card-gap: 4%
+      grid-card-gap: 0.5rem
 
       # Dialog
       mdc-dialog-scrim-color: rgba(0, 0, 0, 0.4)
@@ -118,7 +118,14 @@ mobile:
       # Media player
       mini-media-player-accent-color: "var(--google-blue)"
 
+      # Stack cards
+      horizontal-stack-card-margin: 0.5rem
+      vertical-stack-card-margin: 0 0 0.2rem 0
+
       # Custom
       warning-color-rgb: 255, 145, 1
       custom-icon-color: "dodgerblue"
       custom-icon-color-not-active: "rgba(var(--color-theme),0.2)"
+
+      button-card-padding: 1rem
+      button-card-compact-height: 12vh
