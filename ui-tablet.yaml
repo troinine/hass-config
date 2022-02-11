@@ -27,7 +27,7 @@ views:
           grid-area: sidebar
         layout:
           grid-template-columns: 1fr
-          grid-template-rows: min-content min-content
+          grid-template-rows: max-content max-content
           grid-template-areas: |
             "clock" 
             "notifications"

@@ -89,7 +89,7 @@ clock:
             - background-color: transparent
             - box-shadow: none
             - padding: 0 1rem 0 0
-            - border-right: 0.1rem solid var(--primary-text-color)
+            - border-right: 0.1rem solid rgba(var(--primary-text-color-rgb), 0.4)
             - justify-self: end
   styles:
     grid:
@@ -128,7 +128,7 @@ clock:
       - justify-self: end
       - align-self: end
       - padding-right: 0.8rem
-      - border-right: 0.1rem solid var(--primary-text-color)
+      - border-right: 0.1rem solid rgba(var(--primary-text-color-rgb), 0.4)
     card:
       - background-color: transparent
       - border-radius: none
