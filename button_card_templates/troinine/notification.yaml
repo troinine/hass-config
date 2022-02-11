@@ -14,10 +14,10 @@ notification:
   show_name: false
   show_label: true
   label: |
-    [[[ 
-      if (variables.description) { 
+    [[[
+      if (variables.description) {
         return variables.description
-      } 
+      }
       return undefined
     ]]]
   state_display: "[[[ return variables.summary ]]]"
@@ -44,16 +44,16 @@ notification:
       - background-color: transparent
       - border-radius: 0
       - justify-self: start
-      - width: 1.5vw
+      - width: 1.5rem
     state:
       - padding: 0 0 0 0
       - font-weight: 300
       - justify-self: start
-      - font-size: 1.1vw
+      - font-size: 1rem
     label:
       - padding: 0 0 0 0
       - filter: "opacity(40%)"
-      - font-size: 0.9vw
+      - font-size: 0.9rem
       - justify-self: start
       - text-overflow: unset
       - white-space: unset
@@ -77,9 +77,9 @@ auto_notification:
     summary: "[[[ return entity.attributes.text_summary ]]]"
     description: "[[[ return entity.attributes.text_description ]]]"
     icon_color: "[[[ return entity.attributes.icon_color ]]]"
-  tap_action: 
+  tap_action:
     action: |
-      [[[ 
+      [[[
         var action = entity.attributes.tap_action
         if (action) {
           return entity.attributes.tap_action
@@ -88,7 +88,7 @@ auto_notification:
         }
       ]]]
     entity: |
-        [[[ 
+        [[[
           var action = entity.attributes.tap_action
           if (action === 'more-info') {
             return entity.attributes.tap_action_entity
@@ -97,11 +97,17 @@ auto_notification:
           }
         ]]]
     url_path: |
-      [[[ 
+      [[[
         var action = entity.attributes.tap_action
         if (action === 'url') {
           return entity.attributes.tap_action_url_path
         } else {
           return undefined
         }
-      ]]]      
+      ]]]
+
+compact_auto_notification:
+  template:
+    - auto_notification
+  show_state: false
+  show_label: false
