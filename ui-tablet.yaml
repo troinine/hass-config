@@ -29,7 +29,7 @@ views:
           grid-template-columns: 1fr
           grid-template-rows: max-content max-content
           grid-template-areas: |
-            "clock" 
+            "clock"
             "notifications"
         cards:
           - type: custom:button-card
@@ -51,7 +51,7 @@ views:
               ### Notifications ###
 
               - type: conditional
-                conditions: 
+                conditions:
                   - entity: binary_sensor.notification_heat_pump_alarm
                     state: 'on'
                   - entity: sensor.nibe_alarm_number
@@ -65,7 +65,7 @@ views:
                     show_last_changed: true # Hack as root variables are not availabe in JS
 
               - type: conditional
-                conditions: 
+                conditions:
                   - entity: sensor.radon_warning
                     state_not: 'Alhainen'
                 card:
@@ -86,11 +86,11 @@ views:
                         return `Sisun huone ${states['sensor.mqtt_airthings_waveplus_sisu_radon_short_term'].state} ${states['sensor.mqtt_airthings_waveplus_sisu_radon_short_term'].attributes.unit_of_measurement}. Olohuone ${states['sensor.mqtt_airthings_waveplus_living_room_radon_short_term'].state} ${states['sensor.mqtt_airthings_waveplus_living_room_radon_short_term'].attributes.unit_of_measurement}`
                       ]]]
                     state_colors:
-                      "Nousussa": "yellow" 
-                      "Korkealla": "red"      
+                      "Nousussa": "yellow"
+                      "Korkealla": "red"
 
               - type: conditional
-                conditions: 
+                conditions:
                   - entity: binary_sensor.mqtt_garage_door
                     state_not: 'off'
                 card:
@@ -105,7 +105,7 @@ views:
                       "on": "yellow"
 
               - type: conditional
-                conditions: 
+                conditions:
                   - entity: lock.ulko_ovi
                     state_not: 'locked'
                 card:
@@ -115,12 +115,12 @@ views:
                   show_last_changed: true
                   variables:
                     summary: 'Ulko-ovi on auki'
-                    show_last_changed: true # Hack as root variables are not availabe in JS  
+                    show_last_changed: true # Hack as root variables are not availabe in JS
                     state_colors:
                       "unlocked": "yellow"
 
               - type: conditional
-                conditions: 
+                conditions:
                   - entity: switch.tplink_hs110_2
                     state: 'on'
                 card:
@@ -131,7 +131,7 @@ views:
                   show_last_changed: true
                   variables:
                     summary: 'Autotallin ilmankuivain on päällä'
-                    show_last_changed: true # Hack as root variables are not availabe in JS  
+                    show_last_changed: true # Hack as root variables are not availabe in JS
                     state_colors:
                       "on": "yellow"
 
@@ -148,7 +148,7 @@ views:
                     summary: |
                       [[[ return 'Sauna ' + states['input_select.sauna_state'].state.toLowerCase() ]]]
                     description: |
-                      [[[  
+                      [[[
                           var temperature = states['sensor.mqtt_sauna_temperature']
                           var humidity = states['sensor.mqtt_sauna_humidity']
                           return `Lämpötila ${temperature.state} ${temperature.attributes.unit_of_measurement}. Kosteus ${humidity.state} ${humidity.attributes.unit_of_measurement}`
@@ -209,7 +209,7 @@ views:
                     summary: 'Lomamoodi on päällä!'
                     state_colors:
                       "on": "green"
-    
+
               - type: conditional
                 conditions:
                   - entity: binary_sensor.synology_security_status
@@ -303,7 +303,7 @@ views:
                   icon_glow: true
                   state_colors:
                     'on': 'var(--warning-color)'
-    
+
       ###
       ### Lights
       ###
@@ -335,7 +335,7 @@ views:
                 name: Työhuone
               - type: 'custom:button-card'
                 template: light
-                entity: light.group_bedroom     
+                entity: light.group_bedroom
                 name: Makuuhuone
 
       ###
@@ -370,7 +370,7 @@ views:
                 entity: sensor.nibe_daily_num_starts
                 name: Käynnistykset
                 styles:
-                  icon: 
+                  icon:
                     - color: |
                         [[[
                           var color = "red";
@@ -403,7 +403,7 @@ views:
                 entity: sensor.nibe_daily_brine_min_input_temp
                 name: Matalin keruu
                 styles:
-                  icon: 
+                  icon:
                     - color: |
                         [[[
                           var color = "red";
@@ -466,7 +466,7 @@ views:
                       return 'mdi:shield-alert'
                     } else {
                       return entity.attributes.icon
-                    }                    
+                    }
                   ]]]
                 state_display: |
                   [[[
@@ -526,8 +526,8 @@ views:
                 template: user
                 entity: person.pia
                 variables:
-                  battery_charge_entity: sensor.pia_akun_varaustaso  
-                  battery_charging_status_entity: binary_sensor.pia_latautuu     
+                  battery_charge_entity: sensor.pia_akun_varaustaso
+                  battery_charging_status_entity: binary_sensor.pia_latautuu
 
               - type: 'custom:button-card'
                 template: user

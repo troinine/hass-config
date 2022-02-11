@@ -8,15 +8,41 @@ views:
     cards:
       - type: vertical-stack
         cards:
-          - type: custom:button-card
-            view_layout:
-              grid-area: "clock"
-              place-self: "start center"
-            template: clock
-            entity: sensor.time
-            variables:
-              entity_weather: weather.koti_custom
-              entity_date: sensor.date
+          - type: custom:mod-card
+            card_mod:
+              style: |
+                ha-card {
+                  display: flex;
+                  justify-content: center;
+                }
+            card:
+              type: horizontal-stack
+              cards:
+                - type: custom:button-card
+                  template: clock
+                  entity: sensor.time
+                  variables:
+                    entity_weather: weather.koti_custom
+                    entity_date: sensor.date
+
+          # - type: custom:mod-card
+          #   card_mod:
+          #     style: |
+          #       ha-card {
+          #         display: flex;
+          #         justify-content: center;
+          #       }
+          #   card:
+          #     type: horizontal-stack
+          #     cards:
+          #       - type: conditional
+          #         conditions:
+          #           - entity: binary_sensor.notification_hass_update_available
+          #             state: 'on'
+          #         card:
+          #           type: 'custom:button-card'
+          #           template: auto_notification
+          #           entity: binary_sensor.notification_hass_update_available
 
           - type: custom:button-card
             template: subtitle
@@ -64,6 +90,18 @@ views:
                   !include popups/tablet/air-quality.yaml
                 variables:
                   extra_entity: "[[[ return entity.attributes.reporting_entity ]]]"
+                  extra_text: |
+                    [[[
+                      var device_class = states[entity.attributes.reporting_entity].attributes.device_class
+                      switch(device_class) {
+                        case 'humidity':
+                          return 'Kosteus'
+                        case 'temperature':
+                          return 'Lämpötila'
+                        default:
+                          return ''
+                      }
+                    ]]]
                   icon_glow: true
                   state_colors:
                     "Hyvä": 'green'
@@ -131,9 +169,10 @@ views:
                 variables:
                   battery_charge_entity: sensor.tero_akun_varaustaso
                   battery_charging_status_entity: binary_sensor.tero_latautuu
+
               - type: 'custom:button-card'
                 template: compact_user
                 entity: person.pia
                 variables:
-                  battery_charge_entity: sensor.pia_akun_varaustaso  
-                  battery_charging_status_entity: binary_sensor.pia_latautuu     
+                  battery_charge_entity: sensor.pia_akun_varaustaso
+                  battery_charging_status_entity: binary_sensor.pia_latautuu

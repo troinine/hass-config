@@ -48,7 +48,7 @@ mobile:
       divider-color: "rgba(var(--color-theme),.12)"
       accent-color: "var(--google-yellow)"
       primary-text-color: "#DDDDDD"
-      
+
       # Main interface colors
       primary-color: "#89B3F8"
       google-red: "#F18B82"
@@ -99,7 +99,7 @@ mobile:
       # Slider
       slider-color: "rgb(var(--color-blue))"
       slider-bar-color: "rgba(var(--color-blue),0.38)"
-      
+
       # Card
       border-radius: "1.3rem"
       box-shadow: "0px 6px 8px 0px rgba(0,0,0,0.6)"
@@ -124,6 +124,7 @@ mobile:
 
       # Custom
       warning-color-rgb: 255, 145, 1
+      primary-text-color-rgb: 221, 221, 221
       custom-icon-color: "dodgerblue"
       custom-icon-color-not-active: "rgba(var(--color-theme),0.2)"
 
