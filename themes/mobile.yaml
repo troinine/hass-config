@@ -35,17 +35,20 @@ mobile:
         #transition: none !important;
       }
       .mdc-dialog .mdc-dialog__container {
-        #background: none;
+        background: none;
+      }
+      .content {
+        height: 100vh;
       }
 
   modes:
     dark:
-      state-icon-color: "rgb(var(--color-theme))"
+      state-icon-color: "var(--color-theme)"
       error-color: "var(--google-red)"
       warning-color: "var(--google-yellow)"
       success-color: "var(--google-green)"
       info-color: "var(--google-blue)"
-      divider-color: "rgba(var(--color-theme),.12)"
+      divider-color: "rgba(var(--color-theme-rgb),.12)"
       accent-color: "var(--google-yellow)"
       primary-text-color: "#DDDDDD"
 
@@ -57,14 +60,18 @@ mobile:
       google-blue: "#89B3F8"
       google-violet: "#BB86FC"
       google-grey: "#BBBBBB"
-      color-red: "241, 139, 130"
-      color-green: "128, 201, 148"
-      color-yellow: "252, 214, 99"
-      color-blue: "137, 179, 248"
-      color-theme: "221,221,221"
-      color-purple: "102, 31, 255"
-      color-grey: "187, 187, 187"
-      color-pink: "233, 30, 99"
+      color-red: "rgb(241, 139, 130)"
+      color-green: "rgb(128, 201, 148)"
+      color-green-rgb: "128, 201, 148"
+      color-yellow: "rgb(252, 214, 99)"
+      color-blue: "rgb(137, 179, 248)"
+      color-blue-rgb: '137, 179, 248'
+      color-theme: "rgb(221, 221, 221)"
+      color-theme-rgb: '221, 221, 221'
+      color-purple: "rgb(102, 31, 255)"
+      color-grey: "rgb(187, 187, 187)"
+      color-grey-rgb: '187, 187, 187'
+      color-pink: "rgb(233, 30, 99)"
       color-background-yellow: "var(--color-yellow)"
       color-background-blue: "var(--color-blue)"
       color-background-green: "var(--color-green)"
@@ -93,18 +100,19 @@ mobile:
       paper-tabs-selection-bar-color: "var(--primary-text-color)"
 
       # Sidebar
-      sidebar-selected-text-color: "rgb(var(--color-blue))"
-      sidebar-selected-icon-color: "rgb(var(--color-blue))"
+      sidebar-selected-text-color: "var(--color-blue))"
+      sidebar-selected-icon-color: "var(--color-blue))"
 
       # Slider
-      slider-color: "rgb(var(--color-blue))"
-      slider-bar-color: "rgba(var(--color-blue),0.38)"
+      slider-color: "var(--color-blue))"
+      slider-bar-color: "rgba(var(--color-blue-rgb),0.38)"
 
       # Card
       border-radius: "1.3rem"
       box-shadow: "0px 6px 8px 0px rgba(0,0,0,0.6)"
       ha-card-box-shadow: "var(--box-shadow)"
       card-background-color-rgb: "29, 29, 29"
+      ha-card-border-radius: var(--border-radius)
 
       # Grid
       grid-card-gap: 0.5rem
@@ -115,9 +123,6 @@ mobile:
       ha-dialog-border-radius: var(--border-radius)
       mdc-dialog-min-width: 500px
 
-      # Media player
-      mini-media-player-accent-color: "var(--google-blue)"
-
       # Stack cards
       horizontal-stack-card-margin: 0.5rem
       vertical-stack-card-margin: 0 0 0.2rem 0
@@ -126,7 +131,7 @@ mobile:
       warning-color-rgb: 255, 145, 1
       primary-text-color-rgb: 221, 221, 221
       custom-icon-color: "dodgerblue"
-      custom-icon-color-not-active: "rgba(var(--color-theme),0.2)"
+      custom-icon-color-not-active: "rgba(var(--color-theme-rgb),0.2)"
 
       button-card-padding: 1rem
       button-card-compact-height: 12vh

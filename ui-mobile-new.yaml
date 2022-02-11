@@ -72,7 +72,7 @@ views:
                 entity: binary_sensor.mqtt_garage_door
                 name: Autotalli
                 tap_action:
-                  !include popups/tablet/garage.yaml
+                  !include popups/mobile/garage.yaml
                 variables:
                   extra_entity: sensor.netatmo_koti_olohuone_autotalli_temperature
                   extra_text: Lämpötila
@@ -122,7 +122,9 @@ views:
                     "Lämmitys": orangered
 
               - type: custom:button-card
-                template: compact_sensor_graph
+                template:
+                  - compact_sensor_graph
+                  - sensor_graph_thresholds_indoor_temperature
                 entity: sensor.mqtt_airthings_waveplus_living_room_temperature
                 variables:
                   name_override: Olohuone

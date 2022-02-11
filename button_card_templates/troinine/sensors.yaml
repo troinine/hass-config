@@ -4,24 +4,31 @@ base_sensor:
     icon:
       - color: |
           [[[
-            var unit = entity.attributes.device_class
+            var device_class = entity.attributes.device_class
             var state = entity.state
+            var color = 'var(--custom-icon-color-not-active)'
 
-            if (unit === 'temperature') {
-              var color = "red";
+            if (device_class === 'temperature') {
+              color = "red"
               var current_temp = entity.state;
               if (current_temp < 20) {
-                color = "rgb(var(--color-blue))";
+                color = "var(--color-blue)"
               } else if (current_temp < 23) {
-                color = "rgb(var(--color-green))";
+                color = "var(--color-green)"
               } else if (current_temp < 25) {
-                color = "rgb(var(--color-yellow))";
+                color = "var(--color-yellow)"
               } else {
-                color = "rgb(var(--color-red))";
+                color = "var(--color-red)"
               }
-
-              return color;
+            } else if (device_class === 'humidity') {
+              color = 'dodgerblue'
+            } else if (device_class === 'carbon_dioxide') {
+              color = 'var(--color-green)'
+            } else if (device_class === 'radon') {
+              color = 'var(--color-yellow)'
             }
+
+            return color
           ]]]
 
 sensor:
@@ -71,6 +78,9 @@ sensor:
 sensor_graph:
   variables:
     line_color: dodgerblue
+    graph_height: 200
+    show_extrema: false
+    color_thresholds: []
   show_last_changed: false
   show_state: false
   show_icon: false
@@ -122,12 +132,14 @@ sensor_graph:
         points_per_hour: 0.4
         line_width: 4
         line_color: "[[[ return variables.line_color ]]]"
-        height: 200
+        height: "[[[ return variables.graph_height ]]]"
         align_state: right
         show:
           name: false
           icon: false
           state: false
+          extrema: "[[[ return variables.show_extrema ]]]"
+        color_thresholds: "[[[ return variables.color_thresholds ]]]"
         style: |
           ha-card {
             box-shadow: none;
@@ -156,3 +168,27 @@ compact_sensor_graph:
   template:
     - sensor_graph
     - compact_card
+
+# Predefined thresholds
+
+sensor_graph_thresholds_indoor_temperature:
+  variables:
+    color_thresholds:
+      - value: 19
+        color: "#1E90FF"
+      - value: 22
+        color: "#008000"
+      - value: 25
+        color: "#FFFF00"
+      - value: 28
+        color: "#FF0000"
+
+sensor_graph_thresholds_co2:
+  variables:
+    color_thresholds:
+      - value: 800
+        color: "#008000"
+      - value: 1000
+        color: "#FFFF00"
+      - value: 1500
+        color: "#FF0000"

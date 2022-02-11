@@ -444,7 +444,7 @@ views:
                 name: Olohuone TV
                 variables:
                   state_colors:
-                    "on": 'rgb(var(--color-green)'
+                    "on": 'var(--color-green)'
 
               - type: 'custom:button-card'
                 template: info
@@ -453,7 +453,7 @@ views:
                 icon: mdi:sony-playstation
                 variables:
                   state_colors:
-                    "on": 'rgb(var(--color-green)'
+                    "on": 'var(--color-green)'
 
               - type: 'custom:button-card'
                 template: info
@@ -481,7 +481,7 @@ views:
                   ]]]
                 variables:
                   state_colors:
-                    "normal": 'rgb(var(--color-green)'
+                    "normal": 'var(--color-green)'
                   extra_entity: sensor.synology_temperature_3
 
               - type: 'custom:button-card'
@@ -498,7 +498,7 @@ views:
                   ]]]
                 variables:
                   state_colors:
-                    "on": 'rgb(var(--color-green)'
+                    "on": 'var(--color-green)'
 
       ###
       ### Family
@@ -567,18 +567,20 @@ views:
                 name: Sisun huone
 
               - type: 'custom:button-card'
-                template: sensor_graph
+                template:
+                  - sensor_graph
+                  - sensor_graph_thresholds_indoor_temperature
                 entity: sensor.mqtt_otso_temperature
                 variables:
                   name_override: Lämpötila
-                  line_color: 'rgb(var(--color-green))'
 
               - type: 'custom:button-card'
-                template: sensor_graph
+                template:
+                  - sensor_graph
+                  - sensor_graph_thresholds_indoor_temperature
                 entity: sensor.mqtt_airthings_waveplus_sisu_temperature
                 variables:
                   name_override: Lämpötila
-                  line_color: 'rgb(var(--color-green))'
 
       ###
       ### Footer

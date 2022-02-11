@@ -2,16 +2,16 @@
 light:
   variables:
     brightness: |
-      [[[ 
+      [[[
         if (entity.attributes.brightness) {
-          return Math.round(entity.attributes.brightness / 2.54) 
+          return Math.round(entity.attributes.brightness / 2.54)
         } else {
           return undefined
         }
       ]]]
     opacity: |
       [[[
-        var brightness = Math.round(entity.attributes.brightness / 2.54); 
+        var brightness = Math.round(entity.attributes.brightness / 2.54);
         return brightness < 15 ? 0.15 : brightness / 100;
       ]]]
     light_color: |
@@ -22,7 +22,7 @@ light:
 
         if (color) {
           return 'rgba(' + color + ',' + opacity + ')'
-        } 
+        }
 
         return 'var(--button-card-light-color)'
       ]]]
@@ -35,7 +35,7 @@ light:
 
           if (color) {
             return 'rgba(' + color + ',' + opacity + ')'
-          } 
+          }
 
           return 'var(--button-card-light-color)'
         ]]]
@@ -75,9 +75,9 @@ light:
         consolidate_entities: true
   custom_fields:
     brightness: |
-      [[[ 
+      [[[
         if (variables.is_active) {
-          return variables.brightness ? `${variables.brightness} %` : ''           
+          return variables.brightness ? `${variables.brightness} %` : ''
         }
         return 'Pois'
       ]]]
@@ -90,7 +90,7 @@ light:
         mainSliderColor: >-
           [[[
             if (entity.state == "unavailable") {
-              return "rgba(var(--color-grey),1)";
+              return "rgba(var(--color-grey-rgb),1)";
             }
 
             return variables.light_color;
@@ -99,13 +99,13 @@ light:
           [[[
             var color = entity.attributes.rgb_color;
             if (entity.state == "unavailable") {
-              return "rgba(var(--color-grey),0.2)";
+              return "rgba(var(--color-grey-rgb),0.2)";
             }
-            
+
             return 'rgba(' + entity.attributes.rgb_color + ',' + variables.opacity * 0.5 + ')'
           ]]]
-        mainSliderColorOff: "rgba(var(--color-theme),0.05)"
-        secondarySliderColorOff: "rgba(var(--color-theme),0.05)"
+        mainSliderColorOff: "rgba(var(--color-theme-rgb),0.05)"
+        secondarySliderColorOff: "rgba(var(--color-theme-rgb),0.05)"
         thumbHorizontalPadding: "0px"
         thumbVerticalPadding: "0px"
         thumbWidth: "0px"
@@ -140,6 +140,8 @@ compact_light:
   template:
     - light
     - compact_card
+  tap_action:
+    action: more-info
   styles:
     grid:
       - grid-template-areas: |

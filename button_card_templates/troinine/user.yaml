@@ -56,9 +56,9 @@ user:
         - background-color: |
             [[[
               if (entity.state !== 'home') {
-                return 'rgb(var(--color-blue))'
+                return 'rgb(var(--color-blue-rgb))'
               } else {
-                return 'rgb(var(--color-green))'
+                return 'rgb(var(--color-green-rgb))'
               }
             ]]]
 
@@ -66,6 +66,7 @@ compact_user:
   template:
     - compact_info
     - user
+  aspect_ratio: null
   show_last_changed: false
   styles:
     grid:
@@ -77,7 +78,7 @@ compact_user:
     icon:
       - width: 4rem
     card:
-      - height: unset
+      - height: calc(var(--button-card-padding) * 2 + 4rem)
     custom_fields:
       notification:
         - left: "3.5rem"

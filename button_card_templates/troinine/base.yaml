@@ -29,7 +29,7 @@ base_card:
       - border-radius: var(--border-radius)
       - padding: var(--button-card-padding)
       - '-webkit-box-shadow': |
-          [[[ 
+          [[[
             if (!variables.card_glow) {
               return 'var(--box-shadow)'
             }
@@ -49,7 +49,7 @@ base_card:
             return 'var(--box-shadow)'
           ]]]
       - box-shadow: |
-          [[[ 
+          [[[
             if (!variables.card_glow) {
               return 'var(--box-shadow)'
             }
@@ -79,7 +79,7 @@ base_card:
 
 # Cannot inherit base_card
 compact_card:
-  aspect_ratio: ''
+  aspect_ratio: null
   styles:
     card:
       - height: var(--button-card-compact-height)
@@ -96,7 +96,7 @@ base_icon:
     icon:
       - width: 1.6rem
       - color: |
-          [[[ 
+          [[[
             var state = entity.state
             if (variables.state_colors) {
               var color = variables.state_colors[state]
@@ -113,11 +113,11 @@ base_icon:
           ]]]
       - transition: all 2s ease
     img_cell:
-      - background-color: "rgba(var(--color-theme),0.05)"
+      - background-color: "rgba(var(--color-theme-rgb),0.05)"
       - border-radius: "50%"
       - justify-self: start
       - '-webkit-box-shadow': |
-          [[[ 
+          [[[
             if (!variables.icon_glow) {
               return 'none'
             }
@@ -137,7 +137,7 @@ base_icon:
             return 'none'
           ]]]
       - box-shadow: |
-          [[[ 
+          [[[
             if (!variables.icon_glow) {
               return 'none'
             }
@@ -167,7 +167,7 @@ base_icon_name:
     - base_icon
   styles:
     img_cell:
-      - background-color: rgba(var(--color-theme),0.05)
+      - background-color: rgba(var(--color-theme-rgb),0.05)
       - border-radius: 50%
       - width: 3rem
       - height: 3rem
