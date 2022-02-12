@@ -1,0 +1,174 @@
+---
+action: fire-dom-event
+browser_mod:
+  command: popup
+  title: Ilmanlaatu
+  style:
+    $: |
+      .mdc-dialog .mdc-dialog__surface {
+        background-color: var(--primary-background-color) !important;
+      }
+    hui-vertical-stack-card:
+      $: |
+        #root {
+          padding: 0 1rem 0 1rem;
+        }
+  card:
+    type: vertical-stack
+    cards:
+      - type: custom:button-card
+        template: subtitle
+        name: Olohuone
+
+      - type: horizontal-stack
+        cards:
+          - type: custom:button-card
+            template:
+              - compact_sensor_graph
+              - sensor_graph_thresholds_indoor_temperature
+            entity: sensor.mqtt_airthings_waveplus_living_room_temperature
+
+          - type: custom:button-card
+            template: compact_sensor_graph
+            entity: sensor.mqtt_airthings_waveplus_living_room_humidity
+
+      - type: horizontal-stack
+        cards:
+          - type: custom:button-card
+            template:
+              - compact_sensor_graph
+              - sensor_graph_thresholds_co2
+            entity: sensor.mqtt_airthings_waveplus_living_room_co2
+
+          - type: custom:button-card
+            template: compact_sensor_graph
+            entity: sensor.mqtt_airthings_waveplus_living_room_voc
+
+      - type: horizontal-stack
+        cards:
+          - type: custom:button-card
+            template:
+              - compact_sensor_graph
+              - sensor_graph_thresholds_radon
+            entity: sensor.mqtt_airthings_waveplus_living_room_radon_short_term
+
+          - type: custom:button-card
+            template:
+              - compact_sensor
+            entity: sensor.mqtt_airthings_waveplus_living_room_radon_long_term
+            name: Radon
+            label: Pitkäaikainen
+
+      - type: custom:button-card
+        template: subtitle
+        name: Sisun huone
+
+      - type: horizontal-stack
+        cards:
+          - type: custom:button-card
+            template:
+              - compact_sensor_graph
+              - sensor_graph_thresholds_indoor_temperature
+            entity: sensor.mqtt_airthings_waveplus_sisu_temperature
+
+          - type: custom:button-card
+            template: compact_sensor_graph
+            entity: sensor.mqtt_airthings_waveplus_sisu_humidity
+
+      - type: horizontal-stack
+        cards:
+          - type: custom:button-card
+            template:
+              - compact_sensor_graph
+              - sensor_graph_thresholds_co2
+            entity: sensor.mqtt_airthings_waveplus_sisu_co2
+
+          - type: custom:button-card
+            template: compact_sensor_graph
+            entity: sensor.mqtt_airthings_waveplus_sisu_voc
+
+      - type: horizontal-stack
+        cards:
+          - type: custom:button-card
+            template:
+              - compact_sensor_graph
+              - sensor_graph_thresholds_radon
+            entity: sensor.mqtt_airthings_waveplus_sisu_radon_short_term
+
+          - type: custom:button-card
+            template:
+              - compact_sensor
+            entity: sensor.mqtt_airthings_waveplus_sisu_radon_long_term
+            name: Radon
+            label: Pitkäaikainen
+
+      - type: custom:button-card
+        template: subtitle
+        name: Työhuone
+
+      - type: horizontal-stack
+        cards:
+          - type: custom:button-card
+            template:
+              - compact_sensor_graph
+              - sensor_graph_thresholds_indoor_temperature
+            entity: sensor.netatmo_koti_olohuone_temperature
+
+          - type: custom:button-card
+            template: compact_sensor_graph
+            entity: sensor.netatmo_koti_olohuone_humidity
+
+      - type: horizontal-stack
+        cards:
+          - type: custom:button-card
+            template:
+              - compact_sensor_graph
+              - sensor_graph_thresholds_co2
+            entity: sensor.netatmo_koti_olohuone_co2
+
+          - type: custom:button-card
+            template: compact_sensor_graph
+            entity: sensor.netatmo_koti_olohuone_pressure
+
+      - type: custom:button-card
+        template: subtitle
+        name: Makuuhuone
+
+      - type: horizontal-stack
+        cards:
+          - type: custom:button-card
+            template:
+              - compact_sensor_graph
+              - sensor_graph_thresholds_indoor_temperature
+            entity: sensor.netatmo_koti_olohuone_makuuhuone_temperature
+
+          - type: custom:button-card
+            template: compact_sensor_graph
+            entity: sensor.netatmo_koti_olohuone_makuuhuone_humidity
+
+          - type: custom:button-card
+            template:
+              - compact_sensor_graph
+              - sensor_graph_thresholds_co2
+            entity: sensor.netatmo_koti_olohuone_makuuhuone_co2
+
+      - type: custom:button-card
+        template: subtitle
+        name: Otson huonoe
+
+      - type: horizontal-stack
+        cards:
+          - type: custom:button-card
+            template:
+              - compact_sensor_graph
+              - sensor_graph_thresholds_indoor_temperature
+            entity: sensor.mqtt_otso_temperature
+
+          - type: custom:button-card
+            template: compact_sensor_graph
+            entity: sensor.mqtt_otso_humidity
+
+          - type: custom:button-card
+            template:
+              - compact_sensor_graph
+            entity: sensor.mqtt_otso_pressure

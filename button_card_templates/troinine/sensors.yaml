@@ -214,3 +214,13 @@ sensor_graph_thresholds_co2:
         color: "#FFFF00"
       - value: 1500
         color: "#FF0000"
+
+sensor_graph_thresholds_radon:
+  variables:
+    color_thresholds:
+      - value: 0
+        color: "#008000"
+      - value: 100
+        color: "#FFFF00"
+      - value: 150
+        color: "#FF0000"

@@ -18,15 +18,23 @@ browser_mod:
       - type: custom:button-card
         template: subtitle
         name: Tila
+
       - type: horizontal-stack
         cards:
           - type: custom:button-card
             template: compact_info
             entity: binary_sensor.mqtt_garage_door
+
           - type: custom:button-card
             template: compact_info
             entity: switch.tplink_hs110_2
             name: Ilmankuivain
+
+          - type: custom:button-card
+            template: compact_info
+            entity: binary_sensor.garage_dehumidifier
+            name: Kuivaus käynnissä
+
       - type: horizontal-stack
         cards:
           - type: custom:button-card
@@ -56,19 +64,17 @@ browser_mod:
             variables:
               name_override: CO2
 
-
       - type: custom:button-card
         template: subtitle
         name: Automaatiot
+
       - type: entities
-        style: |
-          ha-card {
-            border-radius: 20px
-          }
         entities:
           - entity: automation.sammuta_ilmankuivain
             secondary_info: last-triggered
+
           - entity: automation.kaynnista_ilmankuivain
             secondary_info: last-triggered
+
           - entity: automation.tyhjenna_ilmankuivain
             secondary_info: last-triggered

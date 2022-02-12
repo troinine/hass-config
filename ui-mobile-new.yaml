@@ -82,13 +82,13 @@ views:
                 entity: sensor.air_quality
                 name: Ilmanlaatu
                 tap_action:
-                  !include popups/tablet/air-quality.yaml
+                  !include popups/mobile/air-quality.yaml
                 variables:
                   extra_entity: "[[[ return entity.attributes.reporting_entity ]]]"
                   extra_text: |
                     [[[
                       var device_class = states[entity.attributes.reporting_entity].attributes.device_class
-                      switch(device_class) {
+                      switch (device_class) {
                         case 'humidity':
                           return 'Kosteus'
                         case 'temperature':
@@ -124,37 +124,45 @@ views:
           - type: custom:button-card
             template: subtitle
             name: Valaistus
+
           - type: horizontal-stack
             cards:
               - type: 'custom:button-card'
                 template: compact_light
                 entity: light.group_entrance
                 name: Eteinen
+
               - type: 'custom:button-card'
                 template: compact_light
                 entity: light.group_living_room
                 name: Olohuone
+
               - type: 'custom:button-card'
                 template: compact_light
                 entity: light.group_kitchen
                 name: Keittiö
+
           - type: horizontal-stack
             cards:
               - type: 'custom:button-card'
                 template: compact_light
                 entity: light.group_kids_rooms
                 name: Lapset
+
               - type: 'custom:button-card'
                 template: compact_light
                 entity: light.group_office
                 name: Työhuone
+
               - type: 'custom:button-card'
                 template: compact_light
                 entity: light.group_bedroom
                 name: Makkari
+
           - type: custom:button-card
             template: subtitle
             name: Perhe
+
           - type: horizontal-stack
             cards:
               - type: 'custom:button-card'
