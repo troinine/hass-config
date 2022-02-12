@@ -1,5 +1,5 @@
 ---
-button_card_templates: !include_dir_merge_named button_card_templates/
+button_card_templates: !include_dir_merge_named ../button_card_templates/
 
 views:
   - title: "Mobiili (uusi)"
@@ -52,7 +52,7 @@ views:
                   - compact_info
                   - home_state
                 tap_action:
-                  !include popups/mobile/notifications.yaml
+                  !include ../popups/mobile/notifications.yaml
 
               - type: 'custom:button-card'
                 template:
@@ -64,7 +64,7 @@ views:
                   - compact_info_extra
                   - garage_door
                 tap_action:
-                  !include popups/mobile/garage.yaml
+                  !include ../popups/mobile/garage.yaml
 
           - type: horizontal-stack
             cards:
@@ -73,7 +73,7 @@ views:
                   - compact_info_extra
                   - air_quality
                 tap_action:
-                  !include popups/mobile/air-quality.yaml
+                  !include ../popups/mobile/air-quality.yaml
                 variables:
                   extra_entity: "[[[ return entity.attributes.reporting_entity ]]]"
                   extra_text: |
@@ -94,7 +94,7 @@ views:
                   - compact_info
                   - heat_pump_state
                 tap_action:
-                  !include popups/mobile/heating.yaml
+                  !include ../popups/mobile/heating.yaml
 
               - type: custom:button-card
                 template:
@@ -108,7 +108,7 @@ views:
             template: subtitle
             name: Valaistus
             tap_action:
-              !include popups/mobile/lights.yaml
+              !include ../popups/mobile/lights.yaml
 
           - type: horizontal-stack
             cards:

@@ -1,5 +1,5 @@
 ---
-button_card_templates: !include_dir_merge_named button_card_templates/
+button_card_templates: !include_dir_merge_named ../button_card_templates/
 
 views:
   - title: "Tabletti"
@@ -47,7 +47,7 @@ views:
               grid-area: "notifications"
               place-self: "start stretch"
             cards:
-              !include ui/notifications.yaml
+              !include notifications.yaml
 
       ###
       ### Home
@@ -61,7 +61,7 @@ views:
             template: group_title
             name: Koti
             tap_action:
-              !include popups/tablet/home.yaml
+              !include ../popups/tablet/home.yaml
 
           - type: grid
             columns: 2
@@ -71,14 +71,14 @@ views:
                   - info
                   - home_state
                 tap_action:
-                  !include popups/tablet/home.yaml
+                  !include ../popups/tablet/home.yaml
 
               - type: 'custom:button-card'
                 template:
                   - info
                   - air_quality
                 tap_action:
-                  !include popups/tablet/air-quality.yaml
+                  !include ../popups/tablet/air-quality.yaml
 
               - type: 'custom:button-card'
                 template:
@@ -90,7 +90,7 @@ views:
                   - info
                   - garage_door
                 tap_action:
-                  !include popups/tablet/garage.yaml
+                  !include ../popups/tablet/garage.yaml
 
       ###
       ### Lights
@@ -104,7 +104,7 @@ views:
             template: group_title
             name: Valaistus
             tap_action:
-              !include popups/tablet/lights.yaml
+              !include ../popups/tablet/lights.yaml
 
           - type: grid
             columns: 2
@@ -141,7 +141,7 @@ views:
             template: group_title
             name: Lämmitys ja vesi
             tap_action:
-              !include popups/tablet/heating.yaml
+              !include ../popups/tablet/heating.yaml
 
           - type: grid
             columns: 2
@@ -196,7 +196,7 @@ views:
             template: group_title
             name: Media ja laitteet
             tap_action:
-              !include popups/tablet/devices.yaml
+              !include ../popups/tablet/devices.yaml
 
           - type: grid
             columns: 2

@@ -70,17 +70,12 @@ lovelace:
       mode: yaml
       title: Mobiili
       show_in_sidebar: true
-      filename: ui-mobile.yaml
+      filename: ui/mobile.yaml
     lovelace-tablet:
       mode: yaml
       title: Tabletti
       show_in_sidebar: true
-      filename: ui-tablet.yaml
-    lovelace-mobile-new:
-      mode: yaml
-      title: Mobiili (uusi)
-      show_in_sidebar: true
-      filename: ui-mobile-new.yaml
+      filename: ui/tablet.yaml
 
 netatmo:
   client_id: !secret netatmo_client_id
