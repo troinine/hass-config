@@ -131,7 +131,7 @@ base_icon:
             }
 
             if (variables.icon_color) {
-              return variables.icon_color
+              return '0 0 0.95rem 0.2rem ' + variables.icon_color
             }
 
             return 'none'
@@ -151,7 +151,7 @@ base_icon:
             }
 
             if (variables.icon_color) {
-              return variables.icon_color
+              return '0 0 0.95rem 0.2rem ' + variables.icon_color
             }
 
             return 'none'

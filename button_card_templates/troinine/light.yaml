@@ -163,6 +163,8 @@ run_scene:
   template:
     - "base_card"
     - "base_icon_name"
+  variables:
+    icon_glow: true
   tap_action:
     action: toggle
   styles:
@@ -170,7 +172,14 @@ run_scene:
       - grid-template-areas: |
           ". i ."
           "n n n"
-      - grid-template-columns: 1fr 1fr 1fr
-      - grid-template-rows: 1fr 2fr
+      - grid-template-columns: 1fr 2.5rem 1fr
+      - grid-template-rows: 2.5rem 1fr
     img_cell:
       - justify-self: center
+    name:
+      - place-self: end center
+
+compact_run_scene:
+  template:
+    - run_scene
+    - compact_card

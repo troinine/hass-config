@@ -27,7 +27,23 @@ views:
 
           - type: custom:button-card
             template: subtitle
-            name: Koti
+            name: |
+              [[[
+                let time = states['sensor.time'].state;
+                let welcome = '';
+
+                if (time > '18:00'){
+                  welcome = "Iltaa";
+                } else if (time > '12:00'){
+                  welcome = "Päivää";
+                } else if (time > '05:00'){
+                  welcome = "Huomenta";
+                } else {
+                  welcome = "Hei";
+                }
+
+                return welcome + ', ' + user.name + '!';
+              ]]]
 
           - type: horizontal-stack
             cards:
@@ -91,6 +107,8 @@ views:
           - type: custom:button-card
             template: subtitle
             name: Valaistus
+            tap_action:
+              !include popups/mobile/lights.yaml
 
           - type: horizontal-stack
             cards:

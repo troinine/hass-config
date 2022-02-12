@@ -1,0 +1,95 @@
+---
+action: fire-dom-event
+browser_mod:
+  command: popup
+  title: Valaistus
+  style:
+    $: |
+      .mdc-dialog .mdc-dialog__surface {
+        background-color: var(--primary-background-color) !important;
+      }
+    hui-vertical-stack-card:
+      $: |
+        #root {
+          padding: 0 1rem 0 1rem;
+        }
+  card:
+    type: vertical-stack
+    cards:
+      - type: custom:button-card
+        template: subtitle
+        name: Esiasetukset
+
+      - type: horizontal-stack
+        cards:
+          - type: custom:button-card
+            template: compact_run_scene
+            entity: script.scene_evening_routines
+            variables:
+              icon_color: rgba(255,184, 123, 0.3)
+
+          - type: custom:button-card
+            template: compact_run_scene
+            entity: script.scene_day_lights
+            variables:
+              icon_color: rgb(255,211, 175)
+
+          - type: custom:button-card
+            template: compact_run_scene
+            entity: script.scene_kids_go_to_sleep
+            variables:
+              icon_color: rgb(0, 255, 6, 0.5)
+
+      - type: custom:button-card
+        template: subtitle
+        name: Huoneet
+
+      - type: horizontal-stack
+        cards:
+          - type: custom:button-card
+            template: compact_light
+            entity: light.group_otsos_room
+            name: Otso
+            variables:
+              card_glow: true
+
+          - type: custom:button-card
+            template: compact_light
+            entity: light.group_sisus_room
+            name: Sisu
+            variables:
+              card_glow: true
+
+          - type: custom:button-card
+            template: compact_light
+            entity: switch.tplink_hs100_3
+            name: Khh
+            variables:
+              card_glow: true
+
+      - type: custom:button-card
+        template: subtitle
+        name: Alueet
+
+      - type: horizontal-stack
+        cards:
+          - type: custom:button-card
+            template: compact_light
+            entity: light.group_all
+            name: Koti
+            variables:
+              card_glow: true
+
+          - type: custom:button-card
+            template: compact_light
+            entity: light.group_living_areas
+            name: Oleskelutilat
+            variables:
+              card_glow: true
+
+          - type: custom:button-card
+            template: compact_light
+            entity: light.group_kids_rooms
+            name: Lapset
+            variables:
+              card_glow: true
