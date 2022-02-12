@@ -1,0 +1,23 @@
+action: fire-dom-event
+browser_mod:
+  command: popup
+  title: Ilmoitukset
+  style:
+    $: |
+      .mdc-dialog .mdc-dialog__surface {
+        background-color: var(--primary-background-color) !important;
+      }
+    hui-vertical-stack-card:
+      $: |
+        #root {
+          padding: 0 1rem 0 1rem;
+          display: flex;
+          justify-content: center;
+        }
+        hui-conditional-card {
+          padding: 1rem 0 0 0;
+        }
+  card:
+    type: vertical-stack
+    cards:
+      !include ../../ui/notifications.yaml
