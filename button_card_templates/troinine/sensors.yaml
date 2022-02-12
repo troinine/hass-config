@@ -95,7 +95,7 @@ sensor_graph:
   custom_fields:
     icon_state_name:
       card:
-        type: "custom:button-card"
+        type: custom:button-card
         template:
           - base_icon_name
           - base_sensor
@@ -120,9 +120,9 @@ sensor_graph:
             - font-size: 1rem
             - place-self: start
           card:
-            - box-shadow: "none"
-            - border-radius: "var(--border-radius) var(--border-radius) 0 0"
-            - padding: "1.4rem 1.4rem 0 1.4rem"
+            - box-shadow: none
+            - border-radius: var(--border-radius) var(--border-radius) 0 0
+            - padding: var(--button-card-padding) var(--button-card-padding) 0 var(--button-card-padding)
     graph:
       card:
         type: "custom:mini-graph-card"
@@ -157,9 +157,9 @@ sensor_graph:
       - grid-template-columns: 1fr
       - grid-template-rows: 1fr 3fr
     card:
-      - border-radius: "var(--border-radius)"
-      - box-shadow: "var(--box-shadow)"
-      - padding: "0px"
+      - border-radius: var(--border-radius)
+      - box-shadow: var(--box-shadow)
+      - padding: 0px
     custom_fields:
       graph:
         - align-self: end
