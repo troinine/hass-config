@@ -145,14 +145,17 @@ views:
                 template: light
                 entity: light.group_all
                 name: Kaikki
+
               - type: 'custom:button-card'
                 template: light
                 entity: light.group_living_areas
                 name: Oleskelutilat
+
               - type: 'custom:button-card'
                 template: light
                 entity: light.group_office
                 name: Työhuone
+
               - type: 'custom:button-card'
                 template: light
                 entity: light.group_bedroom
@@ -175,48 +178,20 @@ views:
           - type: grid
             columns: 2
             cards:
-              - type: 'custom:button-card'
-                template: info
-                entity: sensor.nibe_heat_pump_state
-                name: Maalämpö
-                variables:
-                  icon_glow: true
-                  state_colors:
-                    "Käyttövesi": dodgerblue
-                    "Lämmitys": orangered
+              - type: custom:button-card
+                template:
+                  - info
+                  - heat_pump_state
 
-              - type: 'custom:button-card'
-                template: sensor
-                entity: sensor.nibe_daily_num_starts
-                name: Käynnistykset
-                styles:
-                  icon:
-                    - color: |
-                        [[[
-                          var color = "red";
-                          var current_temp = entity.state;
-                          if (current_temp < 10) {
-                            color = "green";
-                          } else if (current_temp < 13) {
-                            color = "yellow";
-                          } else if (current_temp < 0.0) {
-                            color = "orange";
-                          } else {
-                            color = "red";
-                          }
+              - type: custom:button-card
+                template:
+                  - sensor
+                  - heat_pump_starts
 
-                          return color;
-                        ]]]
-
-              - type: 'custom:button-card'
-                template: info
-                entity: switch.tplink_hs100_1
-                name: Käyttövesi
-                icon: mdi:water-sync
-                variables:
-                  extra_entity: sensor.nibe_hot_water_top_temp
-                  state_colors:
-                    "on": dodgerblue
+              - type: custom:button-card
+                template:
+                  - info
+                  - hot_water_pump
 
               - type: custom:button-card
                 template: sensor

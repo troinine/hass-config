@@ -106,15 +106,12 @@ views:
                     "Matala ilmankosteus": '#00ccf5'
                     "Korkea ilmankosteus": 'dodgerblue'
 
-              - type: 'custom:button-card'
-                template: compact_info
-                entity: sensor.nibe_heat_pump_state
-                name: Maalämpö
-                variables:
-                  icon_glow: true
-                  state_colors:
-                    "Käyttövesi": dodgerblue
-                    "Lämmitys": orangered
+              - type: custom:button-card
+                template:
+                  - compact_info
+                  - heat_pump_state
+                tap_action:
+                  !include popups/mobile/heating.yaml
 
               - type: custom:button-card
                 template:

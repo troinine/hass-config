@@ -1,0 +1,43 @@
+---
+
+# Pre-defined, ready-to-use cards
+
+heat_pump_state:
+  entity: sensor.nibe_heat_pump_state
+  name: Maalämpö
+  variables:
+    icon_glow: true
+    state_colors:
+      "Käyttövesi": dodgerblue
+      "Lämmitys": orangered
+
+heat_pump_starts:
+  entity: sensor.nibe_daily_num_starts
+  name: Käynnistykset
+  styles:
+    icon:
+      - color: |
+          [[[
+            var color = "red";
+            var current_temp = entity.state;
+            if (current_temp < 10) {
+              color = "green";
+            } else if (current_temp < 13) {
+              color = "yellow";
+            } else if (current_temp < 0.0) {
+              color = "orange";
+            } else {
+              color = "red";
+            }
+
+            return color;
+          ]]]
+
+hot_water_pump:
+  entity: switch.tplink_hs100_1
+  name: Käyttövesi
+  icon: mdi:water-sync
+  variables:
+    extra_entity: sensor.nibe_hot_water_top_temp
+    state_colors:
+      "on": dodgerblue

@@ -75,6 +75,28 @@ sensor:
       - justify-self: start
       - align-self: end
 
+compact_sensor:
+  template:
+    - sensor
+    - compact_card
+  show_label: true
+  styles:
+    grid:
+      - grid-template-areas: |
+          "i n"
+          "i l"
+          "s s"
+      - grid-template-columns: 2.5rem 3.5fr
+      - grid-template-rows: 1.25rem 1.25rem 3.5fr
+    name:
+      - padding-left: 0.8rem
+      - align-self: end
+    label:
+      - filter: opacity(40%)
+      - place-self: start start
+      - padding-left: 0.8rem
+      - font-size: 0.9rem
+
 sensor_graph:
   variables:
     line_color: dodgerblue
@@ -130,7 +152,7 @@ sensor_graph:
           - "[[[ return entity.entity_id ]]]"
         font_size: 60
         points_per_hour: 0.4
-        line_width: 4
+        line_width: 5
         line_color: "[[[ return variables.line_color ]]]"
         height: "[[[ return variables.graph_height ]]]"
         align_state: right

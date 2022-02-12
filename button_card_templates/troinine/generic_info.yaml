@@ -18,7 +18,7 @@ info:
           } else {
             return `${extra_entity.state} ${extra_entity.attributes.unit_of_measurement}`
           }
-        } 
+        }
 
         return ''
       ]]]
