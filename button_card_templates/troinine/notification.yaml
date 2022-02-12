@@ -1,3 +1,23 @@
+notification_icon:
+  variables:
+    background_color: red
+  styles:
+    custom_fields:
+      notification:
+        - border-radius: 50%
+        - position: absolute
+        - left: 2.7rem
+        - top: 0.5rem
+        - width: 1.1rem
+        - height: 1.1rem
+        - border: 0.2rem solid var(--card-background-color)
+        - font-size: 0.8rem
+        - font-weight: bold
+        - line-height: 1.1rem
+        - text-align: center
+        - color: white
+        - background-color: "[[[ return variables.background_color ]]]"
+
 notification:
   variables:
     summary: ''

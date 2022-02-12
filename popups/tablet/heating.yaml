@@ -29,7 +29,7 @@ browser_mod:
             ha-card {
               border-radius: 0;
               box-shadow: none;
-
+            }
   card:
     type: custom:layout-card
     layout_type: custom:grid-layout

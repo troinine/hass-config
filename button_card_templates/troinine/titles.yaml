@@ -23,6 +23,6 @@ subtitle:
   styles:
     name:
       - font-size: 1.2rem
-      - filter: "opacity(40%)"
+      - filter: "opacity(50%)"
     card:
       - padding: 0.5rem 0 0.5rem 0.5rem

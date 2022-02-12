@@ -44,7 +44,7 @@ frontend:
 
 lovelace:
   mode: yaml
-  resources: 
+  resources:
     - url: /local/community_cards/button-card.js
       type: module
     - url: /local/community_cards/mini-graph-card-bundle.js?v=0.10.0

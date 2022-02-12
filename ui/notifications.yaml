@@ -1,0 +1,130 @@
+---
+# Shared by both mobile and tablet
+
+- type: conditional
+  conditions:
+    - entity: binary_sensor.notification_heat_pump_alarm
+      state: 'on'
+    - entity: sensor.nibe_alarm_number
+      state_not: 'unavailable'
+  card:
+    type: custom:button-card
+    template: auto_notification
+    entity: binary_sensor.notification_heat_pump_alarm
+    show_last_changed: true
+    variables:
+      show_last_changed: true # Hack as root variables are not availabe in JS
+
+- type: conditional
+  conditions:
+    - entity: binary_sensor.notification_radon_warning
+      state: 'on'
+  card:
+    type: custom:button-card
+    template: auto_notification
+    entity: binary_sensor.notification_radon_warning
+
+- type: conditional
+  conditions:
+    - entity: binary_sensor.notification_garage_door_open
+      state: 'on'
+  card:
+    type: custom:button-card
+    template: auto_notification
+    entity: binary_sensor.notification_garage_door_open
+    show_last_changed: true
+    variables:
+      show_last_changed: true # Hack as root variables are not availabe in JS
+
+- type: conditional
+  conditions:
+    - entity: binary_sensor.notification_front_door_open
+      state: 'on'
+  card:
+    type: custom:button-card
+    template: auto_notification
+    entity: binary_sensor.notification_front_door_open
+    show_last_changed: true
+    variables:
+      show_last_changed: true # Hack as root variables are not availabe in JS
+
+- type: conditional
+  conditions:
+    - entity: binary_sensor.notification_garage_dehumidifier
+      state: 'on'
+  card:
+    type: custom:button-card
+    template: auto_notification
+    entity: binary_sensor.notification_garage_dehumidifier
+
+- type: conditional
+  conditions:
+    - entity: binary_sensor.notification_sauna
+      state: 'on'
+  card:
+    type: custom:button-card
+    template: auto_notification
+    entity: binary_sensor.notification_sauna
+
+- type: conditional
+  conditions:
+    - entity: binary_sensor.notification_co2
+      state: 'on'
+  card:
+    type: 'custom:button-card'
+    template: auto_notification
+    entity: binary_sensor.notification_co2
+
+- type: conditional
+  conditions:
+    - entity: binary_sensor.notification_humidity
+      state: 'on'
+  card:
+    type: custom:button-card
+    template: auto_notification
+    entity: binary_sensor.notification_humidity
+
+- type: conditional
+  conditions:
+    - entity: binary_sensor.notification_todays_precipitation
+      state: 'on'
+  card:
+    type: 'custom:button-card'
+    template: auto_notification
+    entity: binary_sensor.notification_todays_precipitation
+
+- type: conditional
+  conditions:
+    - entity: binary_sensor.notification_on_vacation
+      state: 'on'
+  card:
+    type: 'custom:button-card'
+    template: auto_notification
+    entity: binary_sensor.notification_on_vacation
+
+- type: conditional
+  conditions:
+    - entity: binary_sensor.notification_synology_security_warning
+      state: 'on'
+  card:
+    type: 'custom:button-card'
+    template: auto_notification
+    entity: binary_sensor.notification_synology_security_warning
+
+- type: conditional
+  conditions:
+    - entity: binary_sensor.notification_synology_update_available
+      state: 'on'
+  card:
+    type: 'custom:button-card'
+    template: auto_notification
+    entity: binary_sensor.notification_synology_update_available
+
+- type: conditional
+  conditions:
+    - entity: binary_sensor.notification_hass_update_available
+      state: 'on'
+  card:
+    type: 'custom:button-card'
+    template: auto_notification
+    entity: binary_sensor.notification_hass_update_available

@@ -23,7 +23,7 @@
         {% endif %}
 
   - name: "CO2 tila"
-    unique_id: 'co2_state' 
+    unique_id: 'co2_state'
     icon: mdi:molecule-co2
     state: |
       {% if (states('sensor.mqtt_airthings_waveplus_sisu_co2') | float(0) < 1000) and (states('sensor.mqtt_airthings_waveplus_living_room_co2') | float(0) < 1000) and (states('sensor.netatmo_koti_olohuone_co2') | float(0) < 1000) and (states('sensor.netatmo_koti_olohuone_makuuhuone_co2') | float(0) < 1000) %}
@@ -31,6 +31,17 @@
       {% else %}
         Korkea
       {% endif %}
+    attributes:
+      reporting_entity: |
+        {% if (states('sensor.mqtt_airthings_waveplus_sisu_co2') | float(0) >= 1000) %}
+          sensor.mqtt_airthings_waveplus_sisu_co2
+        {% elif (states('sensor.mqtt_airthings_waveplus_living_room_co2') | float(0) >= 1000) %}
+          sensor.mqtt_airthings_waveplus_living_room_co2
+        {% elif (states('sensor.netatmo_koti_olohuone_co2') | float(0) >= 1000) %}
+          sensor.netatmo_koti_olohuone_co2
+        {% elif (states('sensor.netatmo_koti_olohuone_makuuhuone_co2') | float(0) >= 1000) %}
+          sensor.netatmo_koti_olohuone_makuuhuone_co2
+        {% endif %}
 
   - name: "Kosteus tila"
     unique_id: 'humidity_state'
@@ -41,7 +52,7 @@
         mdi:water-alert
       {% else %}
         mdi:water-check
-      {% endif %}     
+      {% endif %}
     state: |
       {% if (states('sensor.mqtt_airthings_waveplus_sisu_humidity') | float(0) < 25) or (states('sensor.mqtt_airthings_waveplus_living_room_humidity') | float(0) < 25) or (states('sensor.netatmo_koti_olohuone_humidity') | float(0) < 25) or (states('sensor.mqtt_otso_humidity') | float(0) < 25) %}
         Alhainen
@@ -106,6 +117,11 @@
     icon: mdi:shower
     state: "{{ states('input_select.sauna_state') }}"
 
+  - name: notification_count
+    unique_id: notification_count
+    state: |
+      {{ states.binary_sensor | selectattr('state', 'equalto', 'on') | map(attribute='entity_id') | select('search', 'notification') | list | length }}
+
 
 - binary_sensor:
   - name: "Liiketunnistimet sisällä"
@@ -126,7 +142,7 @@
     unique_id: 'doors'
     device_class: door
     state: |
-      {% if (is_state('binary_sensor.mqtt_garage_door', 'on') or is_state('lock.ulko_ovi', 'unlocked')) %} 
+      {% if (is_state('binary_sensor.mqtt_garage_door', 'on') or is_state('lock.ulko_ovi', 'unlocked')) %}
         on
       {% else %}
         off
@@ -221,3 +237,133 @@
       text_description: "Uusin version on {{ state_attr('binary_sensor.updater', 'newest_version') }}. <a href='{{ state_attr('binary_sensor.updater', 'release_notes') }}'>Release notes.</a"
       tap_action: url
       tap_action_url_path: "{{ state_attr('binary_sensor.updater', 'release_notes') }}"
+
+  - name: notification_on_vacation
+    unique_id: notification_on_vacation
+    icon: mdi:palm-tree
+    state: "{{ states('input_boolean.on_vacation') }}"
+    attributes:
+      icon_color: green
+      text_summary: "Lomamoodi on päällä"
+      tap_action: more-info
+      tap_action_entity: input_boolean.on_vacation
+
+  - name: notification_synology_security_warning
+    unique_id: notification_synology_security_warning
+    icon: mdi:alert-outline
+    state: "{{ states('binary_sensor.synology_security_status') }}"
+    attributes:
+      icon_color: 'var(--warning-color)'
+      text_summary: "Synologyn turvataso alhainen"
+      tap_action: more-info
+      tap_action_entity: binary_sensor.synology_security_status
+
+  - name: notification_garage_door_open
+    unique_id: notification_garage_door_open
+    icon: "{{ iif(is_state('binary_sensor.mqtt_garage_door', 'on'), 'mdi:garage-open', 'mdi:garage')  }}"
+    state: "{{ states('binary_sensor.mqtt_garage_door') }}"
+    attributes:
+      icon_color: 'var(--warning-color)'
+      text_summary: "Autotallin ovi on auki"
+
+  - name: notification_front_door_open
+    unique_id: notification_front_door_open
+    icon: "{{  iif(is_state('lock.ulko_ovi', 'unlocked'), 'mdi:door-open', 'mdi:door')  }}"
+    state: "{{ iif(is_state('lock.ulko_ovi', 'unlocked'), 'on', 'off') }}"
+    attributes:
+      icon_color: 'var(--warning-color)'
+      text_summary: "Ulko-ovi on auki"
+
+  - name: notification_sauna
+    unique_id: notification_sauna
+    icon: mdi:shower
+    state: "{{ iif(is_state('input_select.sauna_state', 'Pois'), 'off', 'on') }}"
+    attributes:
+      icon_color: |
+        {% if is_state('input_select.sauna_state', 'Lämpenee') %}
+          yellow
+        {% elif is_state('input_select.sauna_state', 'Lämmin') %}
+          red
+        {% elif is_state('input_select.sauna_state', 'Jäähtyy') %}
+          #00ccf5
+        {% endif %}
+      text_summary: |
+        {% if is_state('input_select.sauna_state', 'Lämpenee') %}
+          Sauna lämpenee
+        {% elif is_state('input_select.sauna_state', 'Lämmin') %}
+          Sauna on lämmin
+        {% elif is_state('input_select.sauna_state', 'Jäähtyy') %}
+          Sauna jäähtyy
+        {% endif %}
+      text_description: |
+        Lämpötila {{ states('sensor.mqtt_sauna_temperature') }} {{state_attr('sensor.mqtt_sauna_temperature', 'unit_of_measurement') }}. Kosteus {{ states('sensor.mqtt_sauna_humidity') }} {{state_attr('sensor.mqtt_sauna_humidity', 'unit_of_measurement') }}.
+
+  - name: notification_humidity
+    unique_id: notification_humidity
+    icon: "{{ state_attr('sensor.humidity_state', 'icon') }}"
+    state: "{{ iif(is_state('sensor.humidity_state', 'Normaali'), 'off', 'on') }}"
+    attributes:
+      icon_color: |
+        {% if is_state('sensor.humidity_state', 'Alhainen') %}
+          var(--humidity-low-color)
+        {% elif is_state('sensor.humidity_state', 'Korkea') %}
+          var(--humidity-high-color)
+        {% endif %}
+      text_summary: |
+        {% if is_state('sensor.humidity_state', 'Alhainen') %}
+          Alhainen ilmankosteus
+        {% elif is_state('sensor.humidity_state', 'Korkea') %}
+          Korkea ilmankosteus
+        {% endif %}
+      text_description: |
+        {% set reporting_entity = state_attr('sensor.humidity_state', 'reporting_entity') %}
+        {{ state_attr(reporting_entity, 'friendly_name') }} {{ states(reporting_entity) }} {{ state_attr(reporting_entity, 'unit_of_measurement') }}
+      tap_action: more-info
+      tap_action_entity: "{{ state_attr('sensor.humidity_state', 'reporting_entity') }}"
+
+  - name: notification_radon_warning
+    unique_id: notification_radon_warning
+    icon: mdi:radioactive
+    state: "{{ iif(is_state('sensor.radon_warning', 'Alhainen'), 'off', 'on') }}"
+    attributes:
+      icon_color: |
+        {% if is_state('sensor.radon_warning', 'Nousussa') %}
+          var(--warning-color)
+        {% elif is_state('sensor.radon_warning', 'Korkea') %}
+          var(--error-color)
+        {% endif %}
+      text_summary: |
+        {% if is_state('sensor.radon_warning', 'Nousussa') %}
+          Radon nousussa
+        {% elif is_state('sensor.radon_warning', 'Korkea') %}
+          Radon korkealla!
+        {% else %}
+          Radon turvallisella tasolla
+        {% endif %}
+      text_description: |
+        {% set reporting_entity = state_attr('sensor.radon_warning', 'reporting_entity') %}
+        {{ state_attr(reporting_entity, 'friendly_name') }} {{ states(reporting_entity) }} {{ state_attr(reporting_entity, 'unit_of_measurement') }}
+      tap_action: more-info
+      tap_action_entity: "{{ state_attr('sensor.radon_warning', 'reporting_entity') }}"
+
+  - name: notification_co2
+    unique_id: notification_co2
+    icon: mdi:molecule-co2
+    state: "{{ iif(is_state('sensor.co2_state', 'Alhainen'), 'off', 'on') }}"
+    attributes:
+      icon_color: var(--warning-color)
+      text_summary: Hiilidioksidi korkealla
+      text_description: |
+        {% set reporting_entity = state_attr('sensor.co2_state', 'reporting_entity') %}
+        {{ state_attr(reporting_entity, 'friendly_name') }} {{ states(reporting_entity) }} {{ state_attr(reporting_entity, 'unit_of_measurement') }}
+      tap_action: more-info
+      tap_action_entity: "{{ state_attr('sensor.co2_state', 'reporting_entity') }}"
+
+  - name: notification_garage_dehumidifier
+    unique_id: notification_garage_dehumidifier
+    icon: mdi:fan
+    state: "{{ states('switch.tplink_hs110_2') }}"
+    attributes:
+      icon_color: var(--humidity-high-color)
+      text_summary: 'Autotallin ilmankuivain on päällä'
+      text_description: "Kosteus tällä hetkellä {{ states('sensor.netatmo_koti_olohuone_autotalli_humidity') }} %"

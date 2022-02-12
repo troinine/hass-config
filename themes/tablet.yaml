@@ -124,6 +124,8 @@ tablet:
       mini-media-player-accent-color: "var(--google-blue)"
 
       # Custom
+      humidity-low-color: #00ccf5
+      humidity-high-color: #6200EE
       warning-color-rgb: 255, 145, 1
       primary-text-color-rgb: 221, 221, 221
       custom-icon-color: "dodgerblue"

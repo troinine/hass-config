@@ -128,6 +128,8 @@ mobile:
       vertical-stack-card-margin: 0 0 0.2rem 0
 
       # Custom
+      humidity-low-color: "#00ccf5"
+      humidity-high-color: "#0336FF"
       warning-color-rgb: 255, 145, 1
       primary-text-color-rgb: 221, 221, 221
       custom-icon-color: "dodgerblue"
