@@ -41,3 +41,53 @@ hot_water_pump:
     extra_entity: sensor.nibe_hot_water_top_temp
     state_colors:
       "on": dodgerblue
+
+home_state:
+  template:
+    - notification_icon
+  variables:
+    icon_glow: false
+    state_colors:
+      'Kotona': '#66bb6a'
+      'Nukkumassa': '#0097a7'
+  entity: input_select.home_state
+  custom_fields:
+    notification: |
+      [[[
+        var notification_count = states['sensor.notification_count'].state
+        if (notification_count > 0) {
+          return `<span id="notification-count">${notification_count}</span>`
+        } else {
+          return undefined
+        }
+      ]]]
+
+air_quality:
+  entity: sensor.air_quality
+  name: Sisäilma
+  variables:
+    extra_entity: "[[[ return entity.attributes.reporting_entity ]]]"
+    icon_glow: true
+    state_colors:
+      "Hyvä": 'green'
+      "Radon nousussa": 'yellow'
+      "Radon korkealla": 'red'
+      "CO2 korkealla": 'yellow'
+      "Matala ilmankosteus": '#00ccf5'
+      "Korkea ilmankosteus": 'dodgerblue'
+
+front_door:
+  entity: lock.ulko_ovi
+  variables:
+    icon_glow: true
+    state_colors:
+      'unlocked': 'var(--warning-color)'
+
+garage_door:
+  entity: binary_sensor.mqtt_garage_door
+  name: Autotalli
+  variables:
+    extra_entity: sensor.netatmo_koti_olohuone_autotalli_temperature
+    icon_glow: true
+    state_colors:
+      'on': 'var(--warning-color)'

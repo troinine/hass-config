@@ -34,53 +34,28 @@ views:
               - type: 'custom:button-card'
                 template:
                   - compact_info
-                  - notification_icon
-                custom_fields:
-                  notification: |
-                    [[[
-                      var notification_count = states['sensor.notification_count'].state
-                      if (notification_count > 0) {
-                        return `<span id="notification-count">${notification_count}</span>`
-                      } else {
-                        return undefined
-                      }
-                    ]]]
-                entity: input_select.home_state
+                  - home_state
                 tap_action:
                   !include popups/mobile/notifications.yaml
-                variables:
-                  icon_glow: false
-                  state_colors:
-                    'Kotona': '#66bb6a'
-                    'Nukkumassa': '#0097a7'
 
               - type: 'custom:button-card'
-                template: compact_info
-                entity: lock.ulko_ovi
-                variables:
-                  icon_glow: true
-                  state_colors:
-                    'unlocked': 'var(--warning-color)'
+                template:
+                  - compact_info
+                  - front_door
 
               - type: 'custom:button-card'
-                template: compact_info_extra
-                entity: binary_sensor.mqtt_garage_door
-                name: Autotalli
+                template:
+                  - compact_info_extra
+                  - garage_door
                 tap_action:
                   !include popups/mobile/garage.yaml
-                variables:
-                  extra_entity: sensor.netatmo_koti_olohuone_autotalli_temperature
-                  extra_text: Lämpötila
-                  icon_glow: true
-                  state_colors:
-                    'on': 'var(--warning-color)'
 
           - type: horizontal-stack
             cards:
               - type: 'custom:button-card'
-                template: compact_info_extra
-                entity: sensor.air_quality
-                name: Ilmanlaatu
+                template:
+                  - compact_info_extra
+                  - air_quality
                 tap_action:
                   !include popups/mobile/air-quality.yaml
                 variables:
@@ -97,14 +72,6 @@ views:
                           return ''
                       }
                     ]]]
-                  icon_glow: true
-                  state_colors:
-                    "Hyvä": 'green'
-                    "Radon nousussa": 'yellow'
-                    "Radon korkealla": 'red'
-                    "CO2 korkealla": 'yellow'
-                    "Matala ilmankosteus": '#00ccf5'
-                    "Korkea ilmankosteus": 'dodgerblue'
 
               - type: custom:button-card
                 template:
