@@ -1,18 +1,18 @@
 - platform: group
   name: group_office
   entities:
-    - light.tyohuone_poytalamppu
     - light.tyohuone_nauha
+    - light.tyohuone_poytalamppu
     - light.tyohuone_katto
 
 - platform: group
   name: group_kitchen
   entities:
+    - light.keittio_nauha_1
+    - light.keittio_nauha_2
     - light.keittio_ohio_1
     - light.keittio_ohio_2
     - light.keittio_ohio_3
-    - light.keittio_nauha_1
-    - light.keittio_nauha_2
 
 - platform: group
   name: group_living_room
@@ -54,8 +54,8 @@
 - platform: group
   name: group_living_areas
   entities:
-    - light.group_kitchen
     - light.group_living_room
+    - light.group_kitchen
     - light.group_entrance
 
 - platform: group
@@ -67,10 +67,10 @@
 - platform: group
   name: group_all
   entities:
+    - light.group_living_room
     - light.group_otsos_room
     - light.group_sisus_room
     - light.group_kitchen
-    - light.group_living_room
     - light.group_entrance
     - light.group_office
     - light.group_bedroom

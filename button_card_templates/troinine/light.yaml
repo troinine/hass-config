@@ -49,30 +49,7 @@ light:
   hold_action:
     action: toggle
   tap_action:
-    action: fire-dom-event
-    browser_mod:
-      command: popup
-      title: 'Säädä valaistusta'
-      card:
-        type: custom:light-entity-card
-        card_mod:
-          style: |
-            .light-entity-card__header {
-              padding: 0 20px 0 20px;
-            }
-            .light-entity-card-sliders {
-              padding: 0 20px 0 20px;
-            }
-        entity: "[[[ return entity.entity_id ]]]"
-        brightness: true
-        color_temp: true
-        white_value: true
-        full_width_sliders: true
-        hide_header: false
-        show_slider_percent: true
-        smooth_color_wheel: true
-        persist_features: true
-        consolidate_entities: true
+    !include ../../popups/light.yaml
   custom_fields:
     brightness: |
       [[[
@@ -140,8 +117,6 @@ compact_light:
   template:
     - light
     - compact_card
-  tap_action:
-    action: more-info
   styles:
     grid:
       - grid-template-areas: |
@@ -178,6 +153,71 @@ run_scene:
       - justify-self: center
     name:
       - place-self: end center
+
+scene_icon:
+  template:
+    - base
+  variables:
+    brightness: 100
+    color_rgb: false
+  show_name: true
+  show_label: false
+  show_state: false
+  show_icon: true
+  styles:
+    img_cell:
+      - width: 3rem
+      - height: 3rem
+      - background-color: "[[[ return `rgb(${variables.color_rgb})` ]]]"
+      - border-radius: 50%
+      - filter: "[[[ return `opacity(${variables.brightness}%)` ]]]"
+      - '-webkit-box-shadow': "[[[ return `0 0 0.7rem 0.2rem rgb(${variables.color_rgb})` ]]]"
+      - box-shadow: "[[[ return `0 0 0.7rem 0.2rem rgb(${variables.color_rgb})` ]]]"
+    icon:
+      - width: 0
+      - height: 0
+    grid:
+      - grid-template-areas: |
+          "i"
+          "n"
+      - grid-template-rows: 4rem 1.5rem
+    name:
+      - padding-top: 0.8rem
+      - font-size: 1rem
+    card:
+      - width: 6rem
+      - height: 6.1rem
+      - box-shadow: none
+      - background-color: transparent
+      - border-radius: 0%
+
+scene_icon_rgb:
+  template:
+    - scene_icon
+  variables:
+    color_rgb: 255, 255, 255
+  tap_action:
+    action: |
+      [[[ return variables.is_active ? 'call-service' : 'none' ]]]
+    service: script.scene_parameterized_color_rgb
+    service_data:
+      entities: "[[[ return [entity.entity_id] ]]]"
+      color_rgb: "[[[ return variables.color_rgb ]]]"
+      brightness: "[[[ return variables.brightness ]]]"
+
+scene_icon_temperature:
+  template:
+    - scene_icon
+  variables:
+    color_temperature: 2800
+  tap_action:
+    action: |
+      [[[ return variables.is_active ? 'call-service' : 'none' ]]]
+    service: script.scene_parameterized_color_temperature
+    service_data:
+      entities: "[[[ return [entity.entity_id] ]]]"
+      color_temperature: "[[[ return variables.color_temperature ]]]"
+      brightness: "[[[ return variables.brightness ]]]"
 
 compact_run_scene:
   template:

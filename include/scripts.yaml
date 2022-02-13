@@ -104,3 +104,29 @@ scene_kids_go_to_sleep:
   mode: single
   icon: mdi:baby-face
   alias: Pojat nukkuu
+
+scene_parameterized_color_rgb:
+  mode: single
+  alias: Parametrisoitu valoasetus, rgb
+  icon: mdi:lightbulb-auto
+  sequence:
+    - service: light.turn_on
+      data_template:
+        entity_id: |
+          {% set lights = entities %}
+          {{ expand(lights) | selectattr('state', 'eq', 'on') | map(attribute='entity_id') | join(',') }}
+        brightness_pct: "{{ brightness }}"
+        rgb_color: "{{ color_rgb }}"
+
+scene_parameterized_color_temperature:
+  mode: single
+  alias: Parametrisoitu valoasetus, kelvin
+  icon: mdi:lightbulb-auto
+  sequence:
+    - service: light.turn_on
+      data_template:
+        entity_id: |
+          {% set lights = entities %}
+          {{ expand(lights) | selectattr('state', 'eq', 'on') | map(attribute='entity_id') | join(',') }}
+        brightness_pct: "{{ brightness }}"
+        kelvin: "{{ color_temperature }}"

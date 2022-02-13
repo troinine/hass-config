@@ -1,0 +1,110 @@
+---
+action: fire-dom-event
+browser_mod:
+  command: popup
+  title: Säädä valoasetuksia
+  style:
+    $: |
+      .mdc-dialog .mdc-dialog__surface {
+        background-color: var(--primary-background-color) !important;
+      }
+    hui-vertical-stack-card:
+      $: |
+        #root {
+          padding: 0 1rem 0 1rem;
+        }
+        slider-entity-row {
+          padding: 0 20px 0 20px;
+        }
+      $hui-horizontal-stack-card:
+        $: |
+          #root {
+            display: flex;
+            justify-content: center;
+          }
+      $hui-entities-card:
+        $: |
+          ha-card {
+            padding: 0 20px 0 20px;
+            box-shadow: none;
+            background-color: transparent;
+          }
+          div#states.card-content {
+            padding: 0;
+          }
+  card:
+    type: vertical-stack
+    cards:
+      - type: entities
+        entities:
+          - entity: "[[[ return entity.entity_id ]]]"
+            secondary_info: last-changed
+
+      - type: custom:slider-entity-row
+        entity: "[[[ return entity.entity_id ]]]"
+        name: Kirkkaus
+        icon: mdi:weather-sunny
+        grow: true
+
+      - type: horizontal-stack
+        cards:
+          - type: custom:button-card
+            template: scene_icon_temperature
+            entity: "[[[ return entity.entity_id ]]]"
+            name: Relax
+            variables:
+              color_rgb: 255, 148, 43
+              color_temperature: 2800
+              brightness: 60
+
+          - type: custom:button-card
+            template: scene_icon_temperature
+            entity: "[[[ return entity.entity_id ]]]"
+            name: Luku
+            variables:
+              color_rgb: 255, 174, 103
+              color_temperature: 3500
+              brightness: 100
+
+          - type: custom:button-card
+            template: scene_icon_temperature
+            entity: "[[[ return entity.entity_id ]]]"
+            name: Keskity
+            variables:
+              color_rgb: 255, 214, 181
+              color_temperature: 4200
+              brightness: 100
+
+          - type: custom:button-card
+            template: scene_icon_temperature
+            entity: "[[[ return entity.entity_id ]]]"
+            name: Viileä
+            variables:
+              color_rgb: 255, 252, 247
+              color_temperature: 6000
+              brightness: 100
+
+      - type: custom:light-entity-card
+        card_mod:
+          style: |
+            ha-card {
+              box-shadow: none;
+              background-color: transparent;
+            }
+            .light-entity-card__header {
+              padding: 0 20px 0 20px;
+            }
+            .light-entity-card-sliders {
+              padding: 0 20px 0 20px;
+            }
+        entity: "[[[ return entity.entity_id ]]]"
+        brightness: false
+        color_temp: false
+        white_value: false
+        full_width_sliders: true
+        hide_header: true
+        show_slider_percent: false
+        smooth_color_wheel: true
+        persist_features: true
+        consolidate_entities: true
+        child_card: true
