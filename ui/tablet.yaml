@@ -320,12 +320,12 @@ views:
             columns: 2
             cards:
               - type: 'custom:button-card'
-                template: light
+                template: light_kids
                 entity: light.group_otsos_room
                 name: Otson huone
 
               - type: 'custom:button-card'
-                template: light
+                template: light_kids
                 entity: light.group_sisus_room
                 name: Sisun huone
 

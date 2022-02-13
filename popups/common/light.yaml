@@ -2,7 +2,7 @@
 action: fire-dom-event
 browser_mod:
   command: popup
-  title: Säädä valoasetuksia
+  title: Säädä valaistusta
   style:
     $: |
       .mdc-dialog .mdc-dialog__surface {

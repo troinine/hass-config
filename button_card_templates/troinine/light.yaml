@@ -1,5 +1,5 @@
 ---
-light:
+light_no_action:
   variables:
     brightness: |
       [[[
@@ -48,8 +48,6 @@ light:
     - info
   hold_action:
     action: toggle
-  tap_action:
-    !include ../../popups/light.yaml
   custom_fields:
     brightness: |
       [[[
@@ -113,6 +111,18 @@ light:
       slider:
         - align-self: end
 
+light:
+  template:
+    - light_no_action
+  tap_action:
+    !include ../../popups/common/light.yaml
+
+light_kids:
+  template:
+    - light_no_action
+  tap_action:
+    !include ../../popups/common/light-predefined-colors.yaml
+
 compact_light:
   template:
     - light
@@ -171,8 +181,8 @@ scene_icon:
       - background-color: "[[[ return `rgb(${variables.color_rgb})` ]]]"
       - border-radius: 50%
       - filter: "[[[ return `opacity(${variables.brightness}%)` ]]]"
-      - '-webkit-box-shadow': "[[[ return `0 0 0.7rem 0.2rem rgb(${variables.color_rgb})` ]]]"
-      - box-shadow: "[[[ return `0 0 0.7rem 0.2rem rgb(${variables.color_rgb})` ]]]"
+      - '-webkit-box-shadow': "[[[ return `0 0 0.5rem 0.3rem rgb(${variables.color_rgb})` ]]]"
+      - box-shadow: "[[[ return `0 0 0.5rem 0.3rem rgb(${variables.color_rgb})` ]]]"
     icon:
       - width: 0
       - height: 0
@@ -190,6 +200,7 @@ scene_icon:
       - box-shadow: none
       - background-color: transparent
       - border-radius: 0%
+      - margin: 1rem 0 1rem 0
 
 scene_icon_rgb:
   template:
