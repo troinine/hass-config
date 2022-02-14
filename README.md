@@ -2,7 +2,7 @@
 
 DISCLAIMER: Just that you are aware, this is probably a forever-work-in-progress project 😊
 
-![Screenshot](/assets/images/screenshot-tablet.png)
+![Screenshot](/assets/images/screenshot.png)
 
 ## Introduction
 
