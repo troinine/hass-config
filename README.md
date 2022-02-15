@@ -1,7 +1,5 @@
 # My Home Assistant config
 
-DISCLAIMER: Just that you are aware, this is probably a forever-work-in-progress project 😊
-
 ![Screenshot](/assets/images/screenshot.png)
 
 ## Introduction
