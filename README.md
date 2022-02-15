@@ -38,6 +38,19 @@ Plus few others.
 - Conditional notifications such as doors open, precipitation, Home Assistant and Synology updates etc.
 - Notification badge in the home card (useful especially on mobile)
 
+### Custom cards
+
+I have created few [button card templates](button_card_templates/troinine) for my own needs. To mention few:
+
+- Generic info card with extra entity
+- Generic sensor card
+- Graph sensor card (graph displayed with mini-graph-card)
+- Sidebar clock with date, time and weather
+- Light card with a slider
+- User card with device tracker and battery statuses
+
+All cards try to incorporate similar design. Icons can glow based on the state and the light card has a glowing box shadow when the respective light is on.
+
 ### Popups
 
 Popups have been implemented using [browser_mod](https://github.com/thomasloven/hass-browser_mod). Here are few examples:
@@ -86,4 +99,4 @@ TBD
 
 ## License
 
-MIT
+This repo is [MIT Licensed](LICENSE)
