@@ -34,21 +34,44 @@ Plus few others.
 
 ### Sidebar, notifications and clock
 
+- Fancy sidebar clock with date, time and current weather condition and outdoor temperature
+- Conditional notifications such as doors open, precipitation, Home Assistant and Synology updates etc.
+- Notification badge in the home card (useful especially on mobile)
+
 ### Popups
+
+Popups have been implemented using [browser_mod](https://github.com/thomasloven/hass-browser_mod). Here are few examples:
+
+Custom light popup with predefined scenes and colorwheel:
+
+![Light popup](/assets/images/screenshot-light-popup.png)
+
+Heating data popup:
+
+![Heating popup](/assets/images/screenshot-heating-popup.png)
+
+Mobile popup with cards:
+
+![Mobile popup](/assets/images/screenshot-mobile-popup.png)
 
 ## Hardware and software
 
 The following table contains some of the hardward and software I use with Home Assistant
 
-| Product                     | Description                                                                                                                                                                                         |
-| --------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Philips Hue                 | Philips Hue Bridge with light strips, bulbs, motion sensors, dimmer switches                                                                                                                        |
-| Synology Diskstation DS220+ | NAS which runs Home Assistant and bunch of other services for my needs                                                                                                                              |
-| Ruuvi                       | A bunch of RuuviTags. I have a custom-built software that reads data from these tags                                                                                                                |
-| Raspberry Pi Zero           | Provides near real-time data from the ground source heat pump. Reads data from RuuviTags. Is equipped with [Readbear's IOT pHAT](https://github.com/redbear/IoT_pHAT) for Wifi and BT connectivity. |
-| Nibe 1226 NEW 8kW           | Ground source heat pump providing heating and cooling to the house                                                                                                                                  |
+| Product                     | Integration        | Description                                                                                                                                                                                         |
+| --------------------------- | ------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Airthings Wave Plus         | MQTT               | Two Airthings Wave Plus sensor measuring temperature, humidity, CO2, VOC and Radon                                                                                                                  |
+| Philips Hue                 | Philips Hue        | Philips Hue Bridge with light strips, bulbs, motion sensors, dimmer switches                                                                                                                        |
+| Synology Diskstation DS220+ | Synology DSM       | NAS which runs Home Assistant and bunch of other services for my needs                                                                                                                              |
+| Ruuvi                       | MQTT               | A bunch of RuuviTags. I have a custom-built software that reads data from these tags                                                                                                                |
+| Raspberry Pi Zero           | MQTT               | Provides near real-time data from the ground source heat pump. Reads data from RuuviTags. Is equipped with [Readbear's IOT pHAT](https://github.com/redbear/IoT_pHAT) for Wifi and BT connectivity. |
+| Nibe 1226 NEW 8kW           | MQTT               | Ground source heat pump providing heating and cooling to the house                                                                                                                                  |
+| Sony Playstationg 5         | CLI                | Only PS5 status is currently retrieved via CLI                                                                                                                                                      |
+| Samsung TV                  | Samsnug Smart TV   | Samsung Q90 Series Smart TV                                                                                                                                                                         |
+| Yale Doorman                | Verisure           | Smart locks securing the house doors                                                                                                                                                                |
+| TP-Link Kasa Smartplugs     | TP-Link Kasa Smart | Few HS100 and HS110 smart plugs controlling specific devices such as garage dehumidifier and water circulation                                                                                      |
 
-In addition to HW I use a collection of OSS
+In addition to hardware I use a collection of OSS to feed data to Home Assistant:
 
 | Software                                                                                                     | Description                                                                                                                                           |
 | ------------------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
