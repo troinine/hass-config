@@ -6,11 +6,11 @@ DISCLAIMER: Just that you are aware, this is probably a forever-work-in-progress
 
 ## Introduction
 
-My home assistant journey started roughly 2018 but was not very active for the first two years. I was happy with the default lovelace UI for a while until I started to notice projects that took a completely different way to design their dashboards.
+My home assistant journey started roughly 2018 but was not very active for the first two years. I was happy with the default lovelace UI for a while until I started to notice projects that took completely different approach on designing their dashboards.
 
-Big insparation came from the [UI-Lovelace-Minimalist](https://github.com/UI-Lovelace-Minimalist/UI) project and from [@matt8707](https://github.com/matt8707/hass-config)'s nice design!
+Significant inspiration started when I came across [UI-Lovelace-Minimalist](https://github.com/UI-Lovelace-Minimalist/UI) project and further studied [@matt8707](https://github.com/matt8707/hass-config)'s great design!
 
-After learning how to use the excellent [button-card](https://github.com/custom-cards/button-card) I came up with my current design for tablet and mobile. Yes, this design is heavily based on the button-card. Maybe I went a bit too deep with it...
+After learning how to use the brilliant and very flexible [button-card](https://github.com/custom-cards/button-card) by [@RomRider](https://github.com/RomRider) I came up with my current design for tablet and mobile. Yes, this design is heavily based on the button-card. Maybe I went a bit too deep with it...
 
 Hope you enjoy and find things useful in this repo! ⭐
 
@@ -55,7 +55,7 @@ All cards try to incorporate similar design. Icons can glow based on the state a
 
 Popups have been implemented using [browser_mod](https://github.com/thomasloven/hass-browser_mod). Here are few examples:
 
-Custom light popup with predefined scenes and colorwheel:
+Custom light popup with predefined scenes and color wheel:
 
 ![Light popup](/assets/images/screenshot-light-popup.png)
 
@@ -69,20 +69,20 @@ Mobile popup with cards:
 
 ## Hardware and software
 
-The following table contains some of the hardward and software I use with Home Assistant
+The following table contains some of the hardware and software I use with Home Assistant
 
 | Product                     | Integration        | Description                                                                                                                                                                                         |
 | --------------------------- | ------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Airthings Wave Plus         | MQTT               | Two Airthings Wave Plus sensor measuring temperature, humidity, CO2, VOC and Radon                                                                                                                  |
+| Airthings Wave Plus         | MQTT               | Two Airthings Wave Plus sensors measuring temperature, humidity, CO2, VOC and Radon                                                                                                                 |
 | Philips Hue                 | Philips Hue        | Philips Hue Bridge with light strips, bulbs, motion sensors, dimmer switches                                                                                                                        |
-| Synology Diskstation DS220+ | Synology DSM       | NAS which runs Home Assistant and bunch of other services for my needs                                                                                                                              |
+| Synology DiskStation DS220+ | Synology DSM       | NAS which runs Home Assistant and bunch of other services for my needs                                                                                                                              |
 | Ruuvi                       | MQTT               | A bunch of RuuviTags. I have a custom-built software that reads data from these tags                                                                                                                |
 | Raspberry Pi Zero           | MQTT               | Provides near real-time data from the ground source heat pump. Reads data from RuuviTags. Is equipped with [Readbear's IOT pHAT](https://github.com/redbear/IoT_pHAT) for Wifi and BT connectivity. |
 | Nibe 1226 NEW 8kW           | MQTT               | Ground source heat pump providing heating and cooling to the house                                                                                                                                  |
-| Sony Playstationg 5         | CLI                | Only PS5 status is currently retrieved via CLI                                                                                                                                                      |
-| Samsung TV                  | Samsnug Smart TV   | Samsung Q90 Series Smart TV                                                                                                                                                                         |
+| Sony Playstation 5          | CLI                | Only PS5 status is currently retrieved via CLI                                                                                                                                                      |
+| Samsung TV                  | Samsung Smart TV   | Samsung Q90 Series Smart TV                                                                                                                                                                         |
 | Yale Doorman                | Verisure           | Smart locks securing the house doors                                                                                                                                                                |
-| TP-Link Kasa Smartplugs     | TP-Link Kasa Smart | Few HS100 and HS110 smart plugs controlling specific devices such as garage dehumidifier and water circulation                                                                                      |
+| TP-Link Kasa Smart plugs    | TP-Link Kasa Smart | Few HS100 and HS110 smart plugs controlling specific devices such as garage dehumidifier and water circulation                                                                                      |
 
 In addition to hardware I use a collection of OSS to feed data to Home Assistant:
 
@@ -92,10 +92,6 @@ In addition to hardware I use a collection of OSS to feed data to Home Assistant
 | [airthings-waveplus-mqtt-data-publisher](https://github.com/troinine/airthings-waveplus-mqtt-data-publisher) | Reads data from Airthings Wave Plus sensors and publishes it to an MQTT broker                                                                        |
 | [Eclipse Mosquitto](https://mosquitto.org)                                                                   | Receives data from various MQTT clients and is observed by Home Assistant                                                                             |
 | Nibe heat pump MQTT data publisher                                                                           | Custom-built app that reads Nibe heat pump logs through an USB OTG mass-storage emulation and publishes the data to an MQTT broker                    |
-
-## Special thanks!
-
-TBD
 
 ## License
 
