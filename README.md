@@ -34,6 +34,20 @@ The following custom cards are extensively used throughout the dashboards:
 - Conditional notifications such as doors open, precipitation, Home Assistant and Synology updates etc.
 - Notification badge in the home card (useful especially on mobile)
 
+Few notifications that can be visible on the sidebar
+
+- Heat pump alarm
+- Doors open
+- High CO2
+- High and low indoor humidity
+- High radon levels
+- Garage dehumidifier on
+- Current and today's precipitation
+- Vacation mode on
+- Synology security state warning
+- Synology update available
+- Home Assistant update available
+
 ### Custom cards
 
 I have created few [button card templates](button_card_templates/troinine) for my own needs. To mention few:
