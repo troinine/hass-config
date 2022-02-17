@@ -60,6 +60,10 @@ Heating data popup:
 
 ![Heating popup](/assets/images/screenshot-heating-popup.png)
 
+Mobile notifications popup:
+
+![Mobile notifications popup](/assets/images/screenshot-mobile-notifications-popup.png)
+
 Mobile popup with cards:
 
 ![Mobile popup](/assets/images/screenshot-mobile-popup.png)
