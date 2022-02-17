@@ -30,7 +30,7 @@ The following custom cards are extensively used throughout the dashboards:
 
 ### Sidebar, notifications and clock
 
-- Fancy sidebar clock with date, time and current weather condition and outdoor temperature
+- Fancy sidebar clock with date, time, current weather condition and outdoor temperature
 - Conditional notifications such as doors open, precipitation, Home Assistant and Synology updates etc.
 - Notification badge in the home card (useful especially on mobile)
 
