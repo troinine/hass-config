@@ -46,6 +46,7 @@ I have created few [button card templates](button_card_templates/troinine) for m
 - Sidebar clock with date, time and weather
 - Light card with a slider
 - User card with device tracker and battery statuses
+- Notification card that is used in the sidebar
 
 All cards try to incorporate similar design. Icons can glow based on the state and the light card has a glowing box shadow when the respective light is on.
 
@@ -64,6 +65,16 @@ Heating data popup:
 Mobile popup with cards:
 
 ![Mobile popup](/assets/images/screenshot-mobile-popup.png)
+
+### Automations
+
+In addition to basic lights on / off based on movement. There are few automations that I use
+
+- Wake up tablet and increase light brightness when movement is detected in the hallway
+- Notify mobile app if the garage dehumidifier's bucket is full
+- Turn hallway lights on when garage door is opened (arrive home)
+- Notify mobile app if the ground source heat pump reports an alarm
+- Notify mobile app when Radon levels are increasing
 
 ## Hardware and software
 
