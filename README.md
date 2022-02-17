@@ -103,6 +103,7 @@ In addition to hardware I use a collection of OSS to feed data to Home Assistant
 | [airthings-waveplus-mqtt-data-publisher](https://github.com/troinine/airthings-waveplus-mqtt-data-publisher) | Reads data from Airthings Wave Plus sensors and publishes it to an MQTT broker                                                                        |
 | [Eclipse Mosquitto](https://mosquitto.org)                                                                   | Receives data from various MQTT clients and is observed by Home Assistant                                                                             |
 | Nibe heat pump MQTT data publisher                                                                           | Custom-built app that reads Nibe heat pump logs through an USB OTG mass-storage emulation and publishes the data to an MQTT broker                    |
+| [Scrapy](https://scrapy.org)                                                                                 | Custom web site scraper that obtains electricity consumption from [Helen](https://www.helen.fi) and sends the data to an MQTT broker                  |
 
 ## License
 
