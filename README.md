@@ -1,4 +1,4 @@
-# My Home Assistant config
+# My Home Assistant configuration
 
 ![Screenshot](/assets/images/screenshot.png)
 
