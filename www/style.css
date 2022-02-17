@@ -1,0 +1,11 @@
+html {
+    /* Responsive font size. 1 % of max(viewport width, viewport height) */
+    font-size: 1vmax;
+}
+
+@media only screen and (max-width: 600px) {
+    /* Responsive font size. 1.5 % of max(viewport width, viewport height) */
+    html {
+        font-size: 1.5vmax
+    }
+  }
