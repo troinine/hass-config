@@ -16,7 +16,7 @@ Hope you enjoy and find things useful in this repo! ⭐
 
 Home Assistant runs on [Docker](https://hub.docker.com/r/homeassistant/home-assistant) on a [Synology NAS](https://www.synology.com). Users access Home Assistant through the [Companion App](https://companion.home-assistant.io) on their mobile. In addition, the house has table mounted [10.5" Samsung Galaxy Tab A8](https://www.samsung.com/uk/tablets/galaxy-tab-a/galaxy-tab-a8-wifi-dark-gray-32gb-sm-x200nzaaeua/).
 
-Configuration is performed using the YAML mode.
+Configuration is performed mostly using YAML.
 
 The following custom cards are extensively used throughout the dashboards:
 
@@ -25,8 +25,6 @@ The following custom cards are extensively used throughout the dashboards:
 - [card-mod](https://github.com/thomasloven/lovelace-card-mod)
 - [layout-card](https://github.com/thomasloven/lovelace-layout-card)
 - [light-entity-card](https://github.com/ljmerza/light-entity-card)
-
-Plus few others.
 
 ## Features
 

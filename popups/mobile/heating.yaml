@@ -75,21 +75,21 @@ browser_mod:
             template:
               - compact_sensor
             entity: sensor.nibe_daily_brine_min_input_temp
-            name: Tulolämpö
+            name: Tulo
             label: Matalin
 
           - type: custom:button-card
             template:
               - compact_sensor
             entity: sensor.nibe_daily_brine_min_output_temp
-            name: Menolämpö
+            name: Meno
             label: Matalin
 
           - type: custom:button-card
             template:
               - compact_sensor
             entity: sensor.nibe_brine_pump_speed
-            name: KV-pumppu
+            name: Pumppu
             label: Nopeus
 
       - type: horizontal-stack
