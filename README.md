@@ -59,6 +59,7 @@ I have created few [button card templates](button_card_templates/troinine) for m
 - Light card with a slider
 - User card with device tracker and battery statuses
 - Notification card that is used in the sidebar
+- Conditional card which allows flexible way of conditionally showing or hiding a card
 
 All cards try to incorporate similar design. Icons can glow based on the state and the light card has a glowing box shadow when the respective light is on.
 
@@ -66,7 +67,11 @@ All cards try to incorporate similar design. Icons can glow based on the state a
 
 Popups have been implemented using [browser_mod](https://github.com/thomasloven/hass-browser_mod). Here are few examples:
 
-Custom light popup with predefined scenes and color wheel:
+Custom light popup with predefined scenes and color wheel. This card has few features:
+
+- Can support `light.` and `switch.` entities and select features based on that
+- Allows explicitly enabling or disabling the color wheel
+- Allows explicitly enabling or disabling presets for specific colors
 
 ![Light popup](/assets/images/screenshot-light-popup.png)
 
