@@ -1,0 +1,34 @@
+conditional:
+  variables:
+    show: true
+    card: false
+  show_state: false
+  show_name: false
+  show_icon: false
+  show_label: false
+  custom_fields:
+    conditional_card:
+      card: |
+        [[[ return (variables.show ? variables.card : null) ]]]
+  styles:
+    grid:
+      - grid-template-areas: |
+          "conditional_card"
+      - grid-template-columns: 1fr
+      - grid-template-rows: 1fr
+    card:
+      - background-color: transparent
+      - box-shadow: none
+      - border-radius: 0
+      - display: |
+          [[[
+            if (variables.show) {
+              return 'flex'
+            } else {
+              return 'none'
+            }
+          ]]]
+    custom_fields:
+      conditional_card:
+        - align-self: start start
+        - width: 100%

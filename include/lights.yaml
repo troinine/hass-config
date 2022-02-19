@@ -74,3 +74,30 @@
     - light.group_entrance
     - light.group_office
     - light.group_bedroom
+
+- platform: group
+  name: group_all_flat
+  entities:
+    - light.tyohuone_nauha
+    - light.tyohuone_poytalamppu
+    - light.tyohuone_katto
+    - light.keittio_nauha_1
+    - light.keittio_nauha_2
+    - light.keittio_ohio_1
+    - light.keittio_ohio_2
+    - light.keittio_ohio_3
+    - light.olohuone_nauha
+    - light.olohuone_oikea_yla
+    - light.olohuone_oikea_ala
+    - light.olohuone_vasen_yla
+    - light.olohuone_vasen_ala
+    - light.makuuhuone_nauha
+    - light.lundia_jalkalamppu
+    - light.eteinen_oikea_yla
+    - light.eteinen_oikea_ala
+    - light.eteinen_vasen_yla
+    - light.eteinen_vasen_ala
+    - light.eteisen_poytalamppu
+    - light.otson_katto
+    - light.sisun_katto
+    - light.sisun_poytalamppu

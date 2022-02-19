@@ -113,8 +113,7 @@ scene_parameterized_color_rgb:
     - service: light.turn_on
       data_template:
         entity_id: |
-          {% set lights = entities %}
-          {{ expand(lights) | selectattr('state', 'eq', 'on') | map(attribute='entity_id') | join(',') }}
+          {{ expand(state_attr(entity, 'entity_id')) | selectattr('state', 'eq', 'on') | map(attribute='entity_id') | list }}
         brightness_pct: "{{ brightness }}"
         rgb_color: "{{ color_rgb }}"
 
@@ -126,7 +125,17 @@ scene_parameterized_color_temperature:
     - service: light.turn_on
       data_template:
         entity_id: |
-          {% set lights = entities %}
-          {{ expand(lights) | selectattr('state', 'eq', 'on') | map(attribute='entity_id') | join(',') }}
+          {{ expand(state_attr(entity, 'entity_id')) | selectattr('state', 'eq', 'on') | map(attribute='entity_id') | list }}
         brightness_pct: "{{ brightness }}"
         kelvin: "{{ color_temperature }}"
+
+scene_parameterized_brightness:
+  mode: single
+  alias: Parametrisoitu valoasetus, kirkkaus
+  icon: mdi:lightbulb-auto
+  sequence:
+    - service: light.turn_on
+      data_template:
+        entity_id: |
+          {{ expand(state_attr(entity, 'entity_id')) | selectattr('state', 'eq', 'on') | map(attribute='entity_id') | list }}
+        brightness_pct: "{{ brightness }}"

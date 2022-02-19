@@ -84,6 +84,9 @@ compact_card:
     card:
       - height: var(--button-card-compact-height)
 
+wide_card:
+  aspect_ratio: 2/1
+
 base_icon:
   template:
     - base

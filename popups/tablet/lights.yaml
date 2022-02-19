@@ -3,127 +3,160 @@ browser_mod:
   command: popup
   title: Valaistus
   style:
+    $: |
+      .mdc-dialog .mdc-dialog__surface {
+        background-color: var(--primary-background-color) !important;
+      }
+
     .: |
       :host .content {
-        width: 50vw;
-        max-width: 50vw;
+        width: 60vw;
+        max-width: 70vw;
       }
-    layout-card:
-      $grid-layout$:
-        .: |
+    hui-vertical-stack-card:
+      $: |
+        #root {
+          padding: 1rem 1rem 2rem 1rem;
+        }
+      $hui-horizontal-stack-card:
+        $: |
           #root {
-            margin: 1rem !important;
+            display: flex;
+            justify-content: center;
           }
-        hui-horizontal-stack-card:
-          .: |
-            #root {
-              justify-content: space-evenly;
-            }
-          $button-card:
-            $: |
-              ha-card {
-              }
-        hui-vertical-stack-card:
-          $hui-entities-card:
-            $: |
-              .card-content {
-                #padding: 1.5em 2.7em 2.3em 2em;
-              }
-              ha-card {
-                border-right: 1.5px solid rgba(0, 0, 0, 0.2);
-                border-radius: 0;
-                transition: none;
-                box-shadow: none;
-              }
-
+          h1.card-header {
+            display: flex;
+            justify-content: center;
+          }
   card:
-    type: custom:layout-card
-    layout_type: custom:grid-layout
-    layout:
-      grid-template-columns: 0.5fr 1fr 0.5fr
-      grid-template-rows: min-content min-content
-      grid-template-areas: |
-        ". scenes ."
-        "rooms rooms rooms"
-      place-items: start stretch
+    type: vertical-stack
     cards:
-      - type: vertical-stack
-        view_layout:
-          grid-area: scenes
+      - type: horizontal-stack
         cards:
-          - type: 'custom:button-card'
-            template: group_title
-            name: Valaistuksen esiasetukset
-          - type: grid
-            columns: 3
-            view_layout:
-              grid-area: scenes
-            cards: 
-              - type: custom:button-card
-                template: run_scene
-                entity: script.scene_evening_routines
-                variables:
-                  card_glow: false
-                  icon_color: rgb(255,184, 123)
-              - type: custom:button-card
-                template: run_scene
-                entity: script.scene_day_lights
-                variables:
-                  card_glow: false
-                  icon_color: rgb(255,211, 175)
-              - type: custom:button-card
-                template: run_scene
-                entity: script.scene_kids_go_to_sleep
-                variables:
-                  card_glow: false
-                  icon_color: rgb(0, 255, 6)
-      - type: vertical-stack
-        view_layout:
-          grid-area: rooms
+          - type: custom:button-card
+            template: scene_icon_temperature
+            entity: light.group_all_flat
+            name: Relax
+            variables:
+              color_rgb: 255, 148, 43
+              color_temperature: 2800
+              brightness: 60
+
+          - type: custom:button-card
+            template: scene_icon_temperature
+            entity: light.group_all_flat
+            name: Luku
+            variables:
+              color_rgb: 255, 174, 103
+              color_temperature: 3500
+              brightness: 100
+
+          - type: custom:button-card
+            template: scene_icon_temperature
+            entity: light.group_all_flat
+            name: Keskity
+            variables:
+              color_rgb: 255, 214, 181
+              color_temperature: 4200
+              brightness: 100
+
+          - type: custom:button-card
+            template: scene_icon_temperature
+            entity: light.group_all_flat
+            name: Viileä
+            variables:
+              color_rgb: 255, 252, 247
+              color_temperature: 6000
+              brightness: 100
+
+          - type: custom:button-card
+            template: scene_icon_brightness
+            entity: light.group_all_flat
+            name: 60%
+            variables:
+              brightness: 60
+
+          - type: custom:button-card
+            template: scene_icon_brightness
+            entity: light.group_all_flat
+            name: 40%
+            variables:
+              brightness: 40
+
+          - type: custom:button-card
+            template: scene_icon_brightness
+            entity: light.group_all_flat
+            name: 20%
+            variables:
+              brightness: 20
+
+      - type: custom:button-card
+        template: subtitle
+        name: Huoneet
+
+      - type: grid
+        columns: 4
+        square: false
         cards:
-          - type: 'custom:button-card'
-            template: group_title
-            name: Huoneet
-          - type: grid
-            columns: 4
-            cards:
-              - type: custom:button-card
-                template: light
-                entity: light.eteinen
-                variables:
-                  card_glow: true
-              - type: custom:button-card
-                template: light
-                entity: light.keittio
-                variables:
-                  card_glow: true
-              - type: custom:button-card
-                template: light
-                entity: light.olohuone
-                variables:
-                  card_glow: true
-              - type: custom:button-card
-                template: light
-                entity: light.makuuhuone
-                variables:
-                  card_glow: true
-              - type: custom:button-card
-                template: light
-                entity: light.otson_huone
-                variables:
-                  card_glow: true
-              - type: custom:button-card
-                template: light
-                entity: light.sisun_huone  
-                variables:
-                  card_glow: true
-              - type: custom:button-card
-                template: light
-                entity: light.tyohuone  
-                variables:
-                  card_glow: true
-              - type: custom:button-card
-                template: light
-                entity: switch.tplink_hs100_3  
-                variables:
-                  card_glow: true
+          - type: custom:button-card
+            template: compact_light
+            entity: light.group_entrance
+            name: Eteinen
+
+          - type: custom:button-card
+            template: compact_light
+            entity: light.group_kitchen
+            name: Keittiö
+
+          - type: custom:button-card
+            template: compact_light
+            entity: light.group_living_room
+            name: Olohuone
+
+          - type: custom:button-card
+            template: compact_light
+            entity: light.group_bedroom
+            name: Makuuhuone
+
+          - type: custom:button-card
+            template: compact_light
+            entity: light.group_otsos_room
+            name: Otso
+
+          - type: custom:button-card
+            template: compact_light
+            entity: light.group_sisus_room
+            name: Sisu
+
+          - type: custom:button-card
+            template: compact_light
+            entity: light.group_office
+            name: Työhuone
+
+          - type: custom:button-card
+            template: compact_light
+            entity: switch.tplink_hs100_3
+            name: Kodinhoito
+
+      - type: custom:button-card
+        template: subtitle
+        name: Alueet
+
+      - type: grid
+        columns: 3
+        square: false
+        cards:
+          - type: custom:button-card
+            template: compact_light
+            entity: light.group_all
+            name: Kaikki
+
+          - type: custom:button-card
+            template: compact_light
+            entity: light.group_living_areas
+            name: Oleskelutilat
+
+          - type: custom:button-card
+            template: compact_light
+            entity: light.group_kids_rooms
+            name: Lapset

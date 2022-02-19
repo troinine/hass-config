@@ -112,16 +112,26 @@ light_no_action:
         - align-self: end
 
 light:
+  variables:
+    popup_show_colorwheel: true
+    popup_show_predefined_colors: false
   template:
     - light_no_action
   tap_action:
     !include ../../popups/common/light.yaml
 
-light_kids:
+light_wide:
   template:
-    - light_no_action
-  tap_action:
-    !include ../../popups/common/light-predefined-colors.yaml
+    - light
+    - wide_card
+  styles:
+    grid:
+      - grid-template-areas: |
+          "i n"
+          "i brightness"
+          "slider slider"
+      - grid-template-columns: 2.5rem 3.5fr
+      - grid-template-rows: 2.5rem 1.5fr 2fr
 
 compact_light:
   template:
@@ -178,11 +188,40 @@ scene_icon:
     img_cell:
       - width: 3rem
       - height: 3rem
-      - background-color: "[[[ return `rgb(${variables.color_rgb})` ]]]"
+      - background-color: |
+          [[[
+            if (variables.color_rgb) {
+              return `rgb(${variables.color_rgb})`
+            } else if (variables.is_active) {
+              return `rgb(${entity.attributes.rgb_color})`
+            }
+
+            return 'var(--custom-icon-color-not-active)'
+          ]]]
       - border-radius: 50%
       - filter: "[[[ return `opacity(${variables.brightness}%)` ]]]"
-      - '-webkit-box-shadow': "[[[ return `0 0 0.5rem 0.3rem rgb(${variables.color_rgb})` ]]]"
-      - box-shadow: "[[[ return `0 0 0.5rem 0.3rem rgb(${variables.color_rgb})` ]]]"
+      - '-webkit-box-shadow': |
+          [[[
+            var shadow_color = 'var(--custom-icon-color-not-active)'
+            if (variables.color_rgb) {
+              shadow_color = `rgb(${variables.color_rgb})`
+            } else if (variables.is_active) {
+              shadow_color = `rgb(${entity.attributes.rgb_color})`
+            }
+
+            return `0 0 0.5rem 0.3rem ${shadow_color}`
+          ]]]
+      - box-shadow: |
+          [[[
+            var shadow_color = 'var(--custom-icon-color-not-active)'
+            if (variables.color_rgb) {
+              shadow_color = `rgb(${variables.color_rgb})`
+            } else if (variables.is_active) {
+              shadow_color = `rgb(${entity.attributes.rgb_color})`
+            }
+
+            return `0 0 0.5rem 0.3rem ${shadow_color}`
+          ]]]
     icon:
       - width: 0
       - height: 0
@@ -212,7 +251,7 @@ scene_icon_rgb:
       [[[ return variables.is_active ? 'call-service' : 'none' ]]]
     service: script.scene_parameterized_color_rgb
     service_data:
-      entities: "[[[ return [entity.entity_id] ]]]"
+      entity: "[[[ return entity.entity_id ]]]"
       color_rgb: "[[[ return variables.color_rgb ]]]"
       brightness: "[[[ return variables.brightness ]]]"
 
@@ -226,8 +265,19 @@ scene_icon_temperature:
       [[[ return variables.is_active ? 'call-service' : 'none' ]]]
     service: script.scene_parameterized_color_temperature
     service_data:
-      entities: "[[[ return [entity.entity_id] ]]]"
+      entity: "[[[ return entity.entity_id ]]]"
       color_temperature: "[[[ return variables.color_temperature ]]]"
+      brightness: "[[[ return variables.brightness ]]]"
+
+scene_icon_brightness:
+  template:
+    - scene_icon
+  tap_action:
+    action: |
+      [[[ return variables.is_active ? 'call-service' : 'none' ]]]
+    service: script.scene_parameterized_brightness
+    service_data:
+      entity: "[[[ return entity.entity_id ]]]"
       brightness: "[[[ return variables.brightness ]]]"
 
 compact_run_scene:
