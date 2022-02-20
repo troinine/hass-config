@@ -110,9 +110,11 @@ views:
             columns: 2
             cards:
               - type: 'custom:button-card'
-                template: light
+                template: light_no_action
                 entity: light.group_all
                 name: Kaikki
+                tap_action:
+                  !include ../popups/tablet/lights.yaml
 
               - type: 'custom:button-card'
                 template: light

@@ -1,6 +1,8 @@
 ---
 light_no_action:
   variables:
+    popup_show_colorwheel: true
+    popup_show_predefined_colors: false
     brightness: |
       [[[
         if (entity.attributes.brightness) {
@@ -112,9 +114,6 @@ light_no_action:
         - align-self: end
 
 light:
-  variables:
-    popup_show_colorwheel: true
-    popup_show_predefined_colors: false
   template:
     - light_no_action
   tap_action:
