@@ -124,6 +124,88 @@ browser_mod:
                 view_layout:
                   grid-area: values
                   place-self: stretch
+                title: Työhuone
+                show_header_toggle: false
+                entities:
+                  - entity: sensor.netatmo_koti_olohuone_temperature
+                    name: Lämpötila
+                  - entity: sensor.netatmo_koti_olohuone_humidity
+                    name: Kosteus
+                  - entity: sensor.netatmo_koti_olohuone_co2
+                    name: CO2
+                  - entity: sensor.netatmo_koti_olohuone_noise
+                    name: Ääni
+                  - entity: sensor.netatmo_koti_olohuone_pressure
+                    name: Paine
+
+              - type: custom:apexcharts-card
+                card_mod:
+                  !include ../../ui/styles/no-card.yaml
+                view_layout:
+                  grid-area: chart1
+                config_templates:
+                  - sensor_temperature_humidity
+                header:
+                  title: Lämpötila ja kosteus
+                  show: true
+                  show_states: true
+                  colorize_states: true
+                series:
+                  - entity: sensor.netatmo_koti_olohuone_temperature
+                    type: area
+                    color: "#008000"
+                    curve: smooth
+                    stroke_width: 2
+                    group_by:
+                      func: avg
+                      duration: 1h
+                  - entity: sensor.netatmo_koti_olohuone_humidity
+                    type: area
+                    color: dodgerblue
+                    curve: smooth
+                    stroke_width: 2
+                    group_by:
+                      func: avg
+                      duration: 1h
+
+              - type: custom:apexcharts-card
+                card_mod:
+                  !include ../../ui/styles/no-card.yaml
+                view_layout:
+                  grid-area: chart2
+                config_templates:
+                  - sensor_generic
+                header:
+                  title: CO2
+                  show: true
+                  show_states: true
+                  colorize_states: true
+                series:
+                  - entity: sensor.netatmo_koti_olohuone_co2
+                    type: area
+                    color: green
+                    curve: smooth
+                    stroke_width: 2
+                    group_by:
+                      func: avg
+                      duration: 3h
+
+          - type: custom:layout-card
+            layout_type: custom:grid-layout
+            layout:
+              grid-template-columns: 1fr 2fr
+              grid-template-rows: 1fr 1fr
+              grid-template-areas: |
+                "values chart1"
+                "values chart2"
+              place-items: stretch stretch
+            cards:
+              - type: entities
+                card_mod:
+                  !include ../../ui/styles/no-card.yaml
+                view_layout:
+                  grid-area: values
+                  place-self: stretch
                 title: Makuuhuone
                 show_header_toggle: false
                 entities:
@@ -326,6 +408,64 @@ browser_mod:
                   colorize_states: true
                 series:
                   - entity: sensor.mqtt_otso_humidity
+                    type: area
+                    color: dodgerblue
+                    curve: smooth
+                    stroke_width: 2
+                    group_by:
+                      func: avg
+                      duration: 3h
+
+          - type: custom:layout-card
+            layout_type: custom:grid-layout
+            layout:
+              grid-template-columns: 1fr 2fr
+              grid-template-rows: 1fr 1fr
+              grid-template-areas: |
+                "values chart1"
+                "values chart2"
+              place-items: stretch stretch
+            cards:
+              - type: entities
+                card_mod:
+                  !include ../../ui/styles/no-card.yaml
+                view_layout:
+                  grid-area: values
+                  place-self: stretch
+                title: Ulko
+                show_header_toggle: false
+                entities:
+                  - entity: sensor.netatmo_koti_olohuone_ulko_temperature
+                    name: Lämpötila
+                  - entity: sensor.netatmo_koti_olohuone_ulko_humidity
+                    name: Kosteus
+                  - entity: sensor.netatmo_koti_olohuone_sade_rain
+                    name: Sademäärä
+                  - entity: sensor.netatmo_koti_olohuone_sade_rain_today
+                    name: Sademäärä tänään
+
+              - type: custom:apexcharts-card
+                card_mod:
+                  !include ../../ui/styles/no-card.yaml
+                view_layout:
+                  grid-area: chart1
+                config_templates:
+                  - sensor_temperature_outdoor
+
+              - type: custom:apexcharts-card
+                card_mod:
+                  !include ../../ui/styles/no-card.yaml
+                view_layout:
+                  grid-area: chart2
+                config_templates:
+                  - sensor_humidity
+                header:
+                  title: Kosteus
+                  show: true
+                  show_states: true
+                  colorize_states: true
+                series:
+                  - entity: sensor.netatmo_koti_olohuone_ulko_humidity
                     type: area
                     color: dodgerblue
                     curve: smooth

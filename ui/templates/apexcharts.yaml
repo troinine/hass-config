@@ -111,6 +111,54 @@ sensor_temperature:
         fillColors:
           - none
 
+sensor_temperature_outdoor:
+  experimental:
+    color_threshold: true
+  graph_span: 2d
+  header:
+    title: Ulkolämpötila
+    show: true
+    show_states: true
+  series:
+    - entity: sensor.netatmo_koti_olohuone_ulko_temperature
+      stroke_width: 2
+      group_by:
+        func: avg
+        duration: 3h
+      color_threshold:
+        - value: -5
+          color: "#1e61ff"
+        - value: -1
+          color: "#1eb0ff"
+        - value: 5
+          color: "yellow"
+        - value: 15
+          color: "green"
+        - value: 28
+          color: "#FF0000"
+  apex_config:
+    chart:
+      height: 200px
+    grid:
+      strokeDashArray: 2
+      borderColor: rgba(var(--primary-text-color-rgb), 0.2)
+    tooltip:
+      x:
+        show: false
+    xaxis:
+      tooltip:
+        enabled: false
+      crosshairs:
+        show: false
+      axisTicks:
+        show: false
+      axisBorder:
+        show: true
+        color: rgba(var(--primary-text-color-rgb), 0.4)
+        height: 1
+    legend:
+      show: false
+
 sensor_humidity:
   config_templates:
     - sensor_generic
