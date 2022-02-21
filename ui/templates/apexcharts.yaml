@@ -1,9 +1,21 @@
 ---
 base:
+  header:
+    show: true
+    show_states: true
+    colorize_states: true
+  all_series_config:
+    type: area
+    stroke_width: 2
+    group_by:
+      func: avg
+      duration: 3h
   graph_span: 2d
   apex_config:
     chart:
       height: 200px
+    stroke:
+      curve: smooth
     grid:
       strokeDashArray: 2
       borderColor: rgba(var(--primary-text-color-rgb), 0.2)
@@ -22,7 +34,7 @@ base:
         color: rgba(var(--primary-text-color-rgb), 0.4)
         height: 1
     legend:
-      show: true
+      show: false
       showForSingleSeries: true
       position: bottom
       horizontalAlign: right
@@ -79,6 +91,7 @@ sensor_temperature_humidity:
     - sensor_generic_dual
   apex_config:
     legend:
+      show: false
       markers:
         width: 26
         height: 23
@@ -100,6 +113,7 @@ sensor_temperature:
     - sensor_generic
   apex_config:
     legend:
+      show: false
       markers:
         width: 26
         height: 23
@@ -115,6 +129,11 @@ sensor_temperature_outdoor:
   experimental:
     color_threshold: true
   graph_span: 2d
+  all_series_config:
+    stroke_width: 2
+    group_by:
+      func: avg
+      duration: 3h
   header:
     title: Ulkolämpötila
     show: true
@@ -164,6 +183,7 @@ sensor_humidity:
     - sensor_generic
   apex_config:
     legend:
+      show: false
       markers:
         width: 26
         height: 23
@@ -180,6 +200,7 @@ sensor_radon:
     - sensor_generic
   apex_config:
     legend:
+      show: false
       markers:
         width: 26
         height: 26

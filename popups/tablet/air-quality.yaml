@@ -65,26 +65,11 @@ browser_mod:
                   - sensor_temperature_humidity
                 header:
                   title: Lämpötila
-                  show: true
-                  show_states: true
-                  colorize_states: true
                 series:
                   - entity: sensor.mqtt_airthings_waveplus_living_room_temperature
-                    type: area
                     color: "#008000"
-                    curve: smooth
-                    stroke_width: 2
-                    group_by:
-                      func: avg
-                      duration: 2h
                   - entity: sensor.mqtt_airthings_waveplus_living_room_humidity
-                    type: area
                     color: dodgerblue
-                    curve: smooth
-                    stroke_width: 2
-                    group_by:
-                      func: avg
-                      duration: 2h
 
               - type: custom:apexcharts-card
                 card_mod:
@@ -95,18 +80,9 @@ browser_mod:
                   - sensor_radon
                 header:
                   title: Radon, lyhytaikainen
-                  show: true
-                  show_states: true
-                  colorize_states: true
                 series:
                   - entity: sensor.mqtt_airthings_waveplus_living_room_radon_short_term
-                    type: area
                     color: yellow
-                    curve: smooth
-                    stroke_width: 2
-                    group_by:
-                      func: avg
-                      duration: 3h
 
           - type: custom:layout-card
             layout_type: custom:grid-layout
@@ -147,26 +123,13 @@ browser_mod:
                   - sensor_temperature_humidity
                 header:
                   title: Lämpötila ja kosteus
-                  show: true
-                  show_states: true
-                  colorize_states: true
                 series:
                   - entity: sensor.netatmo_koti_olohuone_temperature
-                    type: area
                     color: "#008000"
-                    curve: smooth
-                    stroke_width: 2
-                    group_by:
-                      func: avg
-                      duration: 1h
+                    name: Lämpötila
                   - entity: sensor.netatmo_koti_olohuone_humidity
-                    type: area
                     color: dodgerblue
-                    curve: smooth
-                    stroke_width: 2
-                    group_by:
-                      func: avg
-                      duration: 1h
+                    name: Kosteus
 
               - type: custom:apexcharts-card
                 card_mod:
@@ -177,18 +140,10 @@ browser_mod:
                   - sensor_generic
                 header:
                   title: CO2
-                  show: true
-                  show_states: true
-                  colorize_states: true
                 series:
                   - entity: sensor.netatmo_koti_olohuone_co2
-                    type: area
                     color: green
-                    curve: smooth
-                    stroke_width: 2
-                    group_by:
-                      func: avg
-                      duration: 3h
+                    name: CO2
 
           - type: custom:layout-card
             layout_type: custom:grid-layout
@@ -226,18 +181,10 @@ browser_mod:
                   - sensor_temperature
                 header:
                   title: Lämpötila
-                  show: true
-                  show_states: true
-                  colorize_states: true
                 series:
                   - entity: sensor.netatmo_koti_olohuone_makuuhuone_temperature
-                    type: area
                     color: "#008000"
-                    curve: smooth
-                    stroke_width: 2
-                    group_by:
-                      func: avg
-                      duration: 3h
+                    name: Lämpötila
 
               - type: custom:apexcharts-card
                 card_mod:
@@ -248,18 +195,10 @@ browser_mod:
                   - sensor_humidity
                 header:
                   title: Kosteus
-                  show: true
-                  show_states: true
-                  colorize_states: true
                 series:
                   - entity: sensor.netatmo_koti_olohuone_makuuhuone_humidity
-                    type: area
                     color: dodgerblue
-                    curve: smooth
-                    stroke_width: 2
-                    group_by:
-                      func: avg
-                      duration: 3h
+                    name: Kosteus
 
           - type: custom:layout-card
             layout_type: custom:grid-layout
@@ -302,26 +241,11 @@ browser_mod:
                   - sensor_temperature_humidity
                 header:
                   title: Lämpötila ja kosteus
-                  show: true
-                  show_states: true
-                  colorize_states: true
                 series:
                   - entity: sensor.mqtt_airthings_waveplus_sisu_temperature
-                    type: area
                     color: "#008000"
-                    curve: smooth
-                    stroke_width: 2
-                    group_by:
-                      func: avg
-                      duration: 1h
                   - entity: sensor.mqtt_airthings_waveplus_sisu_humidity
-                    type: area
                     color: dodgerblue
-                    curve: smooth
-                    stroke_width: 2
-                    group_by:
-                      func: avg
-                      duration: 1h
 
               - type: custom:apexcharts-card
                 card_mod:
@@ -332,18 +256,9 @@ browser_mod:
                   - sensor_radon
                 header:
                   title: Radon, lyhytaikainen
-                  show: true
-                  show_states: true
-                  colorize_states: true
                 series:
                   - entity: sensor.mqtt_airthings_waveplus_sisu_radon_short_term
-                    type: area
                     color: yellow
-                    curve: smooth
-                    stroke_width: 2
-                    group_by:
-                      func: avg
-                      duration: 3h
 
           - type: custom:layout-card
             layout_type: custom:grid-layout
@@ -371,7 +286,6 @@ browser_mod:
                   - entity: sensor.mqtt_otso_pressure
                     name: Paine
 
-
               - type: custom:apexcharts-card
                 card_mod:
                   !include ../../ui/styles/no-card.yaml
@@ -381,18 +295,10 @@ browser_mod:
                   - sensor_temperature
                 header:
                   title: Lämpötila
-                  show: true
-                  show_states: true
-                  colorize_states: true
                 series:
                   - entity: sensor.mqtt_otso_temperature
-                    type: area
                     color: "#008000"
-                    curve: smooth
-                    stroke_width: 2
-                    group_by:
-                      func: avg
-                      duration: 3h
+                    name: Lämpötila
 
               - type: custom:apexcharts-card
                 card_mod:
@@ -403,18 +309,10 @@ browser_mod:
                   - sensor_humidity
                 header:
                   title: Kosteus
-                  show: true
-                  show_states: true
-                  colorize_states: true
                 series:
                   - entity: sensor.mqtt_otso_humidity
-                    type: area
                     color: dodgerblue
-                    curve: smooth
-                    stroke_width: 2
-                    group_by:
-                      func: avg
-                      duration: 3h
+                    name: Kosteus
 
           - type: custom:layout-card
             layout_type: custom:grid-layout
@@ -461,15 +359,7 @@ browser_mod:
                   - sensor_humidity
                 header:
                   title: Kosteus
-                  show: true
-                  show_states: true
-                  colorize_states: true
                 series:
                   - entity: sensor.netatmo_koti_olohuone_ulko_humidity
-                    type: area
                     color: dodgerblue
-                    curve: smooth
-                    stroke_width: 2
-                    group_by:
-                      func: avg
-                      duration: 3h
+                    name: Kosteus
