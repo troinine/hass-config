@@ -1,6 +1,8 @@
 ---
 button_card_templates: !include_dir_merge_named ../button_card_templates/
 
+apexcharts_card_templates: !include templates/apexcharts.yaml
+
 views:
   - title: "Tabletti"
     path: home

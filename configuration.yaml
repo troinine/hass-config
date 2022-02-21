@@ -63,6 +63,10 @@ lovelace:
       type: module
     - url: /local/community_cards/light-entity-card.js
       type: module
+    - url: /local/community_cards/apexcharts-card.js
+      type: module
+    - url: /local/community_cards/swipe-card.js
+      type: module
     - url: /local/style.css
       type: css
   dashboards:

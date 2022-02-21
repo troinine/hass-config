@@ -1,0 +1,144 @@
+---
+base:
+  graph_span: 2d
+  apex_config:
+    chart:
+      height: 200px
+    grid:
+      strokeDashArray: 2
+      borderColor: rgba(var(--primary-text-color-rgb), 0.2)
+    tooltip:
+      x:
+        show: false
+    xaxis:
+      tooltip:
+        enabled: false
+      crosshairs:
+        show: false
+      axisTicks:
+        show: false
+      axisBorder:
+        show: true
+        color: rgba(var(--primary-text-color-rgb), 0.4)
+        height: 1
+    legend:
+      show: true
+      showForSingleSeries: true
+      position: bottom
+      horizontalAlign: right
+    fill:
+      type: gradient
+      gradient:
+        type: vertical
+        shadeIntensity: 0
+        opacityFrom: 0.6
+        opacityTo: 0.2
+        stops:
+          - 0
+          - 90
+          - 100
+
+sensor_generic:
+  config_templates:
+    - base
+  graph_span: 2d
+  apex_config:
+    yaxis:
+      show: true
+      decimalsInFloat: 1
+      forceNiceScale: true
+      axisBorder:
+        show: true
+        color: rgba(var(--primary-text-color-rgb), 0.4)
+        height: 1
+
+sensor_generic_dual:
+  config_templates:
+    - base
+  apex_config:
+    yaxis:
+      - show: true
+        decimalsInFloat: 0
+        min: 18
+        max: 28
+        axisBorder:
+          show: true
+          color: rgba(var(--primary-text-color-rgb), 0.4)
+          height: 1
+      - show: true
+        opposite: true
+        decimalsInFloat: 1
+        forceNiceScale: true
+        axisBorder:
+          show: true
+          color: rgba(var(--primary-text-color-rgb), 0.4)
+          height: 1
+
+sensor_temperature_humidity:
+  config_templates:
+    - sensor_generic_dual
+  apex_config:
+    legend:
+      markers:
+        width: 26
+        height: 23
+        customHTML:
+          - |-
+            EVAL:() => {
+              return `<ha-icon icon="mdi:thermometer" style="--mdc-icon-size: 20px;"></ha-icon>`
+            }
+          - |-
+            EVAL:() => {
+              return `<ha-icon icon="mdi:water-percent" style="--mdc-icon-size: 20px;"></ha-icon>`
+            }
+        fillColors:
+          - none
+          - none
+
+sensor_temperature:
+  config_templates:
+    - sensor_generic
+  apex_config:
+    legend:
+      markers:
+        width: 26
+        height: 23
+        customHTML:
+          - |-
+            EVAL:() => {
+              return `<ha-icon icon="mdi:thermometer" style="--mdc-icon-size: 20px;"></ha-icon>`
+            }
+        fillColors:
+          - none
+
+sensor_humidity:
+  config_templates:
+    - sensor_generic
+  apex_config:
+    legend:
+      markers:
+        width: 26
+        height: 23
+        customHTML:
+          - |-
+            EVAL:() => {
+              return `<ha-icon icon="mdi:water-percent" style="--mdc-icon-size: 20px;"></ha-icon>`
+            }
+        fillColors:
+          - none
+
+sensor_radon:
+  config_templates:
+    - sensor_generic
+  apex_config:
+    legend:
+      markers:
+        width: 26
+        height: 26
+        customHTML:
+          - |-
+            EVAL:() => {
+              return `<ha-icon icon="mdi:radioactive" style="--mdc-icon-size: 20px;"></ha-icon>`
+            }
+        fillColors:
+          - none
