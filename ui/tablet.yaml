@@ -43,6 +43,7 @@ views:
             variables:
               entity_weather: weather.koti_custom
               entity_date: sensor.date
+              entity_temperature: sensor.netatmo_koti_olohuone_ulko_temperature
 
           - type: vertical-stack
             view_layout:

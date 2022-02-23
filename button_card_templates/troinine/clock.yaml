@@ -34,7 +34,6 @@ clock:
             - width: 3rem
             - height: 2.5rem
           card:
-            - border-radius: 0
             - background-color: transparent
             - box-shadow: none
             - padding: 0 0 0 0.8rem
@@ -82,7 +81,6 @@ clock:
             - font-size: 2rem
             - filter: "opacity(40%)"
           card:
-            - border-radius: 0
             - background-color: transparent
             - box-shadow: none
             - padding: 0 0 0 0.8rem
