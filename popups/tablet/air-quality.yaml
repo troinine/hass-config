@@ -55,6 +55,8 @@ browser_mod:
                     name: Radon, lyhytaikainen
                   - entity: sensor.mqtt_airthings_waveplus_living_room_radon_long_term
                     name: Radon, pitkäaikainen
+                  - entity: switch.tplink_hs100_2
+                    secondary_info: last-changed
 
               - type: custom:apexcharts-card
                 card_mod:
@@ -67,9 +69,7 @@ browser_mod:
                   title: Lämpötila
                 series:
                   - entity: sensor.mqtt_airthings_waveplus_living_room_temperature
-                    color: "#008000"
                   - entity: sensor.mqtt_airthings_waveplus_living_room_humidity
-                    color: dodgerblue
 
               - type: custom:apexcharts-card
                 card_mod:
@@ -77,12 +77,12 @@ browser_mod:
                 view_layout:
                   grid-area: chart2
                 config_templates:
-                  - sensor_radon
+                  - sensor_radon_voc
                 header:
                   title: Radon, lyhytaikainen
                 series:
                   - entity: sensor.mqtt_airthings_waveplus_living_room_radon_short_term
-                    color: yellow
+                  - entity: sensor.mqtt_airthings_waveplus_living_room_voc
 
           - type: custom:layout-card
             layout_type: custom:grid-layout
@@ -231,6 +231,8 @@ browser_mod:
                     name: Radon, lyhytaikainen
                   - entity: sensor.mqtt_airthings_waveplus_sisu_radon_long_term
                     name: Radon, pitkäaikainen
+                  - entity: switch.tplink_hs110_1
+                    secondary_info: last-changed
 
               - type: custom:apexcharts-card
                 card_mod:
@@ -253,12 +255,12 @@ browser_mod:
                 view_layout:
                   grid-area: chart2
                 config_templates:
-                  - sensor_radon
+                  - sensor_radon_voc
                 header:
                   title: Radon, lyhytaikainen
                 series:
                   - entity: sensor.mqtt_airthings_waveplus_sisu_radon_short_term
-                    color: yellow
+                  - entity: sensor.mqtt_airthings_waveplus_sisu_voc
 
           - type: custom:layout-card
             layout_type: custom:grid-layout

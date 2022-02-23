@@ -12,6 +12,12 @@ base:
       duration: 3h
   graph_span: 2d
   apex_config:
+    dropShadow:
+      enabled: true
+      top: 0
+      left: 0
+      blur: 3
+      opacity: 0.5
     chart:
       height: 200px
     stroke:
@@ -21,7 +27,7 @@ base:
       borderColor: rgba(var(--primary-text-color-rgb), 0.2)
     tooltip:
       x:
-        show: false
+        show: true
     xaxis:
       tooltip:
         enabled: false
@@ -56,13 +62,14 @@ sensor_generic:
   graph_span: 2d
   apex_config:
     yaxis:
-      show: true
-      decimalsInFloat: 1
-      forceNiceScale: true
-      axisBorder:
-        show: true
-        color: rgba(var(--primary-text-color-rgb), 0.4)
-        height: 1
+      - show: true
+        decimalsInFloat: 0
+        forceNiceScale: true
+        seriesName: foo
+        axisBorder:
+          show: true
+          color: rgba(var(--primary-text-color-rgb), 0.4)
+          height: 1
 
 sensor_generic_dual:
   config_templates:
@@ -71,25 +78,39 @@ sensor_generic_dual:
     yaxis:
       - show: true
         decimalsInFloat: 0
-        min: 18
-        max: 28
+        forceNiceScale: true
         axisBorder:
           show: true
           color: rgba(var(--primary-text-color-rgb), 0.4)
           height: 1
       - show: true
         opposite: true
-        decimalsInFloat: 1
+        decimalsInFloat: 0
         forceNiceScale: true
-        axisBorder:
-          show: true
-          color: rgba(var(--primary-text-color-rgb), 0.4)
-          height: 1
 
 sensor_temperature_humidity:
   config_templates:
     - sensor_generic_dual
+  color_list:
+    - green
+    - dodgerblue
   apex_config:
+    yaxis:
+      - show: true
+        decimalsInFloat: 0
+        forceNiceScale: true
+        min: 19
+        max: 30
+        axisBorder:
+          show: true
+          color: rgba(var(--primary-text-color-rgb), 0.4)
+          height: 1
+      - show: true
+        opposite: true
+        decimalsInFloat: 0
+        forceNiceScale: true
+        min: 10
+        max: 70
     legend:
       show: false
       markers:
@@ -163,7 +184,7 @@ sensor_temperature_outdoor:
       borderColor: rgba(var(--primary-text-color-rgb), 0.2)
     tooltip:
       x:
-        show: false
+        show: true
     xaxis:
       tooltip:
         enabled: false
@@ -196,8 +217,16 @@ sensor_humidity:
           - none
 
 sensor_radon:
+  experimental:
+    color_threshold: true
   config_templates:
     - sensor_generic
+  all_series_config:
+    type: line
+    stroke_width: 3
+    group_by:
+      func: avg
+      duration: 3h
   apex_config:
     legend:
       show: false
@@ -211,3 +240,27 @@ sensor_radon:
             }
         fillColors:
           - none
+
+sensor_radon_voc:
+  config_templates:
+    - sensor_generic_dual
+  color_list:
+    - yellow
+    - green
+  apex_config:
+    yaxis:
+      - show: true
+        decimalsInFloat: 0
+        forceNiceScale: true
+        min: 0
+        max: 200
+        axisBorder:
+          show: true
+          color: rgba(var(--primary-text-color-rgb), 0.4)
+          height: 1
+      - show: true
+        opposite: true
+        decimalsInFloat: 0
+        forceNiceScale: true
+        min: 0
+        max: 500

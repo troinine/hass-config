@@ -1,0 +1,7 @@
+---
+- value: 0
+  color: green
+- value: 100
+  color: yellow
+- value: 150
+  color: red
