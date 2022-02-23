@@ -2,6 +2,7 @@ clock:
   variables:
     entity_weather: false
     entity_date: false
+    entity_temperature: false
   show_name: false
   show_icon: false
   show_state: true
@@ -9,19 +10,59 @@ clock:
   show_last_changed: false
   entity: sensor.time
   custom_fields:
-    weather: 
-      card: 
+    weather:
+      card:
+        type: custom:button-card
+        show_state: false
+        show_icon: false
+        show_label: false
+        show_name: false
+        show_entity_picture: true
+        tap_action:
+          action: more-info
+        entity: "[[[ return variables.entity_weather ]]]"
+        entity_picture: "[[[ return `/local/img/weather/${states[variables.entity_weather].state}.svg` ]]]"
+        styles:
+          grid:
+            - grid-template-areas: |
+                "i"
+            - grid-template-columns: 1fr
+            - grid-template-rows: 1fr
+          img_cell:
+            - justify-content: center
+          icon:
+            - width: 3rem
+            - height: 2.5rem
+          card:
+            - border-radius: 0
+            - background-color: transparent
+            - box-shadow: none
+            - padding: 0 0 0 0.8rem
+    temp:
+      card:
         type: custom:button-card
         show_state: true
         show_icon: false
         show_label: false
         show_name: false
-        show_entity_picture: true
-        entity: "[[[ return variables.entity_weather ]]]"
-        entity_picture: "[[[ return `/local/img/weather/${states[variables.entity_weather].state}.svg` ]]]"     
+        entity: |
+          [[[
+            if (variables.entity_temperature) {
+              return variables.entity_temperature
+            } else if (variables.entity_weather) {
+              return variables.entity_weather
+            } else {
+              return undefined
+            }
+          ]]]
         state_display: |
           [[[
             var temperature = states[variables.entity_weather].attributes.temperature
+
+            if (variables.entity_temperature) {
+              temperature = states[variables.entity_temperature].state
+            }
+
             return `<div><span class="value">${temperature}</span><span class="unit">&degC</span></div>`
           ]]]
         extra_styles: |
@@ -31,17 +72,9 @@ clock:
         styles:
           grid:
             - grid-template-areas: |
-                "i"
                 "s"
             - grid-template-columns: 1fr
-            - grid-template-rows: 1fr 1fr
-          img_cell:
-            - justify-content: center
-            - align-self: end
-          icon:
-            - width: 3rem
-            - height: 2.5rem
-            - align-self: end
+            - grid-template-rows: 1fr
           state:
             - justify-self: center
             - align-self: center
@@ -53,8 +86,8 @@ clock:
             - background-color: transparent
             - box-shadow: none
             - padding: 0 0 0 0.8rem
-    date: 
-      card: 
+    date:
+      card:
         type: custom:button-card
         show_state: true
         show_icon: false
@@ -96,9 +129,9 @@ clock:
       - grid-template-areas: |
           [[[
             if (variables.entity_weather && variables.entity_date) {
-              return '"s weather" "date weather"'
+              return '"s weather" "s weather" "s temp" "date temp"'
             } else if (variables.entity_weather && !variables.entity_date) {
-              return '"s weather"'
+              return '"s weather" "s temp'
             } else if (variables.entity_date) {
               return '"s" "date"'
             } else {
@@ -115,8 +148,12 @@ clock:
           ]]]
       - grid-template-rows: |
           [[[
-            if (variables.entity_date) {
-              return '1fr min-content'
+            if (variables.entity_weather && variables.entity_date) {
+              return 'repeat(4, min-content)'
+            } else if (variables.entity_weather && !variables.entity_date) {
+              return 'repeat(2, min-content)'
+            } else if (variables.entity_date) {
+              return 'repeat(2, min-content)'
             } else {
               return '1fr'
             }
@@ -136,7 +173,11 @@ clock:
       - width: 100%
     custom_fields:
       weather:
-        - background-color: transparent
+        - place-self: end center
+        - padding-bottom: 0.25rem
+      temp:
+        - place-self: start center
+        - padding-top: 0.25rem
       date:
         - align-self: start
         - justify-self: end
