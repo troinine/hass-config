@@ -49,31 +49,19 @@
     - light.sisun_katto
     - light.sisun_poytalamppu
 
-# Group of groups
-
 - platform: group
-  name: group_living_areas
+  name: group_kitchen_living_room
   entities:
-    - light.group_living_room
-    - light.group_kitchen
-    - light.group_entrance
-
-- platform: group
-  name: group_kids_rooms
-  entities:
-    - light.group_otsos_room
-    - light.group_sisus_room
-
-- platform: group
-  name: group_all
-  entities:
-    - light.group_living_room
-    - light.group_otsos_room
-    - light.group_sisus_room
-    - light.group_kitchen
-    - light.group_entrance
-    - light.group_office
-    - light.group_bedroom
+    - light.keittio_nauha_1
+    - light.keittio_nauha_2
+    - light.keittio_ohio_1
+    - light.keittio_ohio_2
+    - light.keittio_ohio_3
+    - light.olohuone_nauha
+    - light.olohuone_oikea_yla
+    - light.olohuone_oikea_ala
+    - light.olohuone_vasen_yla
+    - light.olohuone_vasen_ala
 
 - platform: group
   name: group_all_flat
@@ -101,3 +89,29 @@
     - light.otson_katto
     - light.sisun_katto
     - light.sisun_poytalamppu
+
+# Group of groups
+
+- platform: group
+  name: group_living_areas
+  entities:
+    - light.group_living_room
+    - light.group_kitchen
+    - light.group_entrance
+
+- platform: group
+  name: group_kids_rooms
+  entities:
+    - light.group_otsos_room
+    - light.group_sisus_room
+
+- platform: group
+  name: group_all
+  entities:
+    - light.group_living_room
+    - light.group_otsos_room
+    - light.group_sisus_room
+    - light.group_kitchen
+    - light.group_entrance
+    - light.group_office
+    - light.group_bedroom

@@ -113,9 +113,11 @@ views:
           - type: horizontal-stack
             cards:
               - type: 'custom:button-card'
-                template: compact_light
-                entity: light.group_entrance
-                name: Eteinen
+                template: compact_light_custom_actions
+                entity: light.group_all_flat
+                name: Valot
+                tap_action:
+                  !include ../popups/mobile/lights.yaml
 
               - type: 'custom:button-card'
                 template: compact_light

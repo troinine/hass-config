@@ -153,6 +153,11 @@ compact_light:
         - align-self: end
         - justify-self: start
 
+compact_light_custom_actions:
+  template:
+    - compact_light
+  tap_action: false
+
 run_scene:
   template:
     - "base_card"
