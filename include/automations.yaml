@@ -562,11 +562,7 @@
     from: Kotona
     to: Poissa
   condition: []
-  action:
-  - service: switch.turn_off
-    data: {}
-    target:
-      entity_id: switch.tplink_hs110_1
+  action: []
   mode: single
 - id: '1608580568682'
   alias: Sytytä joulukuusen valot
@@ -581,11 +577,7 @@
     from: Poissa
     to: Kotona
   condition: []
-  action:
-  - service: switch.turn_on
-    data: {}
-    target:
-      entity_id: switch.tplink_hs110_1
+  action: []
   mode: single
 - id: '1609968587796'
   alias: Sammuta kiertovesipumppu iltaisin
@@ -924,11 +916,7 @@
     event: sunset
     offset: '0'
   condition: []
-  action:
-  - type: turn_on
-    device_id: a1447aaad312dfff591861c284099812
-    entity_id: switch.tplink_hs100_2
-    domain: switch
+  action: []
   mode: single
 - id: '1639421564882'
   alias: Sammuta ulkovalot
@@ -938,11 +926,7 @@
     entity_id: input_select.home_state
     to: Nukkumassa
   condition: []
-  action:
-  - type: turn_off
-    device_id: a1447aaad312dfff591861c284099812
-    entity_id: switch.tplink_hs100_2
-    domain: switch
+  action: []
   mode: single
 - id: '1642711968725'
   alias: Herätä tabletti
