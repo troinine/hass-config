@@ -149,7 +149,7 @@ sensor_temperature:
 sensor_temperature_outdoor:
   experimental:
     color_threshold: true
-  graph_span: 2d
+  graph_span: 3d
   all_series_config:
     stroke_width: 2
     group_by:
