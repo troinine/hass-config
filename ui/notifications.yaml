@@ -59,6 +59,15 @@
 
 - type: conditional
   conditions:
+    - entity: binary_sensor.notification_garage_dehumidifier_bucket_full
+      state: 'on'
+  card:
+    type: custom:button-card
+    template: auto_notification
+    entity: binary_sensor.notification_garage_dehumidifier_bucket_full
+
+- type: conditional
+  conditions:
     - entity: binary_sensor.notification_sauna
       state: 'on'
   card:

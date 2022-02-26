@@ -367,3 +367,18 @@
       icon_color: var(--humidity-high-color)
       text_summary: 'Autotallin ilmankuivain on päällä'
       text_description: "Kosteus tällä hetkellä {{ states('sensor.netatmo_koti_olohuone_autotalli_humidity') }} %"
+
+  - name: notification_garage_dehumidifier_bucket_full
+    unique_id: notification_garage_dehumidifier_bucket_full
+    icon: mdi:format-color-fill
+    state: |
+      {% set current_state_duration = as_timestamp(now()) - as_timestamp(states.switch.tplink_hs110_2.last_changed) %}
+      {% set current_consumption = states('sensor.garage_dehumidifier_energy_consumption_current') | int %}
+      {% if is_state('switch.tplink_hs110_2', 'on') and current_state_duration > (5 * 60) and current_consumption < 10 %}
+        on
+      {% else %}
+        off
+      {% endif %}
+    attributes:
+      icon_color: var(--humidity-high-color)
+      text_summary: Tyhjennä autotallin ilmankuivain
