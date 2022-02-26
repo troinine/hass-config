@@ -75,6 +75,10 @@ Custom light popup with predefined scenes and color wheel. This card has few fea
 
 ![Light popup](/assets/images/screenshot-light-popup.png)
 
+Air quality popup. Each room is a separate [swipe-card](https://github.com/bramkragten/swipe-card) page:
+
+![Air quality popup](/assets/images/screenshot-air-quality-popup.png)
+
 Heating data popup:
 
 ![Heating popup](/assets/images/screenshot-heating-popup.png)
