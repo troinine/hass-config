@@ -274,6 +274,8 @@
       data:
         group: Autotalli
         tag: door_state
+        ttl: 0
+        priority: high
   mode: single
 - id: '1607773398816'
   alias: Autotallin ovi edelleen auki
@@ -282,25 +284,29 @@
   - platform: state
     entity_id: binary_sensor.mqtt_garage_door
     to: 'on'
-    for: 00:05:00
+    for: 00:10:00
   condition: []
   action:
   - service: notify.mobile_app_tero
     data:
       title: Autotallin ovi edelleen auki
-      message: Autotallin ovi on ollut auki 5 minuuttia. Lämpötila {{ states.sensor.netatmo_koti_olohuone_autotalli_temperature.state
+      message: Autotallin ovi on ollut auki 10 minuuttia. Lämpötila {{ states.sensor.netatmo_koti_olohuone_autotalli_temperature.state
         }} °C
       data:
         group: Autotalli
         tag: door_still_open
+        ttl: 0
+        priority: high
   - service: notify.mobile_app_pia
     data:
       title: Autotallin ovi edelleen auki
-      message: Autotallin ovi on ollut auki 5 minuuttia. Lämpötila {{ states.sensor.netatmo_koti_olohuone_autotalli_temperature.state
+      message: Autotallin ovi on ollut auki 10 minuuttia. Lämpötila {{ states.sensor.netatmo_koti_olohuone_autotalli_temperature.state
         }} °C
       data:
         group: Autotalli
         tag: door_still_open
+        ttl: 0
+        priority: high
   mode: single
 - id: '1607795690760'
   alias: Aseta Poissa tila
@@ -436,6 +442,8 @@
       data:
         group: Sauna
         tag: sauna
+        ttl: 0
+        priority: high
   - service: notify.mobile_app_pia
     data:
       title: Sauna on lämmin
@@ -445,6 +453,8 @@
       data:
         group: Sauna
         tag: sauna
+        ttl: 0
+        priority: high
   mode: single
 - id: '1608321130499'
   alias: Sytytä kodinhoitohuoneen valot
@@ -607,6 +617,8 @@
       data:
         group: Lämmitys
         tag: pump_alarm
+        ttl: 0
+        priority: high
   mode: single
 - id: '1610949724603'
   alias: Aloita nukkumaanmeno viikonloppuisin
@@ -733,6 +745,8 @@
       data:
         group: Autotalli
         tag: dehumidifier
+        ttl: 0
+        priority: high
   mode: single
 - id: '1614320260428'
   alias: Sammuta ilmankuivain
@@ -761,20 +775,17 @@
       data:
         group: Autotalli
         tag: dehumidifier
+        ttl: 0
+        priority: high
   mode: single
 - id: '1614325765365'
   alias: Tyhjennä ilmankuivain
   description: ''
   trigger:
   - platform: state
-    entity_id: switch.tplink_hs110_2
+    entity_id: binary_sensor.notification_garage_dehumidifier_bucket_full
     from: 'off'
     to: 'on'
-    for: 00:15:00
-  condition:
-  - condition: state
-    entity_id: binary_sensor.garage_dehumidifier
-    state: 'off'
   action:
   - service: notify.mobile_app_tero
     data:
@@ -783,6 +794,8 @@
       data:
         group: Autotalli
         tag: dehumidifier
+        ttl: 0
+        priority: high
   mode: single
 - id: '1614327727537'
   alias: Ilmankuivain edelleen päällä
@@ -825,6 +838,8 @@
       data:
         group: Lämmitys
         tag: no_data
+        ttl: 0
+        priority: high
   mode: single
 - id: '1629436993018'
   alias: Hälytä kun Radon nousussa
