@@ -1,0 +1,29 @@
+---
+action: fire-dom-event
+browser_mod:
+  command: popup
+  title: Sääennuste
+  style:
+    $: |
+      .mdc-dialog .mdc-dialog__surface {
+        background-color: var(--primary-background-color) !important;
+      }
+    hui-vertical-stack-card:
+      $: |
+        #root {
+          padding: 0 1rem 0 1rem;
+        }
+        button-card {
+          padding: 0 20px 0 20px;
+        }
+        .text-content {
+          text-align: start !important;
+        }
+  card:
+    type: vertical-stack
+    cards:
+      - type: custom:weather-chart-card
+        card_mod:
+          !include ../../ui/styles/no-card.yaml
+        entity: weather.koti_custom
+        icons: /local/img/weather/

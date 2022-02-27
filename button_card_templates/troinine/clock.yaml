@@ -19,7 +19,7 @@ clock:
         show_name: false
         show_entity_picture: true
         tap_action:
-          action: more-info
+          !include ../../popups/common/weather-forecast.yaml
         entity: "[[[ return variables.entity_weather ]]]"
         entity_picture: "[[[ return `/local/img/weather/${states[variables.entity_weather].state}.svg` ]]]"
         styles:
@@ -31,12 +31,11 @@ clock:
           img_cell:
             - justify-content: center
           icon:
-            - width: 3rem
-            - height: 2.5rem
+            - width: 4.0rem
+            - height: 3.5rem
           card:
             - background-color: transparent
             - box-shadow: none
-            - padding: 0 0 0 0.8rem
     temp:
       card:
         type: custom:button-card
@@ -83,7 +82,6 @@ clock:
           card:
             - background-color: transparent
             - box-shadow: none
-            - padding: 0 0 0 0.8rem
     date:
       card:
         type: custom:button-card
@@ -173,9 +171,11 @@ clock:
       weather:
         - place-self: end center
         - padding-bottom: 0.25rem
+        - margin-left: 0.8rem
       temp:
         - place-self: start center
         - padding-top: 0.25rem
+        - margin-left: 0.8rem
       date:
         - align-self: start
         - justify-self: end

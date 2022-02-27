@@ -67,6 +67,8 @@ lovelace:
       type: module
     - url: /local/community_cards/swipe-card.js
       type: module
+    - url: /local/community_cards/weather-chart-card.js
+      type: module
     - url: /local/style.css
       type: css
   dashboards:
