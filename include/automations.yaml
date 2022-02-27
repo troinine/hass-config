@@ -974,11 +974,11 @@
   alias: Liike eteisessä
   description: ''
   trigger:
-  - type: motion
-    platform: device
-    device_id: abac2c95eb025d0b7c5ae3a4d20f2681
+  - platform: state
     entity_id: binary_sensor.hue_motion_sensor_2
-    domain: binary_sensor
+    from: 'off'
+    to: 'on'
+    for: '00:00:11'
   condition:
   - condition: state
     entity_id: input_select.home_state
