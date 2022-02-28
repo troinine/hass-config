@@ -128,6 +128,37 @@
       'windy': 'Viento',
       'windy-variant': 'Viento variable'
     },
+    fi: {
+      'tempHi': 'Lämpötila ylin',
+      'tempLo': 'Lämpötila alin',
+      'precip': 'Sademäärä',
+      'units': {
+        'km/h': 'km/h',
+        'm/s': 'm/s',
+        'hPa': 'hPa',
+        'mmHg': 'mm Hg',
+        'mm': 'mm',
+        'in': 'in'
+      },
+      'cardinalDirections': [
+        'N', 'N-NE', 'NE', 'E-NE', 'E', 'E-SE', 'SE', 'S-SE',
+        'S', 'S-SW', 'SW', 'W-SW', 'W', 'W-NW', 'NW', 'N-NW', 'N'
+      ],
+      'clear-night': 'Y\u00f6, selke\u00e4\u00e4',
+      'cloudy': 'Pilvist\u00e4',
+      'fog': 'Sumuista',
+      'hail': 'Raekuuroja',
+      'lightning': 'Ukkoskuuroja',
+      'lightning-rainy': 'Ukkosta, sateista',
+      'partlycloudy': 'Osittain pilvist\u00e4',
+      'pouring': 'Kaatosadetta',
+      'rainy': 'Sateista',
+      'snowy': 'Lumisadetta',
+      'snowy-rainy': 'R\u00e4nt\u00e4sadetta',
+      'sunny': 'Aurinkoista',
+      'windy': 'Tuulista',
+      'windy-variant': 'Tuulista'
+    },
     hu: {
       'tempHi': 'Max. hőmérséklet',
       'tempLo': 'Min. hőmérséklet',
@@ -220,37 +251,6 @@
       'sunny': 'Soligt',
       'windy': 'Blåsigt',
       'windy-variant': 'Blåsigt'
-    },
-    fi: {
-      'tempHi': 'Lämpötila ylin',
-      'tempLo': 'Lämpötila alin',
-      'precip': 'Sademäärä',
-      'units': {
-        'km/h': 'km/h',
-        'm/s': 'm/s',
-        'hPa': 'hPa',
-        'mmHg': 'mm Hg',
-        'mm': 'mm',
-        'in': 'in'
-      },
-      'cardinalDirections': [
-        'N', 'N-NE', 'NE', 'E-NE', 'E', 'E-SE', 'SE', 'S-SE',
-        'S', 'S-SW', 'SW', 'W-SW', 'W', 'W-NW', 'NW', 'N-NW', 'N'
-      ],
-      'clear-night': 'Y\u00f6, selke\u00e4\u00e4',
-      'cloudy': 'Pilvist\u00e4',
-      'fog': 'Sumuista',
-      'hail': 'Raekuuroja',
-      'lightning': 'Ukkoskuuroja',
-      'lightning-rainy': 'Ukkoskuuroja, sateista',
-      'partlycloudy': 'Osittain pilvist\u00e4',
-      'pouring': 'Kaatosadetta',
-      'rainy': 'Sateista',
-      'snowy': 'Lumisadetta',
-      'snowy-rainy': 'R\u00e4nt\u00e4sadetta',
-      'sunny': 'Aurinkoista',
-      'windy': 'Tuulista',
-      'windy-variant': 'Tuulista'
     },
   };
 
@@ -14783,9 +14783,9 @@
         ...config,
         forecast: {
           labels_font_size: 11,
-          temperature1_color: 'rgba(230, 100, 100, 1.0)',
+          temperature1_color: 'rgba(255, 152, 0, 1.0)',
           temperature2_color: 'rgba(68, 115, 158, 1.0)',
-          precipitations_color: 'rgba(132, 209, 253, 1.0)',
+          precipitation_color: 'rgba(132, 209, 253, 1.0)',
           condition_icons: true,
           ...config.forecast,
         },
@@ -14939,8 +14939,8 @@
             type: 'bar',
             data: precip,
             yAxisID: 'PrecipAxis',
-            borderColor: config.forecast.precipitations_color,
-            backgroundColor: config.forecast.precipitations_color,
+            borderColor: config.forecast.precipitation_color,
+            backgroundColor: config.forecast.precipitation_color,
             barPercentage: 1.0,
             categoryPercentage: 1.0,
             datalabels: {
@@ -15006,7 +15006,7 @@
             },
             PrecipAxis: {
               position: 'right',
-              suggestedMax: 20,
+              suggestedMax: lengthUnit === 'km' ? 20 : 1,
               grid: {
                 display: false,
                 drawBorder: false,
@@ -15214,7 +15214,7 @@
         windSpeed = Math.round(windSpeed * 1000 / 3600);
       }
       if (this.unitPressure === 'mmHg') {
-        pressure = Math.round(pressure * 0.75);
+        pressure = pressure * 0.75;
       }
       if (config.show_attributes == false)
         return $``;
@@ -15222,7 +15222,7 @@
       <div class="attributes">
         <div>
           <ha-icon icon="hass:water-percent"></ha-icon> ${humidity} %<br>
-          <ha-icon icon="hass:gauge"></ha-icon> ${pressure} ${this.ll('units')[config.units.pressure]}
+          <ha-icon icon="hass:gauge"></ha-icon> ${Math.round(pressure)} ${this.ll('units')[config.units.pressure]}
         </div>
         <div>
           ${this.renderSun()}
