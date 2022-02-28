@@ -48,7 +48,7 @@ Few notifications that can be visible on the sidebar
 - Synology update available
 - Home Assistant update available
 
-### Custom cards
+### Custom button cards
 
 I have created few [button card templates](button_card_templates/troinine) for my own needs. To mention few:
 
@@ -62,6 +62,16 @@ I have created few [button card templates](button_card_templates/troinine) for m
 - Conditional card which allows flexible way of conditionally showing or hiding a card
 
 All cards try to incorporate similar design. Icons can glow based on the state and the light card has a glowing box shadow when the respective light is on.
+
+#### Clock
+
+Clock is a button card template that show the current date, time, temperature, and weather
+
+![Clock](/assets/images/screenshot-clock.png) 
+
+The tap action on the weather shows the following popup which uses [weather-chart-card](https://github.com/Yevgenium/weather-chart-card) and an apexchart of outdoor temperature:
+
+![Weather](/assets/images/screenshot-weather.png)
 
 ### Popups
 
