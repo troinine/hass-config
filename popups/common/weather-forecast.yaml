@@ -29,3 +29,14 @@ browser_mod:
         icons: /local/img/weather/
         units:
           speed: m/s
+      - type: custom:apexcharts-card
+        card_mod:
+          !include ../../ui/styles/no-card.yaml
+        view_layout:
+          grid-area: chart1
+        config_templates:
+          - sensor_temperature_outdoor
+        header:
+          title: Ulkolämpötila
+          show: true
+          show_states: false

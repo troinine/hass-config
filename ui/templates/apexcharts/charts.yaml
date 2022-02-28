@@ -154,7 +154,7 @@ sensor_temperature_outdoor:
     stroke_width: 2
     group_by:
       func: avg
-      duration: 3h
+      duration: 1h
   header:
     title: Ulkolämpötila
     show: true
@@ -162,9 +162,6 @@ sensor_temperature_outdoor:
   series:
     - entity: sensor.netatmo_koti_olohuone_ulko_temperature
       stroke_width: 2
-      group_by:
-        func: avg
-        duration: 3h
       color_threshold:
         - value: -5
           color: "#1e61ff"
