@@ -32,7 +32,6 @@ mobile:
       .mdc-dialog__scrim {
         -webkit-backdrop-filter: blur(var(--mdc-dialog-backdrop-blur));
         backdrop-filter: blur(var(--mdc-dialog-backdrop-blur));
-        #transition: none !important;
       }
       .mdc-dialog .mdc-dialog__container {
         background: none;
@@ -120,7 +119,7 @@ mobile:
       # Dialog
       mdc-dialog-scrim-color: rgba(0, 0, 0, 0.4)
       mdc-dialog-backdrop-blur: 0.1vw
-      ha-dialog-border-radius: var(--border-radius)
+      ha-dialog-border-radius: 0
       mdc-dialog-min-width: 500px
 
       # Stack cards

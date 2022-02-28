@@ -32,7 +32,6 @@ tablet:
       .mdc-dialog__scrim {
         -webkit-backdrop-filter: blur(var(--mdc-dialog-backdrop-blur));
         backdrop-filter: blur(var(--mdc-dialog-backdrop-blur));
-        #transition: none !important;
       }
       .mdc-dialog .mdc-dialog__container {
         #background: none;
