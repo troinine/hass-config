@@ -25,6 +25,8 @@ The following custom cards are extensively used throughout the dashboards:
 - [card-mod](https://github.com/thomasloven/lovelace-card-mod)
 - [layout-card](https://github.com/thomasloven/lovelace-layout-card)
 - [light-entity-card](https://github.com/ljmerza/light-entity-card)
+- [weather-chart-card](https://github.com/Yevgenium/weather-chart-card)
+- [apexcharts-card](https://github.com/RomRider/apexcharts-card)
 
 ## Features
 
