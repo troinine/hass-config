@@ -3,6 +3,10 @@ browser_mod:
   command: popup
   title: Koti
   style:
+    $: |
+      .mdc-dialog .mdc-dialog__surface {
+        background-color: var(--primary-background-color) !important;
+      }
     .: |
       :host .content {
         width: calc(390px + 390px + 390px);
@@ -17,22 +21,12 @@ browser_mod:
         hui-vertical-stack-card:
           $hui-entities-card:
             $: |
-              .card-content {
-                #padding: 1.5em 2.7em 2.3em 2em;
-              }
               ha-card {
-                border-right: 1.5px solid rgba(0, 0, 0, 0.2);
                 border-radius: 0;
                 transition: none;
                 box-shadow: none;
+                background-color: transparent;
               }
-        mini-graph-card:
-          $: |
-            ha-card {
-              border-right: 1.5px solid rgba(0, 0, 0, 0.2);
-              border-radius: 0;
-              box-shadow: none;
-            }
 
   card:
     type: custom:layout-card
@@ -48,7 +42,8 @@ browser_mod:
       - type: vertical-stack
         view_layout:
           grid-area: home
-        cards: 
+          place-self: stretch stretch
+        cards:
           - type: entities
             title: Koti
             show_header_toggle: false
@@ -70,9 +65,11 @@ browser_mod:
       - type: vertical-stack
         view_layout:
           grid-area: electricity
-        cards: 
+        cards:
           - type: entities
             title: Sähkönkulutus
+            card_mod:
+              !include ../../ui/styles/no-card.yaml
             show_header_toggle: false
             entities:
               - entity: sensor.mqtt_electricity_consumption_daily_updated
@@ -83,33 +80,20 @@ browser_mod:
                 name: Kuukauden kulutus
               - entity: sensor.mqtt_electricity_consumption_monthly_prediction
                 name: Kuukauden ennuste
-      - type: custom:mini-graph-card
+
+      - type: custom:apexcharts-card
         view_layout:
           grid-area: graph1
-        entities:
-          - entity: sensor.mqtt_electricity_consumption_daily
-        name: Päivittäiset kulutusarvot
-        show:
-          graph: bar
-          icon: false
-        decimals: 1
-        aggregate_func: max
-        group_by: date
-        hours_to_show: 720
-        color_thresholds:
-          - value: 0
-            color: dodgerblue
-          - value: 20
-            color: green
-          - value: 30
-            color: yellow
-          - value: 50
-            color: red
+          place-self: end stretch
+        card_mod:
+          !include ../../ui/styles/no-card.yaml
+        config_templates:
+          - sensor_electricity_consumption_daily
 
       - type: vertical-stack
         view_layout:
           grid-area: sauna
-        cards: 
+        cards:
           - type: entities
             title: Sauna
             show_header_toggle: false
@@ -118,21 +102,21 @@ browser_mod:
                 name: Tila
               - entity: sensor.mqtt_sauna_humidity
                 name: Kosteus
-      - type: custom:mini-graph-card
+
+      - type: custom:apexcharts-card
         view_layout:
           grid-area: graph2
-        entities:
+          place-self: end stretch
+        card_mod:
+          !include ../../ui/styles/no-card.yaml
+        config_templates:
+          - sensor_generic_dual
+        header:
+          title: Saunan lämpötila ja kosteus
+        series:
           - entity: sensor.mqtt_sauna_temperature
-        name: Lämpötila
-        decimals: 1
-        hours_to_show: 3
-        points_per_hour: 8
-        color_thresholds:
-          - value: 20
-            color: "#1E90FF"
-          - value: 35
-            color: "#008000"
-          - value: 50
-            color: "#FFFF00"
-          - value: 65
-            color: "#FF0000"
+            name: Lämpötila
+            color: green
+          - entity: sensor.mqtt_sauna_humidity
+            name: Kosteus
+            color: dodgerblue
