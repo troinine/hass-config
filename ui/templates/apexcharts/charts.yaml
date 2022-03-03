@@ -96,6 +96,19 @@ base_column:
         color: rgba(var(--primary-text-color-rgb), 0.4)
         height: 1
 
+sensor_heating:
+  config_templates:
+    - base
+  header:
+    show: true
+    show_states: true
+    colorize_states: false
+  all_series_config:
+    group_by:
+      func: avg
+      duration: 5min
+  graph_span: 1d
+
 sensor_generic:
   config_templates:
     - base
@@ -322,4 +335,26 @@ sensor_electricity_consumption_daily:
         - value: 30
           color: yellow
         - value: 50
+          color: red
+
+sensor_heat_pump_starts:
+  config_templates:
+    - base_column
+  experimental:
+    color_threshold: true
+  header:
+    title: Käynnistykset
+    show: true
+    show_states: true
+  series:
+    - entity: sensor.nibe_daily_num_starts
+      name: Kulutus
+      color_threshold:
+        - value: 0
+          color: dodgerblue
+        - value: 8
+          color: green
+        - value: 12
+          color: orange
+        - value: 14
           color: red

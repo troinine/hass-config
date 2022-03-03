@@ -3,6 +3,10 @@ browser_mod:
   command: popup
   title: Lämmitys
   style:
+    $: |
+      .mdc-dialog .mdc-dialog__surface {
+        background-color: var(--primary-background-color) !important;
+      }
     .: |
       :host .content {
         width: calc(310px * 4);
@@ -19,16 +23,10 @@ browser_mod:
             .card-content {
             }
             ha-card {
-              border-right: 1.5px solid rgba(0, 0, 0, 0.2);
               border-radius: 0;
               transition: none;
               box-shadow: none;
-            }
-        mini-graph-card:
-          $: |
-            ha-card {
-              border-radius: 0;
-              box-shadow: none;
+              background-color: transparent
             }
   card:
     type: custom:layout-card
@@ -102,104 +100,115 @@ browser_mod:
           - entity: sensor.nibe_brine_pump_speed
             name: Pumpun nopeus
 
-      - type: custom:mini-graph-card
+      - type: custom:apexcharts-card
         view_layout:
           grid-area: starts-graph
           place-self: end center
-        entities:
-          - entity: sensor.nibe_daily_num_starts
-        name: Käynnistykset
-        icon: mdi:play
-        color_thresholds:
-          - value: 0
-            color: dodgerblue
-          - value: 8
-            color: green
-          - value: 12
-            color: orange
-          - value: 14
-            color: red
-        color_thresholds_transition: hard
-        hours_to_show: 744
-        aggregate_func: max
-        group_by: date
-        height: 205 # Ugly hack to get the graphs equal height
-        show:
-          graph: bar
-          extrema: true
-          name: false
-          icon: false
+        card_mod:
+          !include ../../ui/styles/no-card.yaml
+        config_templates:
+          - sensor_heat_pump_starts
+        header:
+          colorize_states: false
 
-      - type: custom:mini-graph-card
+      - type: custom:apexcharts-card
         view_layout:
           grid-area: hot-water-graph
           place-self: end center
-        name: Käyttövesi
-        entities:
+        card_mod:
+          !include ../../ui/styles/no-card.yaml
+        config_templates:
+          - sensor_heating
+        header:
+          title: Käyttövesi
+        apex_config:
+          yaxis:
+            - show: true
+              decimalsInFloat: 0
+              forceNiceScale: true
+              min: 30
+              max: 70
+              axisBorder:
+                show: true
+                color: rgba(var(--primary-text-color-rgb), 0.4)
+                height: 1
+            - show: true
+              opposite: true
+              decimalsInFloat: 0
+              forceNiceScale: true
+              min: 30
+              max: 70
+        series:
           - entity: sensor.nibe_hot_water_top_temp
             name: Yläosa
-            color: 'red'
+            color: orangered
           - entity: sensor.nibe_hot_water_fill_temp
             name: Täyttö
-            show_state: true
-        show:
-          extrema: true
-          name: false
-          icon: false
-        decimals: 1
-        hours_to_show: 24
-        points_per_hour: 3
-        hour24: true
-        height: 150
-        line_width: 3
+            color: dodgerblue
 
-      - type: custom:mini-graph-card
+      - type: custom:apexcharts-card
         view_layout:
           grid-area: supply-graph
           place-self: end center
-        entities:
+        card_mod:
+          !include ../../ui/styles/no-card.yaml
+        config_templates:
+          - sensor_heating
+        header:
+          title: Lämmöntuotto
+        apex_config:
+          yaxis:
+            - show: true
+              decimalsInFloat: 0
+              forceNiceScale: true
+              min: 20
+              max: 60
+              axisBorder:
+                show: true
+                color: rgba(var(--primary-text-color-rgb), 0.4)
+                height: 1
+            - show: true
+              opposite: true
+              decimalsInFloat: 0
+              forceNiceScale: true
+              min: 20
+              max: 60
+        series:
           - entity: sensor.nibe_supply_temp
             name: Meno
+            color: orangered
           - entity: sensor.nibe_supply_return_temp
             name: Paluu
-            show_state: true
             color: dodgerblue
-        color_thresholds:
-          - value: 35
-            color: var(--accent-color)
-          - value: 37
-            color: red
-        decimals: 1
-        hours_to_show: 24
-        points_per_hour: 8
-        hour24: true
-        show:
-          extrema: true
-          name: false
-          icon: false
-        height: 150
-        line_width: 3
 
-      - type: custom:mini-graph-card
+
+      - type: custom:apexcharts-card
         view_layout:
           grid-area: brine-graph
           place-self: end center
-        name: Lämmönkeruu
-        entities:
+        card_mod:
+          !include ../../ui/styles/no-card.yaml
+        config_templates:
+          - sensor_heating
+        header:
+          title: Lämmönkeruu
+        apex_config:
+          yaxis:
+            - show: true
+              decimalsInFloat: 0
+              forceNiceScale: true
+              axisBorder:
+                show: true
+                color: rgba(var(--primary-text-color-rgb), 0.4)
+                height: 1
+            - show: true
+              opposite: true
+              decimalsInFloat: 0
+              forceNiceScale: true
+        series:
           - entity: sensor.nibe_brine_in_temp
             name: Sisään
-            color: 'var(--google-green)'
+            color: orangered
           - entity: sensor.nibe_brine_out_temp
             name: Ulos
-            show_state: true
             color: dodgerblue
-        decimals: 1
-        hours_to_show: 24
-        points_per_hour: 8
-        hour24: true
-        show:
-          extrema: true
-          name: false
-          icon: false
-        height: 150
-        line_width: 3
