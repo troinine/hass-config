@@ -1030,3 +1030,21 @@
       transition: 2
   mode: single
   max_exceeded: silent
+
+- id: '1646256212426'
+  alias: Sammuta Sisun ilmankostutin
+  mode: single
+  description: ''
+  trigger:
+    - platform: numeric_state
+      entity_id: sensor.mqtt_airthings_waveplus_sisu_humidity
+      above: '39'
+  condition:
+    - condition: state
+      entity_id: switch.tplink_hs110_1
+      state: 'on'
+  action:
+    - service: switch.turn_off
+      data: {}
+      target:
+        entity_id: switch.tplink_hs110_1
