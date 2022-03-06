@@ -52,6 +52,7 @@ browser_mod:
                 name: Tila
               - entity: lock.ulko_ovi
                 name: Ulko-ovi
+              - entity: binary_sensor.mqtt_garage_door
               - entity: input_boolean.on_vacation
               - type: section
                 label: Automaatiot
@@ -80,7 +81,7 @@ browser_mod:
                 name: Kuukauden kulutus
               - entity: sensor.mqtt_electricity_consumption_monthly_prediction
                 name: Kuukauden ennuste
-
+              - type: section
       - type: custom:apexcharts-card
         view_layout:
           grid-area: graph1
@@ -100,8 +101,16 @@ browser_mod:
             entities:
               - entity: sensor.sauna_state
                 name: Tila
+              - type: attribute
+                entity: sensor.sauna_state
+                attribute: last-changed
+                name: Viimeksi päällä
+                format: relative
+              - entity: sensor.mqtt_sauna_temperature
+                name: Lämpötila
               - entity: sensor.mqtt_sauna_humidity
                 name: Kosteus
+              - type: section
 
       - type: custom:apexcharts-card
         view_layout:

@@ -5,7 +5,7 @@ apexcharts_card_templates:
   !include templates/apexcharts/charts.yaml
 
 views:
-  - title: "Mobiili (uusi)"
+  - title: "Mobiili"
     path: home
     icon: mdi:home
     cards:
@@ -57,6 +57,8 @@ views:
                   - home_state
                 tap_action:
                   !include ../popups/mobile/notifications.yaml
+                hold_action:
+                  !include ../popups/mobile/home.yaml
 
               - type: 'custom:button-card'
                 template:

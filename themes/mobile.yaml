@@ -89,7 +89,7 @@ mobile:
       mdc-theme-on-secondary: "var(--card-background-color)"
 
       # Background and sidebar
-      card-background-color: "#262626"
+      card-background-color: "#1D1D1D"
       primary-background-color: "#121212"
       secondary-background-color: "#121212"
 
