@@ -3,6 +3,10 @@ browser_mod:
   command: popup
   title: Laitteet
   style:
+    $: |
+      .mdc-dialog .mdc-dialog__surface {
+        background-color: var(--primary-background-color) !important;
+      }
     .: |
       :host .content {
         width: calc(390px + 390px + 390px);
@@ -17,20 +21,11 @@ browser_mod:
         hui-vertical-stack-card:
           $hui-entities-card:
             $: |
-              .card-content {
-                #padding: 1.5em 2.7em 2.3em 2em;
-              }
               ha-card {
-                border-right: 1.5px solid rgba(0, 0, 0, 0.2);
                 border-radius: 0;
                 transition: none;
                 box-shadow: none;
-              }
-          $mini-graph-card:
-            $: |
-              ha-card {
-                border-radius: 0;
-                box-shadow: none;
+                background-color: transparent;
               }
 
   card:
@@ -46,7 +41,7 @@ browser_mod:
       - type: vertical-stack
         view_layout:
           grid-area: hass
-        cards: 
+        cards:
           - type: entities
             title: Home Assistant
             show_header_toggle: false
@@ -66,7 +61,7 @@ browser_mod:
       - type: vertical-stack
         view_layout:
           grid-area: tablet
-        cards: 
+        cards:
           - type: entities
             title: Galaxy Tab A8
             show_header_toggle: false
@@ -88,7 +83,7 @@ browser_mod:
       - type: vertical-stack
         view_layout:
           grid-area: synology
-        cards: 
+        cards:
           - type: entities
             title: Synology
             show_header_toggle: false
@@ -102,14 +97,12 @@ browser_mod:
               - entity: binary_sensor.synology_update_available
                 name: Päivitys
               - type: section
-                label: Levy 1
+                label: Levyt
               - entity: sensor.synology_status_3
-                name: Tila
+                name: Levy 1
               - entity: sensor.synology_temperature_2
                 name: Lämpötila
-              - type: section
-                label: Levy 2
               - entity: sensor.synology_status_2
-                name: Tila
+                name: Levy 2
               - entity: sensor.synology_temperature
                 name: Lämpötila
