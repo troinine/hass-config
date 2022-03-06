@@ -98,8 +98,8 @@ browser_mod:
               - entity: sensor.sauna_state
                 name: Tila
               - type: attribute
-                entity: sensor.sauna_state
-                attribute: last-changed
+                entity: automation.sauna_lammin
+                attribute: last_triggered
                 name: Viimeksi päällä
                 format: relative
               - entity: sensor.mqtt_sauna_temperature
