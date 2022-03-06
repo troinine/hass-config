@@ -382,3 +382,25 @@
     attributes:
       icon_color: var(--humidity-high-color)
       text_summary: Tyhjennä autotallin ilmankuivain
+
+  - name: notification_sisu_humidifier
+    unique_id: notification_sisu_humidifier
+    icon: mdi:waves-arrow-up
+    state: "{{ states('switch.tplink_hs110_1') }}"
+    attributes:
+      icon_color: var(--humidity-high-color)
+      text_summary: 'Sisun ilmankostutin päällä'
+      text_description: "Kosteus tällä hetkellä {{ states('sensor.mqtt_airthings_waveplus_sisu_humidity') }} %"
+      tap_action: more-info
+      tap_action_entity: switch.tplink_hs110_1
+
+  - name: notification_living_room_humidifier
+    unique_id: notification_living_room_humidifier
+    icon: mdi:waves-arrow-up
+    state: "{{ states('switch.tplink_hs100_2') }}"
+    attributes:
+      icon_color: var(--humidity-high-color)
+      text_summary: 'Olohuoneen ilmankostutin päällä'
+      text_description: "Kosteus tällä hetkellä {{ states('sensor.mqtt_airthings_waveplus_living_room_humidity') }} %"
+      tap_action: more-info
+      tap_action_entity: switch.tplink_hs100_2

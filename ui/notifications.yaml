@@ -95,6 +95,24 @@
 
 - type: conditional
   conditions:
+    - entity: binary_sensor.notification_living_room_humidifier
+      state: 'on'
+  card:
+    type: custom:button-card
+    template: auto_notification
+    entity: binary_sensor.notification_living_room_humidifier
+
+- type: conditional
+  conditions:
+    - entity: binary_sensor.notification_sisu_humidifier
+      state: 'on'
+  card:
+    type: custom:button-card
+    template: auto_notification
+    entity: binary_sensor.notification_sisu_humidifier
+
+- type: conditional
+  conditions:
     - entity: binary_sensor.notification_todays_precipitation
       state: 'on'
   card:
