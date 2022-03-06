@@ -44,6 +44,7 @@ browser_mod:
               - entity: automation.aloita_nukkumaanmeno_viikonloppuisin
                 name: Aloita nukkumaanmeno vkl
               - entity: automation.herata_arkisin
+              - entity: automation.valot_paalle_yolla
 
           - type: vertical-stack
             cards:
