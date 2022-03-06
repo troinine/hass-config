@@ -8,159 +8,163 @@ browser_mod:
   card:
     type: vertical-stack
     cards:
-      - type: custom:button-card
-        template: subtitle
-        name: Olohuone
-
-      - type: horizontal-stack
+      - type: custom:swipe-card
+        parameters:
+          pagination:
+            type: bullets
+          keyboard:
+            enabled: true
+            onlyInViewport: true
         cards:
-          - type: custom:button-card
-            template:
-              - compact_sensor_graph
-              - sensor_graph_thresholds_indoor_temperature
-            entity: sensor.mqtt_airthings_waveplus_living_room_temperature
+          - type: vertical-stack
+            cards:
+              - type: entities
+                card_mod:
+                  !include ../../ui/styles/entities-card.yaml
+                title: Olohuone
+                entities:
+                  - entity: sensor.mqtt_airthings_waveplus_living_room_temperature
+                    name: Lämpötila
+                  - entity: sensor.mqtt_airthings_waveplus_living_room_humidity
+                    name: Kosteus
+                  - entity: sensor.mqtt_airthings_waveplus_living_room_co2
+                    name: CO2
+                  - entity: sensor.mqtt_airthings_waveplus_living_room_voc
+                    name: VOC
+                  - entity: sensor.mqtt_airthings_waveplus_living_room_radon_short_term
+                    name: Radon, lyhytaikainen
+                  - entity: sensor.mqtt_airthings_waveplus_living_room_radon_long_term
+                    name: Radon, pitkäaikainen
+                  - entity: switch.tplink_hs100_2
 
-          - type: custom:button-card
-            template: compact_sensor_graph
-            entity: sensor.mqtt_airthings_waveplus_living_room_humidity
+              - type: custom:apexcharts-card
+                card_mod:
+                  !include ../../ui/styles/no-card.yaml
+                config_templates:
+                  - sensor_temperature_humidity
+                series:
+                  - entity: sensor.mqtt_airthings_waveplus_living_room_temperature
+                    name: Lämpötila
+                  - entity: sensor.mqtt_airthings_waveplus_living_room_humidity
+                    name: Kosteus
 
-      - type: horizontal-stack
-        cards:
-          - type: custom:button-card
-            template:
-              - compact_sensor_graph
-              - sensor_graph_thresholds_co2
-            entity: sensor.mqtt_airthings_waveplus_living_room_co2
+          - type: vertical-stack
+            cards:
+              - type: entities
+                card_mod:
+                  !include ../../ui/styles/entities-card.yaml
+                title: Työhuone
+                show_header_toggle: false
+                entities:
+                  - entity: sensor.netatmo_koti_olohuone_temperature
+                    name: Lämpötila
+                  - entity: sensor.netatmo_koti_olohuone_humidity
+                    name: Kosteus
+                  - entity: sensor.netatmo_koti_olohuone_co2
+                    name: CO2
+                  - entity: sensor.netatmo_koti_olohuone_noise
+                    name: Ääni
+                  - entity: sensor.netatmo_koti_olohuone_pressure
+                    name: Paine
 
-          - type: custom:button-card
-            template: compact_sensor_graph
-            entity: sensor.mqtt_airthings_waveplus_living_room_voc
+              - type: custom:apexcharts-card
+                card_mod:
+                  !include ../../ui/styles/no-card.yaml
+                config_templates:
+                  - sensor_temperature_humidity
+                series:
+                  - entity: sensor.netatmo_koti_olohuone_temperature
+                    color: "#008000"
+                    name: Lämpötila
+                  - entity: sensor.netatmo_koti_olohuone_humidity
+                    color: dodgerblue
+                    name: Kosteus
 
-      - type: horizontal-stack
-        cards:
-          - type: custom:button-card
-            template:
-              - compact_sensor_graph
-              - sensor_graph_thresholds_radon
-            entity: sensor.mqtt_airthings_waveplus_living_room_radon_short_term
+          - type: vertical-stack
+            cards:
+              - type: entities
+                card_mod:
+                  !include ../../ui/styles/entities-card.yaml
+                title: Makuuhuone
+                show_header_toggle: false
+                entities:
+                  - entity: sensor.netatmo_koti_olohuone_makuuhuone_temperature
+                    name: Lämpötila
+                  - entity: sensor.netatmo_koti_olohuone_makuuhuone_humidity
+                    name: Kosteus
+                  - entity: sensor.netatmo_koti_olohuone_makuuhuone_co2
+                    name: CO2
 
-          - type: custom:button-card
-            template:
-              - compact_sensor
-            entity: sensor.mqtt_airthings_waveplus_living_room_radon_long_term
-            name: Radon
-            label: Pitkäaikainen
+              - type: custom:apexcharts-card
+                card_mod:
+                  !include ../../ui/styles/no-card.yaml
+                config_templates:
+                  - sensor_temperature_humidity
+                series:
+                  - entity: sensor.netatmo_koti_olohuone_makuuhuone_temperature
+                    color: "#008000"
+                    name: Lämpötila
+                  - entity: sensor.netatmo_koti_olohuone_makuuhuone_humidity
+                    color: dodgerblue
+                    name: Kosteus
 
-      - type: custom:button-card
-        template: subtitle
-        name: Sisun huone
+          - type: vertical-stack
+            cards:
+              - type: entities
+                card_mod:
+                  !include ../../ui/styles/entities-card.yaml
+                title: Sisun huone
+                show_header_toggle: false
+                entities:
+                  - entity: sensor.mqtt_airthings_waveplus_sisu_temperature
+                    name: Lämpötila
+                  - entity: sensor.mqtt_airthings_waveplus_sisu_humidity
+                    name: Kosteus
+                  - entity: sensor.mqtt_airthings_waveplus_sisu_co2
+                    name: CO2
+                  - entity: sensor.mqtt_airthings_waveplus_sisu_voc
+                    name: VOC
+                  - entity: sensor.mqtt_airthings_waveplus_sisu_radon_short_term
+                    name: Radon, lyhytaikainen
+                  - entity: sensor.mqtt_airthings_waveplus_sisu_radon_long_term
+                    name: Radon, pitkäaikainen
+                  - entity: switch.tplink_hs110_1
 
-      - type: horizontal-stack
-        cards:
-          - type: custom:button-card
-            template:
-              - compact_sensor_graph
-              - sensor_graph_thresholds_indoor_temperature
-            entity: sensor.mqtt_airthings_waveplus_sisu_temperature
+              - type: custom:apexcharts-card
+                card_mod:
+                  !include ../../ui/styles/no-card.yaml
+                config_templates:
+                  - sensor_radon_voc
+                series:
+                  - entity: sensor.mqtt_airthings_waveplus_sisu_radon_short_term
+                  - entity: sensor.mqtt_airthings_waveplus_sisu_voc
 
-          - type: custom:button-card
-            template: compact_sensor_graph
-            entity: sensor.mqtt_airthings_waveplus_sisu_humidity
+          - type: vertical-stack
+            cards:
+              - type: entities
+                card_mod:
+                  !include ../../ui/styles/entities-card.yaml
+                title: Otson huone
+                show_header_toggle: false
+                entities:
+                  - entity: sensor.mqtt_otso_temperature
+                    name: Lämpötila
+                  - entity: sensor.mqtt_otso_humidity
+                    name: Kosteus
+                  - entity: sensor.mqtt_otso_pressure
+                    name: Paine
 
-      - type: horizontal-stack
-        cards:
-          - type: custom:button-card
-            template:
-              - compact_sensor_graph
-              - sensor_graph_thresholds_co2
-            entity: sensor.mqtt_airthings_waveplus_sisu_co2
+              - type: custom:apexcharts-card
+                card_mod:
+                  !include ../../ui/styles/no-card.yaml
+                config_templates:
+                  - sensor_temperature_humidity
+                series:
+                  - entity: sensor.mqtt_otso_temperature
+                    color: "#008000"
+                    name: Lämpötila
+                  - entity: sensor.mqtt_otso_humidity
+                    color: dodgerblue
+                    name: Kosteus
 
-          - type: custom:button-card
-            template: compact_sensor_graph
-            entity: sensor.mqtt_airthings_waveplus_sisu_voc
 
-      - type: horizontal-stack
-        cards:
-          - type: custom:button-card
-            template:
-              - compact_sensor_graph
-              - sensor_graph_thresholds_radon
-            entity: sensor.mqtt_airthings_waveplus_sisu_radon_short_term
-
-          - type: custom:button-card
-            template:
-              - compact_sensor
-            entity: sensor.mqtt_airthings_waveplus_sisu_radon_long_term
-            name: Radon
-            label: Pitkäaikainen
-
-      - type: custom:button-card
-        template: subtitle
-        name: Työhuone
-
-      - type: horizontal-stack
-        cards:
-          - type: custom:button-card
-            template:
-              - compact_sensor_graph
-              - sensor_graph_thresholds_indoor_temperature
-            entity: sensor.netatmo_koti_olohuone_temperature
-
-          - type: custom:button-card
-            template: compact_sensor_graph
-            entity: sensor.netatmo_koti_olohuone_humidity
-
-      - type: horizontal-stack
-        cards:
-          - type: custom:button-card
-            template:
-              - compact_sensor_graph
-              - sensor_graph_thresholds_co2
-            entity: sensor.netatmo_koti_olohuone_co2
-
-          - type: custom:button-card
-            template: compact_sensor_graph
-            entity: sensor.netatmo_koti_olohuone_pressure
-
-      - type: custom:button-card
-        template: subtitle
-        name: Makuuhuone
-
-      - type: horizontal-stack
-        cards:
-          - type: custom:button-card
-            template:
-              - compact_sensor_graph
-              - sensor_graph_thresholds_indoor_temperature
-            entity: sensor.netatmo_koti_olohuone_makuuhuone_temperature
-
-          - type: custom:button-card
-            template: compact_sensor_graph
-            entity: sensor.netatmo_koti_olohuone_makuuhuone_humidity
-
-          - type: custom:button-card
-            template:
-              - compact_sensor_graph
-              - sensor_graph_thresholds_co2
-            entity: sensor.netatmo_koti_olohuone_makuuhuone_co2
-
-      - type: custom:button-card
-        template: subtitle
-        name: Otson huonoe
-
-      - type: horizontal-stack
-        cards:
-          - type: custom:button-card
-            template:
-              - compact_sensor_graph
-              - sensor_graph_thresholds_indoor_temperature
-            entity: sensor.mqtt_otso_temperature
-
-          - type: custom:button-card
-            template: compact_sensor_graph
-            entity: sensor.mqtt_otso_humidity
-
-          - type: custom:button-card
-            template:
-              - compact_sensor_graph
-            entity: sensor.mqtt_otso_pressure

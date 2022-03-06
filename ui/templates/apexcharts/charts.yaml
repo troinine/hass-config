@@ -313,7 +313,7 @@ sensor_radon_voc:
         decimalsInFloat: 0
         forceNiceScale: true
         min: 0
-        max: 500
+        max: 800
 
 sensor_electricity_consumption_daily:
   config_templates:
