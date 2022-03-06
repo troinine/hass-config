@@ -1,0 +1,10 @@
+---
+style: |
+  ha-card {
+    box-shadow: none;
+    border-radius: 0;
+    background-color: transparent;
+  }
+  #states > * {
+    margin: var(--custom-entities-card-marging) 0 !important;
+  }

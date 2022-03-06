@@ -4,15 +4,7 @@ browser_mod:
   command: popup
   title: Koti
   style:
-    $: |
-      .mdc-dialog .mdc-dialog__surface {
-        background-color: var(--primary-background-color) !important;
-      }
-    hui-vertical-stack-card:
-      $: |
-        #root {
-          padding: 0 1rem 0 1rem;
-        }
+    !include ../../ui/styles/popup.yaml
   card:
     type: vertical-stack
     cards:
@@ -27,7 +19,7 @@ browser_mod:
           - type: entities
             title: Tila ja automaatiot
             card_mod:
-              !include ../../ui/styles/no-card.yaml
+              !include ../../ui/styles/entities-card.yaml
             show_header_toggle: false
             entities:
               - entity: sensor.home_state
@@ -51,7 +43,7 @@ browser_mod:
               - type: entities
                 title: Sähkönkulutus
                 card_mod:
-                  !include ../../ui/styles/no-card.yaml
+                  !include ../../ui/styles/entities-card.yaml
                 show_header_toggle: false
                 entities:
                   - entity: sensor.mqtt_electricity_consumption_daily_updated
@@ -74,7 +66,7 @@ browser_mod:
               - type: entities
                 title: Sauna
                 card_mod:
-                  !include ../../ui/styles/no-card.yaml
+                  !include ../../ui/styles/entities-card.yaml
                 show_header_toggle: false
                 entities:
                   - entity: sensor.sauna_state

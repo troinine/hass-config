@@ -132,3 +132,5 @@ tablet:
 
       button-card-padding: 1.4rem
       button-card-compact-height: 12vh
+
+      custom-entities-card-marging: 0.2rem

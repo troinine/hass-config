@@ -36,7 +36,7 @@ browser_mod:
             cards:
               - type: entities
                 card_mod:
-                  !include ../../ui/styles/no-card.yaml
+                  !include ../../ui/styles/entities-card.yaml
                 title: Olohuone
                 view_layout:
                   grid-area: values
@@ -96,7 +96,7 @@ browser_mod:
             cards:
               - type: entities
                 card_mod:
-                  !include ../../ui/styles/no-card.yaml
+                  !include ../../ui/styles/entities-card.yaml
                 view_layout:
                   grid-area: values
                   place-self: stretch
@@ -157,7 +157,7 @@ browser_mod:
             cards:
               - type: entities
                 card_mod:
-                  !include ../../ui/styles/no-card.yaml
+                  !include ../../ui/styles/entities-card.yaml
                 view_layout:
                   grid-area: values
                   place-self: stretch
@@ -212,7 +212,7 @@ browser_mod:
             cards:
               - type: entities
                 card_mod:
-                  !include ../../ui/styles/no-card.yaml
+                  !include ../../ui/styles/entities-card.yaml
                 view_layout:
                   grid-area: values
                   place-self: stretch
@@ -274,7 +274,7 @@ browser_mod:
             cards:
               - type: entities
                 card_mod:
-                  !include ../../ui/styles/no-card.yaml
+                  !include ../../ui/styles/entities-card.yaml
                 view_layout:
                   grid-area: values
                   place-self: stretch
@@ -328,7 +328,7 @@ browser_mod:
             cards:
               - type: entities
                 card_mod:
-                  !include ../../ui/styles/no-card.yaml
+                  !include ../../ui/styles/entities-card.yaml
                 view_layout:
                   grid-area: values
                   place-self: stretch

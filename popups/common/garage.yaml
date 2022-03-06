@@ -12,17 +12,12 @@ browser_mod:
         #root {
           padding: 0 1rem 0 1rem;
         }
-      $hui-entities-card:
-        $: |
-          #states > * {
-              margin: 0.2rem 0 !important;
-          }
   card:
     type: vertical-stack
     cards:
       - type: entities
         card_mod:
-          !include ../../ui/styles/no-card.yaml
+          !include ../../ui/styles/entities-card.yaml
         entities:
           - entity: binary_sensor.mqtt_garage_door
           - entity: sensor.netatmo_koti_olohuone_autotalli_temperature

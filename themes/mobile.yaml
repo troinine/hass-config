@@ -136,3 +136,5 @@ mobile:
 
       button-card-padding: 1rem
       button-card-compact-height: 12vh
+
+      custom-entities-card-marging: 0.2rem

@@ -18,16 +18,6 @@ browser_mod:
           #root {
             margin: 0 !important;
           }
-        hui-entities-card:
-          $: |
-            .card-content {
-            }
-            ha-card {
-              border-radius: 0;
-              transition: none;
-              box-shadow: none;
-              background-color: transparent
-            }
   card:
     type: custom:layout-card
     layout_type: custom:grid-layout
@@ -40,6 +30,8 @@ browser_mod:
       place-items: start stretch
     cards:
       - type: entities
+        card_mod:
+          !include ../../ui/styles/entities-card.yaml
         title: Nibe
         show_header_toggle: false
         view_layout:
@@ -56,6 +48,8 @@ browser_mod:
           - entity: sensor.nibe_daily_num_starts
 
       - type: entities
+        card_mod:
+          !include ../../ui/styles/entities-card.yaml
         title: Käyttövesi
         show_header_toggle: false
         view_layout:
@@ -69,6 +63,8 @@ browser_mod:
             name: Alaosa
 
       - type: entities
+        card_mod:
+          !include ../../ui/styles/entities-card.yaml
         title: Lämmöntuotto
         show_header_toggle: false
         view_layout:
@@ -84,6 +80,8 @@ browser_mod:
             name: Pumpun nopeus
 
       - type: entities
+        card_mod:
+          !include ../../ui/styles/entities-card.yaml
         title: Lämmönkeruu
         show_header_toggle: false
         view_layout:
