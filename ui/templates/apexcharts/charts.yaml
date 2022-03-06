@@ -358,3 +358,33 @@ sensor_heat_pump_starts:
           color: orange
         - value: 14
           color: red
+
+sensor_garage_temperature_humidity:
+  config_templates:
+    - base
+  apex_config:
+    yaxis:
+      - show: true
+        decimalsInFloat: 0
+        forceNiceScale: true
+        min: 10
+        max: 30
+        axisBorder:
+          show: true
+          color: rgba(var(--primary-text-color-rgb), 0.4)
+          height: 1
+      - show: true
+        opposite: true
+        decimalsInFloat: 0
+        forceNiceScale: true
+        min: 30
+        max: 62
+  header:
+    title: Lämpötila ja kosteus
+  series:
+    - entity: sensor.netatmo_koti_olohuone_autotalli_temperature
+      name: Lämpötila
+      color: green
+    - entity: sensor.netatmo_koti_olohuone_autotalli_humidity
+      name: Kosteus
+      color: dodgerblue

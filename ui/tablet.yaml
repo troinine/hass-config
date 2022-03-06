@@ -94,7 +94,7 @@ views:
                   - info
                   - garage_door
                 tap_action:
-                  !include ../popups/tablet/garage.yaml
+                  !include ../popups/common/garage.yaml
 
       ###
       ### Lights

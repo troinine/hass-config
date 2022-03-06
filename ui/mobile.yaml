@@ -70,7 +70,7 @@ views:
                   - compact_info_extra
                   - garage_door
                 tap_action:
-                  !include ../popups/mobile/garage.yaml
+                  !include ../popups/common/garage.yaml
 
           - type: horizontal-stack
             cards:

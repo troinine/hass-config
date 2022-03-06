@@ -12,6 +12,11 @@ browser_mod:
         #root {
           padding: 0 1rem 0 1rem;
         }
+      $hui-entities-card:
+        $: |
+          #states > * {
+              margin: 0.2rem 0 !important;
+          }
   card:
     type: vertical-stack
     cards:
@@ -45,13 +50,4 @@ browser_mod:
         card_mod:
           !include ../../ui/styles/no-card.yaml
         config_templates:
-          - sensor_generic_dual
-        header:
-          title: Lämpötila ja kosteus
-        series:
-          - entity: sensor.netatmo_koti_olohuone_autotalli_temperature
-            name: Lämpötila
-            color: green
-          - entity: sensor.netatmo_koti_olohuone_autotalli_humidity
-            name: Kosteus
-            color: dodgerblue
+          - sensor_garage_temperature_humidity
