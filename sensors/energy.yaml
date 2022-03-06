@@ -5,7 +5,7 @@
   unit_of_measurement: "kWh"
   device_class: energy
   expire_after: 86400
-  value_template: '{{ value_json.value }}'
+  value_template: '{{ value_json.value| float | round(0) }}'
 
 - platform: mqtt
   name: "Kuukausittainen sähkönkulutus"
@@ -14,7 +14,7 @@
   unit_of_measurement: "kWh"
   device_class: energy
   expire_after: 86400
-  value_template: '{{ value_json.value }}'
+  value_template: '{{ value_json.value | float | round(0) }}'
 
 - platform: mqtt
   name: "Kuukausittainen sähkönkulutus, ennuste"
@@ -23,7 +23,7 @@
   unit_of_measurement: "kWh"
   device_class: energy
   expire_after: 86400
-  value_template: '{{ value_json.prediction }}'
+  value_template: '{{ value_json.prediction | float | round(0) }}'
 
 - platform: mqtt
   name: "Päivän energiankulutustiedot päivitetty"
