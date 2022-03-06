@@ -3,15 +3,7 @@ browser_mod:
   command: popup
   title: Autotalli
   style:
-    $: |
-      .mdc-dialog .mdc-dialog__surface {
-        background-color: var(--primary-background-color) !important;
-      }
-    hui-vertical-stack-card:
-      $: |
-        #root {
-          padding: 0 1rem 0 1rem;
-        }
+    !include ../../ui/styles/popup.yaml
   card:
     type: vertical-stack
     cards:
