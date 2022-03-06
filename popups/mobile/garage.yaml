@@ -15,66 +15,43 @@ browser_mod:
   card:
     type: vertical-stack
     cards:
-      - type: custom:button-card
-        template: subtitle
-        name: Tila
-
-      - type: horizontal-stack
-        cards:
-          - type: custom:button-card
-            template: compact_info
-            entity: binary_sensor.mqtt_garage_door
-
-          - type: custom:button-card
-            template: compact_info
-            entity: switch.tplink_hs110_2
-            name: Ilmankuivain
-
-          - type: custom:button-card
-            template: compact_info
-            entity: binary_sensor.garage_dehumidifier
-            name: Kuivaus käynnissä
-
-      - type: horizontal-stack
-        cards:
-          - type: custom:button-card
-            template: sensor_graph
-            entity: sensor.netatmo_koti_olohuone_autotalli_temperature
-            variables:
-              name_override: Lämpötila
-              color_thresholds:
-                - value: 10
-                  color: "#1E90FF"
-                - value: 13
-                  color: "#008000"
-                - value: 16
-                  color: "#FFFF00"
-                - value: 20
-                  color: "#FF0000"
-
-          - type: custom:button-card
-            template: sensor_graph
-            entity: sensor.netatmo_koti_olohuone_autotalli_humidity
-            variables:
-              name_override: Kosteus
-
-          - type: custom:button-card
-            template: sensor_graph
-            entity: sensor.netatmo_koti_olohuone_autotalli_co2
-            variables:
-              name_override: CO2
-
-      - type: custom:button-card
-        template: subtitle
-        name: Automaatiot
-
       - type: entities
+        card_mod:
+          !include ../../ui/styles/no-card.yaml
         entities:
-          - entity: automation.sammuta_ilmankuivain
-            secondary_info: last-triggered
+          - entity: binary_sensor.mqtt_garage_door
+          - entity: sensor.netatmo_koti_olohuone_autotalli_temperature
+            name: Lömpötila
+          - entity: sensor.netatmo_koti_olohuone_autotalli_humidity
+            name: Kosteus
+          - entity: sensor.netatmo_koti_olohuone_autotalli_co2
+            name: CO2
+          - entity: switch.tplink_hs110_2
+            name: Ilmankuivain
+          - entity: binary_sensor.garage_dehumidifier
+            name: Kuivaus käynnissä
+          - type: section
+            label: Automaatiot
+          - type: custom:fold-entity-row
+            padding: 0
+            head:
+              label: Automaatiot
+              entity: automation.kaynnista_ilmankuivain
+            entities:
+              - entity: automation.sammuta_ilmankuivain
+              - entity: automation.tyhjenna_ilmankuivain
 
-          - entity: automation.kaynnista_ilmankuivain
-            secondary_info: last-triggered
-
-          - entity: automation.tyhjenna_ilmankuivain
-            secondary_info: last-triggered
+      - type: custom:apexcharts-card
+        card_mod:
+          !include ../../ui/styles/no-card.yaml
+        config_templates:
+          - sensor_generic_dual
+        header:
+          title: Lämpötila ja kosteus
+        series:
+          - entity: sensor.netatmo_koti_olohuone_autotalli_temperature
+            name: Lämpötila
+            color: green
+          - entity: sensor.netatmo_koti_olohuone_autotalli_humidity
+            name: Kosteus
+            color: dodgerblue
