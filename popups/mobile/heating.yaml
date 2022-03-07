@@ -8,187 +8,236 @@ browser_mod:
   card:
     type: vertical-stack
     cards:
-
-      ### State
-
-      - type: custom:button-card
-        template: subtitle
-        name: Tila
-
-      - type: horizontal-stack
+      - type: custom:swipe-card
+        parameters:
+          pagination:
+            type: bullets
+          keyboard:
+            enabled: true
+            onlyInViewport: true
         cards:
-          - type: custom:button-card
-            template:
-              - compact_info
-              - heat_pump_state
 
-          - type: custom:button-card
-            template:
-              - compact_sensor
-              - heat_pump_starts
-            label: Tänään
+          ### State
 
-      - type: horizontal-stack
-        cards:
-          - type: custom:button-card
-            template:
-              - compact_sensor_graph
-            entity: sensor.nibe_degree_minutes
+          - type: custom:layout-card
+            layout_type: custom:grid-layout
+            layout:
+              grid-template-rows: 45vh 45vh
+              grid-template-areas: |
+                "entities"
+                "graph"
+            cards:
+              - type: entities
+                card_mod:
+                  !include ../../ui/styles/entities-card.yaml
+                title: Nibe
+                show_header_toggle: false
+                view_layout:
+                  grid-area: entities
+                  place-self: start stretch
+                entities:
+                  - entity: sensor.nibe_heat_pump_state
+                  - entity: sensor.nibe_degree_minutes
+                  - entity: sensor.nibe_alarm_number
+                    name: Hälytys
+                  - entity: sensor.nibe_average_heating_cycle
+                    name: Käyntiaika
+                  - entity: sensor.nibe_average_resting_cycle
+                    name: Lepoaika
+                  - entity: sensor.nibe_daily_num_starts
 
-          - type: custom:button-card
-            template:
-              - compact_sensor
-            entity: sensor.nibe_alarm_number
-            show_last_updated: true
+              - type: custom:apexcharts-card
+                view_layout:
+                  grid-area: graph
+                  place-self: end stretch
+                card_mod:
+                  !include ../../ui/styles/no-card.yaml
+                config_templates:
+                  - sensor_heat_pump_starts
+                header:
+                  colorize_states: false
 
-      - type: horizontal-stack
-        cards:
-          - type: custom:button-card
-            template:
-              - compact_sensor_graph
-            entity: sensor.nibe_average_heating_cycle
-            name: Käyntiaika
+          ### Tap water
 
-          - type: custom:button-card
-            template:
-              - compact_sensor_graph
-            entity: sensor.nibe_average_resting_cycle
-            name: Lepoaika
+          - type: custom:layout-card
+            layout_type: custom:grid-layout
+            layout:
+              grid-template-rows: 45vh 45vh
+              grid-template-areas: |
+                "entities"
+                "graph"
+            cards:
+              - type: entities
+                card_mod:
+                  !include ../../ui/styles/entities-card.yaml
+                title: Käyttövesi
+                show_header_toggle: false
+                view_layout:
+                  grid-area: entities
+                  place-self: start stretch
+                entities:
+                  - entity: switch.tplink_hs100_1
+                    name: Kiertovesipumppu
+                  - entity: sensor.nibe_hot_water_top_temp
+                    name: Yläosa
+                  - entity: sensor.nibe_hot_water_fill_temp
+                    name: Alaosa
 
-      ### Brine-in
+              - type: custom:apexcharts-card
+                view_layout:
+                  grid-area: graph
+                  place-self: end stretch
+                card_mod:
+                  !include ../../ui/styles/no-card.yaml
+                config_templates:
+                  - sensor_heating
+                header:
+                  title: Lämpötilat
+                apex_config:
+                  yaxis:
+                    - show: true
+                      decimalsInFloat: 0
+                      forceNiceScale: true
+                      min: 30
+                      max: 70
+                      axisBorder:
+                        show: true
+                        color: rgba(var(--primary-text-color-rgb), 0.4)
+                        height: 1
+                    - show: true
+                      opposite: true
+                      decimalsInFloat: 0
+                      forceNiceScale: true
+                      min: 30
+                      max: 70
+                series:
+                  - entity: sensor.nibe_hot_water_top_temp
+                    name: Yläosa
+                    color: orangered
+                  - entity: sensor.nibe_hot_water_fill_temp
+                    name: Täyttö
+                    color: dodgerblue
 
-      - type: custom:button-card
-        template: subtitle
-        name: Lämmönkeruu
+          ### Supply
 
-      - type: horizontal-stack
-        cards:
-          - type: custom:button-card
-            template:
-              - compact_sensor
-            entity: sensor.nibe_daily_brine_min_input_temp
-            name: Tulo
-            label: Matalin
+          - type: custom:layout-card
+            layout_type: custom:grid-layout
+            layout:
+              grid-template-rows: 45vh 45vh
+              grid-template-areas: |
+                "entities"
+                "graph"
+            cards:
+              - type: entities
+                card_mod:
+                  !include ../../ui/styles/entities-card.yaml
+                title: Lämmöntuotto
+                show_header_toggle: false
+                view_layout:
+                  grid-area: entities
+                  place-self: start stretch
+                entities:
+                  - entity: sensor.nibe_calculated_supply_temp
+                    name: Laskennallinen
+                  - entity: sensor.nibe_supply_temp
+                    name: Meno
+                  - entity: sensor.nibe_supply_return_temp
+                    name: Paluu
+                  - entity: sensor.nibe_supply_pump_speed
+                    name: Pumpun nopeus
 
-          - type: custom:button-card
-            template:
-              - compact_sensor
-            entity: sensor.nibe_daily_brine_min_output_temp
-            name: Meno
-            label: Matalin
+              - type: custom:apexcharts-card
+                view_layout:
+                  grid-area: graph
+                  place-self: end stretch
+                card_mod:
+                  !include ../../ui/styles/no-card.yaml
+                config_templates:
+                  - sensor_heating
+                header:
+                  title: Lämpötilat
+                apex_config:
+                  yaxis:
+                    - show: true
+                      decimalsInFloat: 0
+                      forceNiceScale: true
+                      min: 20
+                      max: 60
+                      axisBorder:
+                        show: true
+                        color: rgba(var(--primary-text-color-rgb), 0.4)
+                        height: 1
+                    - show: true
+                      opposite: true
+                      decimalsInFloat: 0
+                      forceNiceScale: true
+                      min: 20
+                      max: 60
+                series:
+                  - entity: sensor.nibe_supply_temp
+                    name: Meno
+                    color: orangered
+                  - entity: sensor.nibe_supply_return_temp
+                    name: Paluu
+                    color: dodgerblue
 
-          - type: custom:button-card
-            template:
-              - compact_sensor
-            entity: sensor.nibe_brine_pump_speed
-            name: Pumppu
-            label: Nopeus
+          ### Brine
 
-      - type: horizontal-stack
-        cards:
-          - type: custom:mini-graph-card
-            name: Lämmönkeruu
-            entities:
-              - entity: sensor.nibe_brine_in_temp
-                name: Sisään
-                color: var(--google-green)
-              - entity: sensor.nibe_brine_out_temp
-                name: Ulos
-                show_state: true
-                color: dodgerblue
-            decimals: 1
-            hours_to_show: 24
-            points_per_hour: 8
-            hour24: true
-            show:
-              extrema: true
-              name: false
-              icon: false
-            height: 150
-            line_width: 4
+          - type: custom:layout-card
+            layout_type: custom:grid-layout
+            layout:
+              grid-template-rows: 45vh 45vh
+              grid-template-areas: |
+                "entities"
+                "graph"
+            cards:
+              - type: entities
+                card_mod:
+                  !include ../../ui/styles/entities-card.yaml
+                title: Lämmönkeruu
+                show_header_toggle: false
+                view_layout:
+                  grid-area: entities
+                  place-self: start stretch
+                entities:
+                  - entity: sensor.nibe_brine_in_temp
+                    name: Sisään
+                  - entity: sensor.nibe_brine_out_temp
+                    name: Ulos
+                  - entity: sensor.nibe_daily_brine_min_input_temp
+                    name: Matalin sisään
+                  - entity: sensor.nibe_daily_brine_min_output_temp
+                    name: Matalin ulos
+                  - entity: sensor.nibe_brine_pump_speed
+                    name: Pumpun nopeus
 
-      ### Hot water
-
-      - type: custom:button-card
-        template: subtitle
-        name: Käyttövesi
-
-      - type: horizontal-stack
-        cards:
-          - type: custom:button-card
-            template:
-              - compact_info_extra
-              - hot_water_pump
-
-          - type: custom:button-card
-            template:
-              - compact_sensor
-            entity: sensor.nibe_hot_water_delta_temp
-            name: Lämmöntuotto
-            label: Delta
-
-      - type: horizontal-stack
-        cards:
-          - type: custom:mini-graph-card
-            name: Käyttövesi
-            entities:
-              - entity: sensor.nibe_hot_water_top_temp
-                name: Yläosa
-                color: 'red'
-              - entity: sensor.nibe_hot_water_fill_temp
-                name: Täyttö
-                show_state: true
-            show:
-              extrema: true
-              name: false
-              icon: false
-            decimals: 1
-            hours_to_show: 24
-            points_per_hour: 3
-            hour24: true
-            height: 150
-            line_width: 4
-
-      - type: custom:button-card
-        template: subtitle
-        label: Lämmöntuotto
-
-      - type: horizontal-stack
-        cards:
-          - type: custom:button-card
-            template:
-              - compact_sensor_graph
-            entity: sensor.nibe_calculated_supply_temp
-
-          - type: custom:button-card
-            template:
-              - compact_sensor
-            entity: sensor.nibe_supply_pump_speed
-            name: KV-pumppu
-            label: Nopeus
-
-      - type: horizontal-stack
-        cards:
-          - type: custom:mini-graph-card
-            entities:
-              - entity: sensor.nibe_supply_temp
-                name: Lämmöntuotto
-              - entity: sensor.nibe_supply_return_temp
-                name: Paluulämpötila
-                show_state: true
-                color: dodgerblue
-            color_thresholds:
-              - value: 35
-                color: var(--accent-color)
-              - value: 37
-                color: red
-            decimals: 1
-            hours_to_show: 24
-            points_per_hour: 8
-            hour24: true
-            show:
-              extrema: true
-              name: false
-              icon: false
-            height: 150
-            line_width: 4
+              - type: custom:apexcharts-card
+                view_layout:
+                  grid-area: graph
+                  place-self: end stretch
+                card_mod:
+                  !include ../../ui/styles/no-card.yaml
+                config_templates:
+                  - sensor_heating
+                header:
+                  title: Lämpötilat
+                apex_config:
+                  yaxis:
+                    - show: true
+                      decimalsInFloat: 0
+                      forceNiceScale: true
+                      axisBorder:
+                        show: true
+                        color: rgba(var(--primary-text-color-rgb), 0.4)
+                        height: 1
+                    - show: true
+                      opposite: true
+                      decimalsInFloat: 0
+                      forceNiceScale: true
+                series:
+                  - entity: sensor.nibe_brine_in_temp
+                    name: Sisään
+                    color: orangered
+                  - entity: sensor.nibe_brine_out_temp
+                    name: Ulos
+                    color: dodgerblue
