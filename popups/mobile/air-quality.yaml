@@ -16,11 +16,23 @@ browser_mod:
             enabled: true
             onlyInViewport: true
         cards:
-          - type: vertical-stack
+
+          ### Living room
+
+          - type: custom:layout-card
+            layout_type: custom:grid-layout
+            layout:
+              grid-template-rows: 45vh 45vh
+              grid-template-areas: |
+                "entities"
+                "graph"
             cards:
               - type: entities
                 card_mod:
                   !include ../../ui/styles/entities-card.yaml
+                view_layout:
+                  grid-area: entities
+                  place-self: start stretch
                 title: Olohuone
                 entities:
                   - entity: sensor.mqtt_airthings_waveplus_living_room_temperature
@@ -40,6 +52,9 @@ browser_mod:
               - type: custom:apexcharts-card
                 card_mod:
                   !include ../../ui/styles/no-card.yaml
+                view_layout:
+                  grid-area: graph
+                  place-self: end stretch
                 config_templates:
                   - sensor_temperature_humidity
                 series:
@@ -48,11 +63,22 @@ browser_mod:
                   - entity: sensor.mqtt_airthings_waveplus_living_room_humidity
                     name: Kosteus
 
-          - type: vertical-stack
+          ### Office
+
+          - type: custom:layout-card
+            layout_type: custom:grid-layout
+            layout:
+              grid-template-rows: 45vh 45vh
+              grid-template-areas: |
+                "entities"
+                "graph"
             cards:
               - type: entities
                 card_mod:
                   !include ../../ui/styles/entities-card.yaml
+                view_layout:
+                  grid-area: entities
+                  place-self: start stretch
                 title: Työhuone
                 show_header_toggle: false
                 entities:
@@ -70,6 +96,9 @@ browser_mod:
               - type: custom:apexcharts-card
                 card_mod:
                   !include ../../ui/styles/no-card.yaml
+                view_layout:
+                  grid-area: graph
+                  place-self: end stretch
                 config_templates:
                   - sensor_temperature_humidity
                 series:
@@ -80,11 +109,22 @@ browser_mod:
                     color: dodgerblue
                     name: Kosteus
 
-          - type: vertical-stack
+          ### Bedroom
+
+          - type: custom:layout-card
+            layout_type: custom:grid-layout
+            layout:
+              grid-template-rows: 45vh 45vh
+              grid-template-areas: |
+                "entities"
+                "graph"
             cards:
               - type: entities
                 card_mod:
                   !include ../../ui/styles/entities-card.yaml
+                view_layout:
+                  grid-area: entities
+                  place-self: start stretch
                 title: Makuuhuone
                 show_header_toggle: false
                 entities:
@@ -98,6 +138,9 @@ browser_mod:
               - type: custom:apexcharts-card
                 card_mod:
                   !include ../../ui/styles/no-card.yaml
+                view_layout:
+                  grid-area: graph
+                  place-self: end stretch
                 config_templates:
                   - sensor_temperature_humidity
                 series:
@@ -108,11 +151,22 @@ browser_mod:
                     color: dodgerblue
                     name: Kosteus
 
-          - type: vertical-stack
+          ### Sisu's room
+
+          - type: custom:layout-card
+            layout_type: custom:grid-layout
+            layout:
+              grid-template-rows: 45vh 45vh
+              grid-template-areas: |
+                "entities"
+                "graph"
             cards:
               - type: entities
                 card_mod:
                   !include ../../ui/styles/entities-card.yaml
+                view_layout:
+                  grid-area: entities
+                  place-self: start stretch
                 title: Sisun huone
                 show_header_toggle: false
                 entities:
@@ -133,17 +187,33 @@ browser_mod:
               - type: custom:apexcharts-card
                 card_mod:
                   !include ../../ui/styles/no-card.yaml
+                view_layout:
+                  grid-area: graph
+                  place-self: end stretch
                 config_templates:
                   - sensor_radon_voc
                 series:
                   - entity: sensor.mqtt_airthings_waveplus_sisu_radon_short_term
+                    name: Radon
                   - entity: sensor.mqtt_airthings_waveplus_sisu_voc
+                    name: VOC
 
-          - type: vertical-stack
+          ### Otso's room
+
+          - type: custom:layout-card
+            layout_type: custom:grid-layout
+            layout:
+              grid-template-rows: 45vh 45vh
+              grid-template-areas: |
+                "entities"
+                "graph"
             cards:
               - type: entities
                 card_mod:
                   !include ../../ui/styles/entities-card.yaml
+                view_layout:
+                  grid-area: entities
+                  place-self: start stretch
                 title: Otson huone
                 show_header_toggle: false
                 entities:
@@ -157,6 +227,9 @@ browser_mod:
               - type: custom:apexcharts-card
                 card_mod:
                   !include ../../ui/styles/no-card.yaml
+                view_layout:
+                  grid-area: graph
+                  place-self: end stretch
                 config_templates:
                   - sensor_temperature_humidity
                 series:
