@@ -36,6 +36,7 @@ browser_mod:
                   grid-area: entities
                   place-self: start stretch
                 entities:
+                  - entity: sensor.nibe_data_age
                   - entity: sensor.nibe_heat_pump_state
                   - entity: sensor.nibe_degree_minutes
                   - entity: sensor.nibe_alarm_number

@@ -37,6 +37,7 @@ browser_mod:
         view_layout:
           grid-area: heat-pump
         entities:
+          - entity: sensor.nibe_data_age
           - entity: sensor.nibe_heat_pump_state
           - entity: sensor.nibe_degree_minutes
           - entity: sensor.nibe_alarm_number
