@@ -16,7 +16,7 @@ browser_mod:
       $grid-layout$:
         .: |
           #root {
-            margin: 0 !important;
+            margin: 0 0 1rem 0 !important;
           }
 
   card:
@@ -24,7 +24,7 @@ browser_mod:
     layout_type: custom:grid-layout
     layout:
       grid-template-columns: 1fr 1fr 1fr
-      grid-template-rows: fit-content(100%)
+      grid-template-rows: max-content
       grid-template-areas: |
         "hass tablet synology"
       place-items: start stretch
@@ -44,12 +44,28 @@ browser_mod:
                 format: total
               - entity: sensor.hass_database_size
                 name: Kannan koko
-              - entity: binary_sensor.hass_update_available
-                name: Päivitys saatavilla
               - entity: sensor.hass_version_installed
                 name: Asennettu version
               - entity: sensor.hass_version_latest
                 name: Uusin version
+              - entity: sensor.processor_use
+                name: Prosessorikäyttö
+              - entity: sensor.memory_use_percent
+                name: Muistinkulutus
+              - type: section
+
+          - type: custom:mod-card
+            card_mod:
+              style: |
+                ha-card {
+                  display: flex;
+                  justify-content: center;
+                }
+            card:
+              type: horizontal-stack
+              cards:
+                - type: custom:button-card
+                  template: button_hass_update
 
       - type: vertical-stack
         view_layout:
@@ -71,9 +87,21 @@ browser_mod:
                 name: Lämpötila
               - entity: binary_sensor.galaxy_tab_a8_is_charging
                 name: Latautuu
-              - type: section
-                label: Automaatiot
               - entity: automation.wake_up_galaxy_tab_a8
+              - type: section
+
+          - type: custom:mod-card
+            card_mod:
+              style: |
+                ha-card {
+                  display: flex;
+                  justify-content: center;
+                }
+            card:
+              type: horizontal-stack
+              cards:
+                - type: custom:button-card
+                  template: button_galaxy_tab_wake_up
 
       - type: vertical-stack
         view_layout:
@@ -93,13 +121,21 @@ browser_mod:
                 name: Turvataso
               - entity: binary_sensor.synology_update_available
                 name: Päivitys
-              - type: section
-                label: Levyt
               - entity: sensor.synology_status_3
                 name: Levy 1
-              - entity: sensor.synology_temperature_2
-                name: Lämpötila
               - entity: sensor.synology_status_2
                 name: Levy 2
-              - entity: sensor.synology_temperature
-                name: Lämpötila
+              - type: section
+
+          - type: custom:mod-card
+            card_mod:
+              style: |
+                ha-card {
+                  display: flex;
+                  justify-content: center;
+                }
+            card:
+              type: horizontal-stack
+              cards:
+                - type: custom:button-card
+                  template: button_synology_reboot

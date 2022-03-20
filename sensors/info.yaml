@@ -12,6 +12,13 @@
 
 - platform: uptime
 
+- platform: systemmonitor
+  resources:
+    - type: memory_use_percent
+    - type: processor_use
+    - type: last_boot
+  scan_interval: 300
+
 - platform: sql
   db_url: !secret postgresql_url
   queries:

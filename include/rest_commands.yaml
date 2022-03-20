@@ -1,0 +1,4 @@
+hass_update:
+  url: !secret hass_update_url
+  headers:
+    Authorization: !secret hass_update_url_secret

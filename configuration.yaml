@@ -137,13 +137,32 @@ input_boolean:
     name: Lomalla
     icon: mdi:palm-tree
 
-sensor: !include_dir_merge_list sensors/
-binary_sensor: !include template_sensors/binary-sensors.yaml
-template: !include template_sensors/sensors.yaml
+sensor:
+  !include_dir_merge_list sensors/
 
-automation: !include include/automations.yaml
-timer: !include include/timers.yaml
-script: !include include/scripts.yaml
-scene: !include include/scenes.yaml
-switch: !include include/switches.yaml
-light: !include include/lights.yaml
+binary_sensor:
+  !include template_sensors/binary-sensors.yaml
+
+template:
+  !include template_sensors/sensors.yaml
+
+automation:
+  !include include/automations.yaml
+
+timer:
+  !include include/timers.yaml
+
+script:
+  !include include/scripts.yaml
+
+scene:
+  !include include/scenes.yaml
+
+switch:
+  !include include/switches.yaml
+
+light:
+  !include include/lights.yaml
+
+rest_command:
+  !include include/rest_commands.yaml

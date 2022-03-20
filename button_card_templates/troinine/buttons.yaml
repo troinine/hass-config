@@ -1,0 +1,66 @@
+---
+icon_button:
+  template:
+    - base
+  show_icon: true
+  show_name: true
+  show_state: false
+  styles:
+    grid:
+      - grid-template-areas: |
+          "i n"
+      - grid-template-columns: 2.5rem 10rem
+      - grid-template-rows: 3rem
+    icon:
+      - width: 1.6rem
+    card:
+      - filter: |
+          [[[ return variables.is_active ? 'drop-shadow(3px 3px 5px #00000050)' : 'opacity(30%)' ]]]
+      - background-color: |
+          [[[ return variables.is_active ? 'green' : 'rgba(255, 255, 255, 0.12)' ]]]
+      - width: max-content
+      - height: 3rem
+      - padding: 0 1rem 0 1rem
+      - border-radius: 0.8rem
+
+button_hass_update:
+  template:
+    - icon_button
+  name: Päivitä nyt
+  entity: binary_sensor.notification_hass_update_available
+  tap_action:
+    action: |
+      [[[ return variables.is_active ? 'call-service' : 'none' ]]]
+    service: |
+      [[[ return variables.is_active ? 'rest_command.hass_update' : undefined ]]]
+    confirmation:
+      text: |
+        [[[ return `Haluatko varmasti päivittää Home Assistant versioon ${states['sensor.hass_version_latest'].state}?` ]]]
+
+button_synology_reboot:
+  template:
+    - icon_button
+  variables:
+    is_active: true
+  name: Uudelleenkäynnistä
+  entity: button.synology_reboot
+  tap_action:
+    action: call-service
+    service: button.press
+    service_data:
+      entity_id: button.synology_reboot
+    confirmation:
+      text: Haluatko varmasti käynnistää Synologyn uudelleen?
+
+button_galaxy_tab_wake_up:
+  template:
+    - icon_button
+  variables:
+    is_active: true
+  name: Herätä
+  entity: automation.wake_up_galaxy_tab_a8
+  tap_action:
+    action: call-service
+    service: automation.trigger
+    service_data:
+      entity_id: automation.wake_up_galaxy_tab_a8
