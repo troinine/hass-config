@@ -230,13 +230,13 @@
   - name: "notification_hass_update_available"
     unique_id: "notification_hass_update_available"
     icon: "mdi:update"
-    state: "{{ states('binary_sensor.updater') }}"
+    state: "{{ states('binary_sensor.hass_version_latest_update_available') }}"
     attributes:
       icon_color: 'green'
       text_summary: "Home Assistant päivitys saatavilla"
-      text_description: "Uusin version on {{ state_attr('binary_sensor.updater', 'newest_version') }}. <a href='{{ state_attr('binary_sensor.updater', 'release_notes') }}'>Release notes.</a"
+      text_description: "Uusin version on {{ states('sensor.sensor.hass_version_latest') }}."
       tap_action: url
-      tap_action_url_path: "{{ state_attr('binary_sensor.updater', 'release_notes') }}"
+      tap_action_url_path: "https://www.home-assistant.io/latest-release-notes/"
 
   - name: notification_on_vacation
     unique_id: notification_on_vacation
