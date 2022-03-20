@@ -1048,3 +1048,21 @@
       data: {}
       target:
         entity_id: switch.tplink_hs110_1
+
+- id: '1646256252426'
+  alias: Sammuta Olohuoneen ilmankostutin
+  mode: single
+  description: ''
+  trigger:
+    - platform: numeric_state
+      entity_id: sensor.mqtt_airthings_waveplus_living_room_humidity
+      above: '39'
+  condition:
+    - condition: state
+      entity_id: switch.tplink_hs100_2
+      state: 'on'
+  action:
+    - service: switch.turn_off
+      data: {}
+      target:
+        entity_id: switch.tplink_hs100_2
