@@ -234,7 +234,7 @@
     attributes:
       icon_color: 'green'
       text_summary: "Home Assistant päivitys saatavilla"
-      text_description: "Uusin version on {{ states('sensor.sensor.hass_version_latest') }}."
+      text_description: "Uusin version on {{ states('sensor.hass_version_latest') }}."
       tap_action: url
       tap_action_url_path: "https://www.home-assistant.io/latest-release-notes/"
 
