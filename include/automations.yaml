@@ -1,6 +1,7 @@
 - id: turn_off_lights_when_not_at_home
   alias: Aseta Poissa tila
   description: Asettaa poissa kotoa tilan kun ketään ei havaita
+  mode: single
   trigger:
   - platform: state
     entity_id: binary_sensor.indoor_motion_sensors
@@ -27,7 +28,7 @@
   - service: remote.turn_off
     data: {}
     entity_id: remote.olohuone
-  mode: single
+
 - id: turn_on_lights_when_arriving_to_home
   alias: Saapuminen kotiin
   description: ''
@@ -310,7 +311,8 @@
   mode: single
 - id: '1607795690760'
   alias: Aseta Poissa tila
-  description: ''
+  description: 'Asettaa Poissa tilan kun käyttäjät ovat poissa kotoa'
+  mode: single
   trigger:
   - platform: state
     entity_id: binary_sensor.indoor_motion_sensors
@@ -344,7 +346,15 @@
   - service: automation.trigger
     data: {}
     entity_id: automation.hot_water_pump_off
-  mode: single
+  - service: switch.turn_off
+    data: {}
+    target:
+      entity_id: switch.tplink_hs100_2
+  - service: switch.turn_off
+    data: {}
+    target:
+      entity_id: switch.tplink_hs110_1
+
 - id: '1607807219023'
   alias: Aseta Nukkumassa tila
   description: ''
