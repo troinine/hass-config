@@ -184,9 +184,9 @@
     unique_id: "notification_todays_precipitation"
     icon: |
         {% set forecast = state_attr('weather.koti_custom', 'forecast') %}
-        {% if forecast[0] and forecast[0].precipitation | float > 0.0 and forecast[0].condition == 'snowy' %}
+        {% if forecast and forecast[0] and forecast[0].precipitation | float > 0.0 and forecast[0].condition == 'snowy' %}
           mdi:weather-snowy-heavy
-        {% elif forecast[0] and forecast[0].precipitation | float > 0.0 and forecast[0].condition %}
+        {% elif forecast and forecast[0] and forecast[0].precipitation | float > 0.0 and forecast[0].condition %}
           mdi:weather-rainy
         {% else %}
           mdi:weather-cloudly-alert
@@ -203,16 +203,16 @@
       text_summary: |
         {% set forecast = state_attr('weather.koti_custom', 'forecast') %}
         {% set precipitation = states('sensor.koti_precipitation' ) %}
-        {% if forecast[0] and precipitation | float > 0.0 and forecast[0].condition == 'snowy' %}
+        {% if forecast and forecast[0] and precipitation | float > 0.0 and forecast[0].condition == 'snowy' %}
           Odotettavissa lumisadetta {{ precipitation }} mm
-        {% elif forecast[0] and precipitation | float > 0.0 and forecast[0].condition %}
+        {% elif forecast and forecast[0] and precipitation | float > 0.0 and forecast[0].condition %}
           Odotettavissa vesisadetta {{ precipitation }} mm
         {% else %}
           Sadetyyppi ei tiedossa
         {% endif %}
       text_description: |
         {% set forecast = state_attr('weather.koti_custom', 'forecast') %}
-        {% if forecast[0] and forecast[0].precipitation %}
+        {% if forecast and forecast[0] and forecast[0].precipitation %}
           Koko päivän ennuste {{ forecast[0].precipitation }} mm. Todennäköisyys tänään {{ forecast[0].precipitation_probability }} %.
         {% endif %}
       tap_action: more-info
@@ -317,7 +317,9 @@
         {% endif %}
       text_description: |
         {% set reporting_entity = state_attr('sensor.humidity_state', 'reporting_entity') %}
-        {{ state_attr(reporting_entity, 'friendly_name') }} {{ states(reporting_entity) }} {{ state_attr(reporting_entity, 'unit_of_measurement') }}
+        {% if reporting_entity %}
+          {{ state_attr(reporting_entity, 'friendly_name') }} {{ states(reporting_entity) }} {{ state_attr(reporting_entity, 'unit_of_measurement') }}
+        {% endif %}
       tap_action: more-info
       tap_action_entity: "{{ state_attr('sensor.humidity_state', 'reporting_entity') }}"
 
@@ -342,7 +344,9 @@
         {% endif %}
       text_description: |
         {% set reporting_entity = state_attr('sensor.radon_warning', 'reporting_entity') %}
-        {{ state_attr(reporting_entity, 'friendly_name') }} {{ states(reporting_entity) }} {{ state_attr(reporting_entity, 'unit_of_measurement') }}
+        {% if reporting_entity %}
+          {{ state_attr(reporting_entity, 'friendly_name') }} {{ states(reporting_entity) }} {{ state_attr(reporting_entity, 'unit_of_measurement') }}
+        {% endif %}
       tap_action: more-info
       tap_action_entity: "{{ state_attr('sensor.radon_warning', 'reporting_entity') }}"
 
@@ -355,7 +359,9 @@
       text_summary: Hiilidioksidi korkealla
       text_description: |
         {% set reporting_entity = state_attr('sensor.co2_state', 'reporting_entity') %}
-        {{ state_attr(reporting_entity, 'friendly_name') }} {{ states(reporting_entity) }} {{ state_attr(reporting_entity, 'unit_of_measurement') }}
+        {% if reporting_entity %}
+          {{ state_attr(reporting_entity, 'friendly_name') }} {{ states(reporting_entity) }} {{ state_attr(reporting_entity, 'unit_of_measurement') }}
+        {% endif %}
       tap_action: more-info
       tap_action_entity: "{{ state_attr('sensor.co2_state', 'reporting_entity') }}"
 
