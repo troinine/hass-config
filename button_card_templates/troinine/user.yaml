@@ -14,7 +14,9 @@ user:
     state2: |
       [[[
         var extra_info = ''
-        if (variables.battery_charging_status_entity && states[variables.battery_charging_status_entity].state === 'on') {
+        if (variables.battery_charging_status_entity &&
+            (states[variables.battery_charging_status_entity].state === 'on' ||
+            states[variables.battery_charging_status_entity].state === 'Charging')) {
           extra_info = `<ha-icon icon="mdi:flash" style="--mdc-icon-size: 0.9rem;"></ha-icon>`
         }
 

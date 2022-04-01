@@ -162,8 +162,8 @@ views:
                 template: compact_user
                 entity: person.tero
                 variables:
-                  battery_charge_entity: sensor.tero_akun_varaustaso
-                  battery_charging_status_entity: binary_sensor.tero_latautuu
+                  battery_charge_entity: sensor.tero_battery_level
+                  battery_charging_status_entity: sensor.tero_battery_state
 
               - type: 'custom:button-card'
                 template: compact_user
