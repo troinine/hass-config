@@ -17,6 +17,15 @@
 
 - type: conditional
   conditions:
+    - entity: binary_sensor.notification_heat_pump_data_missing
+      state: 'on'
+  card:
+    type: custom:button-card
+    template: auto_notification
+    entity: binary_sensor.notification_heat_pump_data_missing
+
+- type: conditional
+  conditions:
     - entity: binary_sensor.notification_radon_warning
       state: 'on'
   card:

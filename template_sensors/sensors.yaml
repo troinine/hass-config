@@ -268,7 +268,7 @@
 
   - name: notification_front_door_open
     unique_id: notification_front_door_open
-    icon: "{{  iif(is_state('lock.ulko_ovi', 'unlocked'), 'mdi:door-open', 'mdi:door')  }}"
+    icon: "{{ iif(is_state('lock.ulko_ovi', 'unlocked'), 'mdi:door-open', 'mdi:door')  }}"
     state: "{{ iif(is_state('lock.ulko_ovi', 'unlocked'), 'on', 'off') }}"
     attributes:
       icon_color: 'var(--warning-color)'
@@ -410,3 +410,11 @@
       text_description: "Kosteus tällä hetkellä {{ states('sensor.mqtt_airthings_waveplus_living_room_humidity') }} %"
       tap_action: more-info
       tap_action_entity: switch.tplink_hs100_2
+
+  - name: notification_heat_pump_data_missing
+    unique_id: notification_heat_pump_data_missing
+    icon: mdi:alert-outline
+    state: "{{ iif(is_state('sensor.nibe_heat_pump_state', 'Unknown'), 'on', 'off') }}"
+    attributes:
+      icon_color: var(--warning-color)
+      text_summary: Maalämpöpumppu ei lähetä dataa
