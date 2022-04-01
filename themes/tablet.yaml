@@ -129,7 +129,10 @@ tablet:
       primary-text-color-rgb: 205, 217, 229
       custom-icon-color: "dodgerblue"
       custom-icon-color-not-active: "rgba(var(--color-theme-rgb),0.2)"
+      custom-color-icon-background: '#181515'
 
+      button-card-icon-drop-shadow-size: 0.2rem
+      button-card-img-cell-box-shadow-size: 0.75rem
       button-card-padding: 1.4rem
       button-card-compact-height: 12vh
 

@@ -171,24 +171,23 @@ views:
                 template: sensor
                 entity: sensor.nibe_daily_brine_min_input_temp
                 name: Matalin keruu
-                styles:
-                  icon:
-                    - color: |
-                        [[[
-                          var color = "red";
-                          var current_temp = entity.state;
-                          if (current_temp < -0.6) {
-                            color = "blue";
-                          } else if (current_temp < -0.3) {
-                            color = "dodgerblue";
-                          } else if (current_temp < 0.0) {
-                            color = "yellow";
-                          } else {
-                            color = "green";
-                          }
+                variables:
+                  icon_color: |
+                    [[[
+                      var color = "red";
+                      var current_temp = entity.state;
+                      if (current_temp < -0.6) {
+                        color = "blue";
+                      } else if (current_temp < -0.3) {
+                        color = "dodgerblue";
+                      } else if (current_temp < 0.0) {
+                        color = "yellow";
+                      } else {
+                        color = "green";
+                      }
 
-                          return color;
-                        ]]]
+                      return color;
+                    ]]]
 
       ###
       ### Devices

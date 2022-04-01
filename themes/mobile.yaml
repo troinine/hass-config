@@ -40,7 +40,46 @@ mobile:
         height: 100vh;
       }
 
+  # Card
+  border-radius: "0.8rem"
+  ha-card-box-shadow: "var(--box-shadow)"
+  ha-card-border-radius: var(--border-radius)
+
+  # Button card
+  button-card-icon-drop-shadow-size: 0.2rem
+  button-card-img-cell-box-shadow-size: 0.75rem
+  button-card-padding: 1rem
+  button-card-compact-height: 12vh
+
+  # Entities card
+  custom-entities-card-marging: 0.2rem
+
+  # Grid
+  grid-card-gap: 0.5rem
+
+  # Dialog
+  mdc-dialog-scrim-color: rgba(0, 0, 0, 0.4)
+  mdc-dialog-backdrop-blur: 0.1vw
+  ha-dialog-border-radius: 0
+  mdc-dialog-min-width: 500px
+
+  # Stack cards
+  horizontal-stack-card-margin: 0.5rem
+  vertical-stack-card-margin: 0 0 0.2rem 0
+
   modes:
+    light:
+      # Background and sidebar
+      card-background-color: "#ffffff"
+      primary-background-color: "#ffffff"
+      secondary-background-color: "#ffffff"
+
+      # Card
+      box-shadow: "0px 6px 8px 0px rgba(0,0,0,0.2)"
+
+      # Custom
+      custom-color-icon-background: '#E9F0FE'
+
     dark:
       state-icon-color: "var(--color-theme)"
       error-color: "var(--google-red)"
@@ -107,34 +146,17 @@ mobile:
       slider-bar-color: "rgba(var(--color-blue-rgb),0.38)"
 
       # Card
-      border-radius: "1.3rem"
-      box-shadow: "0px 6px 8px 0px rgba(0,0,0,0.6)"
-      ha-card-box-shadow: "var(--box-shadow)"
       card-background-color-rgb: "29, 29, 29"
-      ha-card-border-radius: var(--border-radius)
-
-      # Grid
-      grid-card-gap: 0.5rem
+      box-shadow: "0px 4px 6px 0px rgba(0,0,0,0.4)"
 
       # Dialog
       mdc-dialog-scrim-color: rgba(0, 0, 0, 0.4)
-      mdc-dialog-backdrop-blur: 0.1vw
-      ha-dialog-border-radius: 0
-      mdc-dialog-min-width: 500px
-
-      # Stack cards
-      horizontal-stack-card-margin: 0.5rem
-      vertical-stack-card-margin: 0 0 0.2rem 0
 
       # Custom
       humidity-low-color: "#00ccf5"
       humidity-high-color: "#0336FF"
       warning-color-rgb: 255, 145, 1
       primary-text-color-rgb: 205, 217, 229
-      custom-icon-color: "dodgerblue"
-      custom-icon-color-not-active: "rgba(var(--color-theme-rgb),0.2)"
-
-      button-card-padding: 1rem
-      button-card-compact-height: 12vh
-
-      custom-entities-card-marging: 0.2rem
+      custom-icon-color: dodgerblue
+      custom-icon-color-not-active: rgba(var(--color-theme-rgb), 0.2)
+      custom-color-icon-background: '#181515'

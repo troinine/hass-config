@@ -1,34 +1,45 @@
 ---
 base_sensor:
+  variables:
+    icon_color: |
+      [[[
+        var device_class = entity.attributes.device_class
+        var state = entity.state
+        var color = 'var(--custom-icon-color-not-active)'
+
+        if (device_class === 'temperature') {
+          color = "red"
+          var current_temp = entity.state;
+          if (current_temp < 20) {
+            color = "var(--color-blue)"
+          } else if (current_temp < 23) {
+            color = "var(--color-green)"
+          } else if (current_temp < 25) {
+            color = "var(--color-yellow)"
+          } else {
+            color = "var(--color-red)"
+          }
+        } else if (device_class === 'humidity') {
+          color = 'dodgerblue'
+        } else if (device_class === 'carbon_dioxide') {
+          color = 'var(--color-green)'
+        } else if (device_class === 'radon') {
+          color = 'var(--color-yellow)'
+        }
+
+        return color
+      ]]]
   styles:
     icon:
       - color: |
+          [[[ return variables.icon_color ]]]
+      - filter: |
           [[[
-            var device_class = entity.attributes.device_class
-            var state = entity.state
-            var color = 'var(--custom-icon-color-not-active)'
-
-            if (device_class === 'temperature') {
-              color = "red"
-              var current_temp = entity.state;
-              if (current_temp < 20) {
-                color = "var(--color-blue)"
-              } else if (current_temp < 23) {
-                color = "var(--color-green)"
-              } else if (current_temp < 25) {
-                color = "var(--color-yellow)"
-              } else {
-                color = "var(--color-red)"
-              }
-            } else if (device_class === 'humidity') {
-              color = 'dodgerblue'
-            } else if (device_class === 'carbon_dioxide') {
-              color = 'var(--color-green)'
-            } else if (device_class === 'radon') {
-              color = 'var(--color-yellow)'
+            if (variables.icon_color != 'var(--custom-icon-color-not-active)') {
+              return `drop-shadow(0 0 var(--button-card-icon-drop-shadow-size) ${variables.icon_color})`
+            } else {
+              return 'none'
             }
-
-            return color
           ]]]
 
 sensor:

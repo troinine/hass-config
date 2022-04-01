@@ -114,10 +114,26 @@ base_icon:
 
             return 'var(--custom-icon-color-not-active)'
           ]]]
+      - filter: |
+          [[[
+            var state = entity.state
+            if (variables.state_colors) {
+              var color = variables.state_colors[state]
+              if (color) {
+                return `drop-shadow(0 0 var(--button-card-icon-drop-shadow-size) ${color})`
+              }
+            }
+
+            if (variables.icon_color) {
+              return `drop-shadow(0 0 var(--button-card-icon-drop-shadow-size) ${variables.icon_color})`
+            }
+
+            return 'none'
+          ]]]
       - transition: all 2s ease
     img_cell:
-      - background-color: "rgba(var(--color-theme-rgb),0.05)"
-      - border-radius: "50%"
+      - background-color: var(--custom-color-icon-background)
+      - border-radius: 50%
       - justify-self: start
       - '-webkit-box-shadow': |
           [[[
@@ -129,12 +145,12 @@ base_icon:
             if (variables.state_colors) {
               var color = variables.state_colors[state]
               if (color) {
-                return '0 0 0.95rem 0.2rem ' + color
+                return '0 0 var(--button-card-img-cell-box-shadow-size) ' + color
               }
             }
 
             if (variables.icon_color) {
-              return '0 0 0.95rem 0.2rem ' + variables.icon_color
+              return '0 0 var(--button-card-img-cell-box-shadow-size) ' + variables.icon_color
             }
 
             return 'none'
@@ -149,12 +165,12 @@ base_icon:
             if (variables.state_colors) {
               var color = variables.state_colors[state]
               if (color) {
-                return '0 0 0.95rem 0.2rem ' + color
+                return '0 0 var(--button-card-img-cell-box-shadow-size)' + color
               }
             }
 
             if (variables.icon_color) {
-              return '0 0 0.95rem 0.2rem ' + variables.icon_color
+              return '0 0 var(--button-card-img-cell-box-shadow-size) ' + variables.icon_color
             }
 
             return 'none'
@@ -170,7 +186,7 @@ base_icon_name:
     - base_icon
   styles:
     img_cell:
-      - background-color: rgba(var(--color-theme-rgb),0.05)
+      - background-color: var(--custom-color-icon-background)
       - border-radius: 50%
       - width: 3rem
       - height: 3rem
