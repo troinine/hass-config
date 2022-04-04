@@ -27,6 +27,7 @@ The following custom cards are extensively used throughout the dashboards:
 - [light-entity-card](https://github.com/ljmerza/light-entity-card)
 - [weather-chart-card](https://github.com/Yevgenium/weather-chart-card)
 - [apexcharts-card](https://github.com/RomRider/apexcharts-card)
+- [xiaomi-vacuum-map-card](https://github.com/PiotrMachowski/lovelace-xiaomi-vacuum-map-card)
 
 ## Features
 
@@ -49,6 +50,7 @@ Few notifications that can be visible on the sidebar
 - Synology security state warning
 - Synology update available
 - Home Assistant update available
+- Vacuuming state
 
 ### Custom button cards
 
@@ -69,7 +71,7 @@ All cards try to incorporate similar design. Icons can glow based on the state a
 
 Clock is a button card template that show the current date, time, temperature, and weather
 
-![Clock](/assets/images/screenshot-clock.png) 
+![Clock](/assets/images/screenshot-clock.png)
 
 The tap action on the weather shows the following popup which uses [weather-chart-card](https://github.com/Yevgenium/weather-chart-card) and an apexchart of outdoor temperature:
 
@@ -112,6 +114,7 @@ In addition to basic lights on / off based on movement. There are few automation
 - Turn hallway lights on when garage door is opened (arrive home)
 - Notify mobile app if the ground source heat pump reports an alarm
 - Notify mobile app when Radon levels are increasing
+- Notify mobile app when vacuum is started and completed
 
 ## Hardware and software
 
@@ -129,6 +132,7 @@ The following table contains some of the hardware and software I use with Home A
 | Samsung TV                  | Samsung Smart TV   | Samsung Q90 Series Smart TV                                                                                                                                                                         |
 | Yale Doorman                | Verisure           | Smart locks securing the house doors                                                                                                                                                                |
 | TP-Link Kasa Smart plugs    | TP-Link Kasa Smart | Few HS100 and HS110 smart plugs controlling specific devices such as garage dehumidifier and water circulation                                                                                      |
+| Roborock S6 Pure            | Xiaomi Mi          | Robot vacuum which can be controlled via HA, including cleaning of specific rooms. Live map is also available                                                                                       |
 
 In addition to hardware I use a collection of OSS to feed data to Home Assistant:
 
