@@ -486,3 +486,20 @@
           Robotti-imurin tila ei tiedossa
         {% endif %}
       text_description: "Siivottu alue {{ states('sensor.roborock_s6_pure_current_clean_area') }} neliötä"
+
+  - name: notification_time_to_vacuum
+    unique_id: notification_time_to_vacuum
+    icon: mdi:robot-vacuum
+    state: |
+      {% set last_cleaned_secs = as_timestamp(now()) - as_timestamp(states.sensor.roborock_s6_pure_last_clean_end.state) %}
+      {% if (last_cleaned_secs / 60 / 60 / 24) > 2 %}
+        on
+      {% else %}
+        off
+      {% endif %}
+    attributes:
+      icon_color: var(--warning-color)
+      text_summary: |
+        {% set last_cleaned_secs = (as_timestamp(now()) - as_timestamp(states.sensor.roborock_s6_pure_last_clean_end.state)) %}
+        Imurointia ei ole suoritettu {{ (last_cleaned_secs / 60 / 60 / 24) | round(0) }} päivään
+      text_description: Oleskelutilojen imurointi aloitetaan kun kotoa poistutaan tai kun se käynnistetään käsin

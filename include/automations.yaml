@@ -1145,3 +1145,42 @@
           tag: vacuum_completed
           ttl: 0
           priority: high
+
+- id: '1649095358453'
+  alias: start_scheduled_vacuuming
+  description: 'Aloita yleisten tilojen ajastettu imurointi'
+  mode: single
+  trigger:
+    - platform: state
+      entity_id: sensor.home_state
+      from: Kotona
+      to: Poissa
+      for:
+        hours: 0
+        minutes: 1
+        seconds: 0
+  condition:
+    - condition: state
+      entity_id: binary_sensor.notification_time_to_vacuum
+      state: 'on'
+    - condition: time
+      after: 09:00:00
+      before: '19:00:00'
+      weekday:
+      - mon
+      - tue
+      - wed
+      - thu
+      - fri
+      - sat
+      - sun
+  action:
+    - service: vacuum.send_command
+      target:
+        entity_id: vacuum.roborock_s6_pure
+      data:
+        command: app_segment_clean
+        params:
+        - 18
+        - 17
+        - 19

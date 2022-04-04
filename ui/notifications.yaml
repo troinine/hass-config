@@ -173,3 +173,12 @@
     type: 'custom:button-card'
     template: auto_notification
     entity: binary_sensor.notification_vacuuming
+
+- type: conditional
+  conditions:
+    - entity: binary_sensor.notification_time_to_vacuum
+      state: 'on'
+  card:
+    type: 'custom:button-card'
+    template: auto_notification
+    entity: binary_sensor.notification_time_to_vacuum
