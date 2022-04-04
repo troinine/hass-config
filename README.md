@@ -51,6 +51,7 @@ Few notifications that can be visible on the sidebar
 - Synology update available
 - Home Assistant update available
 - Vacuuming state
+- Time to vacuum
 
 ### Custom button cards
 
@@ -112,6 +113,7 @@ In addition to basic lights on / off based on movement. There are few automation
 - Wake up tablet and increase light brightness when movement is detected in the hallway
 - Notify mobile app if the garage dehumidifier's bucket is full
 - Turn hallway lights on when garage door is opened (arrive home)
+- Start vacuuming when leaving home if it hasn't been done for few days
 - Notify mobile app if the ground source heat pump reports an alarm
 - Notify mobile app when Radon levels are increasing
 - Notify mobile app when vacuum is started and completed
