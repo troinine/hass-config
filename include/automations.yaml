@@ -1076,3 +1076,72 @@
       data: {}
       target:
         entity_id: switch.tplink_hs100_2
+
+- id: '1648967058454'
+  alias: Disable vacuum camera update when docked
+  description: ''
+  use_blueprint:
+    path: PiotrMachowski/disable_vacuum_camera_update_when_docked.yaml
+    input:
+      vacuum: vacuum.roborock_s6_pure
+      camera: camera.vacuum_map
+
+- id: '1649005698246'
+  alias: Vacuuming started
+  description: ''
+  mode: single
+  trigger:
+    - platform: state
+      from: 'off'
+      to: 'on'
+      entity_id: binary_sensor.notification_vacuuming
+  condition: []
+  action:
+    - service: notify.mobile_app_tero
+      data:
+        message: Imurointi on aloitettu
+        data:
+          group: Imurointi
+          tag: vacuum_started
+          ttl: 0
+          priority: high
+    - service: notify.mobile_app_pia
+      data:
+        message: Imurointi on aloitettu
+        data:
+          group: Imurointi
+          tag: vacuum_started
+          ttl: 0
+          priority: high
+
+- id: '1649006099794'
+  alias: Vacuuming completed
+  description: ''
+  mode: single
+  trigger:
+    - platform: state
+      entity_id: vacuum.roborock_s6_pure
+      from: returning
+      to: docked
+  condition:
+    - condition: numeric_state
+      entity_id: vacuum.roborock_s6_pure
+      attribute: battery_level
+      above: '20'
+  action:
+    - service: notify.mobile_app_tero
+      data:
+        message: Imurointi on valmis
+        data:
+          group: Imurointi
+          tag: vacuum_completed
+          ttl: 0
+          priority: high
+    - service: notify.mobile_app_pia
+      data:
+        message: Imurointi on valmis
+        data:
+          group: Imurointi
+          tag: vacuum_completed
+          ttl: 0
+          priority: high

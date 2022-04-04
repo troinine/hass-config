@@ -164,3 +164,12 @@
     type: 'custom:button-card'
     template: auto_notification
     entity: binary_sensor.notification_hass_update_available
+
+- type: conditional
+  conditions:
+    - entity: binary_sensor.notification_vacuuming
+      state: 'on'
+  card:
+    type: 'custom:button-card'
+    template: auto_notification
+    entity: binary_sensor.notification_vacuuming

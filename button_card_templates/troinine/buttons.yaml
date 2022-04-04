@@ -64,3 +64,96 @@ button_galaxy_tab_wake_up:
     service: automation.trigger
     service_data:
       entity_id: automation.wake_up_galaxy_tab_a8
+
+button_vacuum:
+  template:
+    - icon_button
+  entity: vacuum.roborock_s6_pure
+
+button_vacuum_clean:
+  template:
+    - button_vacuum
+  variables:
+    is_active: |
+      [[[ return entity.state === 'docked' ]]]
+  name: Aloita
+  tap_action:
+    action: call-service
+    service: vacuum.send_command
+    service_data:
+      entity_id: |
+        [[[ return entity.entity_id ]]]
+      command: app_segment_clean
+      params: |
+        [[[
+          var rooms = []
+          if (states['input_boolean.vacuum_clean_entrance'].state === 'on') {
+            rooms.push(18)
+          }
+
+          if (states['input_boolean.vacuum_clean_kitchen'].state === 'on') {
+            rooms.push(17)
+          }
+
+          if (states['input_boolean.vacuum_clean_living_room'].state === 'on') {
+            rooms.push(19)
+          }
+
+          if (states['input_boolean.vacuum_clean_bedroom'].state === 'on') {
+            rooms.push(20)
+          }
+
+          if (states['input_boolean.vacuum_clean_office'].state === 'on') {
+            rooms.push(16)
+          }
+
+          if (states['input_boolean.vacuum_clean_otsos_room'].state === 'on') {
+            rooms.push(23)
+          }
+
+          if (states['input_boolean.vacuum_clean_sisus_room'].state === 'on') {
+            rooms.push(22)
+          }
+
+          return rooms
+        ]]]
+
+button_vacuum_start_stop:
+  template:
+    - button_vacuum
+  variables:
+    is_active: |
+      [[[ return entity.state !== 'docked' ]]]
+  icon: mdi:play-pause
+  name: |
+    [[[
+      return entity.state === 'docked' || entity.state === 'paused' || entity.state === 'idle'
+          ? 'Jatka'
+          : 'Pysäytä';
+    ]]]
+  tap_action:
+    action: call-service
+    service: |
+      [[[
+        return entity.state === 'docked' || entity.state === 'paused'
+            ? 'vacuum.start'
+            : 'vacuum.pause';
+      ]]]
+    service_data:
+      entity_id: |
+        [[[ return entity.entity_id ]]]
+
+button_vacuum_return_to_base:
+  template:
+    - button_vacuum
+  variables:
+    is_active: |
+      [[[ return entity.state !== 'docked' ]]]
+  icon: mdi:home
+  name: Telakkaan
+  tap_action:
+    action: call-service
+    service: vacuum.return_to_base
+    service_data:
+      entity_id: |
+        [[[ return entity.entity_id ]]]

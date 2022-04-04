@@ -1,0 +1,56 @@
+---
+- platform: xiaomi_cloud_map_extractor
+  host: !secret vacuum_host
+  token: !secret vacuum_token
+  username: !secret xiaomi_cloud_username
+  password: !secret xiaomi_cloud_password
+  name: vacuum_map
+  country: de
+  colors:
+    color_robo: [224,224,224]
+    color_charger: [27,117,27]
+    color_path: [31, 113, 255, 95]
+    color_goto_path: [31, 113, 255]
+    color_map_wall_v2: [30,30,30]
+    color_obstacle: [30,30,30]
+    color_virtual_walls: [255,0,0,60]
+    color_no_go_zones_outline: [255,0,0]
+    color_no_go_zones: [255,0,0,60]
+    color_scan: [0,0,0,0]
+    color_map_inside: [0,0,0,0]
+    color_map_outside: [0,0,0,0]
+    color_grey_wall: [0,0,0,0]
+    color_map_wall: [0,0,0,0]
+    color_zones_outline: [0,0,0,0]
+    color_zones: [0,0,0,0]
+    color_unknown: [0,0,0,0]
+  room_colors:
+    16: [42, 46, 48]    # Office
+    17: [42, 46, 48]    # Kitchen
+    18: [42, 46, 48]    # Entrance
+    19: [42, 46, 48]    # Living room
+    20: [42, 46, 48]    # Bedroom
+    21: [0, 0, 0, 0]    # Not scanned room
+    22: [42, 46, 48]    # Sisu
+    23: [42, 46, 48]    # Otso
+  draw:
+    - charger
+    - cleaned_area
+    - ignored_obstacles
+    - no_go_zones
+    - obstacles
+    - path
+    - predicted_path
+    - room_names
+    - vacuum_position
+    - virtual_walls
+  map_transformation:
+    scale: 2
+    rotate: 90
+    trim:
+      bottom: 20
+  sizes:
+    charger_radius: 10
+    vacuum_radius: 10
+  attributes:
+    - calibration_points

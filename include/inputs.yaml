@@ -1,0 +1,38 @@
+---
+on_vacation:
+  name: Lomalla
+  icon: mdi:palm-tree
+
+### Vacuum rooms
+
+vacuum_clean_all:
+  name: Kaikki
+  icon: mdi:home
+
+vacuum_clean_entrance:
+  name: Eteinen
+  icon: mdi:door
+
+vacuum_clean_office:
+  name: Työhuone
+  icon: mdi:desktop-mac
+
+vacuum_clean_sisus_room:
+  name: Sisun huone
+  icon: mdi:human-child
+
+vacuum_clean_otsos_room:
+  name: Otson huone
+  icon: mdi:human-child
+
+vacuum_clean_kitchen:
+  name: Keittiö
+  icon: mdi:countertop-outline
+
+vacuum_clean_living_room:
+  name: Olohuone
+  icon: mdi:sofa-outline
+
+vacuum_clean_bedroom:
+  name: Makuuhuone
+  icon: mdi:bed-double-outline

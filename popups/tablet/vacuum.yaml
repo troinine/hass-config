@@ -1,0 +1,135 @@
+action: fire-dom-event
+browser_mod:
+  command: popup
+  title: Robotti-imuri
+  style:
+    $: |
+      .mdc-dialog .mdc-dialog__surface {
+        background-color: var(--primary-background-color) !important;
+      }
+    .: |
+      :host .content {
+        width: calc(390px + 390px + 390px);
+        max-width: 90vw;
+      }
+    layout-card:
+      $grid-layout$:
+        .: |
+          #root {
+            margin: 0 0 1rem 0 !important;
+          }
+        xiaomi-vacuum-map-card:
+          $: |
+            div.controls-wrapper {
+              display: none;
+            }
+
+  card:
+    type: custom:layout-card
+    layout_type: custom:grid-layout
+    layout:
+      grid-template-columns: 1fr 1fr 1fr
+      grid-template-rows: min-content min-content
+      grid-template-areas: |
+        "info rooms map"
+        "button1 button2 button3"
+    cards:
+      - type: entities
+        view_layout:
+          grid-area: info
+        card_mod:
+          !include ../../ui/styles/entities-card.yaml
+        title: Tiedot
+        show_header_toggle: false
+        entities:
+          - entity: vacuum.roborock_s6_pure
+            name: Tila
+          - entity: sensor.roborock_s6_pure_last_clean_end
+            name: Viimeksi siivonnut
+          - type: attribute
+            entity: vacuum.roborock_s6_pure
+            attribute: battery_level
+            name: Akun taso
+            icon: mdi:battery
+            suffix: '%'
+          - entity: sensor.roborock_s6_pure_filter
+          - entity: sensor.template_roborock_s6_pure_main_brush
+          - entity: sensor.template_roborock_s6_pure_side_brush
+          - entity: sensor.template_roborock_s6_pure_sensors
+          - type: section
+
+      - type: entities
+        view_layout:
+          grid-area: rooms
+        card_mod:
+          !include ../../ui/styles/entities-card.yaml
+        title: Siivottavat huoneet
+        show_header_toggle: true
+        entities:
+          - entity: input_boolean.vacuum_clean_entrance
+          - entity: input_boolean.vacuum_clean_kitchen
+          - entity: input_boolean.vacuum_clean_living_room
+          - entity: input_boolean.vacuum_clean_office
+          - entity: input_boolean.vacuum_clean_otsos_room
+          - entity: input_boolean.vacuum_clean_sisus_room
+          - entity: input_boolean.vacuum_clean_bedroom
+          - type: section
+
+      - type: custom:mod-card
+        view_layout:
+          grid-area: button1
+        card_mod:
+          style: |
+            ha-card {
+              display: flex;
+              justify-content: center;
+            }
+        card:
+          type: vertical-stack
+          cards:
+            - type: custom:button-card
+              template: button_vacuum_clean
+
+      - type: custom:mod-card
+        view_layout:
+          grid-area: button2
+        card_mod:
+          style: |
+            ha-card {
+              display: flex;
+              justify-content: center;
+            }
+        card:
+          type: vertical-stack
+          cards:
+            - type: custom:button-card
+              template: button_vacuum_start_stop
+
+      - type: custom:mod-card
+        view_layout:
+          grid-area: button3
+        card_mod:
+          style: |
+            ha-card {
+              display: flex;
+              justify-content: center;
+            }
+        card:
+          type: vertical-stack
+          cards:
+            - type: custom:button-card
+              template: button_vacuum_return_to_base
+
+      - type: custom:xiaomi-vacuum-map-card
+        card_mod:
+          !include ../../ui/styles/no-card.yaml
+        title: Kartta
+        view_layout:
+          grid-area: map
+        entity: vacuum.roborock_s6_pure
+        map_source:
+          camera: camera.vacuum_map
+        calibration_source:
+          camera: true
+        language: en
+        map_locked: true

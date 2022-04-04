@@ -69,6 +69,8 @@ lovelace:
       type: module
     - url: /local/community_cards/weather-chart-card.js
       type: module
+    - url: /local/community_cards/xiaomi-vacuum-map-card.js
+      type: module
     - url: /local/style.css
       type: css
   dashboards:
@@ -133,9 +135,7 @@ input_select:
     initial: Pois
 
 input_boolean:
-  on_vacation:
-    name: Lomalla
-    icon: mdi:palm-tree
+  !include include/inputs.yaml
 
 sensor:
   !include_dir_merge_list sensors/
@@ -166,3 +166,6 @@ light:
 
 rest_command:
   !include include/rest_commands.yaml
+
+camera:
+  !include include/cameras.yaml

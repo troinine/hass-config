@@ -254,19 +254,17 @@ views:
 
               - type: 'custom:button-card'
                 template: info
-                entity: binary_sensor.nibe_raspberry_pi_zero_status
-                name: Nibe Pi Zero
-                icon: |
-                  [[[
-                    if (entity.state === 'on') {
-                      return 'mdi:checkbox-marked-circle-outline'
-                    } else {
-                      return entity.attributes.icon
-                    }
-                  ]]]
+                entity: vacuum.roborock_s6_pure
+                name: Robotti-imuri
+                tap_action:
+                  !include ../popups/tablet/vacuum.yaml
                 variables:
+                  icon_glow: true
                   state_colors:
-                    "on": 'var(--color-green)'
+                    "cleaning": green
+                    "paused": yellow
+                    "returning": dodgerblue
+                    "error": var(--color-warning)
 
       ###
       ### Family

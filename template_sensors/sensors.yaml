@@ -122,6 +122,54 @@
     state: |
       {{ states.binary_sensor | selectattr('state', 'equalto', 'on') | map(attribute='entity_id') | select('search', 'notification') | list | length }}
 
+  - name: roborock_s6_pure_filter
+    unique_id: roborock_s6_pure_filter
+    state: |
+      {{ (states('sensor.roborock_s6_pure_filter_left') | int(default=0) / 5400) | int(default=0) }}
+    attributes:
+      friendly_name: Suodatin
+      icon: mdi:air-filter
+      unit_of_measurement: '%'
+
+  - unique_id: roborock_s6_pure_main_brush
+    state: |
+      {{ (states('sensor.roborock_s6_pure_main_brush_left') | int(default=0) / 10800) | int(default=0) }}
+    attributes:
+      friendly_name: Pääharja
+      icon: mdi:brush-variant
+      unit_of_measurement: '%'
+
+  - unique_id: roborock_s6_pure_sensors
+    state: |
+      {{ (states('sensor.roborock_s6_pure_sensor_dirty_left') | int(default=0) / 1080) | int(default=0) }}
+    attributes:
+      friendly_name: Sensorit
+      icon: mdi:broadcast
+      unit_of_measurement: '%'
+
+  - unique_id: roborock_s6_pure_side_brush
+    state: |
+      {{ (states('sensor.roborock_s6_pure_side_brush_left') | int(default=0) / 7200) | int(default=0) }}
+    attributes:
+      friendly_name: Sivuharja
+      icon: mdi:star-three-points-outline
+      unit_of_measurement: '%'
+
+- select:
+  - name: roborock_s6_pure_speed
+    state: |
+      {% set fan_speed = state_attr('vacuum.roborock_s6_pure', 'fan_speed') %}
+      {{ iif(fan_speed == None, 'Standard', fan_speed) }}
+    options: |
+      {% set fan_speed_list = state_attr('vacuum.roborock_s6_pure', 'fan_speed_list') %}
+      {{ iif(fan_speed_list == None, ['Standard'], fan_speed_list) }}
+    select_option:
+      service: vacuum.set_fan_speed
+      target:
+        entity_id: vacuum.roborock_s6_pure
+      data:
+        fan_speed: >
+          {{ option }}
 
 - binary_sensor:
   - name: "Liiketunnistimet sisällä"
@@ -418,3 +466,23 @@
     attributes:
       icon_color: var(--warning-color)
       text_summary: Maalämpöpumppu ei lähetä dataa
+
+  - name: notification_vacuuming
+    unique_id: notification_vacuuming
+    icon: mdi:robot-vacuum
+    state: "{{ iif(is_state('vacuum.roborock_s6_pure', 'docked') or is_state('vacuum.roborock_s6_pure', 'unavailable'), 'off', 'on') }}"
+    attributes:
+      icon_color: green
+      text_summary: |
+        {% if is_state('vacuum.roborock_s6_pure', 'cleaning') %}
+          Robotti-imuri siivoaa
+        {% elif is_state('vacuum.roborock_s6_pure', 'paused') or is_state('vacuum.roborock_s6_pure', 'idle') %}
+          Robotti-imuri on pysäytetty
+        {% elif is_state('vacuum.roborock_s6_pure', 'returning') %}
+          Robotti-imuri palaamassa telakkaan
+        {% elif is_state('vacuum.roborock_s6_pure', 'error') %}
+          Robotti-imuri on jumissa
+        {% else %}
+          Robotti-imurin tila ei tiedossa
+        {% endif %}
+      text_description: "Siivottu alue {{ states('sensor.roborock_s6_pure_current_clean_area') }} neliötä"
