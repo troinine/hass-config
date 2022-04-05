@@ -232,12 +232,13 @@
     unique_id: "notification_todays_precipitation"
     icon: |
         {% set forecast = state_attr('weather.koti_custom', 'forecast') %}
-        {% if forecast and forecast[0] and forecast[0].precipitation | float > 0.0 and forecast[0].condition == 'snowy' %}
+        {% set precipitation_type = state_attr('sensor.koti_precipitation', 'type') %}
+        {% if precipitation_type == 'Snow' or (forecast and forecast[0] and forecast[0].condition == 'snowy') %}
           mdi:weather-snowy-heavy
-        {% elif forecast and forecast[0] and forecast[0].precipitation | float > 0.0 and forecast[0].condition %}
-          mdi:weather-rainy
+        {% elif forecast and forecast[0] and forecast[0].condition == 'snowy-rainy' %}
+          mdi:weather-snowy-rainy
         {% else %}
-          mdi:weather-cloudly-alert
+          mdi:weather-rainy
         {% endif %}
     state: |
       {% set precipitation = states('sensor.koti_precipitation' ) %}
@@ -251,17 +252,20 @@
       text_summary: |
         {% set forecast = state_attr('weather.koti_custom', 'forecast') %}
         {% set precipitation = states('sensor.koti_precipitation' ) %}
-        {% if forecast and forecast[0] and precipitation | float > 0.0 and forecast[0].condition == 'snowy' %}
-          Odotettavissa lumisadetta {{ precipitation }} mm
-        {% elif forecast and forecast[0] and precipitation | float > 0.0 and forecast[0].condition %}
-          Odotettavissa vesisadetta {{ precipitation }} mm
-        {% else %}
-          Sadetyyppi ei tiedossa
+        {% set precipitation_type = state_attr('sensor.koti_precipitation', 'type') %}
+        {% if precipitation | float > 0.0 %}
+          {% if precipitation_type == 'Snow' or (forecast and forecast[0] and forecast[0].condition == 'snowy') %}
+            Odotettavissa lumisadetta {{ precipitation }} mm
+          {% elif forecast and forecast[0] and forecast[0].condition == 'snowy-rainy' %}
+            Odotettavissa räntäsadetta {{ precipitation }} mm
+          {% else %}
+            Odotettavissa vesisadetta {{ precipitation }} mm
+          {% endif %}
         {% endif %}
       text_description: |
         {% set forecast = state_attr('weather.koti_custom', 'forecast') %}
         {% if forecast and forecast[0] and forecast[0].precipitation %}
-          Koko päivän ennuste {{ forecast[0].precipitation }} mm. Todennäköisyys tänään {{ forecast[0].precipitation_probability }} %.
+          Ennuste {{ forecast[0].precipitation }} mm. Todennäköisyys {{ forecast[0].precipitation_probability }} %
         {% endif %}
       tap_action: more-info
       tap_action_entity: weather.koti_custom
