@@ -57,7 +57,7 @@ views:
                   - home_state
                 tap_action:
                   !include ../popups/mobile/notifications.yaml
-                hold_action:
+                double_tap_action:
                   !include ../popups/mobile/home.yaml
 
               - type: 'custom:button-card'

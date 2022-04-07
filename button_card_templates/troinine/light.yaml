@@ -48,7 +48,7 @@ light_no_action:
   template:
     - base
     - info
-  hold_action:
+  double_tap_action:
     action: toggle
   custom_fields:
     brightness: |
