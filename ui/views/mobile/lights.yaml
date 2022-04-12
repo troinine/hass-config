@@ -2,157 +2,153 @@ title: Valaistus
 path: lights
 icon: mdi:ceiling-light-multiple-outline
 cards:
-  - type: custom:mod-card
-    card_mod:
-      !include ../../styles/mobile-view.yaml
-    card:
-      type: vertical-stack
-      cards:
-        - type: custom:button-card
-          template: icon_title
-          icon: mdi:ceiling-light-multiple-outline
-          entity: light.group_all_flat
-          variables:
-            title: Valaistus
-          tap_action:
-            action: call-service
-            service: light.toggle
-            service_data:
-              entity_id:
-                - light.group_all_flat
+  - type: vertical-stack
+    cards:
+      - type: custom:button-card
+        template: icon_title
+        icon: mdi:ceiling-light-multiple-outline
+        entity: light.group_all_flat
+        variables:
+          title: Valaistus
+        tap_action:
+          action: call-service
+          service: light.toggle
+          service_data:
+            entity_id:
+              - light.group_all_flat
 
-        - type: custom:mod-card
-          card_mod:
-            style: |
-              ha-card {
-                display: flex;
-                justify-content: center;
-              }
-          card:
-            type: horizontal-stack
-            cards:
-              - type: custom:button-card
-                template: scene_icon_temperature
-                entity: light.group_all_flat
-                name: Relax
-                variables:
-                  color_rgb: 255, 148, 43
-                  color_temperature: 2800
-                  brightness: 60
-
-              - type: custom:button-card
-                template: scene_icon_temperature
-                entity: light.group_all_flat
-                name: Luku
-                variables:
-                  color_rgb: 255, 174, 103
-                  color_temperature: 3500
-                  brightness: 100
-
-              - type: custom:button-card
-                template: scene_icon_temperature
-                entity: light.group_all_flat
-                name: Keskity
-                variables:
-                  color_rgb: 255, 214, 181
-                  color_temperature: 4200
-                  brightness: 100
-
-              - type: custom:button-card
-                template: scene_icon_temperature
-                entity: light.group_all_flat
-                name: Viileä
-                variables:
-                  color_rgb: 255, 252, 247
-                  color_temperature: 6000
-                  brightness: 100
-
-        - type: custom:mod-card
-          card_mod:
-            style: |
-              ha-card {
-                display: flex;
-                justify-content: center;
-                margin-bottom: 1rem;
-              }
-          card:
-            type: horizontal-stack
-            cards:
-              - type: custom:button-card
-                template: scene_icon_brightness
-                entity: light.group_all_flat
-                name: 80%
-                variables:
-                  brightness: 80
-
-              - type: custom:button-card
-                template: scene_icon_brightness
-                entity: light.group_all_flat
-                name: 60%
-                variables:
-                  brightness: 60
-
-              - type: custom:button-card
-                template: scene_icon_brightness
-                entity: light.group_all_flat
-                name: 40%
-                variables:
-                  brightness: 40
-
-              - type: custom:button-card
-                template: scene_icon_brightness
-                entity: light.group_all_flat
-                name: 20%
-                variables:
-                  brightness: 20
-
-        - type: horizontal-stack
+      - type: custom:mod-card
+        card_mod:
+          style: |
+            ha-card {
+              display: flex;
+              justify-content: center;
+            }
+        card:
+          type: horizontal-stack
           cards:
-            - type: 'custom:button-card'
-              template: compact_light
-              entity: light.group_entrance
-              name: Eteinen
+            - type: custom:button-card
+              template: scene_icon_temperature
+              entity: light.group_all_flat
+              name: Relax
+              variables:
+                color_rgb: 255, 148, 43
+                color_temperature: 2800
+                brightness: 60
 
-            - type: 'custom:button-card'
-              template: compact_light
-              entity: light.group_kitchen
-              name: Keittiö
+            - type: custom:button-card
+              template: scene_icon_temperature
+              entity: light.group_all_flat
+              name: Luku
+              variables:
+                color_rgb: 255, 174, 103
+                color_temperature: 3500
+                brightness: 100
 
-        - type: horizontal-stack
+            - type: custom:button-card
+              template: scene_icon_temperature
+              entity: light.group_all_flat
+              name: Keskity
+              variables:
+                color_rgb: 255, 214, 181
+                color_temperature: 4200
+                brightness: 100
+
+            - type: custom:button-card
+              template: scene_icon_temperature
+              entity: light.group_all_flat
+              name: Viileä
+              variables:
+                color_rgb: 255, 252, 247
+                color_temperature: 6000
+                brightness: 100
+
+      - type: custom:mod-card
+        card_mod:
+          style: |
+            ha-card {
+              display: flex;
+              justify-content: center;
+              margin-bottom: 1rem;
+            }
+        card:
+          type: horizontal-stack
           cards:
-            - type: 'custom:button-card'
-              template: compact_light
-              entity: light.group_living_room
-              name: Olohuone
+            - type: custom:button-card
+              template: scene_icon_brightness
+              entity: light.group_all_flat
+              name: 80%
+              variables:
+                brightness: 80
 
-            - type: 'custom:button-card'
-              template: compact_light
-              entity: light.group_bedroom
-              name: Makuuhuone
+            - type: custom:button-card
+              template: scene_icon_brightness
+              entity: light.group_all_flat
+              name: 60%
+              variables:
+                brightness: 60
 
-        - type: horizontal-stack
-          cards:
-            - type: 'custom:button-card'
-              template: compact_light
-              entity: light.group_otsos_room
-              name: Otson huone
+            - type: custom:button-card
+              template: scene_icon_brightness
+              entity: light.group_all_flat
+              name: 40%
+              variables:
+                brightness: 40
 
-            - type: 'custom:button-card'
-              template: compact_light
-              entity: light.group_sisus_room
-              name: Sisun huone
+            - type: custom:button-card
+              template: scene_icon_brightness
+              entity: light.group_all_flat
+              name: 20%
+              variables:
+                brightness: 20
 
-        - type: horizontal-stack
-          cards:
-            - type: 'custom:button-card'
-              template: compact_light
-              entity: light.group_office
-              name: Työhuone
+      - type: horizontal-stack
+        cards:
+          - type: 'custom:button-card'
+            template: compact_light
+            entity: light.group_entrance
+            name: Eteinen
 
-            - type: 'custom:button-card'
-              template: compact_light
-              entity: switch.tplink_hs100_3
-              name: Kodinhoitohuone
+          - type: 'custom:button-card'
+            template: compact_light
+            entity: light.group_kitchen
+            name: Keittiö
+
+      - type: horizontal-stack
+        cards:
+          - type: 'custom:button-card'
+            template: compact_light
+            entity: light.group_living_room
+            name: Olohuone
+
+          - type: 'custom:button-card'
+            template: compact_light
+            entity: light.group_bedroom
+            name: Makuuhuone
+
+      - type: horizontal-stack
+        cards:
+          - type: 'custom:button-card'
+            template: compact_light
+            entity: light.group_otsos_room
+            name: Otson huone
+
+          - type: 'custom:button-card'
+            template: compact_light
+            entity: light.group_sisus_room
+            name: Sisun huone
+
+      - type: horizontal-stack
+        cards:
+          - type: 'custom:button-card'
+            template: compact_light
+            entity: light.group_office
+            name: Työhuone
+
+          - type: 'custom:button-card'
+            template: compact_light
+            entity: switch.tplink_hs100_3
+            name: Kodinhoitohuone
 
   - type: custom:button-card
     template: mobile_navbar

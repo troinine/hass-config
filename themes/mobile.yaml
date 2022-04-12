@@ -14,13 +14,10 @@ mobile:
     }
 
   card-mod-view-yaml: |
-    "*:first-child$": |
-      #columns .column > * {
-        padding-left: 0px;
-        padding-right: 0px;
-        padding-bottom: 0px;
+    "#view>hui-view>hui-masonry-view$#columns>div": |
+      div.column {
+        margin: 0 2rem 0 2rem;
       }
-
     .: |
       hui-view {
         background: none !important;
