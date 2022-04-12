@@ -243,7 +243,7 @@ scene_icon:
       - box-shadow: none
       - background-color: transparent
       - border-radius: 0%
-      - margin: 1rem 0 1rem 0
+      - margin: 0 0 0 0
 
 scene_icon_rgb:
   template:

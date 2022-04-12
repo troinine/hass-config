@@ -1,0 +1,113 @@
+---
+title: Laitteet
+path: devices
+icon: mdi:devices
+cards:
+  - type: custom:mod-card
+    card_mod:
+      !include ../../styles/mobile-view.yaml
+    card:
+      type: vertical-stack
+      cards:
+        - type: custom:button-card
+          template: icon_title
+          icon: mdi:devices
+          variables:
+            title: Laitteet
+
+        - type: horizontal-stack
+          cards:
+            - type: 'custom:button-card'
+              template: compact_info
+              entity: vacuum.roborock_s6_pure
+              name: Robotti-imuri
+              variables:
+                icon_glow: true
+                state_colors:
+                  "cleaning": green
+                  "paused": yellow
+                  "returning": dodgerblue
+                  "error": var(--color-warning)
+
+            - type: 'custom:button-card'
+              template: compact_info_extra
+              entity: sensor.synology_status
+              name: Synology
+              icon: |
+                [[[
+                  var security_state = states['binary_sensor.synology_security_status']
+                  if (security_state === 'on') {
+                    return 'mdi:shield-alert'
+                  } else {
+                    return entity.attributes.icon
+                  }
+                ]]]
+              state_display: |
+                [[[
+                  var security_state = states['binary_sensor.synology_security_status']
+                  if (security_state === 'on') {
+                    return 'Tietoturvaongelma'
+                  } else if (entity.state !== 'normal') {
+                    return entity.state
+                  } else {
+                    return 'Normaali'
+                  }
+                ]]]
+              variables:
+                state_colors:
+                  "normal": 'var(--color-green)'
+                extra_entity: sensor.synology_temperature_3
+
+        - type: horizontal-stack
+          cards:
+          - type: 'custom:button-card'
+            template: compact_info
+            entity: binary_sensor.nibe_raspberry_pi_zero_status
+            name: Raspberry PI Nibe
+            variables:
+              state_colors:
+                "on": 'var(--color-green)'
+
+          - type: 'custom:button-card'
+            template: compact_info
+            entity: binary_sensor.notification_hass_update_available
+            name: Hass päivitys
+            show_last_changed: false
+            show_label: true
+            label: |
+              [[[
+                if (entity.state === 'on') {
+                  return entity.attributes.text_description
+                } else {
+                  return 'Uusin versio asennettu'
+                }
+              ]]]
+            variables:
+              state_colors:
+                "on": 'var(--color-green)'
+
+        - type: custom:button-card
+          template: subtitle
+          name: Media
+
+        - type: horizontal-stack
+          cards:
+          - type: 'custom:button-card'
+            template: compact_info
+            entity: media_player.samsung_q90_series_65
+            name: Olohuone TV
+            variables:
+              state_colors:
+                "on": 'var(--color-green)'
+
+          - type: 'custom:button-card'
+            template: compact_info
+            entity: binary_sensor.ps5_status
+            name: Playstation 5
+            icon: mdi:sony-playstation
+            variables:
+              state_colors:
+                "on": 'var(--color-green)'
+
+  - type: custom:button-card
+    template: mobile_navbar

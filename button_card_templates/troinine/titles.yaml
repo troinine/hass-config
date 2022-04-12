@@ -26,3 +26,213 @@ subtitle:
       - filter: "opacity(50%)"
     card:
       - padding: 0.5rem 0 0.5rem 0.5rem
+
+icon_title:
+  variables:
+    title: ''
+    subtitle: false
+    icon_color: '#00C854'
+  template:
+    - base_icon_name
+  aspect_ratio: ''
+  show_icon: true
+  show_state: false
+  show_name: true
+  show_label: true
+  name: |
+    [[[ return variables.title ]]]
+  label: |
+    [[[
+      if (variables.subtitle) {
+        return variables.subtitle
+      }
+      return undefined
+    ]]]
+  styles:
+    grid:
+      - grid-template-areas: |
+          [[[
+            if (variables.subtitle) {
+              return '"i n" "i l"'
+            } else {
+              return '"i n"'
+            }
+          ]]]
+      - grid-template-columns: 0.15fr 0.85fr
+      - grid-template-rows: |
+          [[[
+            if (variables.subtitle) {
+              return 'min-content min-content'
+            } else {
+              return 'min-content'
+            }
+          ]]]
+    name:
+      - font-size: 2rem
+      - font-weight: 500
+      - padding: 0 0 0 1rem
+    icon:
+      - width: 2.5rem
+      - height: 2.5rem
+      - color: |
+          [[[
+            var color = variables.icon_color
+            if (entity) {
+              color = variables.is_active ? variables.icon_color : 'var(--custom-icon-color-not-active)'
+            }
+
+            return color
+          ]]]
+      - filter: |
+          [[[
+            var filter = `drop-shadow(0 0 var(--button-card-icon-drop-shadow-size) ${variables.icon_color})`
+            if (entity && !variables.is_active) {
+              filter = 'none'
+            }
+
+            return filter
+          ]]]
+    img_cell:
+      - justify-self: start
+      - width: 3.5rem
+      - height: 3.5rem
+      - background-color: var(--card-background-color)
+      - box-shadow: |
+          [[[
+            var box_shadow = '0 0 var(--button-card-img-cell-box-shadow-size) ' + variables.icon_color
+            if (entity && !variables.is_active) {
+              box_shadow = 'none'
+            }
+
+            return box_shadow
+          ]]]
+    label:
+      - padding: 0 0 0 1rem
+      - filter: "opacity(40%)"
+      - font-size: 1.2rem
+      - justify-self: start
+      - text-overflow: unset
+      - white-space: unset
+      - word-break: break-word
+      - text-align: initial
+      - text-justify: none
+    card:
+      - overflow: visible
+      - background-color: transparent
+      - justify-self: start
+      - border-radius: var(--border-radius)
+      - box-shadow: none
+      - margin: 0 0 0 0
+      - padding: 1.5rem 0 1.5rem 0
+      - max-width: 100%
+
+welcome_title:
+  template:
+    - icon_title
+  variables:
+    title: Koti
+    subtitle: |
+      [[[
+        let time = states['sensor.time'].state;
+        let welcome = '';
+
+        if (time > '18:00'){
+          welcome = "Iltaa";
+        } else if (time > '12:00'){
+          welcome = "Päivää";
+        } else if (time > '05:00'){
+          welcome = "Huomenta";
+        } else {
+          welcome = "Hei";
+        }
+
+        return welcome + ', ' + user.name + '!';
+      ]]]
+  custom_fields:
+    weather:
+      card:
+        type: custom:button-card
+        show_state: false
+        show_icon: false
+        show_label: false
+        show_name: false
+        show_entity_picture: true
+        tap_action:
+          !include ../../popups/common/weather-forecast.yaml
+        entity: "[[[ return variables.entity_weather ]]]"
+        entity_picture: "[[[ return `/local/img/weather/${states[variables.entity_weather].state}.svg` ]]]"
+        styles:
+          grid:
+            - grid-template-areas: |
+                "i"
+            - grid-template-columns: 1fr
+            - grid-template-rows: 1fr
+          img_cell:
+            - justify-content: center
+          icon:
+            - width: 4.0rem
+            - height: 3.5rem
+          card:
+            - background-color: transparent
+            - box-shadow: none
+    temp:
+      card:
+        type: custom:button-card
+        show_state: true
+        show_icon: false
+        show_label: false
+        show_name: false
+        entity: |
+          [[[
+            if (variables.entity_temperature) {
+              return variables.entity_temperature
+            } else if (variables.entity_weather) {
+              return variables.entity_weather
+            } else {
+              return undefined
+            }
+          ]]]
+        state_display: |
+          [[[
+            var temperature = states[variables.entity_weather].attributes.temperature
+
+            if (variables.entity_temperature) {
+              temperature = states[variables.entity_temperature].state
+            }
+
+            return `<div><span class="value">${temperature}</span><span class="unit">&degC</span></div>`
+          ]]]
+        extra_styles: |
+          span.unit {
+            font-size: 1.4rem;
+          }
+        styles:
+          grid:
+            - grid-template-areas: |
+                "s"
+            - grid-template-columns: 1fr
+            - grid-template-rows: 1fr
+          state:
+            - justify-self: center
+            - align-self: center
+            - font-weight: 300
+            - font-size: 2.5rem
+            - filter: "opacity(40%)"
+          card:
+            - background-color: transparent
+            - box-shadow: none
+  styles:
+    grid:
+      - grid-template-areas: |
+          "i n temp weather"
+          "i l temp weather"
+      - grid-template-columns: 0.15fr 2fr 1fr 0.5fr
+      - grid-template-rows: repeat(2, min-content)
+    custom_fields:
+      weather:
+        - place-self: center start
+        - margin-left: 0.8rem
+      temp:
+        - place-self: center end
+        - padding-right: 0.8rem
+        - border-right: 0.1rem solid rgba(var(--primary-text-color-rgb), 0.4)

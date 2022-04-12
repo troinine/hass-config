@@ -44,23 +44,12 @@ hot_water_pump:
 
 home_state:
   template:
-    - notification_icon
   variables:
     icon_glow: false
     state_colors:
       'Kotona': '#66bb6a'
       'Nukkumassa': '#0097a7'
   entity: input_select.home_state
-  custom_fields:
-    notification: |
-      [[[
-        var notification_count = states['sensor.notification_count'].state
-        if (notification_count > 0) {
-          return `<span id="notification-count">${notification_count}</span>`
-        } else {
-          return undefined
-        }
-      ]]]
 
 air_quality:
   entity: sensor.air_quality

@@ -2,7 +2,7 @@
 mobile:
 
   ### Card mod
-  card-mod-theme: "mobile"
+  card-mod-theme: mobile
 
   card-mod-root: |
     ha-app-layout {
@@ -16,9 +16,9 @@ mobile:
   card-mod-view-yaml: |
     "*:first-child$": |
       #columns .column > * {
-        padding-left: 5px;
-        padding-right: 5px;
-        padding-bottom: 5px;
+        padding-left: 0px;
+        padding-right: 0px;
+        padding-bottom: 0px;
       }
 
     .: |
@@ -55,7 +55,7 @@ mobile:
   custom-entities-card-marging: 0.2rem
 
   # Grid
-  grid-card-gap: 0.5rem
+  grid-card-gap: 2rem
 
   # Dialog
   mdc-dialog-scrim-color: rgba(0, 0, 0, 0.4)

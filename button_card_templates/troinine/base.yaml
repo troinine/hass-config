@@ -1,9 +1,16 @@
 base:
   variables:
     is_active: |
-      [[[ return ['on', 'open'].indexOf(entity === undefined || entity.state) !== -1; ]]]
+      [[[ return ['on', 'open', 'Kotona', 'home'].indexOf(entity === undefined || entity.state) !== -1; ]]]
   template:
     - language_variables
+  styles:
+    card:
+      # Fixes ripple border-radius with Safari
+      - '-webkit-backface-visibility': hidden
+      - '-moz-backface-visibility': hidden
+      - '-webkit-transform': translate3d(0, 0, 0)
+      - '-moz-transform': translate3d(0, 0, 0)
 
 base_card:
   variables:
@@ -100,6 +107,10 @@ base_icon:
       - width: 1.6rem
       - color: |
           [[[
+            if (!entity) {
+              return 'var(--custom-icon-color-not-active)'
+            }
+
             var state = entity.state
             if (variables.state_colors) {
               var color = variables.state_colors[state]
@@ -116,6 +127,10 @@ base_icon:
           ]]]
       - filter: |
           [[[
+            if (!entity) {
+              return 'none'
+            }
+
             var state = entity.state
             if (variables.state_colors) {
               var color = variables.state_colors[state]
