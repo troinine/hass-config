@@ -109,7 +109,7 @@ mobile_navbar:
         template: navbar_icon
         variables:
           id: devices
-          icon: mdi:devices
+          icon: mdi:television
           text: Laitteet
         tap_action:
           action: navigate
@@ -123,16 +123,15 @@ mobile_navbar:
           icon: mdi:bell-outline
           text: Ilmoitukset
         tap_action:
-          !include ../../popups/mobile/notifications.yaml
+          action: navigate
+          navigation_path: /lovelace-mobile/notifications
         custom_fields:
           notification: |
             [[[
-              var notification_count = states['sensor.notification_count'].state
-              if (notification_count > 0) {
-                return `<span id="notification-count">${notification_count}</span>`
-              } else {
-                return undefined
-              }
+              var count = states['sensor.notification_count'].state
+              return count > 0
+                ? `<span id="notification-count">${count}</span>`
+                : ''
             ]]]
         styles:
           card:
@@ -153,6 +152,10 @@ mobile_navbar:
               - text-align: center
               - color: white
               - background-color: red
+              - display: |
+                  [[[
+                    return states['sensor.notification_count'].state > 0 ? 'block' : 'none'
+                  ]]]
   styles:
     grid:
       - grid-template-areas: |

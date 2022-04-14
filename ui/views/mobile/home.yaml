@@ -20,8 +20,6 @@ cards:
               - compact_info
               - home_state
             tap_action:
-              !include ../../../popups/mobile/notifications.yaml
-            double_tap_action:
               !include ../../../popups/mobile/home.yaml
 
           - type: 'custom:button-card'

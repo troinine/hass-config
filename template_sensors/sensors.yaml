@@ -211,6 +211,11 @@
       text_summary: 'Home Assistant päivitys saatavilla'
       text_description: "Uusin version on {{ states('sensor.hass_version_latest') }}"
 
+  - name: "Samsung Q90 Series 65"
+    unique_id: samsung_q90_series_65
+    icon: mdi:television
+    state: "{{ iif(is_state('media_player.samsung_q90_series_65', 'on'), 'on', 'off') }}"
+
   ### Notifications ###
 
   - name: "notification_heat_pump_alarm"

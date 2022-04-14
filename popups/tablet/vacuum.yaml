@@ -89,6 +89,9 @@ browser_mod:
           cards:
             - type: custom:button-card
               template: button_vacuum_clean
+              styles:
+                card:
+                  - width: 20vw
 
       - type: custom:mod-card
         view_layout:
@@ -104,6 +107,9 @@ browser_mod:
           cards:
             - type: custom:button-card
               template: button_vacuum_start_stop
+              styles:
+                card:
+                  - width: 20vw
 
       - type: custom:mod-card
         view_layout:
@@ -119,6 +125,9 @@ browser_mod:
           cards:
             - type: custom:button-card
               template: button_vacuum_return_to_base
+              styles:
+                card:
+                  - width: 20vw
 
       - type: custom:xiaomi-vacuum-map-card
         card_mod:

@@ -9,19 +9,24 @@ icon_button:
     grid:
       - grid-template-areas: |
           "i n"
-      - grid-template-columns: 2.5rem 10rem
-      - grid-template-rows: 3rem
+      - grid-template-columns: min-content min-content
+      - grid-template-rows: 1fr
+      - justify-content: center
     icon:
       - width: 1.6rem
+    img_cell:
+      - width: 1.6rem
+    name:
+      - margin-left: 1rem
     card:
       - filter: |
           [[[ return variables.is_active ? 'drop-shadow(3px 3px 5px #00000050)' : 'opacity(30%)' ]]]
       - background-color: |
           [[[ return variables.is_active ? 'green' : 'rgba(255, 255, 255, 0.12)' ]]]
-      - width: max-content
-      - height: 3rem
+      - height: 4rem
       - padding: 0 1rem 0 1rem
-      - border-radius: 0.8rem
+      - border-radius: 1rem
+      - width: 100%
 
 button_hass_update:
   template:

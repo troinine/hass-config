@@ -1,0 +1,42 @@
+---
+title: Ilmoitukset
+path: notifications
+icon: mdi:bell-outline
+cards:
+  - type: vertical-stack
+    cards:
+      - type: custom:button-card
+        template: icon_title
+        icon: mdi:bell-outline
+        entity: sensor.notification_count
+        variables:
+          title: Ilmoitukset
+          subtitle: |
+            [[[
+              var count = entity.state
+              if (count == 1) {
+                return 'Yksi aktiivinen ilmoitus'
+              } else if (count > 1) {
+                return `${count} aktiivista ilmoitusta`
+              } else {
+                return 'Ei aktiivisia ilmoituksia'
+              }
+            ]]]
+          is_active: |
+            [[[ return entity.state > 0 ]]]
+
+      - type: custom:mod-card
+        view_layout:
+          grid-area: button1
+        card_mod:
+          style: |
+            ha-card {
+              --vertical-stack-card-margin: 0.5rem
+            }
+        card:
+          type: vertical-stack
+          cards:
+            !include ../../notifications.yaml
+
+  - type: custom:button-card
+    template: mobile_navbar

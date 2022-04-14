@@ -8,8 +8,31 @@ cards:
         template: icon_title
         icon: mdi:ceiling-light-multiple-outline
         entity: light.group_all_flat
+        group_expand: true
+        triggers_update:
+          - light.group_all_flat
+          - switch.tplink_hs100_3
         variables:
           title: Valaistus
+          subtitle: |
+            [[[
+              var num_lights_on = entity.attributes.entity_id
+                .map(entity_id => states[entity_id])
+                .filter(entity => entity.state === 'on')
+                .length
+
+              if (states['switch.tplink_hs100_3'].state == 'on') {
+                num_lights_on++
+              }
+
+              if (num_lights_on == 1) {
+                return 'Yksi valo on päällä'
+              } else if (num_lights_on > 1) {
+                return `${num_lights_on} valoa on päällä`
+              } else {
+                return 'Valot ovat pois päältä'
+              }
+            ]]]
         tap_action:
           action: call-service
           service: light.toggle

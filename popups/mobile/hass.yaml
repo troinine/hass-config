@@ -1,0 +1,42 @@
+---
+action: fire-dom-event
+browser_mod:
+  command: popup
+  title: Home Assistant
+  style:
+    !include ../../ui/styles/popup.yaml
+  card:
+    type: vertical-stack
+    cards:
+      - type: entities
+        card_mod:
+          !include ../../ui/styles/entities-card.yaml
+        show_header_toggle: false
+        entities:
+          - entity: sensor.uptime
+            name: Käynnissä
+            format: total
+          - entity: sensor.hass_database_size
+            name: Kannan koko
+          - entity: sensor.hass_version_installed
+            name: Asennettu version
+          - entity: sensor.hass_version_latest
+            name: Uusin version
+          - entity: sensor.processor_use
+            name: Prosessorikäyttö
+          - entity: sensor.memory_use_percent
+            name: Muistinkulutus
+          - type: section
+
+      - type: custom:mod-card
+        card_mod:
+          style: |
+            ha-card {
+              display: flex;
+              justify-content: center;
+            }
+        card:
+          type: horizontal-stack
+          cards:
+            - type: custom:button-card
+              template: button_hass_update

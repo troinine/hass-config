@@ -66,6 +66,9 @@ browser_mod:
               cards:
                 - type: custom:button-card
                   template: button_hass_update
+                  styles:
+                    card:
+                      - width: 20vw
 
       - type: vertical-stack
         view_layout:
@@ -102,6 +105,9 @@ browser_mod:
               cards:
                 - type: custom:button-card
                   template: button_galaxy_tab_wake_up
+                  styles:
+                    card:
+                      - width: 20vw
 
       - type: vertical-stack
         view_layout:
@@ -139,3 +145,6 @@ browser_mod:
               cards:
                 - type: custom:button-card
                   template: button_synology_reboot
+                  styles:
+                    card:
+                      - width: 20vw

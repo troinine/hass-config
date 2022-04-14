@@ -94,8 +94,8 @@ icon_title:
           ]]]
     img_cell:
       - justify-self: start
-      - width: 3.5rem
-      - height: 3.5rem
+      - width: 4rem
+      - height: 4rem
       - background-color: var(--card-background-color)
       - box-shadow: |
           [[[
@@ -117,13 +117,13 @@ icon_title:
       - text-align: initial
       - text-justify: none
     card:
-      - overflow: visible
+    #  - overflow: visible
       - background-color: transparent
       - justify-self: start
       - border-radius: var(--border-radius)
       - box-shadow: none
       - margin: 0 0 0 0
-      - padding: 1.5rem 0 1.5rem 0
+      - padding: 1.5rem 0.75rem 1.5rem 0.75rem
       - max-width: 100%
 
 welcome_title:
@@ -226,7 +226,7 @@ welcome_title:
       - grid-template-areas: |
           "i n temp weather"
           "i l temp weather"
-      - grid-template-columns: 0.15fr 2fr 1fr 0.5fr
+      - grid-template-columns: 0.15fr 1.75fr 1fr auto
       - grid-template-rows: repeat(2, min-content)
     custom_fields:
       weather:
@@ -234,5 +234,5 @@ welcome_title:
         - margin-left: 0.8rem
       temp:
         - place-self: center end
-        - padding-right: 0.8rem
+        - padding-right: 0.9rem
         - border-right: 0.1rem solid rgba(var(--primary-text-color-rgb), 0.4)

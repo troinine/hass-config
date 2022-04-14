@@ -8,3 +8,4 @@ views:
   - !include views/mobile/home.yaml
   - !include views/mobile/lights.yaml
   - !include views/mobile/devices.yaml
+  - !include views/mobile/notifications.yaml

@@ -1,15 +1,32 @@
 ---
 title: Laitteet
 path: devices
-icon: mdi:devices
+icon: mdi:television
 cards:
   - type: vertical-stack
     cards:
       - type: custom:button-card
         template: icon_title
-        icon: mdi:devices
+        icon: mdi:television
+        entity: binary_sensor.group_devices
+        group_expand: true
         variables:
           title: Laitteet
+          subtitle: |
+            [[[
+              var num_devices_on = entity.attributes.entity_id
+                .map(entity_id => states[entity_id])
+                .filter(entity => entity.state === 'on')
+                .length
+
+              if (num_devices_on == 1) {
+                return 'Yksi laite on päällä'
+              } else if (num_devices_on > 1) {
+                return `${num_devices_on} laitetta on päällä`
+              } else {
+                return 'Kaikki laitteet on sammutettu'
+              }
+            ]]]
 
       - type: horizontal-stack
         cards:
@@ -24,6 +41,8 @@ cards:
                 "paused": yellow
                 "returning": dodgerblue
                 "error": var(--color-warning)
+            tap_action:
+              !include ../../../popups/mobile/vacuum.yaml
 
           - type: 'custom:button-card'
             template: compact_info_extra
@@ -53,6 +72,8 @@ cards:
               state_colors:
                 "normal": 'var(--color-green)'
               extra_entity: sensor.synology_temperature_3
+            tap_action:
+              !include ../../../popups/mobile/nas.yaml
 
       - type: horizontal-stack
         cards:
@@ -81,6 +102,8 @@ cards:
           variables:
             state_colors:
               "on": 'var(--color-green)'
+          tap_action:
+            !include ../../../popups/mobile/hass.yaml
 
       - type: custom:button-card
         template: subtitle
