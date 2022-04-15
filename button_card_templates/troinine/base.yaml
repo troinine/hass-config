@@ -260,11 +260,8 @@ icon_name_state:
       - place-self: start start
       - padding-left: 0.8rem
     card:
-      - box-shadow: |
-          [[[
-            console.log(variables)
-            return 'none'
-          ]]]
+      - box-shadow: none
+      - border-radius: var(--border-radius)
       - padding: 0 0 0 0
       - margin: 0 0 0 0
       - overflow: visible

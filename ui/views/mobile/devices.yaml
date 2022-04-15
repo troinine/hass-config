@@ -35,8 +35,9 @@ cards:
               - vacuum
               - compact_card
             entity: vacuum.roborock_s6_pure
-            tap_action:
-              !include ../../../popups/mobile/vacuum.yaml
+            variables:
+              tap_action:
+                !include ../../../popups/mobile/vacuum.yaml
 
           - type: 'custom:button-card'
             template: compact_info_extra
