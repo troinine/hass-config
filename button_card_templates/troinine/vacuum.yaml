@@ -1,0 +1,127 @@
+---
+vacuum:
+  template:
+    - base_card
+  show_name: false
+  show_state: false
+  show_icon: false
+  show_label: false
+  custom_fields:
+    icon_name_label:
+      card:
+        type: custom:button-card
+        template: icon_name_state
+        entity: |
+          [[[ return entity.entity_id ]]]
+        variables:
+          is_active: |
+            [[[ return entity.state === 'docked' ]]]
+          icon_glow: true
+          state_colors:
+            "cleaning": green
+            "paused": yellow
+            "returning": dodgerblue
+            "error": var(--color-warning)
+    button1:
+      card:
+        type: custom:button-card
+        template: base_icon_button
+        entity: |
+          [[[ return entity.entity_id ]]]
+        variables:
+          is_active: |
+            [[[ return entity.state === 'docked' ]]]
+        tap_action:
+            action: call-service
+            service: vacuum.send_command
+            template: base_icon_button
+            service_data:
+              entity_id: |
+                [[[ return entity.entity_id ]]]
+              command: app_segment_clean
+              params: |
+                [[[
+                  var rooms = []
+                  if (states['input_boolean.vacuum_clean_entrance'].state === 'on') {
+                    rooms.push(18)
+                  }
+
+                  if (states['input_boolean.vacuum_clean_kitchen'].state === 'on') {
+                    rooms.push(17)
+                  }
+
+                  if (states['input_boolean.vacuum_clean_living_room'].state === 'on') {
+                    rooms.push(19)
+                  }
+
+                  if (states['input_boolean.vacuum_clean_bedroom'].state === 'on') {
+                    rooms.push(20)
+                  }
+
+                  if (states['input_boolean.vacuum_clean_office'].state === 'on') {
+                    rooms.push(16)
+                  }
+
+                  if (states['input_boolean.vacuum_clean_otsos_room'].state === 'on') {
+                    rooms.push(23)
+                  }
+
+                  if (states['input_boolean.vacuum_clean_sisus_room'].state === 'on') {
+                    rooms.push(22)
+                  }
+
+                  return rooms
+                ]]]
+
+    button2:
+      card:
+        type: custom:button-card
+        icon: mdi:play-pause
+        template: base_icon_button
+        variables:
+          is_active: |
+            [[[ return entity.state !== 'docked' ]]]
+        entity: |
+          [[[ return entity.entity_id ]]]
+        tap_action:
+          action: call-service
+          service: |
+            [[[
+              return entity.state === 'docked' || entity.state === 'paused'
+                  ? 'vacuum.start'
+                  : 'vacuum.pause';
+            ]]]
+          service_data:
+            entity_id: |
+              [[[ return entity.entity_id ]]]
+    button3:
+      card:
+        type: custom:button-card
+        template: base_icon_button
+        icon: mdi:home-outline
+        variables:
+          is_active: |
+            [[[ return entity.state !== 'docked' ]]]
+        entity: |
+          [[[ return entity.entity_id ]]]
+        tap_action:
+          action: call-service
+          service: vacuum.return_to_base
+          service_data:
+            entity_id: |
+              [[[ return entity.entity_id ]]]
+  styles:
+    grid:
+      - grid-template-areas: |
+          "icon_name_label icon_name_label icon_name_label"
+          "button1 button2 button3"
+      - grid-template-columns: 1fr 1fr 1fr
+      - grid-template-rows: 2.5rem 1fr
+      - grid-column-gap: 0.4rem
+    custom_fields:
+      button1:
+        - align-self: end
+      button2:
+        - align-self: end
+      button3:
+        - align-self: end

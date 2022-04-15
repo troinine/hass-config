@@ -1,7 +1,7 @@
 base:
   variables:
     is_active: |
-      [[[ return ['on', 'open', 'Kotona', 'home'].indexOf(entity === undefined || entity.state) !== -1; ]]]
+      [[[ return ['on', 'open', 'Kotona', 'home', 'cleaning', 'returning'].indexOf(entity === undefined || entity.state) !== -1; ]]]
   template:
     - language_variables
   styles:
@@ -93,6 +93,31 @@ compact_card:
 
 wide_card:
   aspect_ratio: 2/1
+
+base_icon_button:
+  template:
+    - base
+  show_name: false
+  show_state: false
+  show_icon: true
+  styles:
+    icon:
+      - width: 1.8rem
+      - color: |
+          [[[
+            return variables.is_active ? 'var(--primary-text-color)' : 'var(--custom-icon-color-not-active)'
+          ]]]
+    img_cell:
+      - width: 3rem
+      - height: 2.5rem
+      - background-color: transparent
+      - border-radius: 50%
+      - justify-self: center
+      - align-self: center
+    card:
+      - box-shadow: none
+      - background-color: 'rgba(var(--primary-text-color-rgb), 0.05)'
+      - border-radius: 2rem
 
 base_icon:
   template:
@@ -209,3 +234,37 @@ base_icon_name:
     name:
       - justify-self: start
       - align-self: center
+
+
+# Templates with grid styles
+icon_name_state:
+  template:
+    - base_icon_name
+  show_state: true
+  styles:
+    grid:
+      - grid-template-areas: |
+          "i n"
+          "i s"
+      - grid-template-columns: 2.5rem 3.5fr
+      - grid-template-rows: 1.25rem 1.25rem
+    name:
+      - padding-left: 0.8rem
+      - align-self: end
+      - font-size: 1rem
+      - font-weight: 500
+    state:
+      - font-size: 0.9rem
+      - font-weight: 500
+      - filter: opacity(40%)
+      - place-self: start start
+      - padding-left: 0.8rem
+    card:
+      - box-shadow: |
+          [[[
+            console.log(variables)
+            return 'none'
+          ]]]
+      - padding: 0 0 0 0
+      - margin: 0 0 0 0
+      - overflow: visible

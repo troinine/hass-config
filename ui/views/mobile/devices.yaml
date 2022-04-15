@@ -31,16 +31,10 @@ cards:
       - type: horizontal-stack
         cards:
           - type: 'custom:button-card'
-            template: compact_info
+            template:
+              - vacuum
+              - compact_card
             entity: vacuum.roborock_s6_pure
-            name: Robotti-imuri
-            variables:
-              icon_glow: true
-              state_colors:
-                "cleaning": green
-                "paused": yellow
-                "returning": dodgerblue
-                "error": var(--color-warning)
             tap_action:
               !include ../../../popups/mobile/vacuum.yaml
 
