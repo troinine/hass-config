@@ -53,8 +53,10 @@ light_no_action:
   custom_fields:
     brightness: |
       [[[
-        if (variables.is_active) {
+        if (variables.is_active && entity.attributes.supported_features > 0) {
           return variables.brightness ? `${variables.brightness} %` : ''
+        } else if (variables.is_active) {
+          return 'Päällä'
         }
         return 'Pois'
       ]]]
@@ -201,6 +203,10 @@ light_no_action:
         - font-size: 0.9rem
       slider:
         - align-self: end
+        - display: |
+            [[[
+              return entity.attributes.supported_features > 0 ? 'block' : 'none'
+            ]]]
       toggle:
         - align-self: center
         - justify-self: end
