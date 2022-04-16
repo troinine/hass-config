@@ -92,26 +92,118 @@ light_no_action:
               border-radius: 14px;
               box-shadow: none;
             }
+    toggle:
+      card:
+        type: custom:button-card
+        template:
+          - base
+        show_icon: false
+        show_name: false
+        show_state: true
+        tap_action:
+          action: toggle
+        entity: |
+          [[[ return entity.entity_id ]]]
+        state_display: |
+          [[[
+            return `<div class="switch"><input type="checkbox" ${entity.state === 'on' ? 'checked' : ''}><span class="slider round"></span></div>`
+          ]]]
+        extra_styles: |
+          [[[
+            var slider_background_color = 'rgba(var(--color-theme-rgb),0.05)'
+            var toggle_color = 'rgba(var(--color-theme-rgb),0.4)'
+            if (entity.state == "on") {
+              slider_background_color = 'rgba(' + entity.attributes.rgb_color + ',' + variables.opacity * 0.5 + ')'
+              toggle_color = 'white'
+            }
+
+            return `
+              .switch {
+                position: relative;
+                display: inline-block;
+                width: 2.5rem;
+                height: 1.5rem;
+              }
+
+              .switch input {
+                opacity: 0;
+                width: 0;
+                height: 0;
+              }
+
+              .slider {
+                position: absolute;
+                cursor: pointer;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background-color: rgba(var(--color-theme-rgb),0.05);
+                -webkit-transition: .4s;
+                transition: .4s;
+                border-radius: 2rem;
+              }
+
+              .slider:before {
+                position: absolute;
+                content: "";
+                width: 1.2rem;
+                height: 1.2rem;
+                left: 0.2rem;
+                bottom: 0.15rem;
+                background-color: ${toggle_color};
+                -webkit-transition: .4s;
+                transition: .4s;
+                border-radius: 50%;
+              }
+
+              input:checked + .slider {
+                background-color: ${variables.light_color};
+              }
+
+              input:focus + .slider {
+                box-shadow: 0 0 1px ${variables.light_color};
+              }
+
+              input:checked + .slider:before {
+                -webkit-transform: translateX(0.95rem);
+                -ms-transform: translateX(0.95rem);
+                transform: translateX(0.95rem);
+              }
+              `
+          ]]]
+        styles:
+          card:
+            - box-shadow: none
+            - height: 3rem
+            - width: 2.5rem
+
   styles:
     grid:
       - grid-template-areas: |
-          "i brightness"
+          "i toggle"
           "n n"
+          "brightness brightness"
           "slider slider"
       - grid-template-columns: 2.5rem 3.5fr
-      - grid-template-rows: 2.5rem 1.5fr 2fr
+      - grid-template-rows: 2.5rem 1fr 1fr 1.5fr
     icon:
       - transition: all 2s ease
     img_cell:
       - transition: all 2s ease
+    name:
+      - align-self: end
     custom_fields:
       brightness:
-        - align-self: center
-        - justify-self: end
+        - align-self: start
+        - justify-self: start
         - filter: "opacity(40%)"
         - font-size: 0.9rem
       slider:
         - align-self: end
+      toggle:
+        - align-self: center
+        - justify-self: end
 
 light:
   template:
@@ -139,10 +231,10 @@ compact_light:
   styles:
     grid:
       - grid-template-areas: |
-          "i n"
-          "i brightness"
-          "slider slider"
-      - grid-template-columns: 2.5rem 3.5fr
+          "i n toggle"
+          "i brightness toggle"
+          "slider slider slider"
+      - grid-template-columns: 2.5rem 2fr 1.5fr
       - grid-template-rows: 1.25rem 1.25rem 2fr
     name:
       - padding-left: 0.8rem

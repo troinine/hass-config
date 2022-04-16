@@ -10,8 +10,8 @@ browser_mod:
 
     .: |
       :host .content {
-        width: 60vw;
-        max-width: 70vw;
+        width: 75vw;
+        max-width: 80vw;
       }
     hui-vertical-stack-card:
       $: |

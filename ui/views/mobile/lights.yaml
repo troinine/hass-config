@@ -147,19 +147,19 @@ cards:
           - type: 'custom:button-card'
             template: compact_light
             entity: light.group_bedroom
-            name: Makuuhuone
+            name: Makuu
 
       - type: horizontal-stack
         cards:
           - type: 'custom:button-card'
             template: compact_light
             entity: light.group_otsos_room
-            name: Otson huone
+            name: Otso
 
           - type: 'custom:button-card'
             template: compact_light
             entity: light.group_sisus_room
-            name: Sisun huone
+            name: Sisu
 
       - type: horizontal-stack
         cards:
@@ -171,7 +171,7 @@ cards:
           - type: 'custom:button-card'
             template: compact_light
             entity: switch.tplink_hs100_3
-            name: Kodinhoitohuone
+            name: Kodinhoito
 
   - type: custom:button-card
     template: mobile_navbar
