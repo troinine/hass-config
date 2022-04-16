@@ -61,7 +61,10 @@ browser_mod:
               [[[ return entity.entity_id ]]]
             name: Kirkkaus
             icon: mdi:weather-sunny
-
+        styles:
+          card:
+            - height: 5rem
+            - overflow: visible
 
       - type: custom:button-card
         template: conditional
@@ -113,39 +116,75 @@ browser_mod:
           show: |
             [[[ return entity.attributes.supported_features > 0 && variables.popup_show_predefined_colors ]]]
           card:
-            type: horizontal-stack
+            type: vertical-stack
             cards:
-              - type: custom:button-card
-                template: scene_icon_rgb
-                entity: "[[[ return entity.entity_id ]]]"
-                name: Red
-                variables:
-                  color_rgb: 255, 0, 0
-                  brightness: 100
+              - type: horizontal-stack
+                cards:
+                  - type: custom:button-card
+                    template: scene_icon_rgb
+                    entity: "[[[ return entity.entity_id ]]]"
+                    name: Red
+                    variables:
+                      color_rgb: 255, 0, 0
+                      brightness: 100
 
-              - type: custom:button-card
-                template: scene_icon_rgb
-                entity: "[[[ return entity.entity_id ]]]"
-                name: Green
-                variables:
-                  color_rgb: 0, 255, 0
-                  brightness: 100
+                  - type: custom:button-card
+                    template: scene_icon_rgb
+                    entity: "[[[ return entity.entity_id ]]]"
+                    name: Green
+                    variables:
+                      color_rgb: 0, 255, 0
+                      brightness: 100
 
-              - type: custom:button-card
-                template: scene_icon_rgb
-                entity: "[[[ return entity.entity_id ]]]"
-                name: Blue
-                variables:
-                  color_rgb: 0, 0, 255
-                  brightness: 100
+                  - type: custom:button-card
+                    template: scene_icon_rgb
+                    entity: "[[[ return entity.entity_id ]]]"
+                    name: Blue
+                    variables:
+                      color_rgb: 0, 0, 255
+                      brightness: 100
 
-              - type: custom:button-card
-                template: scene_icon_rgb
-                entity: "[[[ return entity.entity_id ]]]"
-                name: Yellow
-                variables:
-                  color_rgb: 255, 255, 0
-                  brightness: 100
+                  - type: custom:button-card
+                    template: scene_icon_rgb
+                    entity: "[[[ return entity.entity_id ]]]"
+                    name: Yellow
+                    variables:
+                      color_rgb: 255, 255, 0
+                      brightness: 100
+
+              - type: horizontal-stack
+                cards:
+                  - type: custom:button-card
+                    template: scene_icon_rgb
+                    entity: "[[[ return entity.entity_id ]]]"
+                    name: Pink
+                    variables:
+                      color_rgb: 255, 105, 180
+                      brightness: 100
+
+                  - type: custom:button-card
+                    template: scene_icon_rgb
+                    entity: "[[[ return entity.entity_id ]]]"
+                    name: Orange
+                    variables:
+                      color_rgb: 255, 140, 0
+                      brightness: 100
+
+                  - type: custom:button-card
+                    template: scene_icon_rgb
+                    entity: "[[[ return entity.entity_id ]]]"
+                    name: Turquoise
+                    variables:
+                      color_rgb: 61, 156, 255
+                      brightness: 100
+
+                  - type: custom:button-card
+                    template: scene_icon_rgb
+                    entity: "[[[ return entity.entity_id ]]]"
+                    name: Light green
+                    variables:
+                      color_rgb: 134, 255, 164
+                      brightness: 100
 
       - type: custom:button-card
         template: conditional
@@ -177,3 +216,4 @@ browser_mod:
             persist_features: true
             consolidate_entities: true
             child_card: true
+            effects_list: false
