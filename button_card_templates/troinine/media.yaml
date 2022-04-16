@@ -1,0 +1,58 @@
+---
+media_player:
+  template:
+    - controls_card
+  custom_fields:
+    icon_name_label:
+      card:
+        type: custom:button-card
+        template: icon_name_state
+        name: |
+          [[[ return variables.name ]]]
+        entity: |
+          [[[ return entity.entity_id ]]]
+        variables:
+          icon_glow: true
+          state_colors:
+            "on": 'var(--color-green)'
+    button1:
+      card:
+        type: custom:button-card
+        template: base_icon_button
+        icon: mdi:power
+        entity: |
+          [[[ return entity.entity_id ]]]
+        tap_action:
+            action: call-service
+            service: media_player.toggle
+            service_data:
+              entity_id: |
+                [[[ return entity.entity_id ]]]
+
+    button2:
+      card:
+        type: custom:button-card
+        template: base_icon_button
+        icon: mdi:volume-minus
+        entity: |
+          [[[ return entity.entity_id ]]]
+        tap_action:
+            action: call-service
+            service: media_player.volume_down
+            service_data:
+              entity_id: |
+                [[[ return entity.entity_id ]]]
+
+    button3:
+      card:
+        type: custom:button-card
+        template: base_icon_button
+        icon: mdi:volume-plus
+        entity: |
+          [[[ return entity.entity_id ]]]
+        tap_action:
+            action: call-service
+            service: media_player.volume_up
+            service_data:
+              entity_id: |
+                [[[ return entity.entity_id ]]]

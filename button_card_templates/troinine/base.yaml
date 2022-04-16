@@ -117,7 +117,7 @@ base_icon_button:
     card:
       - box-shadow: none
       - background-color: 'rgba(var(--primary-text-color-rgb), 0.05)'
-      - border-radius: 2rem
+      - border-radius: 1rem
 
 base_icon:
   template:

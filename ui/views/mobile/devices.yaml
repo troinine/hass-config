@@ -107,12 +107,12 @@ cards:
       - type: horizontal-stack
         cards:
         - type: 'custom:button-card'
-          template: compact_info
+          template:
+            - media_player
+            - compact_card
           entity: media_player.samsung_q90_series_65
-          name: Olohuone TV
           variables:
-            state_colors:
-              "on": 'var(--color-green)'
+            name: Olohuone TV
 
         - type: 'custom:button-card'
           template: compact_info

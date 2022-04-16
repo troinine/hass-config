@@ -80,3 +80,30 @@ garage_door:
     icon_glow: true
     state_colors:
       'on': 'var(--warning-color)'
+
+controls_card:
+  template:
+    - base_card
+  variables:
+    name: false
+  show_name: false
+  show_state: false
+  show_icon: false
+  show_label: false
+  styles:
+    grid:
+      - grid-template-areas: |
+          "icon_name_label icon_name_label icon_name_label"
+          "button1 button2 button3"
+      - grid-template-columns: 1fr 1fr 1fr
+      - grid-template-rows: 2.5rem 1fr
+      - grid-column-gap: 0.4rem
+    custom_fields:
+      button1:
+        - align-self: end
+      button2:
+        - align-self: end
+      button3:
+        - align-self: end
+    card:
+      - padding: var(--button-card-padding) var(--button-card-padding) calc(var(--button-card-padding) / 1.5) var(--button-card-padding)
