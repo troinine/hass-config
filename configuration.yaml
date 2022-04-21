@@ -89,16 +89,6 @@ netatmo:
   client_id: !secret netatmo_client_id
   client_secret: !secret netatmo_client_secret
 
-mqtt:
-  broker: mqtt-broker
-  username: !secret mqtt_broker_username
-  password: !secret mqtt_broker_password
-
-huawei_lte:
-  - url: !secret huawei_lte_url
-    username: !secret huawei_gateway_username
-    password: !secret huawei_gateway_password
-
 weather:
   - platform: template
     name: "Sää"
