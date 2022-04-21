@@ -155,6 +155,15 @@
       icon: mdi:star-three-points-outline
       unit_of_measurement: '%'
 
+  - name: roborock_s6_pure_time_to_next_clean
+    unique_id: roborock_s6_pure_time_to_next_clean
+    state: |
+      {{ as_datetime(states('sensor.roborock_s6_pure_last_clean_end')) + timedelta(days = 3) }}
+    attributes:
+      friendly_name: Seuraava siivous
+      icon: mdi:vacuum-outline
+      device_class: timestamp
+
 - select:
   - name: roborock_s6_pure_speed
     state: |
@@ -494,14 +503,14 @@
         {% else %}
           Robotti-imurin tila ei tiedossa
         {% endif %}
-      text_description: "Siivottu alue {{ states('sensor.roborock_s6_pure_current_clean_area') }} neliötä"
+      text_description: "Siivottu alue {{ states('sensor.roborock_s6_pure_current_clean_area') | round(0) }} neliötä"
 
   - name: notification_time_to_vacuum
     unique_id: notification_time_to_vacuum
     icon: mdi:robot-vacuum
     state: |
       {% set last_cleaned_secs = as_timestamp(now()) - as_timestamp(states.sensor.roborock_s6_pure_last_clean_end.state) %}
-      {% if (last_cleaned_secs / 60 / 60 / 24) > 2 %}
+      {% if ((last_cleaned_secs / 60 / 60 / 24) > 3) and not states('binary_sensor.notification_vacuuming') %}
         on
       {% else %}
         off

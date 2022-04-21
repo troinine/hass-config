@@ -46,6 +46,8 @@ browser_mod:
             name: Tila
           - entity: sensor.roborock_s6_pure_last_clean_end
             name: Viimeksi siivonnut
+          - entity: sensor.roborock_s6_pure_time_to_next_clean
+            name: Seuraava siivous
           - type: attribute
             entity: vacuum.roborock_s6_pure
             attribute: battery_level
@@ -56,7 +58,6 @@ browser_mod:
           - entity: sensor.template_roborock_s6_pure_main_brush
           - entity: sensor.template_roborock_s6_pure_side_brush
           - entity: sensor.template_roborock_s6_pure_sensors
-          - type: section
 
       - type: entities
         view_layout:
@@ -73,7 +74,8 @@ browser_mod:
           - entity: input_boolean.vacuum_clean_otsos_room
           - entity: input_boolean.vacuum_clean_sisus_room
           - entity: input_boolean.vacuum_clean_bedroom
-          - type: section
+          - entity: sensor.roborock_s6_pure_current_clean_area
+            name: Viimeksi siivottu ala
 
       - type: custom:mod-card
         view_layout:
