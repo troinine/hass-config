@@ -69,12 +69,14 @@ notification:
       - padding: 0 0 0 0
       - font-weight: 300
       - justify-self: start
+      - align-self: end
       - font-size: 1rem
     label:
       - padding: 0 0 0 0
       - filter: "opacity(40%)"
       - font-size: 0.9rem
       - justify-self: start
+      - align-self: start
       - text-overflow: unset
       - white-space: unset
       - word-break: break-word
