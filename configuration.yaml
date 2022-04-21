@@ -53,8 +53,6 @@ lovelace:
       type: module
     - url: /local/community_cards/slider-entity-row.js
       type: module
-    - url: /local/community_cards/my-cards.js
-      type: module
     - url: /local/community_cards/state-switch.js
       type: module
     - url: /local/community_cards/layout-card.js
@@ -70,6 +68,8 @@ lovelace:
     - url: /local/community_cards/weather-chart-card.js
       type: module
     - url: /local/community_cards/xiaomi-vacuum-map-card.js
+      type: module
+    - url: /local/troinine/light-slider-card.js
       type: module
     - url: /local/style.css
       type: css

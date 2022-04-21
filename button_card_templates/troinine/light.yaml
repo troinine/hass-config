@@ -62,38 +62,15 @@ light_no_action:
       ]]]
     slider:
       card:
-        type: "custom:my-slider"
+        type: custom:light-slider-card
         entity: "[[[ return entity.entity_id ]]]"
-        radius: "10px"
-        height: "1.5rem"
-        mainSliderColor: >-
-          [[[
-            if (entity.state == "unavailable") {
-              return "rgba(var(--color-grey-rgb),1)";
-            }
+        styles:
+          slider:
+            - height: 1.5rem
+          card:
+            - height: 1.5rem
+            - box-shadow: none
 
-            return variables.light_color;
-          ]]]
-        secondarySliderColor: >-
-          [[[
-            var color = entity.attributes.rgb_color;
-            if (entity.state == "unavailable") {
-              return "rgba(var(--color-grey-rgb),0.2)";
-            }
-
-            return 'rgba(' + entity.attributes.rgb_color + ',' + variables.opacity * 0.5 + ')'
-          ]]]
-        mainSliderColorOff: "rgba(var(--color-theme-rgb),0.05)"
-        secondarySliderColorOff: "rgba(var(--color-theme-rgb),0.05)"
-        thumbHorizontalPadding: "0px"
-        thumbVerticalPadding: "0px"
-        thumbWidth: "0px"
-        card_mod:
-          style: |
-            ha-card {
-              border-radius: 14px;
-              box-shadow: none;
-            }
     toggle:
       card:
         type: custom:button-card
@@ -188,7 +165,7 @@ light_no_action:
           "brightness brightness"
           "slider slider"
       - grid-template-columns: 2.5rem 3.5fr
-      - grid-template-rows: 2.5rem 1fr 1fr 1.5fr
+      - grid-template-rows: 2.5rem 1.25fr 0.75fr 1.5fr
     icon:
       - transition: all 2s ease
     img_cell:
@@ -234,6 +211,17 @@ compact_light:
   template:
     - light
     - compact_card
+  custom_fields:
+    slider:
+      card:
+        type: custom:light-slider-card
+        entity: "[[[ return entity.entity_id ]]]"
+        styles:
+          slider:
+            - height: 1.8rem
+          card:
+            - height: 1.8rem
+            - box-shadow: none
   styles:
     grid:
       - grid-template-areas: |
