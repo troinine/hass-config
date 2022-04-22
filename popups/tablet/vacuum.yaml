@@ -133,7 +133,7 @@ browser_mod:
 
       - type: custom:xiaomi-vacuum-map-card
         card_mod:
-          !include ../../ui/styles/no-card.yaml
+          !include ../../ui/styles/vacuum-map-only.yaml
         title: Kartta
         view_layout:
           grid-area: map

@@ -46,11 +46,40 @@
     - virtual_walls
   map_transformation:
     scale: 2
-    rotate: 90
     trim:
       bottom: 20
+      left: 5
   sizes:
     charger_radius: 10
     vacuum_radius: 10
+  texts:
+    - text: Keittiö
+      x: 30
+      y: 40
+      color: [224,224,224]
+    - text: Olohuone
+      x: 65
+      y: 40
+      color: [224,224,224]
+    - text: Makuuhuone
+      x: 75
+      y: 13
+      color: [224,224,224]
+    - text: Eteinen
+      x: 30
+      y: 65
+      color: [224,224,224]
+    - text: Työhuone
+      x: 25
+      y: 83
+      color: [224,224,224]
+    - text: Otso
+      x: 77
+      y: 65
+      color: [224,224,224]
+    - text: Sisu
+      x: 77
+      y: 83
+      color: [224,224,224]
   attributes:
     - calibration_points

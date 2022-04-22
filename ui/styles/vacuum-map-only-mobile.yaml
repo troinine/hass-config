@@ -4,7 +4,6 @@ style: |
     box-shadow: none;
     border-radius: 0;
     background-color: transparent;
-    height: 55vh;
   }
 
   ha-card > h1 {
@@ -17,12 +16,6 @@ style: |
 
   div#toast {
     display: none;
-  }
-
-  #map-zoomer-content {
-    --x: 53px;
-    --y: 8px;
-    --scale: 0.67;
   }
 
   #map-zoomer-overlay > div:nth-child(1) {
