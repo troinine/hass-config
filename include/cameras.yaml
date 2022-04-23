@@ -9,9 +9,9 @@
   colors:
     color_robo: [224,224,224]
     color_charger: [27,117,27]
-    color_path: [31, 113, 255, 95]
+    color_path: [255, 255, 255]
     color_goto_path: [31, 113, 255]
-    color_map_wall_v2: [30,30,30]
+    color_map_wall_v2: [69, 67, 70]
     color_obstacle: [30,30,30]
     color_virtual_walls: [255,0,0,60]
     color_no_go_zones_outline: [255,0,0]
@@ -25,14 +25,14 @@
     color_zones: [0,0,0,0]
     color_unknown: [0,0,0,0]
   room_colors:
-    16: [42, 46, 48]    # Office
-    17: [42, 46, 48]    # Kitchen
-    18: [42, 46, 48]    # Entrance
-    19: [42, 46, 48]    # Living room
-    20: [42, 46, 48]    # Bedroom
+    16: [69, 121, 180]  # Office
+    17: [191, 90, 64]   # Kitchen
+    18: [0, 126, 128]   # Entrance
+    19: [61, 121, 181]  # Living room
+    20: [192, 89, 64]   # Bedroom
     21: [0, 0, 0, 0]    # Not scanned room
-    22: [42, 46, 48]    # Sisu
-    23: [42, 46, 48]    # Otso
+    22: [70, 120, 182]  # Sisu
+    23: [189, 124, 0]   # Otso
   draw:
     - charger
     - cleaned_area
@@ -48,7 +48,8 @@
     scale: 2
     trim:
       bottom: 20
-      left: 5
+      left: 3
+      right: 20
   sizes:
     charger_radius: 10
     vacuum_radius: 10
