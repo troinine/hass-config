@@ -498,7 +498,7 @@
     domain: binary_sensor
     for:
       hours: 0
-      minutes: 15
+      minutes: 5
       seconds: 0
   condition:
   - condition: state
