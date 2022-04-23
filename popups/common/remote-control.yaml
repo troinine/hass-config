@@ -1,0 +1,237 @@
+action: fire-dom-event
+browser_mod:
+  command: popup
+  title: Harmony
+  style:
+    !include ../../ui/styles/popup.yaml
+  card:
+    type: vertical-stack
+    cards:
+      - type: custom:mod-card
+        card_mod:
+          !include ../../ui/styles/center.yaml
+        card:
+          type: horizontal-stack
+          cards:
+            - type: custom:button-card
+              template: harmony_remote_button_off
+              styles:
+                card:
+                  - margin-top: 1rem
+            - type: custom:button-card
+              template: harmony_remote_button_empty
+            - type: custom:button-card
+              template: harmony_remote_button_text
+              name: TV
+              variables:
+                command: TV
+                is_active: |
+                  [[[
+                      return states['switch.olohuone_tv'].state === 'on'
+                  ]]]
+              styles:
+                card:
+                  - margin-top: 1rem
+
+      - type: custom:mod-card
+        card_mod:
+          !include ../../ui/styles/center.yaml
+        card:
+          type: horizontal-stack
+          cards:
+            - type: custom:button-card
+              template: harmony_remote_button_text
+              name: Menu
+              variables:
+                command: Menu
+                device: Samsung TV
+            - type: custom:button-card
+              template: harmony_remote_button_text
+              name: Guide
+              variables:
+                command: Guide
+                device: Samsung TV
+            - type: custom:button-card
+              template: harmony_remote_button_text
+              name: Info
+              variables:
+                command: Info
+                device: Samsung TV
+              styles:
+                card:
+                  - margin-bottom: 1rem
+
+      - type: custom:mod-card
+        card_mod:
+          !include ../../ui/styles/center.yaml
+        card:
+          type: horizontal-stack
+          cards:
+            - type: custom:button-card
+              template: harmony_remote_button_num
+              variables:
+                number: 1
+            - type: custom:button-card
+              template: harmony_remote_button_num
+              variables:
+                number: 2
+            - type: custom:button-card
+              template: harmony_remote_button_num
+              variables:
+                number: 3
+
+      - type: custom:mod-card
+        card_mod:
+          !include ../../ui/styles/center.yaml
+        card:
+          type: horizontal-stack
+          cards:
+            - type: custom:button-card
+              template: harmony_remote_button_num
+              variables:
+                number: 4
+            - type: custom:button-card
+              template: harmony_remote_button_num
+              variables:
+                number: 5
+            - type: custom:button-card
+              template: harmony_remote_button_num
+              variables:
+                number: 6
+
+      - type: custom:mod-card
+        card_mod:
+          !include ../../ui/styles/center.yaml
+        card:
+          type: horizontal-stack
+          cards:
+            - type: custom:button-card
+              template: harmony_remote_button_num
+              variables:
+                number: 7
+            - type: custom:button-card
+              template: harmony_remote_button_num
+              variables:
+                number: 8
+            - type: custom:button-card
+              template: harmony_remote_button_num
+              variables:
+                number: 9
+              styles:
+                card:
+                  - margin-bottom: 1rem
+
+      - type: custom:mod-card
+        card_mod:
+          !include ../../ui/styles/center.yaml
+        card:
+          type: horizontal-stack
+          cards:
+            - type: custom:button-card
+              template: harmony_remote_button
+              icon: mdi:volume-plus
+              variables:
+                command: VolumeUp
+                device: Samsung TV
+            - type: custom:button-card
+              template: harmony_remote_button
+              icon: mdi:arrow-up
+              variables:
+                command: DirectionUp
+                device: Samsung TV
+            - type: custom:button-card
+              template: harmony_remote_button
+              icon: mdi:chevron-up
+              variables:
+                command: ChannelUp
+                device: Samsung TV
+
+      - type: custom:mod-card
+        card_mod:
+          !include ../../ui/styles/center.yaml
+        card:
+          type: horizontal-stack
+          cards:
+            - type: custom:button-card
+              template: harmony_remote_button
+              icon: mdi:arrow-left
+              variables:
+                command: DirectionLeft
+                device: Samsung TV
+            - type: custom:button-card
+              template: harmony_remote_button_text
+              name: Ok
+              variables:
+                command: Select
+                device: Samsung TV
+            - type: custom:button-card
+              template: harmony_remote_button
+              icon: mdi:arrow-right
+              variables:
+                command: DirectionRight
+                device: Samsung TV
+
+      - type: custom:mod-card
+        card_mod:
+          !include ../../ui/styles/center.yaml
+        card:
+          type: horizontal-stack
+          cards:
+            - type: custom:button-card
+              template: harmony_remote_button
+              icon: mdi:volume-minus
+              variables:
+                command: VolumeDown
+                device: Samsung TV
+            - type: custom:button-card
+              template: harmony_remote_button
+              icon: mdi:arrow-down
+              variables:
+                command: DirectionDown
+                device: Samsung TV
+            - type: custom:button-card
+              template: harmony_remote_button
+              icon: mdi:chevron-down
+              variables:
+                command: ChannelDown
+                device: Samsung TV
+              styles:
+                card:
+                  - margin-bottom: 1rem
+
+      - type: custom:mod-card
+        card_mod:
+          !include ../../ui/styles/center.yaml
+        card:
+          type: horizontal-stack
+          cards:
+            - type: custom:button-card
+              template: harmony_remote_button
+              icon: mdi:netflix
+              variables:
+                command: Netflix
+                device: Samsung TV
+              styles:
+                card:
+                  - background-color: black
+                icon:
+                  - color: red
+
+            - type: custom:button-card
+              template: harmony_remote_button
+              icon: mdi:youtube
+              variables:
+                command: Youtube
+                device: Samsung TV
+              styles:
+                card:
+                  - background-color: white
+                icon:
+                  - color: red
+
+            - type: custom:button-card
+              template: harmony_remote_button
+              icon: mdi:television
+              variables:
+                command: InputTv
+                device: Samsung TV

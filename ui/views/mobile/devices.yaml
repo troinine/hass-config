@@ -113,6 +113,8 @@ cards:
           entity: media_player.samsung_q90_series_65
           variables:
             name: Olohuone TV
+            tap_action:
+              !include ../../../popups/common/remote-control.yaml
 
         - type: 'custom:button-card'
           template: compact_info

@@ -2,6 +2,14 @@
 media_player:
   template:
     - controls_card
+  variables:
+    tap_action: false
+  tap_action:
+    action: |
+      [[[ return variables.tap_action ? variables.tap_action.action : 'none' ]]]
+    # Action assumed to be a browser_mod action (i.e. a popup)
+    browser_mod: |
+      [[[ return variables.tap_action ? variables.tap_action.browser_mod : undefined ]]]
   custom_fields:
     icon_name_label:
       card:
@@ -15,6 +23,8 @@ media_player:
           icon_glow: true
           state_colors:
             "on": 'var(--color-green)'
+        tap_action: |
+          [[[ return variables.tap_action ]]]
     button1:
       card:
         type: custom:button-card

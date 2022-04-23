@@ -162,3 +162,94 @@ button_vacuum_return_to_base:
     service_data:
       entity_id: |
         [[[ return entity.entity_id ]]]
+
+harmony_remote_button:
+  template:
+    - base_icon_button
+  variables:
+    command: false
+    device: false
+    is_active: false
+  entity: remote.olohuone
+  tap_action:
+    action: call-service
+    service: remote.send_command
+    service_data:
+      entity_id: |
+        [[[ return entity.entity_id ]]]
+      command: |
+        [[[ return variables.command ]]]
+      device: |
+        [[[ return variables.device ]]]
+  styles:
+    icon:
+      - width: 2.5rem
+      - color: var(--primary-text-color)
+    card:
+      - height: 5rem
+      - width: 5rem
+      - overflow: visible
+      - '-webkit-box-shadow': |
+          [[[
+            if (variables.is_active) {
+              return '0 0 0.5rem 0.1rem yellow'
+            } else {
+              return 'none'
+            }
+          ]]]
+      - box-shadow: |
+          [[[
+            if (variables.is_active) {
+              return '0 0 0.5rem 0.1rem yellow'
+            } else {
+              return 'none'
+            }
+          ]]]
+      - transition: all 2s ease
+
+harmony_remote_button_empty:
+  template:
+    - harmony_remote_button
+  tap_action:
+    action: none
+  show_icon: false
+  styles:
+    card:
+      - background-color: transparent
+
+harmony_remote_button_text:
+  template:
+    - harmony_remote_button
+  show_icon: false
+  show_name: true
+
+harmony_remote_button_off:
+  template:
+    - harmony_remote_button
+  icon: mdi:power
+  tap_action:
+    action: call-service
+    service: service.remote_off
+    service_data:
+      entity_id: |
+        [[[ return entity.entity_id ]]]
+
+harmony_remote_button_num:
+  template:
+    - harmony_remote_button
+  variables:
+    device: Samsung TV
+    number: 0
+  icon: |
+    [[[ return `mdi:numeric-${variables.number}` ]]]
+  tap_action:
+    action: call-service
+    service: remote.send_command
+    service_data:
+      entity_id: |
+        [[[ return entity.entity_id ]]]
+      command: |
+        [[[ return variables.number ]]]
+      device: |
+        [[[ return variables.device ]]]
+

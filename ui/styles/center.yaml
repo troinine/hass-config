@@ -1,0 +1,5 @@
+style: |
+  ha-card {
+    display: flex;
+    justify-content: center;
+  }
