@@ -1,94 +1,84 @@
 - name: Nukkumassa
   entities:
-    light.otson_katto:
-      state: on
-      brightness: 1
-      color_temp: 343
     light.sisun_poytalamppu:
-      state: on
+      state: 'on'
       brightness: 1
       color_temp: 343
     light.sisun_katto:
-      state: on
+      state: 'on'
+      brightness: 1
+      color_temp: 343
+    light.eteinen_oikea_yla:
+      state: 'on'
       brightness: 1
       color_temp: 343
     light.eteinen_vasen_yla:
-      state: on
-      brightness: 1
-      color_temp: 343
+      state: 'off'
     light.eteinen_vasen_ala:
-      state: on
-      brightness: 1
-      color_temp: 343
+      state: 'off'
     light.eteinen_oikea_ala:
-      state: off
-    light.eteinen_oikea_yla:
-      state: off
+      state: 'off'
+    light.otson_huone:
+      state: 'off'
     light.eteisen_poytalamppu:
-      state: off
+      state: 'off'
     light.tyohuone:
-      state: off
+      state: 'off'
     light.keittio:
-      state: off
+      state: 'off'
     light.olohuone:
-      state: off
+      state: 'off'
     light.makuuhuone:
-      state: off
+      state: 'off'
 
 - name: Herätys
   entities:
     light.makuuhuone:
-      state: on
+      state: 'on'
       brightness: 190
       color_temp: 233
     light.otson_huone:
-      state: on
+      state: 'on'
       brightness: 190
       color_temp: 233
     light.sisun_huone:
-      state: on
+      state: 'on'
       brightness: 190
       color_temp: 233
 
 - name: Hereillä
   entities:
-    light.keittio:
-      state: on
-      brightness: 150
-      color_temp: 346
     light.olohuone:
-      state: on
+      state: 'on'
       brightness: 150
       color_temp: 346
     light.eteinen:
-      state: on
+      state: 'on'
       brightness: 150
       color_temp: 346
 
 - name: Liike yöllä
   entities:
     light.eteinen:
-      state: on
+      state: 'on'
       brightness: 25
     light.olohuone:
-      state: on
+      state: 'on'
       brightness: 25
 
 - name: Takaisin nukkumaan
   entities:
-    light.eteinen_vasen_yla:
-      state: on
-      brightness: 1
-      color_temp: 343
-    light.eteinen_vasen_ala:
-      state: on
-      brightness: 1
-      color_temp: 343
-    light.eteinen_oikea_ala:
-      state: off
     light.eteinen_oikea_yla:
-      state: off
+      state: 'on'
+      brightness: 1
+      color_temp: 343
+    light.eteinen_vasen_yla:
+      state: 'off'
+    light.eteinen_vasen_ala:
+      state: 'off'
+    light.eteinen_oikea_ala:
+      state: 'off'
     light.eteisen_poytalamppu:
-      state: off
+      state: 'off'
     light.olohuone:
-      state: off
+      state: 'off'
