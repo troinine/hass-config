@@ -228,8 +228,6 @@ harmony_remote_button_empty:
       - background-color: transparent
 
 harmony_remote_button_text:
-  template:
-    - harmony_remote_button
   show_icon: false
   show_name: true
 
