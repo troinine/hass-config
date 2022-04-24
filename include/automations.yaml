@@ -87,7 +87,9 @@
         group: Lämmitys
         tag: compressor_starts
   mode: single
+
 - id: '1607261966933'
+  mode: single
   alias: Aseta Kotona tila
   description: ''
   trigger:
@@ -105,15 +107,18 @@
     data:
       option: Kotona
     entity_id: input_select.home_state
+  - service: automation.trigger
+    data: {}
+    entity_id: automation.hot_water_pump_on
+  - condition: numeric_state
+    entity_id: sensor.olohuone_liiketunnistin_light_level
+    below: '50'
   - service: light.turn_on
     entity_id:
     - light.eteinen
     - light.keittio
     - light.olohuone
-  - service: automation.trigger
-    data: {}
-    entity_id: automation.hot_water_pump_on
-  mode: single
+
 - id: '1607263423396'
   alias: Aloita nukkumaanmeno
   description: Aloittaa nukkumaan menon kun ketään ei havaita
@@ -466,7 +471,9 @@
         ttl: 0
         priority: high
   mode: single
+
 - id: '1608321130499'
+  mode: single
   alias: Sytytä kodinhoitohuoneen valot
   description: ''
   trigger:
@@ -482,11 +489,14 @@
   - condition: state
     entity_id: input_select.home_state
     state: Kotona
+  - condition: numeric_state
+    entity_id: sensor.hue_motion_sensor_1_light_level_2
+    below: '30'
   action:
   - service: switch.turn_on
     data: {}
     entity_id: switch.tplink_hs100_3
-  mode: single
+
 - id: '1608321246976'
   alias: Sammuta kodinhoitohuoneen valot
   description: ''
