@@ -15,16 +15,28 @@ browser_mod:
           cards:
             - type: custom:button-card
               template: harmony_remote_button_off
+              triggers_update:
+                - media_player.samsung_q90_series_65
               styles:
                 card:
                   - margin-top: 1rem
+              variables:
+                is_active: |
+                  [[[
+                      return states['media_player.samsung_q90_series_65'].state === 'on'
+                  ]]]
             - type: custom:button-card
               template: harmony_remote_button_empty
             - type: custom:button-card
-              template: harmony_remote_button_text
+              template: harmony_remote_button_activity
+              triggers_update:
+                - media_player.samsung_q90_series_65
+                - switch.olohuone_tv
+              show_icon: false
+              show_name: true
               name: TV
               variables:
-                command: TV
+                activity: TV
                 is_active: |
                   [[[
                       return states['switch.olohuone_tv'].state === 'on'
@@ -117,6 +129,29 @@ browser_mod:
               template: harmony_remote_button_num
               variables:
                 number: 9
+
+      - type: custom:mod-card
+        card_mod:
+          !include ../../ui/styles/center.yaml
+        card:
+          type: horizontal-stack
+          cards:
+            - type: custom:button-card
+              template: harmony_remote_button
+              icon: mdi:arrow-u-left-top
+              variables:
+                command: Return
+                device: Samsung TV
+            - type: custom:button-card
+              template: harmony_remote_button_num
+              variables:
+                number: 0
+            - type: custom:button-card
+              template: harmony_remote_button
+              icon: mdi:volume-variant-off
+              variables:
+                command: Mute
+                device: Samsung TV
               styles:
                 card:
                   - margin-bottom: 1rem
@@ -134,11 +169,15 @@ browser_mod:
                 command: VolumeUp
                 device: Samsung TV
             - type: custom:button-card
+              template: harmony_remote_button_empty
+            - type: custom:button-card
               template: harmony_remote_button
               icon: mdi:arrow-up
               variables:
                 command: DirectionUp
                 device: Samsung TV
+            - type: custom:button-card
+              template: harmony_remote_button_empty
             - type: custom:button-card
               template: harmony_remote_button
               icon: mdi:chevron-up
@@ -184,11 +223,15 @@ browser_mod:
                 command: VolumeDown
                 device: Samsung TV
             - type: custom:button-card
+              template: harmony_remote_button_empty
+            - type: custom:button-card
               template: harmony_remote_button
               icon: mdi:arrow-down
               variables:
                 command: DirectionDown
                 device: Samsung TV
+            - type: custom:button-card
+              template: harmony_remote_button_empty
             - type: custom:button-card
               template: harmony_remote_button
               icon: mdi:chevron-down
@@ -230,8 +273,27 @@ browser_mod:
                   - color: red
 
             - type: custom:button-card
-              template: harmony_remote_button
+              template:
+                - harmony_remote_button_set_source
+                - harmony_remote_button_text
+              entity: media_player.samsung_q90_series_65
+              name: Ruutu
+              variables:
+                source: Ruutu
+
+
+            - type: custom:button-card
+              template:
+                - harmony_remote_button_set_source
+                - harmony_remote_button_text
+              entity: media_player.samsung_q90_series_65
+              name: Yle
+              variables:
+                source: Yle Areena
+
+            - type: custom:button-card
+              template: harmony_remote_button_set_source
+              entity: media_player.samsung_q90_series_65
               icon: mdi:television
               variables:
-                command: InputTv
-                device: Samsung TV
+                source: TV

@@ -174,20 +174,30 @@ harmony_remote_button:
   tap_action:
     action: call-service
     service: remote.send_command
-    service_data:
-      entity_id: |
-        [[[ return entity.entity_id ]]]
-      command: |
-        [[[ return variables.command ]]]
-      device: |
-        [[[ return variables.device ]]]
+    service_data: |
+      [[[
+        const data = {
+          entity_id: entity.entity_id
+        }
+
+        if (variables.command) {
+          data['command'] = variables.command
+        }
+
+        if (variables.device) {
+          data['device'] = variables.device
+        }
+
+        return data
+      ]]]
   styles:
     icon:
       - width: 2.5rem
       - color: var(--primary-text-color)
     card:
-      - height: 5rem
-      - width: 5rem
+      - height: 4rem
+      - width: 4rem
+      - background-color: 'rgba(var(--primary-text-color-rgb), 0.1)'
       - overflow: visible
       - '-webkit-box-shadow': |
           [[[
@@ -229,7 +239,7 @@ harmony_remote_button_off:
   icon: mdi:power
   tap_action:
     action: call-service
-    service: service.remote_off
+    service: remote.turn_off
     service_data:
       entity_id: |
         [[[ return entity.entity_id ]]]
@@ -253,3 +263,30 @@ harmony_remote_button_num:
       device: |
         [[[ return variables.device ]]]
 
+harmony_remote_button_activity:
+  template:
+    - harmony_remote_button
+  variables:
+    activity: false
+  tap_action:
+    action: call-service
+    service: remote.turn_on
+    service_data:
+      entity_id: |
+        [[[ return entity.entity_id ]]]
+      activity: |
+        [[[ return variables.activity ]]]
+
+harmony_remote_button_set_source:
+  template:
+    - harmony_remote_button
+  variables:
+    source: false
+  tap_action:
+    action: call-service
+    service: media_player.select_source
+    service_data:
+      entity_id: |
+        [[[ return entity.entity_id ]]]
+      source: |
+        [[[ return variables.source ]]]
