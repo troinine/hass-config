@@ -52,19 +52,25 @@ browser_mod:
           type: horizontal-stack
           cards:
             - type: custom:button-card
-              template: harmony_remote_button_text
+              template:
+                - harmony_remote_button
+                - harmony_remote_button_text
               name: Menu
               variables:
                 command: Menu
                 device: Samsung TV
             - type: custom:button-card
-              template: harmony_remote_button_text
+              template:
+                - harmony_remote_button
+                - harmony_remote_button_text
               name: Guide
               variables:
                 command: Guide
                 device: Samsung TV
             - type: custom:button-card
-              template: harmony_remote_button_text
+              template:
+                - harmony_remote_button
+                - harmony_remote_button_text
               name: Info
               variables:
                 command: Info
@@ -194,7 +200,9 @@ browser_mod:
                 command: DirectionLeft
                 device: Samsung TV
             - type: custom:button-card
-              template: harmony_remote_button_text
+              template:
+                - harmony_remote_button
+                - harmony_remote_button_text
               name: OK
               variables:
                 command: Select
@@ -253,11 +261,12 @@ browser_mod:
                   - color: red
 
             - type: custom:button-card
-              template: harmony_remote_button
+              template:
+                - harmony_remote_button_set_source
+              entity: media_player.samsung_q90_series_65
               icon: mdi:youtube
               variables:
-                command: Youtube
-                device: Samsung TV
+                source: Youtube
               styles:
                 card:
                   - background-color: white
@@ -272,7 +281,6 @@ browser_mod:
               name: Ruutu
               variables:
                 source: Ruutu
-
 
             - type: custom:button-card
               template:
