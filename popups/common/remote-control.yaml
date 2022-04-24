@@ -169,15 +169,11 @@ browser_mod:
                 command: VolumeUp
                 device: Samsung TV
             - type: custom:button-card
-              template: harmony_remote_button_empty
-            - type: custom:button-card
               template: harmony_remote_button
               icon: mdi:arrow-up
               variables:
                 command: DirectionUp
                 device: Samsung TV
-            - type: custom:button-card
-              template: harmony_remote_button_empty
             - type: custom:button-card
               template: harmony_remote_button
               icon: mdi:chevron-up
@@ -199,7 +195,7 @@ browser_mod:
                 device: Samsung TV
             - type: custom:button-card
               template: harmony_remote_button_text
-              name: Ok
+              name: OK
               variables:
                 command: Select
                 device: Samsung TV
@@ -223,15 +219,11 @@ browser_mod:
                 command: VolumeDown
                 device: Samsung TV
             - type: custom:button-card
-              template: harmony_remote_button_empty
-            - type: custom:button-card
               template: harmony_remote_button
               icon: mdi:arrow-down
               variables:
                 command: DirectionDown
                 device: Samsung TV
-            - type: custom:button-card
-              template: harmony_remote_button_empty
             - type: custom:button-card
               template: harmony_remote_button
               icon: mdi:chevron-down
