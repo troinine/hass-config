@@ -201,6 +201,8 @@ compact_sensor_graph:
   template:
     - sensor_graph
     - compact_card
+  variables:
+    graph_height: 150
 
 # Predefined thresholds
 
