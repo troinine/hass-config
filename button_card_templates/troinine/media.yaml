@@ -4,9 +4,11 @@ media_player:
     - controls_card
   variables:
     tap_action: false
+    state_colors:
+      'on': 'var(--color-green)'
   tap_action:
     action: |
-      [[[ return variables.tap_action ? variables.tap_action.action : 'none' ]]]
+      [[[ return variables.tap_action ? variables.tap_action.action : 'more-info' ]]]
     # Action assumed to be a browser_mod action (i.e. a popup)
     browser_mod: |
       [[[ return variables.tap_action ? variables.tap_action.browser_mod : undefined ]]]
@@ -21,10 +23,10 @@ media_player:
           [[[ return entity.entity_id ]]]
         variables:
           icon_glow: true
-          state_colors:
-            "on": 'var(--color-green)'
+          state_colors: |
+            [[[ return variables.state_colors ]]]
         tap_action: |
-          [[[ return variables.tap_action ]]]
+          [[[ return variables.tap_action ? variables.tap_action : { action: 'more-info' } ]]]
     button1:
       card:
         type: custom:button-card
@@ -32,12 +34,15 @@ media_player:
         icon: mdi:power
         entity: |
           [[[ return entity.entity_id ]]]
+        variables:
+          is_active: true
         tap_action:
-            action: call-service
-            service: media_player.toggle
-            service_data:
-              entity_id: |
-                [[[ return entity.entity_id ]]]
+          action: call-service
+          service: |
+            [[[ return entity.state === 'off' ? 'media_player.turn_on' : 'media_player.turn_off' ]]]
+          service_data:
+            entity_id: |
+              [[[ return entity.entity_id ]]]
 
     button2:
       card:

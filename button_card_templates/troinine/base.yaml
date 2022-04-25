@@ -1,7 +1,7 @@
 base:
   variables:
     is_active: |
-      [[[ return ['on', 'open', 'Kotona', 'home', 'cleaning', 'returning'].indexOf(entity === undefined || entity.state) !== -1; ]]]
+      [[[ return ['on', 'open', 'Kotona', 'home', 'cleaning', 'returning', 'idle'].indexOf(entity === undefined || entity.state) !== -1; ]]]
   template:
     - language_variables
   styles:

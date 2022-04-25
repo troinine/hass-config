@@ -26,10 +26,19 @@
   payload_off: 0
   scan_interval: 180
 
+- platform: "command_line"
+  command: !secret nintendo_switch_availability
+  name: "Nintendo Switch status"
+  payload_on: 1
+  payload_off: 0
+  scan_interval: 180
+
 - platform: group
   name: Group devices
   unique_id: group_devices
   entities:
     - binary_sensor.ps5_status
+    - binary_sensor.nintendo_switch_status
+    - binary_sensor.android_tv_office
     - binary_sensor.samsung_q90_series_65
     - binary_sensor.notification_vacuuming

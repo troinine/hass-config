@@ -225,6 +225,11 @@
     icon: mdi:television
     state: "{{ iif(is_state('media_player.samsung_q90_series_65', 'on'), 'on', 'off') }}"
 
+  - name: "Android TV office"
+    unique_id: android_tv_office
+    icon: mdi:android
+    state:  "{{ iif(is_state('media_player.android_tv_office', 'off'), 'off', 'on') }}"
+
   ### Notifications ###
 
   - name: "notification_heat_pump_alarm"

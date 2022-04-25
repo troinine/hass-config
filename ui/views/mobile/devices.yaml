@@ -106,24 +106,48 @@ cards:
 
       - type: horizontal-stack
         cards:
-        - type: 'custom:button-card'
-          template:
-            - media_player
-            - compact_card
-          entity: media_player.samsung_q90_series_65
-          variables:
-            name: Olohuone TV
-            tap_action:
-              !include ../../../popups/common/remote-control.yaml
+          - type: 'custom:button-card'
+            template:
+              - media_player
+              - compact_card
+            entity: media_player.samsung_q90_series_65
+            variables:
+              name: Olohuone TV
+              tap_action:
+                !include ../../../popups/common/remote-control.yaml
 
-        - type: 'custom:button-card'
-          template: compact_info
-          entity: binary_sensor.ps5_status
-          name: Playstation 5
-          icon: mdi:sony-playstation
-          variables:
-            state_colors:
-              "on": 'var(--color-green)'
+          - type: 'custom:button-card'
+            template:
+              - media_player
+              - compact_card
+            entity: media_player.android_tv_office
+            name: Työhuone TV
+            variables:
+              state_colors:
+                'on': green
+                'idle': green
+
+      - type: horizontal-stack
+        cards:
+          - type: 'custom:button-card'
+            template: compact_info
+            entity: binary_sensor.ps5_status
+            name: Playstation 5
+            icon: mdi:sony-playstation
+            variables:
+              icon_glow: true
+              state_colors:
+                "on": 'var(--color-green)'
+
+          - type: 'custom:button-card'
+            template: compact_info
+            entity: binary_sensor.nintendo_switch_status
+            name: Nintendo Switch
+            icon: mdi:nintendo-switch
+            variables:
+              icon_glow: true
+              state_colors:
+                "on": 'var(--color-green)'
 
   - type: custom:button-card
     template: mobile_navbar
