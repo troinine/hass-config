@@ -170,7 +170,7 @@ harmony_remote_button:
     command: false
     device: false
     is_active: false
-    box_shadow: '5px 5px 5px #080808, -5px -5px 5px #1c1c1c'
+    box_shadow: '5px 5px 8px rgb(0, 0, 0), -5px -5px 8px rgb(50, 50, 50)'
   entity: remote.olohuone
   tap_action:
     action: call-service
@@ -216,6 +216,7 @@ harmony_remote_button:
             }
           ]]]
       - transition: all 2s ease
+      - margin: 0.2rem
 
 harmony_remote_button_empty:
   template:
