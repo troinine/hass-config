@@ -170,6 +170,7 @@ harmony_remote_button:
     command: false
     device: false
     is_active: false
+    box_shadow: '5px 5px 5px #080808, -5px -5px 5px #1c1c1c'
   entity: remote.olohuone
   tap_action:
     action: call-service
@@ -197,14 +198,13 @@ harmony_remote_button:
     card:
       - height: 4rem
       - width: 4rem
-      - background-color: 'rgba(var(--primary-text-color-rgb), 0.1)'
-      - overflow: visible
+      - background-color: transparent
       - '-webkit-box-shadow': |
           [[[
             if (variables.is_active) {
               return '0 0 0.5rem 0.1rem yellow'
             } else {
-              return 'none'
+              return variables.box_shadow
             }
           ]]]
       - box-shadow: |
@@ -212,7 +212,7 @@ harmony_remote_button:
             if (variables.is_active) {
               return '0 0 0.5rem 0.1rem yellow'
             } else {
-              return 'none'
+              return variables.box_shadow
             }
           ]]]
       - transition: all 2s ease
@@ -226,6 +226,8 @@ harmony_remote_button_empty:
   styles:
     card:
       - background-color: transparent
+      - box-shadow: none
+      - '-webkit-box-shadow': none
 
 harmony_remote_button_text:
   show_icon: false
