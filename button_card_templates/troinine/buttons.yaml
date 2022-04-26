@@ -170,7 +170,7 @@ harmony_remote_button:
     command: false
     device: false
     is_active: false
-    box_shadow: '5px 5px 8px rgb(0, 0, 0), -5px -5px 8px rgb(50, 50, 50)'
+    box_shadow: '3px 3px 5px rgb(2, 2, 2), -3px -3px 5px rgb(60, 60, 60)'
   entity: remote.olohuone
   tap_action:
     action: call-service
@@ -198,7 +198,7 @@ harmony_remote_button:
     card:
       - height: 4rem
       - width: 4rem
-      - background-color: transparent
+      - background: 'linear-gradient(145deg, rgb(25, 25, 25), rgb(10, 10, 10))'
       - '-webkit-box-shadow': |
           [[[
             if (variables.is_active) {

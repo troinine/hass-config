@@ -255,8 +255,6 @@ browser_mod:
                 command: Netflix
                 device: Samsung TV
               styles:
-                card:
-                  - background-color: black
                 icon:
                   - color: red
 
@@ -268,8 +266,6 @@ browser_mod:
               variables:
                 source: Youtube
               styles:
-                card:
-                  - background-color: white
                 icon:
                   - color: red
 
