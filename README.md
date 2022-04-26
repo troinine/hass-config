@@ -52,6 +52,7 @@ Few notifications that can be visible on the sidebar
 - Home Assistant update available
 - Vacuuming state
 - Time to vacuum
+- Vacuum dustbin is full
 
 ### Custom button cards
 
@@ -64,6 +65,8 @@ I have created few [button card templates](button_card_templates/troinine) for m
 - Light card with a slider
 - User card with device tracker and battery statuses
 - Notification card that is used in the sidebar
+- Vacuum card with buttons to control the robot vacuum
+- Media card with buttons to control the media player
 - Conditional card which allows flexible way of conditionally showing or hiding a card
 
 All cards try to incorporate similar design. Icons can glow based on the state and the light card has a glowing box shadow when the respective light is on.
@@ -132,6 +135,7 @@ The following table contains some of the hardware and software I use with Home A
 | Nibe 1226 NEW 8kW           | MQTT               | Ground source heat pump providing heating and cooling to the house                                                                                                                                  |
 | Sony Playstation 5          | CLI                | Only PS5 status is currently retrieved via CLI                                                                                                                                                      |
 | Samsung TV                  | Samsung Smart TV   | Samsung Q90 Series Smart TV                                                                                                                                                                         |
+| Nokia Streaming Box 8000    | Android TV         | Nokia Streaming Box to make one of my dummy TV's smart                                                                                                                                              |
 | Yale Doorman                | Verisure           | Smart locks securing the house doors                                                                                                                                                                |
 | TP-Link Kasa Smart plugs    | TP-Link Kasa Smart | Few HS100 and HS110 smart plugs controlling specific devices such as garage dehumidifier and water circulation                                                                                      |
 | Roborock S6 Pure            | Xiaomi Mi          | Robot vacuum which can be controlled via HA, including cleaning of specific rooms. Live map is also available                                                                                       |
