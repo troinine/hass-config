@@ -1,0 +1,8 @@
+---
+vacuum_total_area_cleaned_since_emptying:
+  name: Roborock S6 Pure total area cleaned since emptying
+  unit_of_measurement: m²
+  mode: box
+  min: 0
+  max: 120
+  icon: mdi:trash-can-outline

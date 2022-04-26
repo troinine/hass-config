@@ -32,6 +32,8 @@ browser_mod:
                     name: Viimeksi siivonnut
                   - entity: sensor.roborock_s6_pure_time_to_next_clean
                     name: Seuraava siivous
+                  - entity: sensor.roborock_s6_pure_dustbin_level
+                    name: Pölysäiliön taso
                   - type: attribute
                     entity: vacuum.roborock_s6_pure
                     attribute: battery_level
@@ -91,6 +93,8 @@ browser_mod:
               - entity: input_boolean.vacuum_clean_bedroom
               - entity: sensor.roborock_s6_pure_current_clean_area
                 name: Viimeksi siivottu ala
+              - entity: sensor.roborock_s6_pure_area_cleaned_since_dustbin_emptying
+                name: Tyhjennyksen jälkeen
 
           - type: custom:xiaomi-vacuum-map-card
             card_mod:

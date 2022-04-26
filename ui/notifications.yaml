@@ -167,6 +167,15 @@
 
 - type: conditional
   conditions:
+    - entity: binary_sensor.notification_vacuum_dustbin_full
+      state: 'on'
+  card:
+    type: 'custom:button-card'
+    template: auto_notification
+    entity: binary_sensor.notification_vacuum_dustbin_full
+
+- type: conditional
+  conditions:
     - entity: binary_sensor.notification_vacuuming
       state: 'on'
   card:

@@ -69,7 +69,10 @@ notification:
       - padding: 0 0 0 0
       - font-weight: 300
       - justify-self: start
-      - align-self: end
+      - align-self: |
+          [[[
+            return variables.description ? 'end': 'center'
+          ]]]
       - font-size: 1rem
     label:
       - padding: 0 0 0 0

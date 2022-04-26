@@ -164,6 +164,28 @@
       icon: mdi:vacuum-outline
       device_class: timestamp
 
+  - name: roborock_s6_pure_area_cleaned_since_dustbin_emptying
+    unique_id: roborock_s6_pure_area_cleaned_since_dustbin_emptying
+    state: "{{ states('input_number.vacuum_total_area_cleaned_since_emptying') }}"
+    attributes:
+      friendly_name: Tyhjennyksen jälkeen siivottu alue
+      icon: mdi:texture-box
+      unit_of_measurement: "{{ state_attr('input_number.vacuum_total_area_cleaned_since_emptying', 'unit_of_measurement') }}"
+
+  - name: roborock_s6_pure_dustbin_level
+    unique_id: roborock_s6_pure_dustbin_level
+    state: |
+      {% set percentage = states('input_number.vacuum_total_area_cleaned_since_emptying') | float / 120 * 100 %}
+      {% if (percentage > 100) %}
+        {{ 100 }}
+      {% else %}
+        {{ percentage | int }}
+      {% endif %}
+    attributes:
+      friendly_name: Pölysäiliön taso
+      icon: mdi:delete-empty
+      unit_of_measurement: '%'
+
 - select:
   - name: roborock_s6_pure_speed
     state: |
@@ -526,3 +548,11 @@
         {% set last_cleaned_secs = (as_timestamp(now()) - as_timestamp(states.sensor.roborock_s6_pure_last_clean_end.state)) %}
         Imurointia ei ole suoritettu {{ (last_cleaned_secs / 60 / 60 / 24) | round(0) }} päivään
       text_description: Oleskelutilojen imurointi aloitetaan kun kotoa poistutaan tai kun se käynnistetään käsin
+
+  - name: notification_vacuum_dustbin_full
+    unique_id: notification_vacuum_dustbin_full
+    icon: "{{ state_attr('sensor.roborock_s6_pure_dustbin_level', 'icon') }}"
+    state: "{{ iif(is_state('sensor.roborock_s6_pure_dustbin_level', '100'), 'on', 'off') }}"
+    attributes:
+      icon_color: var(--warning-color)
+      text_summary: Robotti-imurin pölysäiliö on täynnä

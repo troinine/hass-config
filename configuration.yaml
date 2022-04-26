@@ -125,7 +125,10 @@ input_select:
     initial: Pois
 
 input_boolean:
-  !include include/inputs.yaml
+  !include include/booleans.yaml
+
+input_number:
+  !include include/numbers.yaml
 
 sensor:
   !include_dir_merge_list sensors/

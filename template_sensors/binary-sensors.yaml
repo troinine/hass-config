@@ -15,6 +15,7 @@
 - platform: "command_line"
   command: !secret raspberry_pi_nibe_availability
   name: "Nibe Raspberry Pi Zero status"
+  unique_id: nibe_raspberry_pi_zero_status
   payload_on: 1
   payload_off: 0
   scan_interval: 180
@@ -22,6 +23,7 @@
 - platform: "command_line"
   command: !secret ps5_availability
   name: "PS5 status"
+  unique_id: ps5_status
   payload_on: 1
   payload_off: 0
   scan_interval: 180
@@ -29,6 +31,7 @@
 - platform: "command_line"
   command: !secret nintendo_switch_availability
   name: "Nintendo Switch status"
+  unique_id: nintendo_switch_status
   payload_on: 1
   payload_off: 0
   scan_interval: 180

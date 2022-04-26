@@ -1155,6 +1155,12 @@
           tag: vacuum_completed
           ttl: 0
           priority: high
+    - service: input_number.set_value
+      target:
+        entity_id: input_number.vacuum_total_area_cleaned_since_emptying
+      data:
+        value: |
+          {{ states('input_number.vacuum_total_area_cleaned_since_emptying') | float + states('sensor.roborock_s6_pure_current_clean_area') | float }}
 
 - id: '1649095358453'
   alias: start_scheduled_vacuuming
