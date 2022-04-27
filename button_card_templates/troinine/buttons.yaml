@@ -195,6 +195,7 @@ harmony_remote_button:
     icon:
       - width: 2.5rem
       - color: var(--primary-text-color)
+      - filter: drop-shadow(0 0 var(--button-card-icon-drop-shadow-size) var(--primary-text-color))
     card:
       - height: 4rem
       - width: 4rem
@@ -227,12 +228,16 @@ harmony_remote_button_empty:
   styles:
     card:
       - background-color: transparent
+      - background: none
       - box-shadow: none
       - '-webkit-box-shadow': none
 
 harmony_remote_button_text:
   show_icon: false
   show_name: true
+  styles:
+    name:
+      - text-shadow: 0 0 var(--button-card-icon-drop-shadow-size) var(--primary-text-color)
 
 harmony_remote_button_off:
   template:

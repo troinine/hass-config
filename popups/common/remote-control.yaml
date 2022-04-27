@@ -256,6 +256,7 @@ browser_mod:
                 device: Samsung TV
               styles:
                 icon:
+                  - filter: unset
                   - color: red
 
             - type: custom:button-card
@@ -267,6 +268,7 @@ browser_mod:
                 source: Youtube
               styles:
                 icon:
+                  - filter: unset
                   - color: red
 
             - type: custom:button-card
