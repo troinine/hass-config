@@ -2,12 +2,10 @@
   entities:
     light.sisun_poytalamppu:
       state: 'on'
-      brightness: 1
-      color_temp: 343
+      brightness: 51
+      color_mode: red
     light.sisun_katto:
-      state: 'on'
-      brightness: 1
-      color_temp: 343
+      state: 'off'
     light.eteinen_oikea_yla:
       state: 'on'
       brightness: 1
@@ -61,10 +59,10 @@
   entities:
     light.eteinen:
       state: 'on'
-      brightness: 25
+      brightness: 13
     light.olohuone:
       state: 'on'
-      brightness: 25
+      brightness: 13
 
 - name: Takaisin nukkumaan
   entities:
