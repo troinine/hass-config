@@ -81,6 +81,14 @@ button_vacuum_clean:
   variables:
     is_active: |
       [[[ return entity.state === 'docked' ]]]
+  triggers_update:
+    - input_boolean.vacuum_clean_entrance
+    - input_boolean.vacuum_clean_kitchen
+    - input_boolean.vacuum_clean_living_room
+    - input_boolean.vacuum_clean_bedroom
+    - input_boolean.vacuum_clean_office
+    - input_boolean.vacuum_clean_otsos_room
+    - input_boolean.vacuum_clean_sisus_room
   name: Aloita
   tap_action:
     action: call-service
@@ -91,36 +99,18 @@ button_vacuum_clean:
       command: app_segment_clean
       params: |
         [[[
-          var rooms = []
-          if (states['input_boolean.vacuum_clean_entrance'].state === 'on') {
-            rooms.push(18)
-          }
+          var rooms = [
+            { sensor: 'input_boolean.vacuum_clean_entrance',    id: 18 },
+            { sensor: 'input_boolean.vacuum_clean_kitchen',     id: 17 },
+            { sensor: 'input_boolean.vacuum_clean_living_room', id: 19 },
+            { sensor: 'input_boolean.vacuum_clean_bedroom',     id: 20 },
+            { sensor: 'input_boolean.vacuum_clean_office',      id: 16 },
+            { sensor: 'input_boolean.vacuum_clean_otsos_room',  id: 23 },
+            { sensor: 'input_boolean.vacuum_clean_sisus_room',  id: 22 },
+          ]
 
-          if (states['input_boolean.vacuum_clean_kitchen'].state === 'on') {
-            rooms.push(17)
-          }
-
-          if (states['input_boolean.vacuum_clean_living_room'].state === 'on') {
-            rooms.push(19)
-          }
-
-          if (states['input_boolean.vacuum_clean_bedroom'].state === 'on') {
-            rooms.push(20)
-          }
-
-          if (states['input_boolean.vacuum_clean_office'].state === 'on') {
-            rooms.push(16)
-          }
-
-          if (states['input_boolean.vacuum_clean_otsos_room'].state === 'on') {
-            rooms.push(23)
-          }
-
-          if (states['input_boolean.vacuum_clean_sisus_room'].state === 'on') {
-            rooms.push(22)
-          }
-
-          return rooms
+          return rooms.filter(room => states[room.sensor].state === 'on')
+            .map(room => room.id)
         ]]]
 
 button_vacuum_start_stop:
