@@ -73,11 +73,11 @@ notification:
           [[[
             return variables.description ? 'end': 'center'
           ]]]
-      - font-size: 1rem
+      - font-size: 1.1rem
     label:
       - padding: 0 0 0 0
       - filter: "opacity(40%)"
-      - font-size: 0.9rem
+      - font-size: 1.0rem
       - justify-self: start
       - align-self: start
       - text-overflow: unset

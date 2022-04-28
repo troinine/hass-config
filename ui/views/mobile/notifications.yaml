@@ -26,8 +26,6 @@ cards:
             [[[ return entity.state > 0 ]]]
 
       - type: custom:mod-card
-        view_layout:
-          grid-area: button1
         card_mod:
           style: |
             ha-card {

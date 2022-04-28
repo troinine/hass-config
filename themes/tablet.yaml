@@ -40,6 +40,8 @@ tablet:
         background-color: var(--primary-background-color) !important;
       }
 
+  masonry-view-card-margin: 0
+
   modes:
     dark:
       state-icon-color: "var(--color-theme)"

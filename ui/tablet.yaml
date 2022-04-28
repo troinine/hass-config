@@ -10,7 +10,7 @@ views:
     icon: mdi:home
     type: custom:grid-layout
     layout:
-      grid-template-columns: 0 repeat(4, 1fr) 0
+      grid-template-columns: 0 1.1fr repeat(3, 1fr) 0
       grid-template-rows: 0fr 1fr 1fr 0fr
       grid-gap: 3vw 2vw
       grid-template-areas: |
@@ -29,6 +29,7 @@ views:
         view_layout:
           grid-area: sidebar
         layout:
+          margin: 0
           grid-template-columns: 1fr
           grid-template-rows: max-content max-content
           grid-template-areas: |
