@@ -36,6 +36,13 @@ browser_mod:
               display: flex;
               justify-content: center;
             }
+        $hui-vertical-stack-card:
+          $hui-horizontal-stack-card:
+            $: |
+              #root {
+                display: flex;
+                justify-content: center;
+              }
         $slider-entity-row:
           $hui-generic-entity-row:
             $: |

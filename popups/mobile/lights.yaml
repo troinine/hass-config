@@ -4,10 +4,6 @@ browser_mod:
   command: popup
   title: Valaistus
   style:
-    $: |
-      .mdc-dialog .mdc-dialog__surface {
-        background-color: var(--primary-background-color) !important;
-      }
     hui-vertical-stack-card:
       $: |
         #root {
