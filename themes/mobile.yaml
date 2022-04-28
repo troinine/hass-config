@@ -33,6 +33,9 @@ mobile:
       .mdc-dialog .mdc-dialog__container {
         background: none;
       }
+      .mdc-dialog .mdc-dialog__surface {
+        background-color: var(--primary-background-color) !important;
+      }
       .content {
         height: 100vh;
       }
