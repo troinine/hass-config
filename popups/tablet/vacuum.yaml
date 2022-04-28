@@ -32,7 +32,7 @@ browser_mod:
       grid-template-rows: min-content min-content
       grid-template-areas: |
         "info rooms map"
-        "button1 button2 button3"
+        "buttons buttons buttons"
     cards:
       - type: entities
         view_layout:
@@ -83,7 +83,7 @@ browser_mod:
 
       - type: custom:mod-card
         view_layout:
-          grid-area: button1
+          grid-area: buttons
         card_mod:
           style: |
             ha-card {
@@ -91,49 +91,35 @@ browser_mod:
               justify-content: center;
             }
         card:
-          type: vertical-stack
+          type: horizontal-stack
           cards:
             - type: custom:button-card
               template: button_vacuum_clean
               styles:
                 card:
-                  - width: 20vw
+                  - width: 17vw
+                  - margin: 0 2vw 0 2vw
 
-      - type: custom:mod-card
-        view_layout:
-          grid-area: button2
-        card_mod:
-          style: |
-            ha-card {
-              display: flex;
-              justify-content: center;
-            }
-        card:
-          type: vertical-stack
-          cards:
             - type: custom:button-card
               template: button_vacuum_start_stop
               styles:
                 card:
-                  - width: 20vw
+                  - width: 17vw
+                  - margin: 0 2vw 0 2vw
 
-      - type: custom:mod-card
-        view_layout:
-          grid-area: button3
-        card_mod:
-          style: |
-            ha-card {
-              display: flex;
-              justify-content: center;
-            }
-        card:
-          type: vertical-stack
-          cards:
             - type: custom:button-card
               template: button_vacuum_return_to_base
               styles:
                 card:
-                  - width: 20vw
+                  - width: 17vw
+                  - margin: 0 2vw 0 2vw
+
+            - type: custom:button-card
+              template: button_vacuum_dustbin_emptied
+              styles:
+                card:
+                  - width: 17vw
+                  - margin: 0 2vw 0 2vw
 
       - type: custom:xiaomi-vacuum-map-card
         card_mod:

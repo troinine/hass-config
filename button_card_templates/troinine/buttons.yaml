@@ -153,6 +153,20 @@ button_vacuum_return_to_base:
       entity_id: |
         [[[ return entity.entity_id ]]]
 
+button_vacuum_dustbin_emptied:
+  template:
+    - button_vacuum
+  variables:
+    is_active: true
+  icon: mdi:trash-can-outline
+  name: Pölysäiliö tyhjennetty
+  tap_action:
+    action: call-service
+    service: input_number.set_value
+    service_data:
+      entity_id: input_number.vacuum_total_area_cleaned_since_emptying
+      value: 0
+
 harmony_remote_button:
   template:
     - base_icon_button
