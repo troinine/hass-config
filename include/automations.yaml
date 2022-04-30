@@ -46,6 +46,9 @@
   - condition: state
     entity_id: input_select.home_state
     state: Poissa
+  - condition: numeric_state
+    entity_id: sensor.olohuone_liiketunnistin_light_level
+    below: '50'
   action:
   - service: light.turn_on
     data: {}
@@ -1005,15 +1008,14 @@
     state: Kotona
   - condition: time
     before: '21:00'
-  - condition: state
-    entity_id: light.eteinen
-    state: 'on'
   action:
+  - condition: state
+    entity_id: light.group_entrance
+    state: 'on'
   - service: light.turn_on
     data_template:
       entity_id: |
-        {% set lights = ['light.eteinen'] %}
-        {{ expand(lights) | selectattr('state', 'eq', 'on') | map(attribute='entity_id') | join(',') }}
+        {{ expand(state_attr('light.light.group_entrance', 'entity_id')) | selectattr('state', 'eq', 'on') | map(attribute='entity_id') | list }}
       brightness_pct: 100
       transition: 2
   mode: single
@@ -1037,15 +1039,14 @@
     state: Kotona
   - condition: time
     before: '21:15'
-  - condition: state
-    entity_id: light.eteinen
-    state: 'on'
   action:
+  - condition: state
+    entity_id: light.group_entrance
+    state: 'on'
   - service: light.turn_on
     data_template:
       entity_id: |
-        {% set lights = ['light.eteinen'] %}
-        {{ expand(lights) | selectattr('state', 'eq', 'on') | map(attribute='entity_id') | join(',') }}
+        {{ expand(state_attr('light.light.group_entrance', 'entity_id')) | selectattr('state', 'eq', 'on') | map(attribute='entity_id') | list }}
       brightness_pct: 20
       transition: 2
   mode: single
