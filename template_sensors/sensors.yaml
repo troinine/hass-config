@@ -482,14 +482,37 @@
       icon_color: var(--humidity-high-color)
       text_summary: Tyhjennä autotallin ilmankuivain
 
-  - name: notification_sisu_humidifier
-    unique_id: notification_sisu_humidifier
-    icon: mdi:waves-arrow-up
-    state: "{{ states('switch.tplink_hs110_1') }}"
+  # Not in use during summer time
+  #
+  # - name: notification_sisu_humidifier
+  #   unique_id: notification_sisu_humidifier
+  #   icon: mdi:waves-arrow-up
+  #   state: "{{ states('switch.tplink_hs110_1') }}"
+  #   attributes:
+  #     icon_color: var(--humidity-high-color)
+  #     text_summary: 'Sisun ilmankostutin päällä'
+  #     text_description: "Kosteus tällä hetkellä {{ states('sensor.mqtt_airthings_waveplus_sisu_humidity') }} %"
+  #     tap_action: more-info
+  #     tap_action_entity: switch.tplink_hs110_1
+
+  - name: notification_stiga_charger_charging
+    unique_id: notification_stiga_charger_charging
+    icon: mdi:battery-charging-medium
+    state: "{{ iif(states('switch.tplink_hs110_1') == 'on' and states('sensor.tplink_hs110_1_current_consumption') | float > 5, 'on', 'off') }}"
     attributes:
-      icon_color: var(--humidity-high-color)
-      text_summary: 'Sisun ilmankostutin päällä'
-      text_description: "Kosteus tällä hetkellä {{ states('sensor.mqtt_airthings_waveplus_sisu_humidity') }} %"
+      icon_color: var(--warning-color)
+      text_summary: Stigan laturi lataa akkua
+      text_description: "Virankulutus tällä hetkellä {{ states('sensor.tplink_hs110_1_current_consumption') }} W"
+      tap_action: more-info
+      tap_action_entity: switch.tplink_hs110_1
+
+  - name: notification_stiga_charger_full
+    unique_id: notification_stiga_charger_full
+    icon: mdi:battery-high
+    state: "{{ iif(states('switch.tplink_hs110_1') == 'on' and states('sensor.tplink_hs110_1_current_consumption') | float <= 5, 'on', 'off') }}"
+    attributes:
+      icon_color: var(--color-green)
+      text_summary: Stigan akku täynnä
       tap_action: more-info
       tap_action_entity: switch.tplink_hs110_1
 

@@ -1163,6 +1163,26 @@
         value: |
           {{ states('input_number.vacuum_total_area_cleaned_since_emptying') | float + states('sensor.roborock_s6_pure_current_clean_area') | float }}
 
+- id: '1649095358456'
+  alias: Stiga charging completed
+  description: ''
+  mode: single
+  trigger:
+    - platform: state
+      entity_id: vacuum.roborock_s6_pure
+      from: returning
+      to: docked
+  condition: []
+  action:
+    - service: notify.mobile_app_tero
+      data:
+        message: Stigan akku ladattu
+        data:
+          group: Stiga
+          tag: stiga_charging_completed
+          ttl: 0
+          priority: high
+
 - id: '1649095358453'
   alias: start_scheduled_vacuuming
   description: 'Aloita yleisten tilojen ajastettu imurointi'
