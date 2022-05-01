@@ -7,23 +7,14 @@ cards:
       - type: custom:button-card
         template: icon_title
         icon: mdi:ceiling-light-multiple-outline
-        entity: light.group_all_flat
-        group_expand: true
+        entity: light.group_all
         triggers_update:
-          - light.group_all_flat
-          - switch.tplink_hs100_3
+          - sensor.lights_on_count
         variables:
           title: Valaistus
           subtitle: |
             [[[
-              var num_lights_on = entity.attributes.entity_id
-                .map(entity_id => states[entity_id])
-                .filter(entity => entity.state === 'on')
-                .length
-
-              if (states['switch.tplink_hs100_3'].state == 'on') {
-                num_lights_on++
-              }
+              var num_lights_on = states['sensor.lights_on_count'].state
 
               if (num_lights_on == 1) {
                 return 'Yksi valo on päällä'

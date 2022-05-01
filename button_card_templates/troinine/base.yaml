@@ -31,7 +31,6 @@ base_card:
     custom_fields:
       state2:
         - font-size: 0.9rem
-
     card:
       - border-radius: var(--border-radius)
       - padding: var(--button-card-padding)

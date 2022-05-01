@@ -16,7 +16,7 @@ navbar_icon:
   state_display: |
     [[[
       var is_active = variables.active_view === variables.id
-      return `<div id=active-menu><ha-icon icon="${variables.icon}" style="--mdc-icon-size: 1.75rem; padding-right: ${is_active ? '0.5rem' : '0'};"></ha-icon>${is_active ? `<span class="menu-text">${variables.text}</span>` : ''}</div>`
+      return `<div id=active-menu><ha-icon icon="${variables.icon}" style="--mdc-icon-size: 1.75rem; padding-right: ${is_active ? '0.5rem' : '0'};"></ha-icon>${is_active && variables.text ? `<span class="menu-text">${variables.text}</span>` : ''}</div>`
     ]]]
   extra_styles: |
     span.menu-text {
@@ -39,7 +39,7 @@ navbar_icon:
     card:
       - height: |
           [[[
-            if (variables.active_view === variables.id) {
+            if (variables.active_view === variables.id && variables.text) {
               return '3.5rem'
             } else {
               return '4rem'
@@ -47,7 +47,7 @@ navbar_icon:
           ]]]
       - width: |
           [[[
-            if (variables.active_view === variables.id) {
+            if (variables.active_view === variables.id && variables.text) {
               return undefined
             } else {
               return '4rem'
@@ -74,6 +74,41 @@ navbar_icon:
       - box-shadow: none
       - '--mdc-ripple-press-opacity': 0.2
 
+navbar_icon_with_badge:
+  template:
+    - navbar_icon
+  variables:
+    notification:
+      count: 0
+      color: red
+  custom_fields:
+    notification: |
+      [[[
+        return `<span id="notification-count">${variables.notification.count}</span>`
+      ]]]
+  styles:
+    custom_fields:
+      notification:
+        - border-radius: 50%
+        - position: absolute
+        - left: 1.8rem
+        - top: 0.2rem
+        - width: 1.3rem
+        - height: 1.3rem
+        - border: 0.2rem solid var(--card-background-color)
+        - font-size: |
+            [[[
+              return variables.notification.count >= 10 ? '0.8rem' : '1rem'
+            ]]]
+        - font-weight: bold
+        - line-height: 1.4rem
+        - text-align: center
+        - color: white
+        - background-color: |
+            [[[ return variables.notification.color ]]]
+        - display: |
+            [[[ return variables.notification.count > 0 && variables.active_view !== variables.id ? 'block' : 'none' ]]]
+
 mobile_navbar:
   template:
     - base
@@ -95,67 +130,51 @@ mobile_navbar:
     icon2:
       card:
         type: custom:button-card
-        template: navbar_icon
+        template: navbar_icon_with_badge
+        entity: sensor.lights_on_count
+        group_expand: true
         variables:
           id: lights
           icon: mdi:ceiling-light-multiple-outline
           text: Valot
+          notification:
+            color: green
+            count: |
+              [[[ return states['sensor.lights_on_count'].state ]]]
+
         tap_action:
           action: navigate
           navigation_path: /lovelace-mobile/lights
+
     icon3:
       card:
         type: custom:button-card
-        template: navbar_icon
+        template: navbar_icon_with_badge
+        entity: sensor.devices_on_count
         variables:
           id: devices
           icon: mdi:television
           text: Laitteet
+          notification:
+            color: green
+            count: |
+              [[[ return states['sensor.devices_on_count'].state ]]]
         tap_action:
           action: navigate
           navigation_path: /lovelace-mobile/devices
     icon4:
       card:
         type: custom:button-card
-        template: navbar_icon
+        template: navbar_icon_with_badge
         variables:
           id: notifications
           icon: mdi:bell-outline
-          text: Ilmoitukset
+          notification:
+            count: |
+              [[[ return states['sensor.notification_count'].state ]]]
         tap_action:
           action: navigate
           navigation_path: /lovelace-mobile/notifications
-        custom_fields:
-          notification: |
-            [[[
-              var count = states['sensor.notification_count'].state
-              return count > 0
-                ? `<span id="notification-count">${count}</span>`
-                : ''
-            ]]]
-        styles:
-          card:
-            - height: 4rem
-            - width: 4rem
-          custom_fields:
-            notification:
-              - border-radius: 50%
-              - position: absolute
-              - left: 1.8rem
-              - top: 0.2rem
-              - width: 1.3rem
-              - height: 1.3rem
-              - border: 0.2rem solid var(--card-background-color)
-              - font-size: 1rem
-              - font-weight: bold
-              - line-height: 1.4rem
-              - text-align: center
-              - color: white
-              - background-color: red
-              - display: |
-                  [[[
-                    return states['sensor.notification_count'].state > 0 ? 'block' : 'none'
-                  ]]]
   styles:
     grid:
       - grid-template-areas: |

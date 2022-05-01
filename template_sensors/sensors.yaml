@@ -186,6 +186,21 @@
       icon: mdi:delete-empty
       unit_of_measurement: '%'
 
+  - name: lights_on_count
+    unique_id: lights_on_count
+    state: |
+      {% set lights_on = expand('light.group_all_flat') | selectattr('state', 'equalto', 'on') | list | length %}
+      {% if is_state('switch.tplink_hs100_3', 'on') %}
+        {% set lights_on = lights_on + 1 %}
+      {% endif %}
+
+      {{ lights_on }}
+
+  - name: devices_on_count
+    unique_id: devices_on_count
+    state: |
+      {{ expand('binary_sensor.group_devices') | selectattr('state', 'equalto', 'on') | list | length }}
+
 - select:
   - name: roborock_s6_pure_speed
     state: |
