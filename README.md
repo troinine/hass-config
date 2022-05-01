@@ -147,6 +147,7 @@ The following table contains some of the hardware and software I use with Home A
 | Yale Doorman                | Verisure           | Smart locks securing the house doors                                                                                                                                                                |
 | TP-Link Kasa Smart plugs    | TP-Link Kasa Smart | Few HS100 and HS110 smart plugs controlling specific devices such as garage dehumidifier and water circulation                                                                                      |
 | Roborock S6 Pure            | Xiaomi Mi          | Robot vacuum which can be controlled via HA, including cleaning of specific rooms. Live map is also available                                                                                       |
+| Logitech Harmony Remote     | Logitech Harmony Hub | Logitech Harmony remote for controlling living room media devices |
 
 In addition to hardware I use a collection of OSS to feed data to Home Assistant:
 
