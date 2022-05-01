@@ -29,6 +29,19 @@ The following custom cards are extensively used throughout the dashboards:
 - [apexcharts-card](https://github.com/RomRider/apexcharts-card)
 - [xiaomi-vacuum-map-card](https://github.com/PiotrMachowski/lovelace-xiaomi-vacuum-map-card)
 
+
+## Designs
+
+### Mobile
+
+The main principle on mobile is to avoid putting too much content in to a single page and avoid scrolling if possible. This is achieved by splitting the content into multiple views. As the typical navigation bar in Lovelace is on the top and is not that customizable, I ended up creating a bottom navigation bar component with a button card template.
+
+There are currently four main views; home, lights, devices and notifications.
+
+
+
+### Tablet
+
 ## Features
 
 ### Sidebar, notifications and clock
@@ -81,34 +94,6 @@ The tap action on the weather shows the following popup which uses [weather-char
 
 ![Weather](/assets/images/screenshot-weather.png)
 
-### Popups
-
-Popups have been implemented using [browser_mod](https://github.com/thomasloven/hass-browser_mod). Here are few examples:
-
-Custom light popup with predefined scenes and color wheel. This card has few features:
-
-- Can support `light.` and `switch.` entities and select features based on that
-- Allows explicitly enabling or disabling the color wheel
-- Allows explicitly enabling or disabling presets for specific colors
-
-![Light popup](/assets/images/screenshot-light-popup.png)
-
-Air quality popup. Each room is a separate [swipe-card](https://github.com/bramkragten/swipe-card) page:
-
-![Air quality popup](/assets/images/screenshot-air-quality-popup.png)
-
-Heating data popup:
-
-![Heating popup](/assets/images/screenshot-heating-popup.png)
-
-Mobile notifications popup:
-
-![Mobile notifications popup](/assets/images/screenshot-mobile-notifications-popup.png)
-
-Mobile popup with cards:
-
-![Mobile popup](/assets/images/screenshot-mobile-popup.png)
-
 ### Automations
 
 In addition to basic lights on / off based on movement. There are few automations that I use
@@ -135,7 +120,7 @@ The following table contains some of the hardware and software I use with Home A
 | Nibe 1226 NEW 8kW           | MQTT               | Ground source heat pump providing heating and cooling to the house                                                                                                                                  |
 | Sony Playstation 5          | CLI                | Only PS5 status is currently retrieved via CLI                                                                                                                                                      |
 | Samsung TV                  | Samsung Smart TV   | Samsung Q90 Series Smart TV                                                                                                                                                                         |
-| Nokia Streaming Box 8000    | Android TV         | Nokia Streaming Box to make one of my dummy TV's smart                                                                                                                                              |
+| Nokia Streaming Box 8000    | Android TV         | Nokia Streaming Box to make one of my dummy TVs smart                                                                                                                                              |
 | Yale Doorman                | Verisure           | Smart locks securing the house doors                                                                                                                                                                |
 | TP-Link Kasa Smart plugs    | TP-Link Kasa Smart | Few HS100 and HS110 smart plugs controlling specific devices such as garage dehumidifier and water circulation                                                                                      |
 | Roborock S6 Pure            | Xiaomi Mi          | Robot vacuum which can be controlled via HA, including cleaning of specific rooms. Live map is also available                                                                                       |
