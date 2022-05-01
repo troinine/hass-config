@@ -1,7 +1,5 @@
 # My Home Assistant configuration
 
-![Screenshot](/assets/images/screenshot.png)
-
 ## Introduction
 
 My home assistant journey started roughly 2018 but was not very active for the first two years. I was happy with the default lovelace UI for a while until I started to notice projects that took completely different approach on designing their dashboards.
@@ -28,7 +26,11 @@ The following custom cards are extensively used throughout the dashboards:
 - [weather-chart-card](https://github.com/Yevgenium/weather-chart-card)
 - [apexcharts-card](https://github.com/RomRider/apexcharts-card)
 - [xiaomi-vacuum-map-card](https://github.com/PiotrMachowski/lovelace-xiaomi-vacuum-map-card)
+- [swipe-card](https://github.com/bramkragten/swipe-card)
 
+In addition I have create the following cards for my own use as I couldn't find one that would suit my needs:
+
+- [light-slider-card](www/troinine) (will publish this in its own repo in the future)
 
 ## Designs
 
@@ -36,11 +38,33 @@ The following custom cards are extensively used throughout the dashboards:
 
 The main principle on mobile is to avoid putting too much content in to a single page and avoid scrolling if possible. This is achieved by splitting the content into multiple views. As the typical navigation bar in Lovelace is on the top and is not that customizable, I ended up creating a bottom navigation bar component with a button card template.
 
-There are currently four main views; home, lights, devices and notifications.
+There are currently four main views:
 
+| Home | Lights | Devices | Notifications  |
+|---|---|---|---|
+| ![home](/assets/images/screenshot-mobile-home.png) | ![lights](/assets/images/screenshot-mobile-lights.png) | ![devices](/assets/images/screenshot-mobile-devices.png) | ![notifications](/assets/images/screenshot-mobile-notifications.png) |
 
+Bottom navigation shows some badges that are related to that specific view. For example, the number of lights that are on and active notification count. Clicking notifications will show relevant content such as weather report or take the user to the vacuum popup.
+
+Most cards also open a popup to show details. Here are few examples.
+
+| Air quality | Lights | Vacuum | Remote |
+|---|---|---|---|
+| ![Air quality](/assets/images/screenshot-mobile-popup-air-quality.png) | ![Lights](/assets/images/screenshot-mobile-popup-lights.png) | ![Vacuum](/assets/images/screenshot-mobile-popup-vacuum.png) | ![Remote](/assets/images/screenshot-mobile-popup-remote.png) |
+
+Popups often implement a swipable multi-panel content using [swipe-card](https://github.com/bramkragten/swipe-card) rather than scrollable content.
 
 ### Tablet
+
+![Tablet](/assets/images/screenshot-tablet.png)
+
+Tablet design is mostly inspired by [@matt8707](https://github.com/matt8707/hass-config)'s tablet dashboard but mostly all button-card templates are built from scratch for my needs. The tablet is sitting on a table stand in the entrance of the house. Easy accessibility makes it very convenient for kids to adjust their lights for example.
+
+The tablet dashboards consists of a single view with many popups opening from titles and from cards. Here are few examples:
+
+| ![Air quality](/assets/images/screenshot-tablet-air-quality-popup.png) | ![Devices](/assets/images/screenshot-tablet-devices-popup.png) | ![Devices](/assets/images/screenshot-tablet-vacuum-popup.png) |
+|:---:|:---:|:---:|
+| ![Heating](/assets/images/screenshot-tablet-heating-popup.png) | ![Light](/assets/images/screenshot-tablet-light-popup.png) | ![Weather](/assets/images/screenshot-tablet-weather-popup.png) |
 
 ## Features
 
@@ -48,9 +72,8 @@ There are currently four main views; home, lights, devices and notifications.
 
 - Fancy sidebar clock with date, time, current weather condition and outdoor temperature
 - Conditional notifications such as doors open, precipitation, Home Assistant and Synology updates etc.
-- Notification badge in the home card (useful especially on mobile)
 
-Few notifications that can be visible on the sidebar
+Few notifications that can be visible on the sidebar and mobile notification view:
 
 - Heat pump alarm
 - Doors open
