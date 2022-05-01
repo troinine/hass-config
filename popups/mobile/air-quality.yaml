@@ -182,6 +182,7 @@ browser_mod:
                   - entity: sensor.mqtt_airthings_waveplus_sisu_radon_long_term
                     name: Radon, pitkäaikainen
                   - entity: switch.tplink_hs100_2
+                    secondary_info: last-changed
 
               - type: custom:apexcharts-card
                 card_mod:
