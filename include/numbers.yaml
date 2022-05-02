@@ -4,5 +4,5 @@ vacuum_total_area_cleaned_since_emptying:
   unit_of_measurement: m²
   mode: box
   min: 0
-  max: 120
+  max: 250
   icon: mdi:trash-can-outline

@@ -592,5 +592,5 @@
     icon: "{{ state_attr('sensor.roborock_s6_pure_dustbin_level', 'icon') }}"
     state: "{{ iif(is_state('sensor.roborock_s6_pure_dustbin_level', '100'), 'on', 'off') }}"
     attributes:
-      icon_color: var(--warning-color)
+      icon_color: var(--error-color)
       text_summary: Robotti-imurin pölysäiliö on täynnä
