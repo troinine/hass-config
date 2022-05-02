@@ -575,7 +575,7 @@
     icon: mdi:robot-vacuum
     state: |
       {% set last_cleaned_secs = as_timestamp(now()) - as_timestamp(states.sensor.roborock_s6_pure_last_clean_end.state) %}
-      {% if ((last_cleaned_secs / 60 / 60 / 24) > 3) and not states('binary_sensor.notification_vacuuming') %}
+      {% if ((last_cleaned_secs / 60 / 60 / 24) > 3) and not is_state('binary_sensor.notification_vacuuming', 'on') %}
         on
       {% else %}
         off
