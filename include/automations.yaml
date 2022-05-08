@@ -1169,9 +1169,9 @@
   mode: single
   trigger:
     - platform: state
-      entity_id: vacuum.roborock_s6_pure
-      from: returning
-      to: docked
+      entity_id: binary_sensor.notification_stiga_charger_full
+      from: 'off'
+      to: 'on'
   condition: []
   action:
     - service: notify.mobile_app_tero
