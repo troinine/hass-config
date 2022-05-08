@@ -18,10 +18,3 @@
     - type: processor_use
     - type: last_boot
   scan_interval: 300
-
-- platform: sql
-  db_url: !secret postgresql_url
-  queries:
-    - name: hass_database_size
-      query: SELECT pg_size_pretty (pg_database_size('home-assistant'));
-      column: pg_size_pretty
