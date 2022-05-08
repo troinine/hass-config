@@ -157,7 +157,8 @@ button_vacuum_dustbin_emptied:
   template:
     - button_vacuum
   variables:
-    is_active: true
+    is_active: |
+      [[[ return states['sensor.roborock_s6_pure_dustbin_level'].state !== 0 ]]]
   icon: mdi:trash-can-outline
   name: Pölysäiliö tyhjennetty
   tap_action:
