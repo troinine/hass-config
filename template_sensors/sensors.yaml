@@ -175,7 +175,7 @@
   - name: roborock_s6_pure_dustbin_level
     unique_id: roborock_s6_pure_dustbin_level
     state: |
-      {% set percentage = states('input_number.vacuum_total_area_cleaned_since_emptying') | float / 150 * 100 %}
+      {% set percentage = states('input_number.vacuum_total_area_cleaned_since_emptying') | float / 200 * 100 %}
       {% if (percentage > 100) %}
         {{ 100 }}
       {% else %}
