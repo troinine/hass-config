@@ -1,202 +1,141 @@
-- platform: mqtt
-  name: MQTT Nibe data
+---
+### These are MQTT sensors included through sensors/mqtt.yml
+
+- object_id: mqtt_nibe_data
   state_topic: /home/nibe/data
   expire_after: 3600
   value_template: '{{ value_json.logged_at }}'
   json_attributes_topic: /home/nibe/data
 
-- platform: mqtt
-  name: mqtt_nibe_heat_pump_state
+- object_id: mqtt_nibe_heat_pump_state
   state_topic: /home/nibe/data
   expire_after: 3600
   value_template: '{{ value_json.state.current }}'
 
-- platform: mqtt
-  name: nibe_supply_temp
+- object_id: nibe_supply_temp
   state_topic: /home/nibe/data
   expire_after: 3600
   unit_of_measurement: "°C"
   device_class: temperature
   value_template: '{{ value_json.supply.temp }}'
 
-- platform: mqtt
-  name: nibe_supply_return_temp
+- object_id: nibe_supply_return_temp
   state_topic: /home/nibe/data
   expire_after: 3600
   unit_of_measurement: "°C"
   device_class: temperature
   value_template: '{{ value_json.supply.return_temp }}'
 
-- platform: mqtt
-  name: nibe_calculated_supply_temp
+- object_id: nibe_calculated_supply_temp
   state_topic: /home/nibe/data
   expire_after: 3600
   unit_of_measurement: "°C"
   device_class: temperature
   value_template: '{{ value_json.supply.calculated_temp }}'
 
-- platform: mqtt
-  name: nibe_brine_in_temp
+- object_id: nibe_brine_in_temp
   state_topic: /home/nibe/data
   expire_after: 3600
   unit_of_measurement: "°C"
   device_class: temperature
   value_template: '{{ value_json.brine.in_temp }}'
 
-- platform: mqtt
-  name: nibe_brine_out_temp
+- object_id: nibe_brine_out_temp
   state_topic: /home/nibe/data
   expire_after: 3600
   unit_of_measurement: "°C"
   device_class: temperature
   value_template: '{{ value_json.brine.out_temp }}'
 
-- platform: mqtt
-  name: nibe_outdoor_temp
+- object_id: nibe_outdoor_temp
   state_topic: /home/nibe/data
   expire_after: 3600
   unit_of_measurement: "°C"
   device_class: temperature
   value_template: '{{ value_json.outdoor.temp }}'
 
-- platform: mqtt
-  name: nibe_average_outdoor_temp
+- object_id: nibe_average_outdoor_temp
   state_topic: /home/nibe/data
   expire_after: 3600
   unit_of_measurement: "°C"
   device_class: temperature
   value_template: '{{ value_json.outdoor.average_temp }}'
 
-- platform: mqtt
-  name: nibe_hot_water_top_temp
+- object_id: nibe_hot_water_top_temp
   state_topic: /home/nibe/data
   expire_after: 3600
   unit_of_measurement: "°C"
   device_class: temperature
   value_template: '{{ value_json.hot_water.top_temp }}'
 
-- platform: mqtt
-  name: nibe_hot_water_fill_temp
+- object_id: nibe_hot_water_fill_temp
   state_topic: /home/nibe/data
   expire_after: 3600
   unit_of_measurement: "°C"
   device_class: temperature
   value_template: '{{ value_json.hot_water.fill_temp }}'
 
-- platform: mqtt
-  name: nibe_degree_minutes
+- object_id: nibe_degree_minutes
   state_topic: /home/nibe/data
   expire_after: 3600
   unit_of_measurement: "minuuttia"
   value_template: '{{ value_json.state.degree_mins }}'
   icon: mdi:clock
 
-- platform: mqtt
-  name: nibe_alarm_number
+- object_id: nibe_alarm_number
   state_topic: /home/nibe/data
   expire_after: 3600
   value_template: '{{ value_json.state.alarm_number | int }}'
   icon: mdi:bell
 
-- platform: mqtt
-  name: nibe_data_age
+- object_id: nibe_data_age
   state_topic: /home/nibe/data
   expire_after: 3600
   value_template: '{{ as_timestamp(value_json.logged_at) | timestamp_custom("%H:%M") }}'
   icon: mdi:clock
 
-- platform: mqtt
-  name: nibe_supply_pump_speed
+- object_id: nibe_supply_pump_speed
   state_topic: /home/nibe/data
   expire_after: 3600
   unit_of_measurement: "%"
   value_template: '{{ value_json.supply.pump_speed }}'
   icon: mdi:pump
 
-- platform: mqtt
-  name: nibe_brine_pump_speed
+- object_id: nibe_brine_pump_speed
   state_topic: /home/nibe/data
   expire_after: 3600
   unit_of_measurement: "%"
   value_template: '{{ value_json.brine.pump_speed }}'
   icon: mdi:pump
 
-- platform: template
-  sensors:
-    nibe_heat_pump_state:
-      friendly_name: "Tila"
-      value_template: >-
-        {% set mapper =  {
-            'IDLE' : 'Joutilas',
-            'HEATING' : 'Lämmitys',
-            'HOT_WATER' : 'Käyttövesi',
-            'HOT_WATER_COMPRESSOR_OFF' : 'Käyttövesi, kompressori pois',
-            'HOT_WATER_WITH_ELECTRICITY' : 'Käyttövesi sähköllä',
-            'UNKNOWN': 'Tuntematon' } %}
-        {% set state = states('sensor.mqtt_nibe_heat_pump_state') %}
-        {{ mapper[state] if state in mapper else 'Unknown' }}
-      icon_template: >-
-        {% set mapper =  {
-            'IDLE' : 'mdi:sleep',
-            'HEATING' : 'mdi:fire',
-            'HOT_WATER' : 'mdi:water',
-            'HOT_WATER_COMPRESSOR_OFF' : 'mdi:water',
-            'HOT_WATER_WITH_ELECTRICITY' : 'hass:flash',
-            'UNKNOWN': 'mdi:help' } %}
-        {% set state = states('sensor.mqtt_nibe_heat_pump_state') %}
-        {{ mapper[state] if state in mapper else 'mdi:help' }}
-    nibe_supply_delta_temp:
-      friendly_name: "Lämmöntuotto erotus, lämmitys"
-      unit_of_measurement: "°C"
-      device_class: temperature
-      value_template: "{{ ((states('sensor.nibe_supply_temp')|float) - (states('sensor.nibe_supply_return_temp')|float))|round(1) }}"
-      availability_template: "{{ is_state('sensor.nibe_heat_pump_state', 'Lämmitys') }}"
-    nibe_hot_water_delta_temp:
-      friendly_name: "Lämmöntuotto erotus, käyttövesi"
-      unit_of_measurement: "°C"
-      device_class: temperature
-      value_template: "{{ ((states('sensor.nibe_supply_temp')|float) - (states('sensor.nibe_supply_return_temp')|float))|round(1) }}"
-      availability_template: "{{ is_state('sensor.nibe_heat_pump_state', 'Käyttövesi') }}"
-    nibe_brine_delta_temp:
-      friendly_name: "Lämmönkeruu erotus, lämmitys"
-      unit_of_measurement: "°C"
-      device_class: temperature
-      value_template: "{{ ((states('sensor.nibe_brine_in_temp')|float) - (states('sensor.nibe_brine_out_temp')|float))|round(1) }}"
-      availability_template: "{{ is_state('sensor.nibe_heat_pump_state', 'Lämmitys') }}"
-
-- platform: mqtt
-  name: MQTT Nibe stats daily
+- object_id: mqtt_nibe_stats_daily
   state_topic: /home/nibe/data/daily
   expire_after: 90000
   value_template: '{{ value_json.updated_at }}'
   json_attributes_topic: /home/nibe/data/daily
 
-- platform: mqtt
-  name: nibe_daily_num_starts
+- object_id: nibe_daily_num_starts
   state_topic: /home/nibe/data/daily
   expire_after: 90000
   unit_of_measurement: "kertaa"
   icon: mdi:play
   value_template: '{{ value_json.compressor.starts }}'
 
-- platform: mqtt
-  name: nibe_daily_brine_min_input_temp
+- object_id: nibe_daily_brine_min_input_temp
   state_topic: /home/nibe/data/daily
   expire_after: 90000
   unit_of_measurement: "°C"
   device_class: temperature
   value_template: "{{ value_json.brine.min_in_temp }}"
 
-- platform: mqtt
-  name: nibe_daily_brine_min_output_temp
+- object_id: nibe_daily_brine_min_output_temp
   state_topic: /home/nibe/data/daily
   expire_after: 90000
   unit_of_measurement: "°C"
   device_class: temperature
   value_template: "{{ value_json.brine.min_out_temp }}"
 
-- platform: mqtt
-  name: nibe_average_heating_cycle
+- object_id: nibe_average_heating_cycle
   state_topic: /home/nibe/data/daily
   expire_after: 90000
   unit_of_measurement: "minuuttia"
@@ -209,8 +148,7 @@
       {{ (value / 1000 / 60) | round | int }}
     {% endif %}
 
-- platform: mqtt
-  name: nibe_average_resting_cycle
+- object_id: nibe_average_resting_cycle
   state_topic: /home/nibe/data/daily
   expire_after: 90000
   unit_of_measurement: "minuuttia"

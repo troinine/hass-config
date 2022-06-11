@@ -1,5 +1,7 @@
-- platform: mqtt
-  name: "Päivittäinen sähkönkulutus"
+---
+### These are MQTT sensors included through sensors/mqtt.yml
+
+- object_id: mqtt_electricity_consumption_daily
   unique_id: mqtt_electricity_consumption_daily
   state_topic: "/home/electricity/daily"
   unit_of_measurement: "kWh"
@@ -7,8 +9,7 @@
   expire_after: 86400
   value_template: '{{ value_json.value| float | round(0) }}'
 
-- platform: mqtt
-  name: "Kuukausittainen sähkönkulutus"
+- object_id: mqtt_electricity_consumption_monthly
   unique_id: mqtt_electricity_consumption_monthly
   state_topic: "/home/electricity/monthly"
   unit_of_measurement: "kWh"
@@ -16,8 +17,7 @@
   expire_after: 86400
   value_template: '{{ value_json.value | float | round(0) }}'
 
-- platform: mqtt
-  name: "Kuukausittainen sähkönkulutus, ennuste"
+- object_id: mqtt_electricity_consumption_monthly_prediction
   unique_id: mqtt_electricity_consumption_monthly_prediction
   state_topic: "/home/electricity/monthly"
   unit_of_measurement: "kWh"
@@ -25,8 +25,7 @@
   expire_after: 86400
   value_template: '{{ value_json.prediction | float | round(0) }}'
 
-- platform: mqtt
-  name: "Päivän energiankulutustiedot päivitetty"
+- object_id: mqtt_electricity_consumption_daily_updated
   unique_id: mqtt_electricity_consumption_daily_updated
   state_topic: "/home/electricity/daily"
   expire_after: 86400

@@ -1,0 +1,17 @@
+sensor:
+  !include_dir_merge_list mqtt/
+
+binary_sensor:
+  - object_id: mqtt_garage_door
+    state_topic: /home/ruuvi/garage-door
+    device_class: garage_door
+    expire_after: 300
+    payload_on: 'on'
+    payload_off: 'off'
+    value_template: >
+      {% set accY = value_json.accelerationY %}
+      {% if accY > 0.9 and accY < 1.1 %}
+        off
+      {% else %}
+        on
+      {% endif %}

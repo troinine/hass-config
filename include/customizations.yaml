@@ -39,6 +39,14 @@ sensor.nibe_average_heating_cycle:
   friendly_name: Keskimääräinen käyntiaika
 sensor.nibe_average_resting_cycle:
   friendly_name: Keskimääräinen lepoaika
+sensor.nibe_supply_delta_temp:
+  friendly_name: "Lämmöntuotto erotus, lämmitys"
+sensor.nibe_heat_pump_state:
+  friendly_name: "Lämpöpumpun tila"
+sensor.nibe_hot_water_delta_temp:
+  friendly_name: "Lämmöntuotto erotus, käyttövesi"
+sensor.nibe_brine_delta_temp:
+  friendly_name: "Lämmönkeruu erotus, lämmitys"
 
 # Airthings
 
@@ -67,6 +75,16 @@ sensor.mqtt_airthings_waveplus_living_room_radon_long_term:
 sensor.mqtt_airthings_waveplus_living_room_voc:
   friendly_name: Olohuoneen VOC
 
+# Energy
+sensor.mqtt_electricity_consumption_daily:
+  friendly_name: "Päivittäinen sähkönkulutus"
+sensor.mqtt_electricity_consumption_monthly:
+  friendly_name: "Kuukausittainen sähkönkulutus"
+sensor.mqtt_electricity_consumption_monthly_prediction:
+  friendly_name: "Kuukausittainen sähkönkulutus, ennuste"
+sensor.mqtt_electricity_consumption_daily_updated:
+  friendly_name: "Päivän energiankulutustiedot päivitetty"
+
 # Ruuvi
 
 sensor.mqtt_sauna_temperature:
@@ -84,6 +102,8 @@ sensor.mqtt_otso_pressure:
 
 sensor.todays_precipitation:
   friendly_name: Päivän sademäärä
+sensor.mqtt_garage_door:
+  friendly_name: Autotallin ovi
 
 # Lights
 

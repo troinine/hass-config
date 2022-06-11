@@ -1,5 +1,7 @@
-- platform: mqtt
-  name: "Saunan lämpötila"
+---
+### These are MQTT sensors included through sensors/mqtt.yml
+
+- object_id: mqtt_sauna_temperature
   unique_id: mqtt_sauna_temperature
   state_topic: "/home/ruuvi/sauna"
   unit_of_measurement: "°C"
@@ -7,8 +9,7 @@
   expire_after: 900
   value_template: '{{ value_json.temperature | float | round(1) }}'
 
-- platform: mqtt
-  name: "Saunan kosteus"
+- object_id: mqtt_sauna_kosteus
   unique_id: mqtt_sauna_kosteus
   state_topic: "/home/ruuvi/sauna"
   unit_of_measurement: "%"
@@ -16,8 +17,7 @@
   expire_after: 900
   value_template: '{{ value_json.humidity | float | round(1) }}'
 
-- platform: mqtt
-  name: "Otson huoneen lämpötila"
+- object_id: mqtt_otso_temperature
   unique_id: mqtt_otso_temperature
   state_topic: "/home/ruuvi/otso"
   unit_of_measurement: "°C"
@@ -25,8 +25,7 @@
   expire_after: 900
   value_template: '{{ value_json.temperature | float | round(1) }}'
 
-- platform: mqtt
-  name: "Otson huoneen kosteus"
+- object_id: mqtt_otso_humidity
   unique_id: mqtt_otso_humidity
   state_topic: "/home/ruuvi/otso"
   unit_of_measurement: "%"
@@ -34,8 +33,7 @@
   expire_after: 900
   value_template: '{{ value_json.humidity | float | round(0) }}'
 
-- platform: mqtt
-  name: "Otson huoneen paine"
+- object_id: mqtt_otso_pressure
   unique_id: mqtt_otso_pressure
   state_topic: "/home/ruuvi/otso"
   unit_of_measurement: "hPa"

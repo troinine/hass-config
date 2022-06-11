@@ -85,10 +85,6 @@ lovelace:
       show_in_sidebar: true
       filename: ui/tablet.yaml
 
-netatmo:
-  client_id: !secret netatmo_client_id
-  client_secret: !secret netatmo_client_secret
-
 weather:
   - platform: template
     name: "Sää"
@@ -131,13 +127,13 @@ input_number:
   !include include/numbers.yaml
 
 sensor:
-  !include_dir_merge_list sensors/
+  !include_dir_merge_list sensors/generic
 
 binary_sensor:
-  !include template_sensors/binary-sensors.yaml
+  !include sensors/binary-sensors.yaml
 
 template:
-  !include template_sensors/sensors.yaml
+  !include sensors/template.yaml
 
 automation:
   !include include/automations.yaml
@@ -162,3 +158,6 @@ rest_command:
 
 camera:
   !include include/cameras.yaml
+
+mqtt:
+  !include sensors/mqtt.yaml

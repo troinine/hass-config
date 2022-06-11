@@ -201,6 +201,50 @@
     state: |
       {{ expand('binary_sensor.group_devices') | selectattr('state', 'equalto', 'on') | list | length }}
 
+  - name: nibe_heat_pump_state
+    unique_id: nibe_heat_pump_state
+    state: >-
+      {% set mapper =  {
+          'IDLE' : 'Joutilas',
+          'HEATING' : 'Lämmitys',
+          'HOT_WATER' : 'Käyttövesi',
+          'HOT_WATER_COMPRESSOR_OFF' : 'Käyttövesi, kompressori pois',
+          'HOT_WATER_WITH_ELECTRICITY' : 'Käyttövesi sähköllä',
+          'UNKNOWN': 'Tuntematon' } %}
+      {% set state = states('sensor.mqtt_nibe_heat_pump_state') %}
+      {{ mapper[state] if state in mapper else 'Unknown' }}
+    icon: >-
+      {% set mapper =  {
+          'IDLE' : 'mdi:sleep',
+          'HEATING' : 'mdi:fire',
+          'HOT_WATER' : 'mdi:water',
+          'HOT_WATER_COMPRESSOR_OFF' : 'mdi:water',
+          'HOT_WATER_WITH_ELECTRICITY' : 'hass:flash',
+          'UNKNOWN': 'mdi:help' } %}
+      {% set state = states('sensor.mqtt_nibe_heat_pump_state') %}
+      {{ mapper[state] if state in mapper else 'mdi:help' }}
+
+  - name: nibe_supply_delta_temp
+    unique_id: nibe_supply_delta_temp
+    unit_of_measurement: "°C"
+    device_class: temperature
+    state: "{{ ((states('sensor.nibe_supply_temp')|float) - (states('sensor.nibe_supply_return_temp')|float))|round(1) }}"
+    availability: "{{ is_state('sensor.nibe_heat_pump_state', 'Lämmitys') }}"
+
+  - name: nibe_hot_water_delta_temp
+    unique_id: nibe_hot_water_delta_temp
+    unit_of_measurement: "°C"
+    device_class: temperature
+    state: "{{ ((states('sensor.nibe_supply_temp')|float) - (states('sensor.nibe_supply_return_temp')|float))|round(1) }}"
+    availability: "{{ is_state('sensor.nibe_heat_pump_state', 'Käyttövesi') }}"
+
+  - name: nibe_brine_delta_temp
+    unique_id: nibe_brine_delta_temp
+    unit_of_measurement: "°C"
+    device_class: temperature
+    state: "{{ ((states('sensor.nibe_brine_in_temp')|float) - (states('sensor.nibe_brine_out_temp')|float))|round(1) }}"
+    availability: "{{ is_state('sensor.nibe_heat_pump_state', 'Lämmitys') }}"
+
 - select:
   - name: roborock_s6_pure_speed
     state: |
@@ -589,7 +633,7 @@
 
   - name: notification_vacuum_dustbin_full
     unique_id: notification_vacuum_dustbin_full
-    icon: "{{ state_attr('sensor.roborock_s6_pure_dustbin_level', 'icon') }}"
+    icon: mdi:delete-empty
     state: "{{ iif(is_state('sensor.roborock_s6_pure_dustbin_level', '100'), 'on', 'off') }}"
     attributes:
       icon_color: var(--error-color)
