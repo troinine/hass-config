@@ -76,8 +76,7 @@ browser_mod:
           - entity: input_boolean.vacuum_clean_otsos_room
           - entity: input_boolean.vacuum_clean_sisus_room
           - entity: input_boolean.vacuum_clean_bedroom
-          - entity: sensor.roborock_s6_pure_current_clean_area
-            name: Viimeksi siivottu ala
+          - entity: input_boolean.vacuum_clean_wc
           - entity: sensor.roborock_s6_pure_area_cleaned_since_dustbin_emptying
             name: Tyhjennyksen jälkeen
 

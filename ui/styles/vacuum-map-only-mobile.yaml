@@ -18,6 +18,12 @@ style: |
     display: none;
   }
 
+  #map-zoomer-content {
+    --x: -90px;
+    --y: 0px;
+    --scale: 1.3;
+  }
+
   #map-zoomer-overlay > div:nth-child(1) {
     display: none;
   }

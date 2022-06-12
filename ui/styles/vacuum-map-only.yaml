@@ -20,9 +20,9 @@ style: |
   }
 
   #map-zoomer-content {
-    --x: 53px;
+    --x: -50px;
     --y: 8px;
-    --scale: 0.67;
+    --scale: 1.15;
   }
 
   #map-zoomer-overlay > div:nth-child(1) {

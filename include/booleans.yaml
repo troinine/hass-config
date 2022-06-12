@@ -36,3 +36,7 @@ vacuum_clean_living_room:
 vacuum_clean_bedroom:
   name: Makuuhuone
   icon: mdi:bed-double-outline
+
+vacuum_clean_wc:
+  name: WC
+  icon: mdi:toilet
