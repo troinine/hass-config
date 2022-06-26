@@ -638,3 +638,12 @@
     attributes:
       icon_color: var(--error-color)
       text_summary: Robotti-imurin pölysäiliö on täynnä
+
+  - name: notification_raining
+    unique_id: notification_raining
+    icon: mdi:weather-rainy
+    state: "{{ iif(states('sensor.netatmo_koti_olohuone_sade_rain') | float > 0, 'on', 'off') }}"
+    attributes:
+      icon_color: var(--color-blue)
+      text_summary: "Ulkona sataa, sademäärä nyt {{ states('sensor.netatmo_koti_olohuone_sade_rain') | float | round(1) }} mm"
+      text_description: "Koko päivän sademäärä {{ states('sensor.netatmo_koti_olohuone_sade_rain_today') | float | round(1) }} mm"

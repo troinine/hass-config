@@ -226,6 +226,11 @@ sensor_temperature_outdoor:
           color: "green"
         - value: 28
           color: "#FF0000"
+    - entity: sensor.netatmo_koti_olohuone_sade_rain
+      type: column
+      group_by:
+        func: max
+        duration: 1h
   apex_config:
     chart:
       height: 200px

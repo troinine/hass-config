@@ -65,6 +65,7 @@ notification:
       - border-radius: 0
       - justify-self: start
       - width: 1.5rem
+      - overflow: visible
     state:
       - padding: 0 0 0 0
       - font-weight: 300
