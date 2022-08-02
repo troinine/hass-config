@@ -157,7 +157,7 @@ welcome_title:
         show_name: false
         show_entity_picture: true
         tap_action:
-          !include ../../popups/common/weather-forecast.yaml
+          !include ../../popups/mobile/weather-forecast.yaml
         entity: "[[[ return variables.entity_weather ]]]"
         entity_picture: "[[[ return `/local/img/weather/${states[variables.entity_weather].state}.svg` ]]]"
         styles:

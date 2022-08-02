@@ -226,11 +226,6 @@ sensor_temperature_outdoor:
           color: "green"
         - value: 28
           color: "#FF0000"
-    - entity: sensor.netatmo_koti_olohuone_sade_rain
-      type: column
-      group_by:
-        func: max
-        duration: 1h
   apex_config:
     chart:
       height: 200px
@@ -393,3 +388,19 @@ sensor_garage_temperature_humidity:
     - entity: sensor.netatmo_koti_olohuone_autotalli_humidity
       name: Kosteus
       color: dodgerblue
+
+sensor_rain:
+  config_templates:
+    - base_column
+  graph_span: 30d
+  header:
+    title: Sademäärä
+    show: true
+    show_states: true
+  series:
+      - entity: sensor.netatmo_koti_olohuone_sade_rain
+        type: column
+        color: dodgerblue
+        group_by:
+          func: max
+          duration: 1d
