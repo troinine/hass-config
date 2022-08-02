@@ -120,7 +120,7 @@ cards:
             template:
               - media_player
               - compact_card
-            entity: media_player.android_tv_office
+            entity: media_player.lg_65_c1
             name: Työhuone TV
             variables:
               state_colors:
