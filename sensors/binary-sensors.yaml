@@ -28,6 +28,6 @@
   entities:
     - binary_sensor.ps5_status
     - binary_sensor.nintendo_switch_status
-    - binary_sensor.android_tv_office
+    - binary_sensor.lg_65_c1
     - binary_sensor.samsung_q90_series_65
     - binary_sensor.notification_vacuuming
