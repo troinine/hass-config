@@ -127,3 +127,5 @@ light.group_kids_rooms:
   friendly_name: Lasten valot
 light.group_all:
   friendly_name: Kaikki valot
+light.group_outdoor:
+  friendly_name: Ulkovalot

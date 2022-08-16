@@ -143,7 +143,7 @@ browser_mod:
         name: Alueet
 
       - type: grid
-        columns: 3
+        columns: 4
         square: false
         cards:
           - type: custom:button-card
@@ -160,3 +160,8 @@ browser_mod:
             template: compact_light
             entity: light.group_kids_rooms
             name: Lapset
+
+          - type: custom:button-card
+            template: compact_light
+            entity: light.group_outdoor
+            name: Ulkovalot

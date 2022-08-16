@@ -928,6 +928,7 @@
         group: Ilmanlaatu
         tag: radon
   mode: single
+
 - id: '1629835804523'
   alias: Hälytä kun Radon turvallinen Sisun huoneessa
   description: ''
@@ -946,26 +947,7 @@
         group: Ilmanlaatu
         tag: radon
   mode: single
-- id: '1639421321246'
-  alias: Sytytä ulkovalot auringon laskiessa
-  description: ''
-  trigger:
-  - platform: sun
-    event: sunset
-    offset: '0'
-  condition: []
-  action: []
-  mode: single
-- id: '1639421564882'
-  alias: Sammuta ulkovalot
-  description: ''
-  trigger:
-  - platform: state
-    entity_id: input_select.home_state
-    to: Nukkumassa
-  condition: []
-  action: []
-  mode: single
+
 - id: '1642711968725'
   alias: Herätä tabletti
   description: ''
@@ -1244,3 +1226,37 @@
         - 18
         - 17
         - 19
+
+- id: '1660327278908'
+  mode: single
+  alias: Sytytä ulkovalot
+  description: ''
+  trigger:
+  - platform: sun
+    event: sunset
+    offset: 0
+  condition: []
+  action:
+  - service: light.turn_on
+    data:
+      transition: 1800
+      kelvin: 2700
+      brightness_pct: 60
+    target:
+      entity_id: light.group_outdoor
+
+- id: '1660327410460'
+  mode: single
+  alias: Sammuta ulkovalot
+  description: ''
+  trigger:
+  - platform: sun
+    event: sunrise
+    offset: '-00:30:00'
+  condition: []
+  action:
+  - service: light.turn_off
+    data:
+      transition: 1800
+    target:
+      entity_id: light.group_outdoor

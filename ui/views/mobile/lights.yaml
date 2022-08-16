@@ -161,8 +161,8 @@ cards:
 
           - type: 'custom:button-card'
             template: compact_light
-            entity: switch.tplink_hs100_3
-            name: Kodinhoito
+            entity: light.group_outdoor
+            name: Ulkovalot
 
   - type: custom:button-card
     template: mobile_navbar

@@ -3,7 +3,6 @@
   entities:
     - light.tyohuone_nauha
     - light.tyohuone_poytalamppu
-    - light.tyohuone_katto
 
 - platform: group
   name: group_kitchen
@@ -62,6 +61,12 @@
     - light.olohuone_oikea_ala
     - light.olohuone_vasen_yla
     - light.olohuone_vasen_ala
+
+- platform: group
+  name: group_outdoor
+  entities:
+    - light.front_yard_bollard_1
+    - light.front_yard_bollard_2
 
 - platform: group
   name: group_all_flat
