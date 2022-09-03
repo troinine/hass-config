@@ -398,7 +398,7 @@ sensor_rain:
     show: true
     show_states: true
   series:
-      - entity: sensor.netatmo_koti_olohuone_sade_rain
+      - entity: sensor.netatmo_koti_olohuone_sade_rain_today
         type: column
         color: dodgerblue
         group_by:
