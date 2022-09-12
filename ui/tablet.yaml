@@ -331,7 +331,7 @@ views:
                 entity: light.group_otsos_room
                 name: Otson huone
                 variables:
-                  popup_show_colorwheel: false
+                  popup_show_colorwheel: true
                   popup_show_predefined_colors: true
 
               - type: 'custom:button-card'
@@ -339,7 +339,7 @@ views:
                 entity: light.group_sisus_room
                 name: Sisun huone
                 variables:
-                  popup_show_colorwheel: false
+                  popup_show_colorwheel: true
                   popup_show_predefined_colors: true
 
               - type: 'custom:button-card'

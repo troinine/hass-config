@@ -159,40 +159,6 @@ browser_mod:
                       color_rgb: 255, 255, 0
                       brightness: 100
 
-              - type: horizontal-stack
-                cards:
-                  - type: custom:button-card
-                    template: scene_icon_rgb
-                    entity: "[[[ return entity.entity_id ]]]"
-                    name: Pink
-                    variables:
-                      color_rgb: 255, 105, 180
-                      brightness: 100
-
-                  - type: custom:button-card
-                    template: scene_icon_rgb
-                    entity: "[[[ return entity.entity_id ]]]"
-                    name: Orange
-                    variables:
-                      color_rgb: 255, 140, 0
-                      brightness: 100
-
-                  - type: custom:button-card
-                    template: scene_icon_rgb
-                    entity: "[[[ return entity.entity_id ]]]"
-                    name: Turquoise
-                    variables:
-                      color_rgb: 61, 156, 255
-                      brightness: 100
-
-                  - type: custom:button-card
-                    template: scene_icon_rgb
-                    entity: "[[[ return entity.entity_id ]]]"
-                    name: Light green
-                    variables:
-                      color_rgb: 134, 255, 164
-                      brightness: 100
-
       - type: custom:button-card
         template: conditional
         variables:
