@@ -1205,6 +1205,9 @@
     - condition: state
       entity_id: binary_sensor.notification_time_to_vacuum
       state: 'on'
+    - condition: state
+      entity_id: binary_sensor.notification_vacuum_dustbin_full
+      state: 'off'
     - condition: time
       after: 09:00:00
       before: '19:00:00'
