@@ -3,6 +3,7 @@ sensor:
 
 binary_sensor:
   - object_id: mqtt_garage_door
+    unique_id: mqtt_garage_door
     state_topic: /home/ruuvi/garage-door
     device_class: garage_door
     expire_after: 300
