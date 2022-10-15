@@ -218,3 +218,21 @@
     type: 'custom:button-card'
     template: auto_notification
     entity: binary_sensor.notification_raining
+
+- type: conditional
+  conditions:
+    - entity: binary_sensor.notification_washing_machine
+      state: 'on'
+  card:
+    type: 'custom:button-card'
+    template: auto_notification
+    entity: binary_sensor.notification_washing_machine
+
+- type: conditional
+  conditions:
+    - entity: binary_sensor.notification_tumble_dryer
+      state: 'on'
+  card:
+    type: 'custom:button-card'
+    template: auto_notification
+    entity: binary_sensor.notification_tumble_dryer

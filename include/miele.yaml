@@ -1,0 +1,4 @@
+---
+client_id: !secret miele_client_id
+client_secret: !secret miele_client_secret
+lang: fi
