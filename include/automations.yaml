@@ -1263,3 +1263,53 @@
       transition: 1800
     target:
       entity_id: light.group_outdoor
+
+- id: '1665849632672'
+  mode: single
+  alias: Pesukone valmis
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - sensor.washing_machine_status
+    to: Finished
+  condition: []
+  action:
+  - service: notify.mobile_app_pia
+    data:
+      message: Muista sulkea vesihana!
+      title: Pesukone on valmis
+      data:
+        group: Pyykinhuolto
+        tag: washing_machine_finished
+  - service: notify.mobile_app_tero
+    data:
+      message: Muista sulkea vesihana!
+      title: Pesukone on valmis
+      data:
+        group: Pyykinhuolto
+        tag: washing_machine_finished
+
+- id: '1665849632673'
+  mode: single
+  alias: Kuivausrumpu valmis
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - sensor.tumble_dryer_status
+    to: Finished
+  condition: []
+  action:
+  - service: notify.mobile_app_pia
+    data:
+      message: Kuivausrumpu on valmis
+      data:
+        group: Pyykinhuolto
+        tag: tumble_dryer_finished
+  - service: notify.mobile_app_tero
+    data:
+      message: Kuivausrumpu on valmis
+      data:
+        group: Pyykinhuolto
+        tag: tumble_dryer_finished
