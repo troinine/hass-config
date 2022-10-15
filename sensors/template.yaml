@@ -373,11 +373,11 @@
   - name: "notification_synology_update_available"
     unique_id: "notification_synology_update_available"
     icon: "mdi:update"
-    state: "{{ states('binary_sensor.synology_update_available') }}"
+    state: "{{ states('update.synology_dsm_update') }}"
     attributes:
       icon_color: 'green'
       text_summary: "Synology päivitys saatavilla"
-      text_description: "Uusin version on {{ state_attr('binary_sensor.synology_update_available', 'latest_available_version') }}"
+      text_description: "Uusin version on {{ state_attr('update.synology_dsm_update', 'latest_version') }}"
 
   - name: "notification_hass_update_available"
     unique_id: "notification_hass_update_available"

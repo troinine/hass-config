@@ -125,7 +125,7 @@ browser_mod:
                 name: Muistinkäyttö
               - entity: binary_sensor.synology_security_status
                 name: Turvataso
-              - entity: binary_sensor.synology_update_available
+              - entity: update.synology_dsm_update
                 name: Päivitys
               - entity: sensor.synology_status_3
                 name: Levy 1
