@@ -89,6 +89,8 @@ Few notifications that can be visible on the sidebar and mobile notification vie
 - Vacuuming state
 - Time to vacuum
 - Vacuum dustbin is full
+- Washing machine is on
+- Tumble dryer is on
 
 ### Custom button cards
 
@@ -128,6 +130,7 @@ In addition to basic lights on / off based on movement. There are few automation
 - Notify mobile app if the ground source heat pump reports an alarm
 - Notify mobile app when Radon levels are increasing
 - Notify mobile app when vacuum is started and completed
+- Notify mobile app when laundry is done
 
 ## Hardware and software
 
@@ -148,6 +151,7 @@ The following table contains some of the hardware and software I use with Home A
 | TP-Link Kasa Smart plugs    | TP-Link Kasa Smart | Few HS100 and HS110 smart plugs controlling specific devices such as garage dehumidifier and water circulation                                                                                      |
 | Roborock S6 Pure            | Xiaomi Mi          | Robot vacuum which can be controlled via HA, including cleaning of specific rooms. Live map is also available                                                                                       |
 | Logitech Harmony Remote     | Logitech Harmony Hub | Logitech Harmony remote for controlling living room media devices |
+| Miele Washing Machine and Tumble Dryer | [custom](https://github.com/HomeAssistant-Mods/home-assistant-miele) | Home Assistant support for Miele@home connected appliances |
 
 In addition to hardware I use a collection of OSS to feed data to Home Assistant:
 
