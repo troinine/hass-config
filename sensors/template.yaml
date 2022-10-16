@@ -675,8 +675,8 @@
           {% set time = states('sensor.washing_machine_remaining_time').split(':') %}
           {% set hours = time[0] | int %}
           {% set minutes = time[1] | int %}
-          {% set hoursStr = hours ~ ' tuntia' if hours != 1 else 'yksi tunti' %}
-          {% set minutesStr = minutes ~ ' minuuttia' if minutes != 1 else 'yksi minuutti' %}
+          {% set hoursStr = hours ~ ' tuntia' if hours != 1 else '1 tunti' %}
+          {% set minutesStr = minutes ~ ' minuuttia' if minutes != 1 else '1 minuutti' %}
         Ohjelmaa on jäljellä{{ ' ' ~ hoursStr if hours > 0 else ''}} {{ minutesStr if minutes > 0 else ''}}.
         {% else %}
         Kulutettu sähkö {{ states('sensor.washing_machine_energy') }} W ja vesimäärä {{ states('sensor.washing_machine_water_consumption') }} l.
