@@ -164,3 +164,6 @@ mqtt:
 
 miele:
   !include include/miele.yaml
+
+notify:
+  !include include/notifications.yaml

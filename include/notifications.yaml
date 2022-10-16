@@ -1,0 +1,6 @@
+---
+- name: parents
+  platform: group
+  services:
+    - service: mobile_app_tero
+    - service: mobile_app_pia

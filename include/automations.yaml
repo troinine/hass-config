@@ -286,8 +286,10 @@
         ttl: 0
         priority: high
   mode: single
+
 - id: '1607773398816'
   alias: Autotallin ovi edelleen auki
+  mode: single
   description: ''
   trigger:
   - platform: state
@@ -296,7 +298,7 @@
     for: 00:10:00
   condition: []
   action:
-  - service: notify.mobile_app_tero
+  - service: notify.parents
     data:
       title: Autotallin ovi edelleen auki
       message: Autotallin ovi on ollut auki 10 minuuttia. Lämpötila {{ states.sensor.netatmo_koti_olohuone_autotalli_temperature.state
@@ -306,17 +308,7 @@
         tag: door_still_open
         ttl: 0
         priority: high
-  - service: notify.mobile_app_pia
-    data:
-      title: Autotallin ovi edelleen auki
-      message: Autotallin ovi on ollut auki 10 minuuttia. Lämpötila {{ states.sensor.netatmo_koti_olohuone_autotalli_temperature.state
-        }} °C
-      data:
-        group: Autotalli
-        tag: door_still_open
-        ttl: 0
-        priority: high
-  mode: single
+
 - id: '1607795690760'
   alias: Aseta Poissa tila
   description: 'Asettaa Poissa tilan kun käyttäjät ovat poissa kotoa'
@@ -435,9 +427,11 @@
       color_temp: 346
       transition: 900
   mode: single
+
 - id: '1608235357887'
   alias: Sauna lämmin
   description: ''
+  mode: single
   trigger:
   - platform: numeric_state
     entity_id: sensor.mqtt_sauna_temperature
@@ -451,7 +445,7 @@
     data:
       option: Lämmin
     entity_id: input_select.sauna_state
-  - service: notify.mobile_app_tero
+  - service: notify.parents
     data:
       title: Sauna on lämmin
       message: Saunan lämpötila {{ states.sensor.mqtt_sauna_temperature.state | round(1)
@@ -462,18 +456,6 @@
         tag: sauna
         ttl: 0
         priority: high
-  - service: notify.mobile_app_pia
-    data:
-      title: Sauna on lämmin
-      message: Saunan lämpötila {{ states.sensor.mqtt_sauna_temperature.state | round(1)
-        }} °C ja kosteus {{ states.sensor.mqtt_sauna_humidity.state | round(0) }}
-        %
-      data:
-        group: Sauna
-        tag: sauna
-        ttl: 0
-        priority: high
-  mode: single
 
 - id: '1608321130499'
   mode: single
@@ -1090,15 +1072,7 @@
       entity_id: binary_sensor.notification_vacuuming
   condition: []
   action:
-    - service: notify.mobile_app_tero
-      data:
-        message: Imurointi on aloitettu
-        data:
-          group: Imurointi
-          tag: vacuum_started
-          ttl: 0
-          priority: high
-    - service: notify.mobile_app_pia
+    - service: notify.parents
       data:
         message: Imurointi on aloitettu
         data:
@@ -1122,15 +1096,7 @@
       attribute: battery_level
       above: '20'
   action:
-    - service: notify.mobile_app_tero
-      data:
-        message: Imurointi on valmis
-        data:
-          group: Imurointi
-          tag: vacuum_completed
-          ttl: 0
-          priority: high
-    - service: notify.mobile_app_pia
+    - service: notify.parents
       data:
         message: Imurointi on valmis
         data:
@@ -1269,47 +1235,39 @@
   alias: Pesukone valmis
   description: ''
   trigger:
-  - platform: state
-    entity_id:
-    - sensor.washing_machine_status
-    to: Finished
+    - platform: state
+      entity_id:
+        - sensor.washing_machine_status
+      to: Finished
   condition: []
   action:
-  - service: notify.mobile_app_pia
-    data:
-      message: Muista sulkea vesihana!
-      title: Pesukone on valmis
+    - service: notify.parents
       data:
-        group: Pyykinhuolto
-        tag: washing_machine_finished
-  - service: notify.mobile_app_tero
-    data:
-      message: Muista sulkea vesihana!
-      title: Pesukone on valmis
-      data:
-        group: Pyykinhuolto
-        tag: washing_machine_finished
+        title: Pesukone on valmis
+        message: Muista sulkea vesihana! Vedenkulutus oli {{ states('sensor.washing_machine_water_consumption') }} {{ state_attr('sensor.washing_machine_water_consumption', 'unit_of_measurement') }}. Sähkönkulutus oli {{ states('sensor.washing_machine_energy') }} {{ state_attr('sensor.washing_machine_energy', 'unit_of_measurement') }}
+        data:
+          group: Pyykinhuolto
+          tag: washing_machine_finished
+          ttl: 0
+          priority: high
 
 - id: '1665849632673'
   mode: single
   alias: Kuivausrumpu valmis
   description: ''
   trigger:
-  - platform: state
-    entity_id:
-    - sensor.tumble_dryer_status
-    to: Finished
+    - platform: state
+      entity_id:
+        - sensor.tumble_dryer_status
+      to: Finished
   condition: []
   action:
-  - service: notify.mobile_app_pia
-    data:
-      message: Kuivausrumpu on valmis
+    - service: notify.parents
       data:
-        group: Pyykinhuolto
-        tag: tumble_dryer_finished
-  - service: notify.mobile_app_tero
-    data:
-      message: Kuivausrumpu on valmis
-      data:
-        group: Pyykinhuolto
-        tag: tumble_dryer_finished
+        title: Kuivausrumpu on valmis
+        message: Sähkönkulutus oli {{ states('sensor.tumble_dryer_energy') }} {{ state_attr('sensor.tumble_dryer_energy', 'unit_of_measurement') }}
+        data:
+          group: Pyykinhuolto
+          tag: tumble_dryer_finished
+          ttl: 0
+          priority: high
