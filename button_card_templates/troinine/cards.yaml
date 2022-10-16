@@ -112,4 +112,7 @@ laundry:
   variables:
     icon_glow: true
     state_colors:
+      'Pyykkää ja kuivaa': 'var(--color-blue)'
+      'Pyykkää': 'var(--color-blue)'
+      'Kuivaa': 'var(--color-green)'
       'Päällä': 'var(--warning-color)'

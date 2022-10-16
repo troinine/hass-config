@@ -247,9 +247,30 @@
 
   - name: laundry_tower_state
     unique_id: laundry_tower_state
-    icon: mdi:washing-machine
+    icon: |
+      {% set washerStatus = states('sensor.washing_machine_status') %}
+      {% set dryerStatus = states('sensor.tumble_dryer_status') %}
+      {% if washerStatus == 'In use' and dryerStatus == 'In use' %}
+        mdi:washing-machine
+      {% elif washerStatus == 'In use' %}
+        mdi:washing-machine
+      {% elif dryerStatus == 'In use' %}
+        mdi:tumble-dryer
+      {% elif washerStatus != 'Off' or dryerStatus != 'Off' %}
+        mdi:washing-machine-alert
+      {% else %}
+        mdi:washing-machine-off
+      {% endif %}
     state: |
-      {% if states('sensor.washing_machine_status') != 'Off' or states('sensor.tumble_dryer_status') != 'Off' %}
+      {% set washerStatus = states('sensor.washing_machine_status') %}
+      {% set dryerStatus = states('sensor.tumble_dryer_status') %}
+      {% if washerStatus == 'In use' and dryerStatus == 'In use' %}
+        Pyykkää ja kuivaa
+      {% elif washerStatus == 'In use' %}
+        Pyykkää
+      {% elif dryerStatus == 'In use' %}
+        Kuivaa
+      {% elif washerStatus != 'Off' or dryerStatus != 'Off' %}
         Päällä
       {% else %}
         Pois
