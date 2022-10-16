@@ -43,7 +43,6 @@ hot_water_pump:
       "on": dodgerblue
 
 home_state:
-  template:
   variables:
     icon_glow: false
     state_colors:
@@ -107,3 +106,10 @@ controls_card:
         - align-self: end
     card:
       - padding: var(--button-card-padding) var(--button-card-padding) calc(var(--button-card-padding) / 1.5) var(--button-card-padding)
+
+laundry:
+  entity: sensor.laundry_tower_state
+  variables:
+    icon_glow: true
+    state_colors:
+      'Päällä': 'var(--warning-color)'

@@ -245,6 +245,16 @@
     state: "{{ ((states('sensor.nibe_brine_in_temp')|float) - (states('sensor.nibe_brine_out_temp')|float))|round(1) }}"
     availability: "{{ is_state('sensor.nibe_heat_pump_state', 'Lämmitys') }}"
 
+  - name: laundry_tower_state
+    unique_id: laundry_tower_state
+    icon: mdi:washing-machine
+    state: |
+      {% if states('sensor.washing_machine_status') != 'Off' or states('sensor.tumble_dryer_status') != 'Off' %}
+        Päällä
+      {% else %}
+        Pois
+      {% endif %}
+
 - select:
   - name: roborock_s6_pure_speed
     state: |
