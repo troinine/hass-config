@@ -15,7 +15,7 @@ vacuum_clean_entrance:
 
 vacuum_clean_office:
   name: Työhuone
-  icon: mdi:desktop-mac
+  icon: mdi:monitor
 
 vacuum_clean_sisus_room:
   name: Sisun huone
