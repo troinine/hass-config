@@ -42,18 +42,16 @@ browser_mod:
             entities:
               - entity: sensor.washing_machine_status
                 name: Tila
-              - entity: sensor.washing_machine_water_consumption
-                name: Vedenkulutus
               - entity: sensor.washing_machine_energy
                 name: Sähkönkulutus
+              - entity: sensor.washing_machine_water_consumption
+                name: Vedenkulutus
               - entity: sensor.washing_machine_program_id
                 name: Ohjelma
               - entity: sensor.washing_machine_program_phase
                 name: Ohjelman vaihe
               - entity: sensor.washing_machine_remaining_time
                 name: Jäljellä oleva aika
-              - entity: sensor.washing_machine_target_temperature_0
-                name: Valittu lämpötila
               - type: section
 
       - type: vertical-stack
@@ -75,11 +73,9 @@ browser_mod:
               - entity: sensor.tumble_dryer_program_phase
                 name: Ohjelman vaihe
               - entity: sensor.tumble_dryer_drying_step
-                name: Drying step
+                name: Kuivausvaihe
               - entity: sensor.tumble_dryer_remaining_time
                 name: Jäljellä oleva aika
-              - entity: sensor.washing_machine_target_temperature_0
-                name: Valittu lämpötila
               - type: section
 
       - type: custom:apexcharts-card
@@ -88,31 +84,8 @@ browser_mod:
           place-self: end stretch
         card_mod:
           !include ../../ui/styles/no-card.yaml
-        graph_span: 2d
         config_templates:
-          - base
-        apex_config:
-          yaxis:
-            - show: true
-              forceNiceScale: true
-              decimalsInFloat: 1
-              axisBorder:
-                show: true
-                color: rgba(var(--primary-text-color-rgb), 0.4)
-                height: 1
-            - show: true
-              decimalsInFloat: 0
-              opposite: true
-              forceNiceScale: true
-        header:
-          title: Kulutukset
-        series:
-          - entity: sensor.washing_machine_energy
-            name: Sähkö
-            color: yellow
-          - entity: sensor.washing_machine_water_consumption
-            name: Vesi
-            color: dodgerblue
+          - sensor_washing_machine
 
       - type: custom:apexcharts-card
         view_layout:
@@ -120,21 +93,5 @@ browser_mod:
           place-self: end stretch
         card_mod:
           !include ../../ui/styles/no-card.yaml
-        graph_span: 2d
         config_templates:
-          - base
-        apex_config:
-          yaxis:
-            - show: true
-              forceNiceScale: true
-              decimalsInFloat: 1
-              axisBorder:
-                show: true
-                color: rgba(var(--primary-text-color-rgb), 0.4)
-                height: 1
-        header:
-          title: Kulutukset
-        series:
-          - entity: sensor.tumble_dryer_energy
-            name: Sähkö
-            color: yellow
+          - sensor_tumble_dryer

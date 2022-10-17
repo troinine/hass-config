@@ -167,3 +167,6 @@ miele:
 
 notify:
   !include include/notifications.yaml
+
+utility_meter:
+  !include include/utility-meters.yaml

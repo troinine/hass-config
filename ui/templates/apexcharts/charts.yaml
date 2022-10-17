@@ -398,9 +398,70 @@ sensor_rain:
     show: true
     show_states: true
   series:
-      - entity: sensor.netatmo_koti_olohuone_sade_rain_today
-        type: column
-        color: dodgerblue
-        group_by:
-          func: max
-          duration: 1d
+    - entity: sensor.netatmo_koti_olohuone_sade_rain_today
+      type: column
+      color: dodgerblue
+      group_by:
+        func: max
+        duration: 1d
+
+sensor_washing_machine:
+  config_templates:
+    - base_column
+  graph_span: 14d
+  apex_config:
+    legend:
+      show: false
+    yaxis:
+      - show: true
+        forceNiceScale: true
+        decimalsInFloat: 1
+        axisBorder:
+          show: true
+          color: rgba(var(--primary-text-color-rgb), 0.4)
+          height: 1
+      - show: true
+        decimalsInFloat: 0
+        opposite: true
+        forceNiceScale: true
+  header:
+    title: Kulutukset
+  series:
+    - entity: sensor.washing_machine_energy_consumption_daily
+      name: Sähkö
+      color: yellow
+      type: column
+      group_by:
+        func: max
+        duration: 1d
+    - entity: sensor.washing_machine_water_consumption_daily
+      name: Vesi
+      color: dodgerblue
+      type: column
+      group_by:
+        func: max
+        duration: 1d
+
+sensor_tumble_dryer:
+  config_templates:
+    - base_column
+  graph_span: 14d
+  apex_config:
+    yaxis:
+      - show: true
+        forceNiceScale: true
+        decimalsInFloat: 1
+        axisBorder:
+          show: true
+          color: rgba(var(--primary-text-color-rgb), 0.4)
+          height: 1
+  header:
+    title: Kulutukset
+  series:
+    - entity: sensor.tumble_dryer_energy_consumption_daily
+      name: Sähkö
+      color: yellow
+      type: column
+      group_by:
+        func: max
+        duration: 1d

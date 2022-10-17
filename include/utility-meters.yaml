@@ -1,0 +1,30 @@
+---
+washing_machine_energy_consumption_daily:
+  unique_id: washing_machine_energy_consumption_daily
+  source: sensor.washing_machine_energy
+  cycle: daily
+
+washing_machine_water_consumption_daily:
+  unique_id: washing_machine_water_consumption_daily
+  source: sensor.washing_machine_water_consumption
+  cycle: daily
+
+washing_machine_energy_consumption_monthly:
+  unique_id: washing_machine_energy_consumption_monthly
+  source: sensor.washing_machine_energy
+  cycle: monthly
+
+washing_machine_water_consumption_monthly:
+  unique_id: washing_machine_water_consumption_monthly
+  source: sensor.washing_machine_water_consumption
+  cycle: monthly
+
+tumble_dryer_energy_consumption_daily:
+  unique_id: tumble_dryer_energy_consumption_daily
+  source: sensor.tumble_dryer_energy
+  cycle: daily
+
+tumble_dryer_energy_consumption_monthly:
+  unique_id: tumble_dryer_energy_consumption_monthly
+  source: sensor.tumble_dryer_energy
+  cycle: monthly
