@@ -35,12 +35,12 @@
     - light.eteinen_oikea_ala
     - light.eteinen_vasen_yla
     - light.eteinen_vasen_ala
-    - light.eteisen_poytalamppu
 
 - platform: group
   name: group_otsos_room
   entities:
     - light.otson_katto
+    - light.otson_poytalamppu
 
 - platform: group
   name: group_sisus_room
@@ -90,7 +90,7 @@
     - light.eteinen_oikea_ala
     - light.eteinen_vasen_yla
     - light.eteinen_vasen_ala
-    - light.eteisen_poytalamppu
+    - light.otson_poytalamppu
     - light.otson_katto
     - light.sisun_katto
     - light.sisun_poytalamppu
