@@ -1,6 +1,6 @@
 motion_at_night:
   name: Valojen yöajastin
-  duration: '00:01:00'
+  duration: '00:00:30'
 go_to_sleep_transition:
   name: Nukkumaan himmennys
   duration: '00:15:00'
