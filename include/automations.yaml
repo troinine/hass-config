@@ -1,37 +1,7 @@
-- id: turn_off_lights_when_not_at_home
-  alias: Aseta Poissa tila
-  description: Asettaa poissa kotoa tilan kun ketään ei havaita
-  mode: single
-  trigger:
-  - platform: state
-    entity_id: binary_sensor.indoor_motion_sensors
-    to: 'off'
-    for: 00:05:00
-  condition:
-  - condition: time
-    after: 08:00
-    before: '21:00'
-  - condition: state
-    entity_id: device_tracker.tero
-    state: not_home
-  - condition: state
-    entity_id: device_tracker.pia
-    state: not_home
-  action:
-  - service: input_select.select_option
-    data:
-      option: Poissa
-    entity_id: input_select.home_state
-  - service: light.turn_off
-    data: {}
-    entity_id: light.koti
-  - service: remote.turn_off
-    data: {}
-    entity_id: remote.olohuone
-
 - id: turn_on_lights_when_arriving_to_home
   alias: Saapuminen kotiin
   description: ''
+  mode: single
   trigger:
   - type: motion
     platform: device
@@ -53,10 +23,11 @@
   - service: light.turn_on
     data: {}
     entity_id: light.eteinen
-  mode: single
+
 - id: '1607110684755'
   alias: Matala lämmönkeruu sisään
   description: ''
+  mode: single
   trigger:
   - platform: numeric_state
     entity_id: sensor.nibe_daily_brine_min_input_temp
@@ -71,7 +42,7 @@
       data:
         group: Lämmitys
         tag: low_brine_in
-  mode: single
+
 - id: '1607111828899'
   alias: Korkea lämpöpumpun käynnistysten määrä
   description: ''
@@ -125,6 +96,7 @@
 - id: '1607263423396'
   alias: Aloita nukkumaanmeno
   description: Aloittaa nukkumaan menon kun ketään ei havaita
+  mode: restart
   trigger:
   - platform: state
     entity_id: binary_sensor.indoor_motion_sensors
@@ -165,10 +137,11 @@
     data:
       transition: 900
     entity_id: scene.nukkumassa
-  mode: restart
+
 - id: '1607352333578'
   alias: Herätä arkisin
   description: Säätää valot makuuhuoneessa heräämistä varten
+  mode: single
   trigger:
   - platform: time
     at: '06:30'
@@ -191,10 +164,11 @@
     data:
       transition: 900
     entity_id: scene.heratys
-  mode: single
+
 - id: '1607363879066'
   alias: Aseta Hereillä tila
   description: ''
+  mode: single
   trigger:
   - type: motion
     platform: device
@@ -224,10 +198,11 @@
   - service: automation.trigger
     data: {}
     entity_id: automation.hot_water_pump_on
-  mode: single
+
 - id: '1607454733839'
   alias: Valot päälle yöllä
   description: ''
+  mode: single
   trigger:
   - type: motion
     platform: device
@@ -248,10 +223,11 @@
     data: {}
     entity_id: timer.motion_at_night
   - scene: scene.liike_yolla
-  mode: single
+
 - id: '1607455390592'
   alias: Valojen palautus yöllä
   description: ''
+  mode: single
   trigger:
   - platform: event
     event_type: timer.finished
@@ -266,7 +242,7 @@
     data:
       transition: 30
     entity_id: scene.takaisin_nukkumaan
-  mode: single
+
 - id: '1607759502859'
   alias: Autotallin ovi auki
   description: ''
@@ -337,9 +313,9 @@
     data:
       option: Poissa
     entity_id: input_select.home_state
-  - service: light.turn_off
-    data: {}
-    entity_id: light.koti
+  - service: script.turn_on
+    target:
+      entity_id: script.lights_off_indoor
   - service: remote.turn_off
     data: {}
     entity_id: remote.olohuone
@@ -404,9 +380,11 @@
       milliseconds: 0
   mode: single
   max_exceeded: silent
+
 - id: '1607980854735'
   alias: Aloita iltarutiinit
   description: ''
+  mode: single
   trigger:
   - platform: time
     at: '19:15'
@@ -417,16 +395,12 @@
   action:
   - service: light.turn_on
     data_template:
-      entity_id: '{% set lights = [''light.tyohuone'', ''light.eteinen'', ''light.otson_huone'',
-        ''light.sisun_huone'', ''light.olohuone'', ''light.keittio'', ''light.makuuhuone'']
-        %}  {{ expand(lights) | selectattr(''state'', ''eq'', ''on'') | map(attribute=''entity_id'')
-        | join('','') }}
-
-        '
+      entity_id: |
+        {% set lights = ['light.group_all'] %}
+        {{ expand(lights) | selectattr('state', 'eq', 'on') | map(attribute='entity_id') | join(',') }}
       brightness: 100
       color_temp: 346
       transition: 900
-  mode: single
 
 - id: '1608235357887'
   alias: Sauna lämmin
@@ -485,6 +459,7 @@
 - id: '1608321246976'
   alias: Sammuta kodinhoitohuoneen valot
   description: ''
+  mode: single
   trigger:
   - type: no_motion
     platform: device
@@ -503,10 +478,11 @@
   - service: switch.turn_off
     data: {}
     entity_id: switch.tplink_hs100_3
-  mode: single
+
 - id: '1608404430581'
   alias: Sauna jäähtyy
   description: ''
+  mode: single
   trigger:
   - platform: numeric_state
     entity_id: sensor.mqtt_sauna_temperature
@@ -529,10 +505,11 @@
       data:
         group: Sauna
         tag: sauna
-  mode: single
+
 - id: '1608408840414'
   alias: Sauna lämpenee
   description: ''
+  mode: single
   trigger:
   - platform: numeric_state
     entity_id: sensor.mqtt_sauna_temperature
@@ -546,10 +523,11 @@
     data:
       option: Lämpenee
     entity_id: input_select.sauna_state
-  mode: single
+
 - id: '1608408976070'
   alias: Sauna pois
   description: ''
+  mode: single
   trigger:
   - platform: numeric_state
     below: '29'
@@ -563,10 +541,11 @@
     data:
       option: Pois
     entity_id: input_select.sauna_state
-  mode: single
+
 - id: '1608580481943'
   alias: Sammuta joulukuusen valot
   description: ''
+  mode: single
   trigger:
   - platform: state
     entity_id: input_select.home_state
@@ -578,10 +557,11 @@
     to: Poissa
   condition: []
   action: []
-  mode: single
+
 - id: '1608580568682'
   alias: Sytytä joulukuusen valot
   description: ''
+  mode: single
   trigger:
   - platform: state
     entity_id: input_select.home_state
@@ -593,10 +573,11 @@
     to: Kotona
   condition: []
   action: []
-  mode: single
+
 - id: '1609968587796'
   alias: Sammuta kiertovesipumppu iltaisin
   description: ''
+  mode: single
   trigger:
   - platform: time
     at: '22:00'
@@ -605,10 +586,11 @@
   - service: automation.trigger
     data: {}
     entity_id: automation.hot_water_pump_off
-  mode: single
+
 - id: '1610651209311'
   alias: Maalämpöpumpun hälytys
   description: ''
+  mode: single
   trigger:
   - platform: numeric_state
     entity_id: sensor.nibe_alarm_number
@@ -624,10 +606,11 @@
         tag: pump_alarm
         ttl: 0
         priority: high
-  mode: single
+
 - id: '1610949724603'
   alias: Aloita nukkumaanmeno viikonloppuisin
   description: Aloittaa nukkumaan menon kun ketään ei havaita
+  mode: restart
   trigger:
   - platform: state
     entity_id: binary_sensor.indoor_motion_sensors
@@ -665,10 +648,11 @@
     data:
       transition: 900
     entity_id: scene.nukkumassa
-  mode: restart
+
 - id: '1612732283884'
   alias: Tauko käyttöveden kierrossa
   description: ''
+  mode: single
   trigger:
   - platform: event
     event_type: timer.finished
@@ -685,10 +669,11 @@
       duration: '0'
     target:
       entity_id: timer.hot_water_pump_off
-  mode: single
+
 - id: '1612732392058'
   alias: Tauko käyttöveden kierrossa ohi
   description: ''
+  mode: single
   trigger:
   - platform: event
     event_type: timer.finished
@@ -708,10 +693,11 @@
       duration: '0'
     target:
       entity_id: timer.hot_water_pump_on
-  mode: single
+
 - id: '1612732939032'
   alias: Käyttöveden kierto pois
   description: ''
+  mode: single
   trigger: []
   condition: []
   action:
@@ -725,10 +711,11 @@
   - service: timer.cancel
     data: {}
     entity_id: timer.hot_water_pump_on
-  mode: single
+
 - id: '1614320129691'
   alias: Käynnistä ilmankuivain
   description: ''
+  mode: single
   trigger:
   - platform: numeric_state
     entity_id: sensor.netatmo_koti_olohuone_autotalli_humidity
@@ -752,10 +739,11 @@
         tag: dehumidifier
         ttl: 0
         priority: high
-  mode: single
+
 - id: '1614320260428'
   alias: Sammuta ilmankuivain
   description: ''
+  mode: single
   trigger:
   - platform: numeric_state
     entity_id: sensor.netatmo_koti_olohuone_autotalli_humidity
@@ -782,10 +770,11 @@
         tag: dehumidifier
         ttl: 0
         priority: high
-  mode: single
+
 - id: '1614325765365'
   alias: Tyhjennä ilmankuivain
   description: ''
+  mode: single
   trigger:
   - platform: state
     entity_id: binary_sensor.notification_garage_dehumidifier_bucket_full
@@ -801,10 +790,11 @@
         tag: dehumidifier
         ttl: 0
         priority: high
-  mode: single
+
 - id: '1614327727537'
   alias: Ilmankuivain edelleen päällä
   description: ''
+  mode: single
   trigger:
   - platform: event
     event_type: timer.finished
@@ -826,10 +816,11 @@
   - service: timer.start
     data: {}
     entity_id: timer.garage_dehumidifier_still_on
-  mode: single
+
 - id: '1615883628210'
   alias: Maalämpöpumppu ei lähetä mittauksia
   description: ''
+  mode: single
   trigger:
   - platform: state
     entity_id: sensor.mqtt_nibe_heat_pump_state
@@ -845,10 +836,11 @@
         tag: no_data
         ttl: 0
         priority: high
-  mode: single
+
 - id: '1629436993018'
   alias: Hälytä kun Radon nousussa
   description: ''
+  mode: single
   trigger:
   - platform: numeric_state
     entity_id: sensor.mqtt_airthings_waveplus_sisu_radon_short_term
@@ -867,10 +859,11 @@
       data:
         group: Ilmanlaatu
         tag: radon
-  mode: single
+
 - id: '1629437320002'
   alias: Hälytä kun Radon korkealla
   description: ''
+  mode: single
   trigger:
   - platform: numeric_state
     entity_id: sensor.mqtt_airthings_waveplus_sisu_radon_short_term
@@ -891,10 +884,11 @@
         tag: radon
         ttl: 0
         priority: high
-  mode: single
+
 - id: '1629460940631'
   alias: Hälytä kun Radon turvallinen olohuoneessa
   description: ''
+  mode: single
   trigger:
   - platform: numeric_state
     entity_id: sensor.mqtt_airthings_waveplus_living_room_radon_short_term
@@ -909,11 +903,11 @@
       data:
         group: Ilmanlaatu
         tag: radon
-  mode: single
 
 - id: '1629835804523'
   alias: Hälytä kun Radon turvallinen Sisun huoneessa
   description: ''
+  mode: single
   trigger:
   - platform: numeric_state
     entity_id: sensor.mqtt_airthings_waveplus_sisu_radon_short_term
@@ -928,11 +922,12 @@
       data:
         group: Ilmanlaatu
         tag: radon
-  mode: single
 
 - id: '1642711968725'
   alias: Herätä tabletti
   description: ''
+  mode: single
+  max_exceeded: silent
   trigger:
   - type: motion
     platform: device
@@ -955,11 +950,12 @@
       minutes: 2
       seconds: 0
       milliseconds: 0
-  mode: single
-  max_exceeded: silent
+
 - id: '1643561533140'
   alias: Liike eteisessä
   description: ''
+  mode: single
+  max_exceeded: silent
   trigger:
   - platform: state
     entity_id: binary_sensor.hue_motion_sensor_2
@@ -982,11 +978,12 @@
         {{ expand(state_attr('light.group_entrance', 'entity_id')) | selectattr('state', 'eq', 'on') | map(attribute='entity_id') | list }}
       brightness_pct: 100
       transition: 2
-  mode: single
-  max_exceeded: silent
+
 - id: '1643735491586'
   alias: Liike eteisessä pois
   description: ''
+  mode: single
+  max_exceeded: silent
   trigger:
   - type: no_motion
     platform: device
@@ -1013,8 +1010,6 @@
         {{ expand(state_attr('light.group_entrance', 'entity_id')) | selectattr('state', 'eq', 'on') | map(attribute='entity_id') | list }}
       brightness_pct: 20
       transition: 2
-  mode: single
-  max_exceeded: silent
 
 - id: '1646256212426'
   alias: Sammuta Sisun ilmankostutin
