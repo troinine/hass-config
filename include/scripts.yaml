@@ -1,3 +1,42 @@
+lights_off_indoor:
+  alias: Sammuta valot sisällä
+  mode: single
+  sequence:
+    - service: scene.create
+      data:
+        scene_id: snapshot_before_lights_off_indoor
+        snapshot_entities: |
+          {{ expand(state_attr('light.group_all', 'entity_id')) | map(attribute='entity_id') | list + ['switch.tplink_hs100_3'] }}
+    - service: light.turn_off
+      data: {}
+      target:
+        entity_id: light.group_all
+    - service: switch.turn_off
+      data: {}
+      target:
+        entity_id: switch.tplink_hs100_3
+
+lights_restore_indoor:
+  alias: Palauta valojen tila sisällä
+  mode: single
+  sequence:
+    - service: scene.turn_on
+      target:
+        entity_id: scene.snapshot_before_lights_off_indoor
+
+lights_toggle_indoors:
+  alias: Kytke valot sisällä
+  mode: single
+  sequence:
+    - service: script.turn_on
+      target:
+        entity_id: |
+          {% if is_state('light.group_all', 'on') %}
+            script.lights_off_indoor
+          {% else %}
+            script.lights_restore_indoor
+          {% endif %}
+
 scene_santa_is_coming:
   alias: Joulupukki tulee flash
   sequence:

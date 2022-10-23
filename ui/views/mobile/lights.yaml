@@ -26,10 +26,7 @@ cards:
             ]]]
         tap_action:
           action: call-service
-          service: light.toggle
-          service_data:
-            entity_id:
-              - light.group_all_flat
+          service: script.lights_toggle_indoors
 
       - type: custom:mod-card
         card_mod:
