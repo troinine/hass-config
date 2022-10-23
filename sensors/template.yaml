@@ -726,3 +726,13 @@
         {% else %}
         Kulutettu sähkö {{ states('sensor.tumble_dryer_energy') }} W.
         {% endif %}
+
+  - name: notification_automations_disabled
+    unique_id: notification_automations_disabled
+    icon: mdi:home-alert-outline
+    state: "{{ is_state('input_boolean.automations_enabled', 'off') }}"
+    attributes:
+      icon_color: 'var(--warning-color)'
+      text_summary: "Automaatiot pois päältä"
+      tap_action: more-info
+      tap_action_entity: input_boolean.automations_enabled

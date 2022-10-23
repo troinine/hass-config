@@ -3,6 +3,15 @@
 
 - type: conditional
   conditions:
+    - entity: binary_sensor.notification_automations_disabled
+      state: 'on'
+  card:
+    type: 'custom:button-card'
+    template: auto_notification
+    entity: binary_sensor.notification_automations_disabled
+
+- type: conditional
+  conditions:
     - entity: binary_sensor.notification_heat_pump_alarm
       state: 'on'
     - entity: sensor.nibe_alarm_number

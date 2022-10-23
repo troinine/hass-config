@@ -28,6 +28,7 @@ browser_mod:
                 name: Ulko-ovi
               - entity: binary_sensor.mqtt_garage_door
               - entity: input_boolean.on_vacation
+              - entity: input_boolean.automations_enabled
               - type: section
                 label: Automaatiot
               - entity: automation.liike_eteisessa

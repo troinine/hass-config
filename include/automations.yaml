@@ -14,6 +14,9 @@
     to: 'on'
   condition:
   - condition: state
+    entity_id: input_boolean.automations_enabled
+    state: 'on'
+  - condition: state
     entity_id: input_select.home_state
     state: Poissa
   - condition: numeric_state
@@ -74,6 +77,9 @@
     domain: binary_sensor
   condition:
   - condition: state
+    entity_id: input_boolean.automations_enabled
+    state: 'on'
+  - condition: state
     entity_id: input_select.home_state
     state: Poissa
   action:
@@ -103,6 +109,9 @@
     to: 'off'
     for: 00:05:00
   condition:
+  - condition: state
+    entity_id: input_boolean.automations_enabled
+    state: 'on'
   - condition: time
     after: '22:30'
     before: 01:00
@@ -147,6 +156,9 @@
     at: '06:30'
   condition:
   - condition: state
+    entity_id: input_boolean.automations_enabled
+    state: 'on'
+  - condition: state
     entity_id: input_select.home_state
     state: Nukkumassa
   - condition: time
@@ -182,6 +194,9 @@
     domain: binary_sensor
   condition:
   - condition: state
+    entity_id: input_boolean.automations_enabled
+    state: 'on'
+  - condition: state
     entity_id: input_select.home_state
     state: Nukkumassa
   - condition: time
@@ -216,6 +231,9 @@
     domain: binary_sensor
   condition:
   - condition: state
+    entity_id: input_boolean.automations_enabled
+    state: 'on'
+  - condition: state
     entity_id: input_select.home_state
     state: Nukkumassa
   action:
@@ -234,6 +252,9 @@
     event_data:
       entity_id: timer.motion_at_night
   condition:
+  - condition: state
+    entity_id: input_boolean.automations_enabled
+    state: 'on'
   - condition: state
     entity_id: input_select.home_state
     state: Nukkumassa
@@ -300,6 +321,9 @@
     to: not_home
   condition:
   - condition: state
+    entity_id: input_boolean.automations_enabled
+    state: 'on'
+  - condition: state
     entity_id: device_tracker.tero
     state: not_home
   - condition: state
@@ -339,7 +363,10 @@
     event_type: timer.finished
     event_data:
       entity_id: timer.go_to_sleep_transition
-  condition: []
+  condition:
+  - condition: state
+    entity_id: input_boolean.automations_enabled
+    state: 'on'
   action:
   - service: input_select.select_option
     data:
@@ -389,6 +416,9 @@
   - platform: time
     at: '19:15'
   condition:
+  - condition: state
+    entity_id: input_boolean.automations_enabled
+    state: 'on'
   - condition: state
     entity_id: input_select.home_state
     state: Kotona
@@ -444,6 +474,9 @@
     domain: binary_sensor
   condition:
   - condition: state
+    entity_id: input_boolean.automations_enabled
+    state: 'on'
+  - condition: state
     entity_id: switch.tplink_hs100_3
     state: 'off'
   - condition: state
@@ -472,6 +505,9 @@
       minutes: 2
       seconds: 30
   condition:
+  - condition: state
+    entity_id: input_boolean.automations_enabled
+    state: 'on'
   - condition: state
     entity_id: switch.tplink_hs100_3
     state: 'on'
@@ -556,7 +592,10 @@
     entity_id: input_select.home_state
     from: Kotona
     to: Poissa
-  condition: []
+  condition:
+  - condition: state
+    entity_id: input_boolean.automations_enabled
+    state: 'on'
   action: []
 
 - id: '1608580568682'
@@ -572,7 +611,10 @@
     entity_id: input_select.home_state
     from: Poissa
     to: Kotona
-  condition: []
+  condition:
+  - condition: state
+    entity_id: input_boolean.automations_enabled
+    state: 'on'
   action: []
 
 - id: '1609968587796'
@@ -618,6 +660,9 @@
     to: 'off'
     for: 00:05:00
   condition:
+  - condition: state
+    entity_id: input_boolean.automations_enabled
+    state: 'on'
   - condition: time
     after: '23:00'
     before: 01:00
@@ -721,7 +766,10 @@
   - platform: numeric_state
     entity_id: sensor.netatmo_koti_olohuone_autotalli_humidity
     above: '60'
-  condition: []
+  condition:
+  - condition: state
+    entity_id: input_boolean.automations_enabled
+    state: 'on'
   action:
   - service: switch.turn_on
     data: {}
@@ -750,6 +798,9 @@
     entity_id: sensor.netatmo_koti_olohuone_autotalli_humidity
     below: '50'
   condition:
+  - condition: state
+    entity_id: input_boolean.automations_enabled
+    state: 'on'
   - condition: state
     entity_id: binary_sensor.garage_dehumidifier
     state: 'on'
@@ -965,6 +1016,9 @@
     for: '00:00:11'
   condition:
   - condition: state
+    entity_id: input_boolean.automations_enabled
+    state: 'on'
+  - condition: state
     entity_id: input_select.home_state
     state: Kotona
   - condition: time
@@ -997,6 +1051,9 @@
       minutes: 2
       seconds: 0
   condition:
+  - condition: state
+    entity_id: input_boolean.automations_enabled
+    state: 'on'
   - condition: state
     entity_id: input_select.home_state
     state: Kotona
@@ -1167,6 +1224,9 @@
         seconds: 0
   condition:
     - condition: state
+      entity_id: input_boolean.automations_enabled
+      state: 'on'
+    - condition: state
       entity_id: binary_sensor.notification_time_to_vacuum
       state: 'on'
     - condition: state
@@ -1202,7 +1262,10 @@
   - platform: sun
     event: sunset
     offset: 0
-  condition: []
+  condition:
+  - condition: state
+    entity_id: input_boolean.automations_enabled
+    state: 'on'
   action:
   - service: light.turn_on
     data:
@@ -1220,7 +1283,10 @@
   - platform: sun
     event: sunrise
     offset: '-00:30:00'
-  condition: []
+  condition:
+  - condition: state
+    entity_id: input_boolean.automations_enabled
+    state: 'on'
   action:
   - service: light.turn_off
     data:

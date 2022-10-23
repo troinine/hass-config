@@ -49,6 +49,7 @@ browser_mod:
               - entity: input_boolean.on_vacation
               - type: section
                 label: Automaatiot
+              - entity: input_boolean.automations_enabled
               - entity: automation.liike_eteisessa
               - entity: automation.aloita_iltarutiinit
               - entity: automation.start_go_to_sleep

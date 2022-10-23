@@ -3,6 +3,11 @@ on_vacation:
   name: Lomalla
   icon: mdi:palm-tree
 
+automations_enabled:
+  name: Automaatiot käytössä
+  initial: true
+  icon: mdi:home-automation
+
 ### Vacuum rooms
 
 vacuum_clean_all:
