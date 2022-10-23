@@ -394,12 +394,13 @@
     state: Kotona
   action:
   - service: light.turn_on
-    data_template:
+    target:
       entity_id: |
         {% set lights = ['light.group_all'] %}
         {{ expand(lights) | selectattr('state', 'eq', 'on') | map(attribute='entity_id') | join(',') }}
-      brightness: 100
-      color_temp: 346
+    data:
+      brightness_pct: 40
+      kelvin: 2800
       transition: 900
 
 - id: '1608235357887'
@@ -973,9 +974,10 @@
     entity_id: light.group_entrance
     state: 'on'
   - service: light.turn_on
-    data_template:
+    target:
       entity_id: |
         {{ expand(state_attr('light.group_entrance', 'entity_id')) | selectattr('state', 'eq', 'on') | map(attribute='entity_id') | list }}
+    data:
       brightness_pct: 100
       transition: 2
 
@@ -1005,11 +1007,12 @@
     entity_id: light.group_entrance
     state: 'on'
   - service: light.turn_on
-    data_template:
+    target:
       entity_id: |
         {{ expand(state_attr('light.group_entrance', 'entity_id')) | selectattr('state', 'eq', 'on') | map(attribute='entity_id') | list }}
-      brightness_pct: 20
-      transition: 2
+    data:
+      brightness_pct: 10
+      transition: 5
 
 - id: '1646256212426'
   alias: Sammuta Sisun ilmankostutin
