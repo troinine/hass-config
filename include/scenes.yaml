@@ -3,22 +3,12 @@
     light.sisun_poytalamppu:
       state: 'on'
       brightness: 51
-      color_mode: red
+      color_mode: yellow
     light.sisun_katto:
       state: 'off'
-    light.eteinen_oikea_yla:
-      state: 'on'
-      brightness: 1
-      color_temp: 343
-    light.eteinen_vasen_yla:
-      state: 'off'
-    light.eteinen_vasen_ala:
-      state: 'off'
-    light.eteinen_oikea_ala:
+    light.eteinen:
       state: 'off'
     light.otson_huone:
-      state: 'off'
-    light.eteisen_poytalamppu:
       state: 'off'
     light.tyohuone:
       state: 'off'
@@ -66,17 +56,7 @@
 
 - name: Takaisin nukkumaan
   entities:
-    light.eteinen_oikea_yla:
-      state: 'on'
-      brightness: 1
-      color_temp: 343
-    light.eteinen_vasen_yla:
-      state: 'off'
-    light.eteinen_vasen_ala:
-      state: 'off'
-    light.eteinen_oikea_ala:
-      state: 'off'
-    light.eteisen_poytalamppu:
+    light.eteinen:
       state: 'off'
     light.olohuone:
       state: 'off'

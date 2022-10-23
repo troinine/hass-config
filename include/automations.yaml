@@ -469,8 +469,8 @@
     domain: binary_sensor
     for:
       hours: 0
-      minutes: 5
-      seconds: 0
+      minutes: 2
+      seconds: 30
   condition:
   - condition: state
     entity_id: switch.tplink_hs100_3
@@ -995,7 +995,7 @@
     for:
       hours: 0
       minutes: 2
-      seconds: 30
+      seconds: 0
   condition:
   - condition: state
     entity_id: input_select.home_state
