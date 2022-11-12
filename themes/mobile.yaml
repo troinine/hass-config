@@ -1,5 +1,7 @@
 ---
 mobile:
+  # https://github.com/custom-cards/button-card/issues/632
+  ha-card-border-width: 0
 
   ### Card mod
   card-mod-theme: mobile
