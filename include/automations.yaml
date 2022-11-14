@@ -1251,7 +1251,7 @@
         command: app_segment_clean
         params:
         - 18
-        - 17
+        - 27
         - 19
 
 - id: '1660327278908'
