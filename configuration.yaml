@@ -71,6 +71,8 @@ lovelace:
       type: module
     - url: /local/troinine/light-slider-card.js
       type: module
+    - url: /local/community_cards/swipe-navigation.js?v=1.6.5
+      type: module
     - url: /local/style.css
       type: css
   dashboards:
