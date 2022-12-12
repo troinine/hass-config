@@ -409,6 +409,11 @@ sensor_washing_machine:
   config_templates:
     - base_column
   graph_span: 14d
+  all_series_config:
+    type: column
+    group_by:
+      func: max
+      duration: 1d
   apex_config:
     legend:
       show: false
@@ -424,28 +429,23 @@ sensor_washing_machine:
         decimalsInFloat: 0
         opposite: true
         forceNiceScale: true
-  header:
-    title: Kulutukset
   series:
     - entity: sensor.washing_machine_energy_consumption_daily
       name: Sähkö
       color: yellow
-      type: column
-      group_by:
-        func: max
-        duration: 1d
     - entity: sensor.washing_machine_water_consumption_daily
       name: Vesi
       color: dodgerblue
-      type: column
-      group_by:
-        func: max
-        duration: 1d
 
 sensor_tumble_dryer:
   config_templates:
     - base_column
   graph_span: 14d
+  all_series_config:
+    type: column
+    group_by:
+      func: max
+      duration: 1d
   apex_config:
     yaxis:
       - show: true
@@ -455,13 +455,7 @@ sensor_tumble_dryer:
           show: true
           color: rgba(var(--primary-text-color-rgb), 0.4)
           height: 1
-  header:
-    title: Kulutukset
   series:
     - entity: sensor.tumble_dryer_energy_consumption_daily
       name: Sähkö
       color: yellow
-      type: column
-      group_by:
-        func: max
-        duration: 1d
