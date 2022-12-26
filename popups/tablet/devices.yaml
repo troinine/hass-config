@@ -127,9 +127,9 @@ browser_mod:
                 name: Turvataso
               - entity: update.synology_dsm_update
                 name: Päivitys
-              - entity: sensor.synology_status_3
+              - entity: sensor.synology_drive_1_status
                 name: Levy 1
-              - entity: sensor.synology_status_2
+              - entity: sensor.synology_drive_2_status
                 name: Levy 2
               - type: section
 

@@ -57,23 +57,14 @@ cards:
         cards:
           - type: 'custom:button-card'
             template: compact_info_extra
-            entity: sensor.synology_status
+            entity: binary_sensor.synology_security_status
             name: Synology
-            icon: |
-              [[[
-                var security_state = states['binary_sensor.synology_security_status']
-                if (security_state === 'on') {
-                  return 'mdi:shield-alert'
-                } else {
-                  return entity.attributes.icon
-                }
-              ]]]
             state_display: |
               [[[
                 var security_state = states['binary_sensor.synology_security_status']
                 if (security_state === 'on') {
                   return 'Tietoturvaongelma'
-                } else if (entity.state !== 'normal') {
+                } else if (entity.state !== 'off') {
                   return entity.state
                 } else {
                   return 'Normaali'
@@ -82,7 +73,7 @@ cards:
             variables:
               state_colors:
                 "normal": 'var(--color-green)'
-              extra_entity: sensor.synology_temperature_3
+              extra_entity: sensor.synology_temperature
             tap_action:
               !include ../../../popups/mobile/nas.yaml
 

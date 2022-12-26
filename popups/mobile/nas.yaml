@@ -23,11 +23,11 @@ browser_mod:
             name: Päivitys
           - type: section
             label: Levyt
-          - entity: sensor.synology_status_3
+          - entity: sensor.synology_drive_1_status
             name: Levy 1
           - entity: sensor.synology_temperature_2
             name: Lämpötila
-          - entity: sensor.synology_status_2
+          - entity: sensor.synology_drive_2_status
             name: Levy 2
           - entity: sensor.synology_temperature
             name: Lämpötila
