@@ -17,10 +17,14 @@ cards:
         cards:
           - type: 'custom:button-card'
             template:
-              - compact_info
+              - compact_info_extra_2
               - home_state
             tap_action:
               !include ../../../popups/mobile/home.yaml
+            variables:
+              extra_text: "Kuukausi"
+              extra_entity_2: sensor.mqtt_electricity_consumption_daily
+              extra_text_2: "Eilen"
 
           - type: 'custom:button-card'
             template:

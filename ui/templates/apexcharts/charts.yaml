@@ -320,6 +320,10 @@ sensor_electricity_consumption_daily:
     - base_column
   experimental:
     color_threshold: true
+  all_series_config:
+    group_by:
+      func: last
+      duration: 1d
   header:
     title: Päivittäiset kulutuslukemat
     show: true
@@ -348,7 +352,7 @@ sensor_heat_pump_starts:
     show_states: true
   series:
     - entity: sensor.nibe_daily_num_starts
-      name: Kulutus
+      name: Käynnistykset
       color_threshold:
         - value: 0
           color: dodgerblue

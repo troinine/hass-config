@@ -79,6 +79,13 @@ views:
                   - home_state
                 tap_action:
                   !include ../popups/tablet/home.yaml
+                show_last_changed: false
+                show_label: true
+                label: |
+                  [[[
+                    var sensor = states['sensor.mqtt_electricity_consumption_daily']
+                    return `Eilen ${sensor.state} ${sensor.attributes.unit_of_measurement}`
+                  ]]]
 
               - type: 'custom:button-card'
                 template:
@@ -159,6 +166,8 @@ views:
                 template:
                   - info
                   - heat_pump_state
+                tap_action:
+                  !include ../popups/tablet/heating.yaml
 
               - type: custom:button-card
                 template:

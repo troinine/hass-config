@@ -83,3 +83,39 @@ compact_info_extra:
     custom_fields:
       state2:
         - place-self: end start
+
+compact_info_extra_2:
+  template:
+    - compact_info_extra
+  variables:
+    extra_entity_2: false
+    extra_text_2: false
+  show_last_changed: false
+  custom_fields:
+    state3: |
+      [[[
+        if (variables.extra_entity_2) {
+          var extra_entity = states[variables.extra_entity_2]
+
+          if (variables.extra_text_2) {
+            return `${variables.extra_text_2} ${extra_entity.state} ${extra_entity.attributes.unit_of_measurement}`
+          } else {
+            return `${extra_entity.state} ${extra_entity.attributes.unit_of_measurement}`
+          }
+        }
+
+        return ''
+      ]]]
+  styles:
+    grid:
+      - grid-template-areas: |
+          "i n"
+          "i s"
+          ". ."
+          "state2 state2"
+          "state3 state3"
+      - grid-template-rows: 1.25rem 1.25rem 0.5fr 0.5fr 0.5fr
+    custom_fields:
+      state3:
+        - place-self: end start
+        - filter: opacity(40%)

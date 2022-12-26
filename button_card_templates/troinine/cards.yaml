@@ -44,6 +44,7 @@ hot_water_pump:
 
 home_state:
   variables:
+    extra_entity: sensor.mqtt_electricity_consumption_monthly
     icon_glow: false
     state_colors:
       'Kotona': '#66bb6a'

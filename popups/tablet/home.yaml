@@ -75,8 +75,8 @@ browser_mod:
                 name: Päivän kulutus
               - entity: sensor.mqtt_electricity_consumption_monthly
                 name: Kuukauden kulutus
-              - entity: sensor.mqtt_electricity_consumption_monthly_prediction
-                name: Kuukauden ennuste
+              - entity: sensor.mqtt_energy_cost_monthly
+                name: Kuukauden hinta
               - type: section
       - type: custom:apexcharts-card
         view_layout:
