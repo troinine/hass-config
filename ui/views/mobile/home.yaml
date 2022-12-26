@@ -104,8 +104,8 @@ cards:
             template: compact_user
             entity: person.otso
             variables:
-              battery_charge_entity: sensor.oneplus_otso_battery_level
-              battery_charging_status_entity: binary_sensor.oneplus_otso_is_charging
+              battery_charge_entity: sensor.otso_battery_level
+              battery_charging_status_entity: sensor.otso_battery_state
 
           - type: 'custom:button-card'
             template: compact_user
