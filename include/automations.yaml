@@ -596,7 +596,10 @@
   - condition: state
     entity_id: input_boolean.automations_enabled
     state: 'on'
-  action: []
+  action:
+  - service: light.turn_off
+    target:
+      entity_id: light.hue_smart_plug_1
 
 - id: '1608580568682'
   alias: Sytytä joulukuusen valot
@@ -615,7 +618,10 @@
   - condition: state
     entity_id: input_boolean.automations_enabled
     state: 'on'
-  action: []
+  action:
+  - service: light.turn_on
+    target:
+      entity_id: light.hue_smart_plug_1
 
 - id: '1609968587796'
   alias: Sammuta kiertovesipumppu iltaisin
