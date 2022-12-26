@@ -612,7 +612,7 @@
     state: "{{ states('switch.tplink_hs100_2') }}"
     attributes:
       icon_color: var(--humidity-high-color)
-      text_summary: 'Olohuoneen ilmankostutin päällä'
+      text_summary: 'Ilmankostutin päällä'
       text_description: "Kosteus tällä hetkellä {{ states('sensor.mqtt_airthings_waveplus_living_room_humidity') }} %"
       tap_action: more-info
       tap_action_entity: switch.tplink_hs100_2
