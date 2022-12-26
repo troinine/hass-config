@@ -68,7 +68,6 @@ scene_santa_is_coming:
       - light.makuuhuone_nauha
       - light.olohuone_nauha
       - light.tyohuone_nauha
-      - light.eteisen_poytalamppu
       - light.otson_huone
       - light.sisun_huone
   - delay:
