@@ -61,7 +61,7 @@ cards:
             name: Synology
             state_display: |
               [[[
-                var security_state = states['binary_sensor.synology_security_status']
+                var security_state = states['binary_sensor.synology_security_status'].state
                 if (security_state === 'on') {
                   return 'Tietoturvaongelma'
                 } else if (entity.state !== 'off') {
@@ -72,7 +72,8 @@ cards:
               ]]]
             variables:
               state_colors:
-                "normal": 'var(--color-green)'
+                "off": 'var(--color-green)'
+                "on": 'var(--warning-color)'
               extra_entity: sensor.synology_temperature
             tap_action:
               !include ../../../popups/mobile/nas.yaml
