@@ -295,8 +295,9 @@ views:
               - type: 'custom:button-card'
                 template: user
                 entity: person.sisu
-                show_state: false # No device
-                show_last_changed: false
+                variables:
+                  battery_charge_entity: sensor.sisu_battery_level
+                  battery_charging_status_entity: sensor.sisu_battery_state
 
       ###
       ### Children
