@@ -31,13 +31,6 @@ tablet:
 
   card-mod-more-info-yaml: |
     $: |
-      .mdc-dialog__scrim {
-        -webkit-backdrop-filter: blur(var(--mdc-dialog-backdrop-blur));
-        backdrop-filter: blur(var(--mdc-dialog-backdrop-blur));
-      }
-      .mdc-dialog .mdc-dialog__container {
-        #background: none;
-      }
       .mdc-dialog .mdc-dialog__surface {
         background-color: var(--primary-background-color) !important;
       }
@@ -125,6 +118,7 @@ tablet:
       mdc-dialog-backdrop-blur: 0.1vw
       ha-dialog-border-radius: var(--border-radius)
       mdc-dialog-min-width: 500px
+      dialog-backdrop-filter: blur(4px)
 
       # Popups
       popup-background-color: var(--primary-background-color)
