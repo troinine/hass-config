@@ -1,365 +1,366 @@
 action: fire-dom-event
 browser_mod:
-  command: popup
-  title: Ilmanlaatu
-  style:
-    $: |
-      .mdc-dialog .mdc-dialog__surface {
-        background-color: var(--primary-background-color) !important;
-      }
-    .: |
-      :host .content {
-        width: 80vw;
-        max-width: 90vw;
-      }
-  card:
-    type: vertical-stack
-    cards:
-      - type: custom:swipe-card
-        parameters:
-          pagination:
-            type: bullets
-          navigation:
-          keyboard:
-            enabled: true
-            onlyInViewport: true
-        cards:
-          - type: custom:layout-card
-            layout_type: custom:grid-layout
-            layout:
-              grid-template-columns: 1fr 2fr
-              grid-template-rows: 1fr 1fr
-              grid-template-areas: |
-                "values chart1"
-                "values chart2"
-              place-items: stretch stretch
-            cards:
-              - type: entities
-                card_mod:
-                  !include ../../ui/styles/entities-card.yaml
-                title: Olohuone
-                view_layout:
-                  grid-area: values
-                  place-self: stretch
-                show_header_toggle: false
-                entities:
-                  - entity: sensor.mqtt_airthings_waveplus_living_room_temperature
-                    name: Lämpötila
-                  - entity: sensor.mqtt_airthings_waveplus_living_room_humidity
-                    name: Kosteus
-                  - entity: sensor.mqtt_airthings_waveplus_living_room_co2
-                    name: CO2
-                  - entity: sensor.mqtt_airthings_waveplus_living_room_voc
-                    name: VOC
-                  - entity: sensor.mqtt_airthings_waveplus_living_room_radon_short_term
-                    name: Radon, lyhytaikainen
-                  - entity: sensor.mqtt_airthings_waveplus_living_room_radon_long_term
-                    name: Radon, pitkäaikainen
+  service: browser_mod.popup
+  data:
+    title: Ilmanlaatu
+    style: |
+      --popup-max-width: 90vw;
+    card_mod:
+      style:
+        layout-card:
+          $grid-layout$:
+            .: |
+              #root {
+                margin: 0 1rem 1rem 1rem !important;
+              }
+    content:
+      type: vertical-stack
+      cards:
+        - type: custom:swipe-card
+          parameters:
+            pagination:
+              type: bullets
+            navigation:
+            keyboard:
+              enabled: true
+              onlyInViewport: true
+          cards:
+            - type: custom:layout-card
+              layout_type: custom:grid-layout
+              layout:
+                grid-template-columns: 1fr 2fr
+                grid-template-rows: 1fr 1fr
+                grid-template-areas: |
+                  "values chart1"
+                  "values chart2"
+                place-items: stretch stretch
+              cards:
+                - type: entities
+                  card_mod:
+                    !include ../../ui/styles/entities-card.yaml
+                  title: Olohuone
+                  view_layout:
+                    grid-area: values
+                    place-self: stretch
+                  show_header_toggle: false
+                  entities:
+                    - entity: sensor.mqtt_airthings_waveplus_living_room_temperature
+                      name: Lämpötila
+                    - entity: sensor.mqtt_airthings_waveplus_living_room_humidity
+                      name: Kosteus
+                    - entity: sensor.mqtt_airthings_waveplus_living_room_co2
+                      name: CO2
+                    - entity: sensor.mqtt_airthings_waveplus_living_room_voc
+                      name: VOC
+                    - entity: sensor.mqtt_airthings_waveplus_living_room_radon_short_term
+                      name: Radon, lyhytaikainen
+                    - entity: sensor.mqtt_airthings_waveplus_living_room_radon_long_term
+                      name: Radon, pitkäaikainen
 
-              - type: custom:apexcharts-card
-                card_mod:
-                  !include ../../ui/styles/no-card.yaml
-                view_layout:
-                  grid-area: chart1
-                config_templates:
-                  - sensor_temperature_humidity
-                header:
-                  title: Lämpötila
-                series:
-                  - entity: sensor.mqtt_airthings_waveplus_living_room_temperature
-                  - entity: sensor.mqtt_airthings_waveplus_living_room_humidity
+                - type: custom:apexcharts-card
+                  card_mod:
+                    !include ../../ui/styles/no-card.yaml
+                  view_layout:
+                    grid-area: chart1
+                  config_templates:
+                    - sensor_temperature_humidity
+                  header:
+                    title: Lämpötila
+                  series:
+                    - entity: sensor.mqtt_airthings_waveplus_living_room_temperature
+                    - entity: sensor.mqtt_airthings_waveplus_living_room_humidity
 
-              - type: custom:apexcharts-card
-                card_mod:
-                  !include ../../ui/styles/no-card.yaml
-                view_layout:
-                  grid-area: chart2
-                config_templates:
-                  - sensor_radon_voc
-                header:
-                  title: Radon, lyhytaikainen
-                series:
-                  - entity: sensor.mqtt_airthings_waveplus_living_room_radon_short_term
-                  - entity: sensor.mqtt_airthings_waveplus_living_room_voc
+                - type: custom:apexcharts-card
+                  card_mod:
+                    !include ../../ui/styles/no-card.yaml
+                  view_layout:
+                    grid-area: chart2
+                  config_templates:
+                    - sensor_radon_voc
+                  header:
+                    title: Radon, lyhytaikainen
+                  series:
+                    - entity: sensor.mqtt_airthings_waveplus_living_room_radon_short_term
+                    - entity: sensor.mqtt_airthings_waveplus_living_room_voc
 
-          - type: custom:layout-card
-            layout_type: custom:grid-layout
-            layout:
-              grid-template-columns: 1fr 2fr
-              grid-template-rows: 1fr 1fr
-              grid-template-areas: |
-                "values chart1"
-                "values chart2"
-              place-items: stretch stretch
-            cards:
-              - type: entities
-                card_mod:
-                  !include ../../ui/styles/entities-card.yaml
-                view_layout:
-                  grid-area: values
-                  place-self: stretch
-                title: Työhuone
-                show_header_toggle: false
-                entities:
-                  - entity: sensor.netatmo_koti_olohuone_temperature
-                    name: Lämpötila
-                  - entity: sensor.netatmo_koti_olohuone_humidity
-                    name: Kosteus
-                  - entity: sensor.netatmo_koti_olohuone_co2
-                    name: CO2
-                  - entity: sensor.netatmo_koti_olohuone_noise
-                    name: Ääni
-                  - entity: sensor.netatmo_koti_olohuone_pressure
-                    name: Paine
+            - type: custom:layout-card
+              layout_type: custom:grid-layout
+              layout:
+                grid-template-columns: 1fr 2fr
+                grid-template-rows: 1fr 1fr
+                grid-template-areas: |
+                  "values chart1"
+                  "values chart2"
+                place-items: stretch stretch
+              cards:
+                - type: entities
+                  card_mod:
+                    !include ../../ui/styles/entities-card.yaml
+                  view_layout:
+                    grid-area: values
+                    place-self: stretch
+                  title: Työhuone
+                  show_header_toggle: false
+                  entities:
+                    - entity: sensor.netatmo_koti_olohuone_temperature
+                      name: Lämpötila
+                    - entity: sensor.netatmo_koti_olohuone_humidity
+                      name: Kosteus
+                    - entity: sensor.netatmo_koti_olohuone_co2
+                      name: CO2
+                    - entity: sensor.netatmo_koti_olohuone_noise
+                      name: Ääni
+                    - entity: sensor.netatmo_koti_olohuone_pressure
+                      name: Paine
 
-              - type: custom:apexcharts-card
-                card_mod:
-                  !include ../../ui/styles/no-card.yaml
-                view_layout:
-                  grid-area: chart1
-                config_templates:
-                  - sensor_temperature_humidity
-                header:
-                  title: Lämpötila ja kosteus
-                series:
-                  - entity: sensor.netatmo_koti_olohuone_temperature
-                    color: "#008000"
-                    name: Lämpötila
-                  - entity: sensor.netatmo_koti_olohuone_humidity
-                    color: dodgerblue
-                    name: Kosteus
+                - type: custom:apexcharts-card
+                  card_mod:
+                    !include ../../ui/styles/no-card.yaml
+                  view_layout:
+                    grid-area: chart1
+                  config_templates:
+                    - sensor_temperature_humidity
+                  header:
+                    title: Lämpötila ja kosteus
+                  series:
+                    - entity: sensor.netatmo_koti_olohuone_temperature
+                      color: "#008000"
+                      name: Lämpötila
+                    - entity: sensor.netatmo_koti_olohuone_humidity
+                      color: dodgerblue
+                      name: Kosteus
 
-              - type: custom:apexcharts-card
-                card_mod:
-                  !include ../../ui/styles/no-card.yaml
-                view_layout:
-                  grid-area: chart2
-                config_templates:
-                  - sensor_generic
-                header:
-                  title: CO2
-                series:
-                  - entity: sensor.netatmo_koti_olohuone_co2
-                    color: green
-                    name: CO2
+                - type: custom:apexcharts-card
+                  card_mod:
+                    !include ../../ui/styles/no-card.yaml
+                  view_layout:
+                    grid-area: chart2
+                  config_templates:
+                    - sensor_generic
+                  header:
+                    title: CO2
+                  series:
+                    - entity: sensor.netatmo_koti_olohuone_co2
+                      color: green
+                      name: CO2
 
-          - type: custom:layout-card
-            layout_type: custom:grid-layout
-            layout:
-              grid-template-columns: 1fr 2fr
-              grid-template-rows: 1fr 1fr
-              grid-template-areas: |
-                "values chart1"
-                "values chart2"
-              place-items: stretch stretch
-            cards:
-              - type: entities
-                card_mod:
-                  !include ../../ui/styles/entities-card.yaml
-                view_layout:
-                  grid-area: values
-                  place-self: stretch
-                title: Makuuhuone
-                show_header_toggle: false
-                entities:
-                  - entity: sensor.netatmo_koti_olohuone_makuuhuone_temperature
-                    name: Lämpötila
-                  - entity: sensor.netatmo_koti_olohuone_makuuhuone_humidity
-                    name: Kosteus
-                  - entity: sensor.netatmo_koti_olohuone_makuuhuone_co2
-                    name: CO2
+            - type: custom:layout-card
+              layout_type: custom:grid-layout
+              layout:
+                grid-template-columns: 1fr 2fr
+                grid-template-rows: 1fr 1fr
+                grid-template-areas: |
+                  "values chart1"
+                  "values chart2"
+                place-items: stretch stretch
+              cards:
+                - type: entities
+                  card_mod:
+                    !include ../../ui/styles/entities-card.yaml
+                  view_layout:
+                    grid-area: values
+                    place-self: stretch
+                  title: Makuuhuone
+                  show_header_toggle: false
+                  entities:
+                    - entity: sensor.netatmo_koti_olohuone_makuuhuone_temperature
+                      name: Lämpötila
+                    - entity: sensor.netatmo_koti_olohuone_makuuhuone_humidity
+                      name: Kosteus
+                    - entity: sensor.netatmo_koti_olohuone_makuuhuone_co2
+                      name: CO2
 
 
-              - type: custom:apexcharts-card
-                card_mod:
-                  !include ../../ui/styles/no-card.yaml
-                view_layout:
-                  grid-area: chart1
-                config_templates:
-                  - sensor_temperature
-                header:
-                  title: Lämpötila
-                series:
-                  - entity: sensor.netatmo_koti_olohuone_makuuhuone_temperature
-                    color: "#008000"
-                    name: Lämpötila
+                - type: custom:apexcharts-card
+                  card_mod:
+                    !include ../../ui/styles/no-card.yaml
+                  view_layout:
+                    grid-area: chart1
+                  config_templates:
+                    - sensor_temperature
+                  header:
+                    title: Lämpötila
+                  series:
+                    - entity: sensor.netatmo_koti_olohuone_makuuhuone_temperature
+                      color: "#008000"
+                      name: Lämpötila
 
-              - type: custom:apexcharts-card
-                card_mod:
-                  !include ../../ui/styles/no-card.yaml
-                view_layout:
-                  grid-area: chart2
-                config_templates:
-                  - sensor_humidity
-                header:
-                  title: Kosteus
-                series:
-                  - entity: sensor.netatmo_koti_olohuone_makuuhuone_humidity
-                    color: dodgerblue
-                    name: Kosteus
+                - type: custom:apexcharts-card
+                  card_mod:
+                    !include ../../ui/styles/no-card.yaml
+                  view_layout:
+                    grid-area: chart2
+                  config_templates:
+                    - sensor_humidity
+                  header:
+                    title: Kosteus
+                  series:
+                    - entity: sensor.netatmo_koti_olohuone_makuuhuone_humidity
+                      color: dodgerblue
+                      name: Kosteus
 
-          - type: custom:layout-card
-            layout_type: custom:grid-layout
-            layout:
-              grid-template-columns: 1fr 2fr
-              grid-template-rows: 1fr 1fr
-              grid-template-areas: |
-                "values chart1"
-                "values chart2"
-              place-items: stretch stretch
-            cards:
-              - type: entities
-                card_mod:
-                  !include ../../ui/styles/entities-card.yaml
-                view_layout:
-                  grid-area: values
-                  place-self: stretch
-                title: Sisun huone
-                show_header_toggle: false
-                entities:
-                  - entity: sensor.mqtt_airthings_waveplus_sisu_temperature
-                    name: Lämpötila
-                  - entity: sensor.mqtt_airthings_waveplus_sisu_humidity
-                    name: Kosteus
-                  - entity: sensor.mqtt_airthings_waveplus_sisu_co2
-                    name: CO2
-                  - entity: sensor.mqtt_airthings_waveplus_sisu_voc
-                    name: VOC
-                  - entity: sensor.mqtt_airthings_waveplus_sisu_radon_short_term
-                    name: Radon, lyhytaikainen
-                  - entity: sensor.mqtt_airthings_waveplus_sisu_radon_long_term
-                    name: Radon, pitkäaikainen
-                  - entity: switch.tplink_hs100_2
-                    secondary_info: last-changed
+            - type: custom:layout-card
+              layout_type: custom:grid-layout
+              layout:
+                grid-template-columns: 1fr 2fr
+                grid-template-rows: 1fr 1fr
+                grid-template-areas: |
+                  "values chart1"
+                  "values chart2"
+                place-items: stretch stretch
+              cards:
+                - type: entities
+                  card_mod:
+                    !include ../../ui/styles/entities-card.yaml
+                  view_layout:
+                    grid-area: values
+                    place-self: stretch
+                  title: Sisun huone
+                  show_header_toggle: false
+                  entities:
+                    - entity: sensor.mqtt_airthings_waveplus_sisu_temperature
+                      name: Lämpötila
+                    - entity: sensor.mqtt_airthings_waveplus_sisu_humidity
+                      name: Kosteus
+                    - entity: sensor.mqtt_airthings_waveplus_sisu_co2
+                      name: CO2
+                    - entity: sensor.mqtt_airthings_waveplus_sisu_voc
+                      name: VOC
+                    - entity: sensor.mqtt_airthings_waveplus_sisu_radon_short_term
+                      name: Radon, lyhytaikainen
+                    - entity: sensor.mqtt_airthings_waveplus_sisu_radon_long_term
+                      name: Radon, pitkäaikainen
+                    - entity: switch.tplink_hs100_2
+                      secondary_info: last-changed
 
-              - type: custom:apexcharts-card
-                card_mod:
-                  !include ../../ui/styles/no-card.yaml
-                view_layout:
-                  grid-area: chart1
-                config_templates:
-                  - sensor_temperature_humidity
-                header:
-                  title: Lämpötila ja kosteus
-                series:
-                  - entity: sensor.mqtt_airthings_waveplus_sisu_temperature
-                    color: "#008000"
-                  - entity: sensor.mqtt_airthings_waveplus_sisu_humidity
-                    color: dodgerblue
+                - type: custom:apexcharts-card
+                  card_mod:
+                    !include ../../ui/styles/no-card.yaml
+                  view_layout:
+                    grid-area: chart1
+                  config_templates:
+                    - sensor_temperature_humidity
+                  header:
+                    title: Lämpötila ja kosteus
+                  series:
+                    - entity: sensor.mqtt_airthings_waveplus_sisu_temperature
+                      color: "#008000"
+                    - entity: sensor.mqtt_airthings_waveplus_sisu_humidity
+                      color: dodgerblue
 
-              - type: custom:apexcharts-card
-                card_mod:
-                  !include ../../ui/styles/no-card.yaml
-                view_layout:
-                  grid-area: chart2
-                config_templates:
-                  - sensor_radon_voc
-                header:
-                  title: Radon, lyhytaikainen
-                series:
-                  - entity: sensor.mqtt_airthings_waveplus_sisu_radon_short_term
-                  - entity: sensor.mqtt_airthings_waveplus_sisu_voc
+                - type: custom:apexcharts-card
+                  card_mod:
+                    !include ../../ui/styles/no-card.yaml
+                  view_layout:
+                    grid-area: chart2
+                  config_templates:
+                    - sensor_radon_voc
+                  header:
+                    title: Radon, lyhytaikainen
+                  series:
+                    - entity: sensor.mqtt_airthings_waveplus_sisu_radon_short_term
+                    - entity: sensor.mqtt_airthings_waveplus_sisu_voc
 
-          - type: custom:layout-card
-            layout_type: custom:grid-layout
-            layout:
-              grid-template-columns: 1fr 2fr
-              grid-template-rows: 1fr 1fr
-              grid-template-areas: |
-                "values chart1"
-                "values chart2"
-              place-items: stretch stretch
-            cards:
-              - type: entities
-                card_mod:
-                  !include ../../ui/styles/entities-card.yaml
-                view_layout:
-                  grid-area: values
-                  place-self: stretch
-                title: Otson huone
-                show_header_toggle: false
-                entities:
-                  - entity: sensor.mqtt_otso_temperature
-                    name: Lämpötila
-                  - entity: sensor.mqtt_otso_humidity
-                    name: Kosteus
-                  - entity: sensor.mqtt_otso_pressure
-                    name: Paine
+            - type: custom:layout-card
+              layout_type: custom:grid-layout
+              layout:
+                grid-template-columns: 1fr 2fr
+                grid-template-rows: 1fr 1fr
+                grid-template-areas: |
+                  "values chart1"
+                  "values chart2"
+                place-items: stretch stretch
+              cards:
+                - type: entities
+                  card_mod:
+                    !include ../../ui/styles/entities-card.yaml
+                  view_layout:
+                    grid-area: values
+                    place-self: stretch
+                  title: Otson huone
+                  show_header_toggle: false
+                  entities:
+                    - entity: sensor.mqtt_otso_temperature
+                      name: Lämpötila
+                    - entity: sensor.mqtt_otso_humidity
+                      name: Kosteus
+                    - entity: sensor.mqtt_otso_pressure
+                      name: Paine
 
-              - type: custom:apexcharts-card
-                card_mod:
-                  !include ../../ui/styles/no-card.yaml
-                view_layout:
-                  grid-area: chart1
-                config_templates:
-                  - sensor_temperature
-                header:
-                  title: Lämpötila
-                series:
-                  - entity: sensor.mqtt_otso_temperature
-                    color: "#008000"
-                    name: Lämpötila
+                - type: custom:apexcharts-card
+                  card_mod:
+                    !include ../../ui/styles/no-card.yaml
+                  view_layout:
+                    grid-area: chart1
+                  config_templates:
+                    - sensor_temperature
+                  header:
+                    title: Lämpötila
+                  series:
+                    - entity: sensor.mqtt_otso_temperature
+                      color: "#008000"
+                      name: Lämpötila
 
-              - type: custom:apexcharts-card
-                card_mod:
-                  !include ../../ui/styles/no-card.yaml
-                view_layout:
-                  grid-area: chart2
-                config_templates:
-                  - sensor_humidity
-                header:
-                  title: Kosteus
-                series:
-                  - entity: sensor.mqtt_otso_humidity
-                    color: dodgerblue
-                    name: Kosteus
+                - type: custom:apexcharts-card
+                  card_mod:
+                    !include ../../ui/styles/no-card.yaml
+                  view_layout:
+                    grid-area: chart2
+                  config_templates:
+                    - sensor_humidity
+                  header:
+                    title: Kosteus
+                  series:
+                    - entity: sensor.mqtt_otso_humidity
+                      color: dodgerblue
+                      name: Kosteus
 
-          - type: custom:layout-card
-            layout_type: custom:grid-layout
-            layout:
-              grid-template-columns: 1fr 2fr
-              grid-template-rows: 1fr 1fr
-              grid-template-areas: |
-                "values chart1"
-                "values chart2"
-              place-items: stretch stretch
-            cards:
-              - type: entities
-                card_mod:
-                  !include ../../ui/styles/entities-card.yaml
-                view_layout:
-                  grid-area: values
-                  place-self: stretch
-                title: Ulko
-                show_header_toggle: false
-                entities:
-                  - entity: sensor.netatmo_koti_olohuone_ulko_temperature
-                    name: Lämpötila
-                  - entity: sensor.netatmo_koti_olohuone_ulko_humidity
-                    name: Kosteus
-                  - entity: sensor.netatmo_koti_olohuone_sade_rain
-                    name: Sademäärä
-                  - entity: sensor.netatmo_koti_olohuone_sade_rain_today
-                    name: Sademäärä tänään
+            - type: custom:layout-card
+              layout_type: custom:grid-layout
+              layout:
+                grid-template-columns: 1fr 2fr
+                grid-template-rows: 1fr 1fr
+                grid-template-areas: |
+                  "values chart1"
+                  "values chart2"
+                place-items: stretch stretch
+              cards:
+                - type: entities
+                  card_mod:
+                    !include ../../ui/styles/entities-card.yaml
+                  view_layout:
+                    grid-area: values
+                    place-self: stretch
+                  title: Ulko
+                  show_header_toggle: false
+                  entities:
+                    - entity: sensor.netatmo_koti_olohuone_ulko_temperature
+                      name: Lämpötila
+                    - entity: sensor.netatmo_koti_olohuone_ulko_humidity
+                      name: Kosteus
+                    - entity: sensor.netatmo_koti_olohuone_sade_rain
+                      name: Sademäärä
+                    - entity: sensor.netatmo_koti_olohuone_sade_rain_today
+                      name: Sademäärä tänään
 
-              - type: custom:apexcharts-card
-                card_mod:
-                  !include ../../ui/styles/no-card.yaml
-                view_layout:
-                  grid-area: chart1
-                config_templates:
-                  - sensor_temperature_outdoor
+                - type: custom:apexcharts-card
+                  card_mod:
+                    !include ../../ui/styles/no-card.yaml
+                  view_layout:
+                    grid-area: chart1
+                  config_templates:
+                    - sensor_temperature_outdoor
 
-              - type: custom:apexcharts-card
-                card_mod:
-                  !include ../../ui/styles/no-card.yaml
-                view_layout:
-                  grid-area: chart2
-                config_templates:
-                  - sensor_humidity
-                header:
-                  title: Kosteus
-                series:
-                  - entity: sensor.netatmo_koti_olohuone_ulko_humidity
-                    color: dodgerblue
-                    name: Kosteus
+                - type: custom:apexcharts-card
+                  card_mod:
+                    !include ../../ui/styles/no-card.yaml
+                  view_layout:
+                    grid-area: chart2
+                  config_templates:
+                    - sensor_humidity
+                  header:
+                    title: Kosteus
+                  series:
+                    - entity: sensor.netatmo_koti_olohuone_ulko_humidity
+                      color: dodgerblue
+                      name: Kosteus

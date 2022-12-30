@@ -1,81 +1,82 @@
 ---
 action: fire-dom-event
 browser_mod:
-  command: popup
-  title: Pesutorni
-  style:
-    !include ../../ui/styles/popup.yaml
-  card:
-    type: vertical-stack
-    cards:
-      - type: custom:swipe-card
-        parameters:
-          pagination:
-            type: bullets
-          keyboard:
-            enabled: true
-            onlyInViewport: true
-        cards:
-          - type: vertical-stack
-            cards:
-              - type: entities
-                card_mod:
-                  !include ../../ui/styles/entities-card.yaml
-                title: Pesukone
-                show_header_toggle: false
-                entities:
-                  - entity: sensor.washing_machine_status
-                    name: Tila
-                  - entity: sensor.washing_machine_energy
-                    name: Sähkönkulutus
-                  - entity: sensor.washing_machine_water_consumption
-                    name: Vedenkulutus
-                  - entity: sensor.washing_machine_program_id
-                    name: Ohjelma
-                  - entity: sensor.washing_machine_program_phase
-                    name: Ohjelman vaihe
-                  - entity: sensor.washing_machine_remaining_time
-                    name: Jäljellä oleva aika
-                  - type: section
+  service: browser_mod.popup
+  data:
+    title: Pesutorni
+    card_mod:
+      !include ../../ui/styles/popup.yaml
+    content:
+      type: vertical-stack
+      cards:
+        - type: custom:swipe-card
+          parameters:
+            pagination:
+              type: bullets
+            keyboard:
+              enabled: true
+              onlyInViewport: true
+          cards:
+            - type: vertical-stack
+              cards:
+                - type: entities
+                  card_mod:
+                    !include ../../ui/styles/entities-card.yaml
+                  title: Pesukone
+                  show_header_toggle: false
+                  entities:
+                    - entity: sensor.washing_machine_status
+                      name: Tila
+                    - entity: sensor.washing_machine_energy
+                      name: Sähkönkulutus
+                    - entity: sensor.washing_machine_water_consumption
+                      name: Vedenkulutus
+                    - entity: sensor.washing_machine_program_id
+                      name: Ohjelma
+                    - entity: sensor.washing_machine_program_phase
+                      name: Ohjelman vaihe
+                    - entity: sensor.washing_machine_remaining_time
+                      name: Jäljellä oleva aika
+                    - type: section
 
-              - type: custom:apexcharts-card
-                view_layout:
-                  grid-area: graph1
-                  place-self: end stretch
-                card_mod:
-                  !include ../../ui/styles/no-card.yaml
-                config_templates:
-                  - sensor_washing_machine
+                - type: custom:apexcharts-card
+                  view_layout:
+                    grid-area: graph1
+                    place-self: end stretch
+                  card_mod:
+                    !include ../../ui/styles/no-card.yaml
+                  config_templates:
+                    - sensor_washing_machine
 
-          - type: vertical-stack
-            view_layout:
-              grid-area: dryer
-            cards:
-              - type: entities
-                card_mod:
-                  !include ../../ui/styles/entities-card.yaml
-                title: Kuivausrumpu
-                show_header_toggle: false
-                entities:
-                  - entity: sensor.tumble_dryer_status
-                    name: Tila
-                  - entity: sensor.tumble_dryer_energy
-                    name: Sähkönkulutus
-                  - entity: sensor.tumble_dryer_program_id
-                    name: Ohjelma
-                  - entity: sensor.tumble_dryer_program_phase
-                    name: Ohjelman vaihe
-                  - entity: sensor.tumble_dryer_drying_step
-                    name: Kuivausvaihe
-                  - entity: sensor.tumble_dryer_remaining_time
-                    name: Jäljellä oleva aika
-                  - type: section
+            - type: vertical-stack
+              view_layout:
+                grid-area: dryer
+              cards:
+                - type: entities
+                  card_mod:
+                    !include ../../ui/styles/entities-card.yaml
+                  title: Kuivausrumpu
+                  show_header_toggle: false
+                  entities:
+                    - entity: sensor.tumble_dryer_status
+                      name: Tila
+                    - entity: sensor.tumble_dryer_energy
+                      name: Sähkönkulutus
+                    - entity: sensor.tumble_dryer_program_id
+                      name: Ohjelma
+                    - entity: sensor.tumble_dryer_program_phase
+                      name: Ohjelman vaihe
+                    - entity: sensor.tumble_dryer_drying_step
+                      name: Kuivausvaihe
+                    - entity: sensor.tumble_dryer_remaining_time
+                      name: Jäljellä oleva aika
+                    - type: section
 
-              - type: custom:apexcharts-card
-                view_layout:
-                  grid-area: graph2
-                  place-self: end stretch
-                card_mod:
-                  !include ../../ui/styles/no-card.yaml
-                config_templates:
-                  - sensor_tumble_dryer
+                - type: custom:apexcharts-card
+                  view_layout:
+                    grid-area: graph2
+                    place-self: end stretch
+                  card_mod:
+                    !include ../../ui/styles/no-card.yaml
+                  config_templates:
+                    - sensor_tumble_dryer

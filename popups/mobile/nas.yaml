@@ -1,47 +1,48 @@
 ---
 action: fire-dom-event
 browser_mod:
-  command: popup
-  title: Synology NAS
-  style:
-    !include ../../ui/styles/popup.yaml
-  card:
-    type: vertical-stack
-    cards:
-      - type: entities
-        card_mod:
-          !include ../../ui/styles/entities-card.yaml
-        show_header_toggle: false
-        entities:
-          - entity: sensor.synology_cpu_utilization_total
-            name: CPU
-          - entity: sensor.synology_memory_usage_real
-            name: Muistinkäyttö
-          - entity: binary_sensor.synology_security_status
-            name: Turvataso
-          - entity: update.synology_dsm_update
-            name: Päivitys
-          - type: section
-            label: Levyt
-          - entity: sensor.synology_drive_1_status
-            name: Levy 1
-          - entity: sensor.synology_temperature_2
-            name: Lämpötila
-          - entity: sensor.synology_drive_2_status
-            name: Levy 2
-          - entity: sensor.synology_temperature
-            name: Lämpötila
-          - type: section
+  service: browser_mod.popup
+  data:
+    title: Synology NAS
+    card_mod:
+      !include ../../ui/styles/popup.yaml
+    content:
+      type: vertical-stack
+      cards:
+        - type: entities
+          card_mod:
+            !include ../../ui/styles/entities-card.yaml
+          show_header_toggle: false
+          entities:
+            - entity: sensor.synology_cpu_utilization_total
+              name: CPU
+            - entity: sensor.synology_memory_usage_real
+              name: Muistinkäyttö
+            - entity: binary_sensor.synology_security_status
+              name: Turvataso
+            - entity: update.synology_dsm_update
+              name: Päivitys
+            - type: section
+              label: Levyt
+            - entity: sensor.synology_drive_1_status
+              name: Levy 1
+            - entity: sensor.synology_temperature_2
+              name: Lämpötila
+            - entity: sensor.synology_drive_2_status
+              name: Levy 2
+            - entity: sensor.synology_temperature
+              name: Lämpötila
+            - type: section
 
-      - type: custom:mod-card
-        card_mod:
-          style: |
-            ha-card {
-              display: flex;
-              justify-content: center;
-            }
-        card:
-          type: horizontal-stack
-          cards:
-            - type: custom:button-card
-              template: button_synology_reboot
+        - type: custom:mod-card
+          card_mod:
+            style: |
+              ha-card {
+                display: flex;
+                justify-content: center;
+              }
+          card:
+            type: horizontal-stack
+            cards:
+              - type: custom:button-card
+                template: button_synology_reboot

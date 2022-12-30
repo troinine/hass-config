@@ -1,6 +1,8 @@
----
-hui-vertical-stack-card:
-  $: |
-    #root {
-      padding: 0 1rem 0 1rem;
+style:
+  ha-dialog$: |
+    @media (max-width: 450px), (max-height: 500px) {
+      div.mdc-dialog div.mdc-dialog__container {
+        --mdc-dialog-min-height: 100vh;
+        --mdc-dialog-min-width: 100vw;
+      }
     }

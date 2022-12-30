@@ -1,65 +1,66 @@
 ---
 action: fire-dom-event
 browser_mod:
-  command: popup
-  title: Sääennuste
-  style:
-    $: |
-      .mdc-dialog .mdc-dialog__surface {
-        background-color: var(--primary-background-color) !important;
-      }
-    .: |
-      :host .content {
-        width: 50vw;
-        max-width: 60vw;
-      }
-    hui-vertical-stack-card:
-      $: |
-        #root {
-          padding: 0 1rem 0 1rem;
-        }
-        button-card {
-          padding: 0 20px 0 20px;
-        }
-        .text-content {
-          text-align: start !important;
-        }
-  card:
-    type: custom:layout-card
-    layout_type: custom:grid-layout
-    layout:
-      grid-template-columns: 1fr 1fr
-      grid-template-rows: min-content min-content
-      grid-template-areas: |
-        "weather weather"
-        "temperature rain"
-    cards:
-      - type: custom:weather-chart-card
-        view_layout:
-          grid-area: weather
-        card_mod:
-          !include ../../ui/styles/no-card.yaml
-        entity: weather.koti_custom
-        icons: /local/img/weather/
-        units:
-          speed: m/s
+  service: browser_mod.popup
+  data:
+    title: Sääennuste
+    style: |
+      --popup-max-width: 60vw;
+    card_mod:
+      style:
+        layout-card:
+          $grid-layout$:
+            .: |
+              #root {
+                margin: 0 1rem 1rem 1rem !important;
+              }
+        hui-vertical-stack-card:
+          $: |
+            #root {
+              padding: 0 1rem 0 1rem;
+            }
+            button-card {
+              padding: 0 20px 0 20px;
+            }
+            .text-content {
+              text-align: start !important;
+            }
+    content:
+      type: custom:layout-card
+      layout_type: custom:grid-layout
+      layout:
+        grid-template-columns: 1fr 1fr
+        grid-template-rows: min-content min-content
+        grid-template-areas: |
+          "weather weather"
+          "temperature rain"
+      cards:
+        - type: custom:weather-chart-card
+          view_layout:
+            grid-area: weather
+          card_mod:
+            !include ../../ui/styles/no-card.yaml
+          entity: weather.koti_custom
+          icons: /local/img/weather/
+          units:
+            speed: m/s
 
-      - type: custom:apexcharts-card
-        view_layout:
-          grid-area: temperature
-        card_mod:
-          !include ../../ui/styles/no-card.yaml
-        config_templates:
-          - sensor_temperature_outdoor
-        header:
-          title: Ulkolämpötila
-          show: true
-          show_states: true
+        - type: custom:apexcharts-card
+          view_layout:
+            grid-area: temperature
+          card_mod:
+            !include ../../ui/styles/no-card.yaml
+          config_templates:
+            - sensor_temperature_outdoor
+          header:
+            title: Ulkolämpötila
+            show: true
+            show_states: true
 
-      - type: custom:apexcharts-card
-        view_layout:
-          grid-area: rain
-        card_mod:
-          !include ../../ui/styles/no-card.yaml
-        config_templates:
-          - sensor_rain
+        - type: custom:apexcharts-card
+          view_layout:
+            grid-area: rain
+          card_mod:
+            !include ../../ui/styles/no-card.yaml
+          config_templates:
+            - sensor_rain

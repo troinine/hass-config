@@ -126,6 +126,9 @@ tablet:
       ha-dialog-border-radius: var(--border-radius)
       mdc-dialog-min-width: 500px
 
+      # Popups
+      popup-background-color: var(--primary-background-color)
+
       # Media player
       mini-media-player-accent-color: "var(--google-blue)"
 

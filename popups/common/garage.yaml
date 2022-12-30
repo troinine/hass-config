@@ -1,42 +1,43 @@
 action: fire-dom-event
 browser_mod:
-  command: popup
-  title: Autotalli
-  style:
-    !include ../../ui/styles/popup.yaml
-  card:
-    type: vertical-stack
-    cards:
-      - type: entities
-        card_mod:
-          !include ../../ui/styles/entities-card.yaml
-        entities:
-          - entity: binary_sensor.mqtt_garage_door
-          - entity: sensor.netatmo_koti_olohuone_autotalli_temperature
-            name: Lömpötila
-          - entity: sensor.netatmo_koti_olohuone_autotalli_humidity
-            name: Kosteus
-          - entity: sensor.netatmo_koti_olohuone_autotalli_co2
-            name: CO2
-          - entity: switch.tplink_hs110_1
-            name: Stigan laturi
-          - entity: switch.tplink_hs110_2
-            name: Ilmankuivain
-          - entity: binary_sensor.garage_dehumidifier
-            name: Kuivaus käynnissä
-          - type: section
-            label: Automaatiot
-          - type: custom:fold-entity-row
-            padding: 0
-            head:
+  service: browser_mod.popup
+  data:
+    title: Autotalli
+    card_mod:
+      !include ../../ui/styles/popup.yaml
+    content:
+      type: vertical-stack
+      cards:
+        - type: entities
+          card_mod:
+            !include ../../ui/styles/entities-card.yaml
+          entities:
+            - entity: binary_sensor.mqtt_garage_door
+            - entity: sensor.netatmo_koti_olohuone_autotalli_temperature
+              name: Lömpötila
+            - entity: sensor.netatmo_koti_olohuone_autotalli_humidity
+              name: Kosteus
+            - entity: sensor.netatmo_koti_olohuone_autotalli_co2
+              name: CO2
+            - entity: switch.tplink_hs110_1
+              name: Stigan laturi
+            - entity: switch.tplink_hs110_2
+              name: Ilmankuivain
+            - entity: binary_sensor.garage_dehumidifier
+              name: Kuivaus käynnissä
+            - type: section
               label: Automaatiot
-              entity: automation.kaynnista_ilmankuivain
-            entities:
-              - entity: automation.sammuta_ilmankuivain
-              - entity: automation.tyhjenna_ilmankuivain
+            - type: custom:fold-entity-row
+              padding: 0
+              head:
+                label: Automaatiot
+                entity: automation.kaynnista_ilmankuivain
+              entities:
+                - entity: automation.sammuta_ilmankuivain
+                - entity: automation.tyhjenna_ilmankuivain
 
-      - type: custom:apexcharts-card
-        card_mod:
-          !include ../../ui/styles/no-card.yaml
-        config_templates:
-          - sensor_garage_temperature_humidity
+        - type: custom:apexcharts-card
+          card_mod:
+            !include ../../ui/styles/no-card.yaml
+          config_templates:
+            - sensor_garage_temperature_humidity

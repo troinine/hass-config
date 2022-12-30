@@ -112,7 +112,7 @@ cards:
             variables:
               name: Olohuone TV
               tap_action:
-                !include ../../../popups/common/remote-control.yaml
+                !include ../../../popups/mobile/remote-control.yaml
 
           - type: 'custom:button-card'
             template:

@@ -1,102 +1,103 @@
 ---
 action: fire-dom-event
 browser_mod:
-  command: popup
-  title: Koti
-  style:
-    !include ../../ui/styles/popup.yaml
-  card:
-    type: vertical-stack
-    cards:
-      - type: custom:swipe-card
-        parameters:
-          pagination:
-            type: bullets
-          keyboard:
-            enabled: true
-            onlyInViewport: true
-        cards:
-          - type: entities
-            title: Tila ja automaatiot
-            card_mod:
-              !include ../../ui/styles/entities-card.yaml
-            show_header_toggle: false
-            entities:
-              - entity: sensor.home_state
-                name: Tila
-              - entity: lock.ulko_ovi
-                name: Ulko-ovi
-              - entity: binary_sensor.mqtt_garage_door
-              - entity: input_boolean.on_vacation
-              - entity: input_boolean.automations_enabled
-              - type: section
-                label: Automaatiot
-              - entity: automation.liike_eteisessa
-              - entity: automation.aloita_iltarutiinit
-              - entity: automation.start_go_to_sleep
-              - entity: automation.aloita_nukkumaanmeno_viikonloppuisin
-                name: Aloita nukkumaanmeno vkl
-              - entity: automation.herata_arkisin
-              - entity: automation.valot_paalle_yolla
+  service: browser_mod.popup
+  data:
+    title: Koti
+    card_mod:
+      !include ../../ui/styles/popup.yaml
+    content:
+      type: vertical-stack
+      cards:
+        - type: custom:swipe-card
+          parameters:
+            pagination:
+              type: bullets
+            keyboard:
+              enabled: true
+              onlyInViewport: true
+          cards:
+            - type: entities
+              title: Tila ja automaatiot
+              card_mod:
+                !include ../../ui/styles/entities-card.yaml
+              show_header_toggle: false
+              entities:
+                - entity: sensor.home_state
+                  name: Tila
+                - entity: lock.ulko_ovi
+                  name: Ulko-ovi
+                - entity: binary_sensor.mqtt_garage_door
+                - entity: input_boolean.on_vacation
+                - entity: input_boolean.automations_enabled
+                - type: section
+                  label: Automaatiot
+                - entity: automation.liike_eteisessa
+                - entity: automation.aloita_iltarutiinit
+                - entity: automation.start_go_to_sleep
+                - entity: automation.aloita_nukkumaanmeno_viikonloppuisin
+                  name: Aloita nukkumaanmeno vkl
+                - entity: automation.herata_arkisin
+                - entity: automation.valot_paalle_yolla
 
-          - type: vertical-stack
-            cards:
-              - type: entities
-                title: Sähkönkulutus
-                card_mod:
-                  !include ../../ui/styles/entities-card.yaml
-                show_header_toggle: false
-                entities:
-                  - entity: sensor.mqtt_electricity_consumption_daily_updated
-                    name: Päivitetty
-                  - entity: sensor.mqtt_electricity_consumption_daily
-                    name: Päivän kulutus
-                  - entity: sensor.mqtt_electricity_consumption_monthly
-                    name: Kuukauden kulutus
-                  - entity: sensor.mqtt_energy_cost_monthly
-                    name: Kuukauden hinta
-                  - type: section
-              - type: custom:apexcharts-card
-                card_mod:
-                  !include ../../ui/styles/no-card.yaml
-                config_templates:
-                  - sensor_electricity_consumption_daily
+            - type: vertical-stack
+              cards:
+                - type: entities
+                  title: Sähkönkulutus
+                  card_mod:
+                    !include ../../ui/styles/entities-card.yaml
+                  show_header_toggle: false
+                  entities:
+                    - entity: sensor.mqtt_electricity_consumption_daily_updated
+                      name: Päivitetty
+                    - entity: sensor.mqtt_electricity_consumption_daily
+                      name: Päivän kulutus
+                    - entity: sensor.mqtt_electricity_consumption_monthly
+                      name: Kuukauden kulutus
+                    - entity: sensor.mqtt_energy_cost_monthly
+                      name: Kuukauden hinta
+                    - type: section
+                - type: custom:apexcharts-card
+                  card_mod:
+                    !include ../../ui/styles/no-card.yaml
+                  config_templates:
+                    - sensor_electricity_consumption_daily
 
-          - type: vertical-stack
-            cards:
-              - type: entities
-                title: Sauna
-                card_mod:
-                  !include ../../ui/styles/entities-card.yaml
-                show_header_toggle: false
-                entities:
-                  - entity: sensor.sauna_state
-                    name: Tila
-                  - type: attribute
-                    entity: automation.sauna_lammin
-                    attribute: last_triggered
-                    name: Viimeksi päällä
-                    format: relative
-                  - entity: sensor.mqtt_sauna_temperature
-                    name: Lämpötila
-                  - entity: sensor.mqtt_sauna_humidity
-                    name: Kosteus
-                  - type: section
+            - type: vertical-stack
+              cards:
+                - type: entities
+                  title: Sauna
+                  card_mod:
+                    !include ../../ui/styles/entities-card.yaml
+                  show_header_toggle: false
+                  entities:
+                    - entity: sensor.sauna_state
+                      name: Tila
+                    - type: attribute
+                      entity: automation.sauna_lammin
+                      attribute: last_triggered
+                      name: Viimeksi päällä
+                      format: relative
+                    - entity: sensor.mqtt_sauna_temperature
+                      name: Lämpötila
+                    - entity: sensor.mqtt_sauna_humidity
+                      name: Kosteus
+                    - type: section
 
-              - type: custom:apexcharts-card
-                view_layout:
-                  grid-area: graph2
-                  place-self: end stretch
-                card_mod:
-                  !include ../../ui/styles/no-card.yaml
-                config_templates:
-                  - sensor_generic_dual
-                header:
-                  title: Saunan lämpötila ja kosteus
-                series:
-                  - entity: sensor.mqtt_sauna_temperature
-                    name: Lämpötila
-                    color: green
-                  - entity: sensor.mqtt_sauna_humidity
-                    name: Kosteus
-                    color: dodgerblue
+                - type: custom:apexcharts-card
+                  view_layout:
+                    grid-area: graph2
+                    place-self: end stretch
+                  card_mod:
+                    !include ../../ui/styles/no-card.yaml
+                  config_templates:
+                    - sensor_generic_dual
+                  header:
+                    title: Saunan lämpötila ja kosteus
+                  series:
+                    - entity: sensor.mqtt_sauna_temperature
+                      name: Lämpötila
+                      color: green
+                    - entity: sensor.mqtt_sauna_humidity
+                      name: Kosteus
+                      color: dodgerblue

@@ -101,8 +101,6 @@ weather:
     ozone_template: "{{ state_attr('weather.koti', 'ozone') }}"
     visibility_template: "{{ state_attr('weather.koti', 'visibility') }}"
 
-browser_mod:
-
 input_select:
   home_state:
     name: "Tila"

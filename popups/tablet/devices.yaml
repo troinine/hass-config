@@ -1,150 +1,145 @@
 action: fire-dom-event
 browser_mod:
-  command: popup
-  title: Laitteet
-  style:
-    $: |
-      .mdc-dialog .mdc-dialog__surface {
-        background-color: var(--primary-background-color) !important;
-      }
-    .: |
-      :host .content {
-        width: calc(390px + 390px + 390px);
-        max-width: 90vw;
-      }
-    layout-card:
-      $grid-layout$:
-        .: |
-          #root {
-            margin: 0 0 1rem 0 !important;
-          }
+  service: browser_mod.popup
+  data:
+    title: Laitteet
+    style: |
+      --popup-max-width: 90vw;
+    card_mod:
+      style:
+        layout-card:
+          $grid-layout$:
+            .: |
+              #root {
+                margin: 0 1rem 1rem 1rem !important;
+              }
 
-  card:
-    type: custom:layout-card
-    layout_type: custom:grid-layout
-    layout:
-      grid-template-columns: 1fr 1fr 1fr
-      grid-template-rows: max-content
-      grid-template-areas: |
-        "hass tablet synology"
-      place-items: start stretch
-    cards:
-      - type: vertical-stack
-        view_layout:
-          grid-area: hass
-        cards:
-          - type: entities
-            card_mod:
-              !include ../../ui/styles/entities-card.yaml
-            title: Home Assistant
-            show_header_toggle: false
-            entities:
-              - entity: sensor.uptime
-                name: Käynnissä
-                format: total
-              - entity: sensor.hass_database_size
-                name: Kannan koko
-              - entity: sensor.hass_version_installed
-                name: Asennettu version
-              - entity: sensor.hass_version_latest
-                name: Uusin version
-              - entity: sensor.processor_use
-                name: Prosessorikäyttö
-              - entity: sensor.memory_use_percent
-                name: Muistinkulutus
-              - type: section
+    content:
+      type: custom:layout-card
+      layout_type: custom:grid-layout
+      layout:
+        grid-template-columns: 1fr 1fr 1fr
+        grid-template-rows: max-content
+        grid-template-areas: |
+          "hass tablet synology"
+        place-items: start stretch
+      cards:
+        - type: vertical-stack
+          view_layout:
+            grid-area: hass
+          cards:
+            - type: entities
+              card_mod:
+                !include ../../ui/styles/entities-card.yaml
+              title: Home Assistant
+              show_header_toggle: false
+              entities:
+                - entity: sensor.uptime
+                  name: Käynnissä
+                  format: total
+                - entity: sensor.hass_database_size
+                  name: Kannan koko
+                - entity: sensor.hass_version_installed
+                  name: Asennettu version
+                - entity: sensor.hass_version_latest
+                  name: Uusin version
+                - entity: sensor.processor_use
+                  name: Prosessorikäyttö
+                - entity: sensor.memory_use_percent
+                  name: Muistinkulutus
+                - type: section
 
-          - type: custom:mod-card
-            card_mod:
-              style: |
-                ha-card {
-                  display: flex;
-                  justify-content: center;
-                }
-            card:
-              type: horizontal-stack
-              cards:
-                - type: custom:button-card
-                  template: button_hass_update
-                  styles:
-                    card:
-                      - width: 20vw
+            - type: custom:mod-card
+              card_mod:
+                style: |
+                  ha-card {
+                    display: flex;
+                    justify-content: center;
+                  }
+              card:
+                type: horizontal-stack
+                cards:
+                  - type: custom:button-card
+                    template: button_hass_update
+                    styles:
+                      card:
+                        - width: 20vw
 
-      - type: vertical-stack
-        view_layout:
-          grid-area: tablet
-        cards:
-          - type: entities
-            card_mod:
-              !include ../../ui/styles/entities-card.yaml
-            title: Galaxy Tab A8
-            show_header_toggle: false
-            entities:
-              - entity: binary_sensor.galaxy_tab_a8_interactive
-                name: Näyttö
-              - entity: sensor.galaxy_tab_a8_battery_level
-                name: Akun taso
-              - entity: sensor.galaxy_tab_a8_battery_state
-                name: Akun kunto
-              - entity: sensor.galaxy_tab_a8_battery_temperature
-                name: Lämpötila
-              - entity: binary_sensor.galaxy_tab_a8_is_charging
-                name: Latautuu
-              - entity: automation.wake_up_galaxy_tab_a8
-              - type: section
+        - type: vertical-stack
+          view_layout:
+            grid-area: tablet
+          cards:
+            - type: entities
+              card_mod:
+                !include ../../ui/styles/entities-card.yaml
+              title: Galaxy Tab A8
+              show_header_toggle: false
+              entities:
+                - entity: binary_sensor.galaxy_tab_a8_interactive
+                  name: Näyttö
+                - entity: sensor.galaxy_tab_a8_battery_level
+                  name: Akun taso
+                - entity: sensor.galaxy_tab_a8_battery_state
+                  name: Akun kunto
+                - entity: sensor.galaxy_tab_a8_battery_temperature
+                  name: Lämpötila
+                - entity: binary_sensor.galaxy_tab_a8_is_charging
+                  name: Latautuu
+                - entity: automation.wake_up_galaxy_tab_a8
+                - type: section
 
-          - type: custom:mod-card
-            card_mod:
-              style: |
-                ha-card {
-                  display: flex;
-                  justify-content: center;
-                }
-            card:
-              type: horizontal-stack
-              cards:
-                - type: custom:button-card
-                  template: button_galaxy_tab_wake_up
-                  styles:
-                    card:
-                      - width: 20vw
+            - type: custom:mod-card
+              card_mod:
+                style: |
+                  ha-card {
+                    display: flex;
+                    justify-content: center;
+                  }
+              card:
+                type: horizontal-stack
+                cards:
+                  - type: custom:button-card
+                    template: button_galaxy_tab_wake_up
+                    styles:
+                      card:
+                        - width: 20vw
 
-      - type: vertical-stack
-        view_layout:
-          grid-area: synology
-        cards:
-          - type: entities
-            card_mod:
-              !include ../../ui/styles/entities-card.yaml
-            title: Synology
-            show_header_toggle: false
-            entities:
-              - entity: sensor.synology_cpu_utilization_total
-                name: CPU
-              - entity: sensor.synology_memory_usage_real
-                name: Muistinkäyttö
-              - entity: binary_sensor.synology_security_status
-                name: Turvataso
-              - entity: update.synology_dsm_update
-                name: Päivitys
-              - entity: sensor.synology_drive_1_status
-                name: Levy 1
-              - entity: sensor.synology_drive_2_status
-                name: Levy 2
-              - type: section
+        - type: vertical-stack
+          view_layout:
+            grid-area: synology
+          cards:
+            - type: entities
+              card_mod:
+                !include ../../ui/styles/entities-card.yaml
+              title: Synology
+              show_header_toggle: false
+              entities:
+                - entity: sensor.synology_cpu_utilization_total
+                  name: CPU
+                - entity: sensor.synology_memory_usage_real
+                  name: Muistinkäyttö
+                - entity: binary_sensor.synology_security_status
+                  name: Turvataso
+                - entity: update.synology_dsm_update
+                  name: Päivitys
+                - entity: sensor.synology_drive_1_status
+                  name: Levy 1
+                - entity: sensor.synology_drive_2_status
+                  name: Levy 2
+                - type: section
 
-          - type: custom:mod-card
-            card_mod:
-              style: |
-                ha-card {
-                  display: flex;
-                  justify-content: center;
-                }
-            card:
-              type: horizontal-stack
-              cards:
-                - type: custom:button-card
-                  template: button_synology_reboot
-                  styles:
-                    card:
-                      - width: 20vw
+            - type: custom:mod-card
+              card_mod:
+                style: |
+                  ha-card {
+                    display: flex;
+                    justify-content: center;
+                  }
+              card:
+                type: horizontal-stack
+                cards:
+                  - type: custom:button-card
+                    template: button_synology_reboot
+                    styles:
+                      card:
+                        - width: 20vw
