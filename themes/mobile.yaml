@@ -26,6 +26,18 @@ mobile:
         min-height: 100vh;
       }
 
+      /* Fixes mobile navbar placement on iPhone 13 Pro */
+      /* due to changes in HA 2022.11 onwards           */
+      @media only screen
+          and (device-width: 390px)
+          and (device-height: 844px)
+          and (-webkit-device-pixel-ratio: 3) {
+        hui-view {
+          background: none !important;
+          min-height: calc(100vh - 35px);
+        }
+      }
+
   card-mod-more-info-yaml: |
     $: |
       .mdc-dialog .mdc-dialog__container {
