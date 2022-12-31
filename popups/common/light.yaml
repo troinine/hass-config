@@ -135,28 +135,28 @@ browser_mod:
               cards:
                 - type: custom:button-card
                   template: scene_icon_brightness
-                  entity: light.group_all_flat
+                  entity: "[[[ return entity.entity_id ]]]"
                   name: 80%
                   variables:
                     brightness: 80
 
                 - type: custom:button-card
                   template: scene_icon_brightness
-                  entity: light.group_all_flat
+                  entity: "[[[ return entity.entity_id ]]]"
                   name: 60%
                   variables:
                     brightness: 60
 
                 - type: custom:button-card
                   template: scene_icon_brightness
-                  entity: light.group_all_flat
+                  entity: "[[[ return entity.entity_id ]]]"
                   name: 40%
                   variables:
                     brightness: 40
 
                 - type: custom:button-card
                   template: scene_icon_brightness
-                  entity: light.group_all_flat
+                  entity: "[[[ return entity.entity_id ]]]"
                   name: 20%
                   variables:
                     brightness: 20
