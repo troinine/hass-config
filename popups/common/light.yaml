@@ -124,6 +124,43 @@ browser_mod:
                     color_temperature: 6000
                     brightness: 100
 
+
+        - type: custom:button-card
+          template: conditional
+          variables:
+            show: |
+              [[[ return entity.attributes.supported_features > 0 ]]]
+            card:
+              type: horizontal-stack
+              cards:
+                - type: custom:button-card
+                  template: scene_icon_brightness
+                  entity: light.group_all_flat
+                  name: 80%
+                  variables:
+                    brightness: 80
+
+                - type: custom:button-card
+                  template: scene_icon_brightness
+                  entity: light.group_all_flat
+                  name: 60%
+                  variables:
+                    brightness: 60
+
+                - type: custom:button-card
+                  template: scene_icon_brightness
+                  entity: light.group_all_flat
+                  name: 40%
+                  variables:
+                    brightness: 40
+
+                - type: custom:button-card
+                  template: scene_icon_brightness
+                  entity: light.group_all_flat
+                  name: 20%
+                  variables:
+                    brightness: 20
+
         - type: custom:button-card
           template: conditional
           variables:

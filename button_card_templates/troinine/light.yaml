@@ -66,9 +66,9 @@ light_no_action:
         entity: "[[[ return entity.entity_id ]]]"
         styles:
           slider:
-            - height: 1.7rem
+            - height: 1.8rem
           card:
-            - height: 1.7rem
+            - height: 1.8rem
             - box-shadow: none
 
     toggle:
@@ -218,9 +218,9 @@ compact_light:
         entity: "[[[ return entity.entity_id ]]]"
         styles:
           slider:
-            - height: 1.8rem
+            - height: 2.0rem
           card:
-            - height: 1.8rem
+            - height: 2.0rem
             - box-shadow: none
   styles:
     grid:
