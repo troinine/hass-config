@@ -5,7 +5,8 @@ browser_mod:
   data:
     title: Säädä valaistusta
     style: |
-      --popup-max-width: 90vw;
+      --popup-max-width: 40vw;
+      --mdc-dialog-max-height: 90vh;
     card_mod:
       style:
         ha-dialog$: |
@@ -13,6 +14,7 @@ browser_mod:
             div.mdc-dialog div.mdc-dialog__container {
               --mdc-dialog-min-height: 100vh;
               --mdc-dialog-min-width: 100vw;
+              --mdc-dialog-max-height: 100vh;
             }
           }
         hui-vertical-stack-card:
@@ -215,6 +217,7 @@ browser_mod:
                   ha-card {
                     box-shadow: none;
                     background-color: transparent;
+                    margin-bottom: 1rem;
                   }
                   .light-entity-card__header {
                     padding: 0 20px 0 20px;
@@ -234,3 +237,32 @@ browser_mod:
               consolidate_entities: true
               child_card: true
               effects_list: false
+
+        - type: custom:button-card
+          template: conditional
+          variables:
+            show: |
+              [[[ return Boolean(entity.attributes.entity_id) ]]]
+            card:
+              type: vertical-stack
+              cards: |
+                [[[
+                  const cards = []
+                  const ids = [].concat(entity.attributes.entity_id)
+
+                  for (let i = 0; i < ids.length; i++) {
+                      cards.push({
+                          "type": "tile",
+                          "entity": ids[i],
+                          "features": [
+                            { type: "light-brightness" },
+                          ],
+                          "card_mod": {
+                            "class": "swiper-no-swiping",
+                            "style": "ha-card { margin-bottom: 1rem; text-align: start }",
+                          },
+                      });
+                  }
+
+                  return cards;
+                ]]]
