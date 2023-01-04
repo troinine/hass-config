@@ -35,6 +35,33 @@ tablet:
         background-color: var(--primary-background-color) !important;
       }
 
+
+  card-mod-card: |
+    .type-custom-bar-card bar-card-name {
+      padding-left: 0.4rem;
+      letter-spacing: normal;
+    }
+    .type-custom-bar-card bar-card-iconbar {
+      padding-left: 0.3rem;
+    }
+    .type-custom-bar-card bar-card-row {
+      margin-bottom: var(--custom-entities-card-marging) !important;
+    }
+    .type-custom-bar-card bar-card-row:last-child {
+      margin-bottom: 0 !important;
+    }
+    .type-custom-bar-card bar-card-backgroundbar {
+      background: none;
+    }
+    .type-custom-bar-card bar-card-currentbar {
+      border-radius: 0.3rem;
+    }
+    .type-custom-bar-card bar-card-background  {
+      box-shadow: inset 0 0 25px #00000070;
+      border-radius: 0.3rem;
+      overflow: hidden;
+    }
+
   masonry-view-card-margin: 0
 
   modes:
@@ -125,6 +152,9 @@ tablet:
 
       # Media player
       mini-media-player-accent-color: "var(--google-blue)"
+
+      # Bar card
+      bar-card-color: '#303435'
 
       # Custom
       humidity-low-color: "#00ccf5"

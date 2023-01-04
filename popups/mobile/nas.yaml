@@ -14,10 +14,34 @@ browser_mod:
             !include ../../ui/styles/entities-card.yaml
           show_header_toggle: false
           entities:
-            - entity: sensor.synology_cpu_utilization_total
-              name: CPU
-            - entity: sensor.synology_memory_usage_real
-              name: Muistinkäyttö
+            - type: custom:bar-card
+              entity_row: true
+              unit_of_measurement: '%'
+              width: 50%
+              height: 2rem
+              positions:
+                icon: outside
+                indicator: 'off'
+                name: outside
+              entities:
+                - entity: sensor.synology_cpu_utilization_total
+                  name: CPU
+                  severity:
+                    - color: 'var(--error-color)'
+                      from: 85
+                      to: 100
+                    - color: 'var(--warning-color)'
+                      from: 70
+                      to: 84
+                - entity: sensor.synology_memory_usage_real
+                  name: Muistinkäyttö
+                  severity:
+                    - color: 'var(--error-color)'
+                      from: 85
+                      to: 100
+                    - color: 'var(--warning-color)'
+                      from: 70
+                      to: 84
             - entity: binary_sensor.synology_security_status
               name: Turvataso
             - entity: update.synology_dsm_update
@@ -26,11 +50,11 @@ browser_mod:
               label: Levyt
             - entity: sensor.synology_drive_1_status
               name: Levy 1
-            - entity: sensor.synology_temperature_2
+            - entity: sensor.synology_drive_1_temperature
               name: Lämpötila
             - entity: sensor.synology_drive_2_status
               name: Levy 2
-            - entity: sensor.synology_temperature
+            - entity: sensor.synology_drive_2_temperature
               name: Lämpötila
             - type: section
 

@@ -5,6 +5,7 @@ browser_mod:
     title: Laitteet
     style: |
       --popup-max-width: 90vw;
+      --popup-min-width: 80vw;
     card_mod:
       style:
         layout-card:
@@ -43,10 +44,34 @@ browser_mod:
                   name: Asennettu version
                 - entity: sensor.hass_version_latest
                   name: Uusin version
-                - entity: sensor.processor_use
-                  name: Prosessorikäyttö
-                - entity: sensor.memory_use_percent
-                  name: Muistinkulutus
+                - type: custom:bar-card
+                  entity_row: true
+                  unit_of_measurement: '%'
+                  width: 50%
+                  height: 2rem
+                  positions:
+                    icon: outside
+                    indicator: 'off'
+                    name: outside
+                  entities:
+                    - entity: sensor.processor_use
+                      name: Prosessorikäyttö
+                      severity: &cpu_severities
+                        - color: 'var(--error-color)'
+                          from: 85
+                          to: 100
+                        - color: 'var(--warning-color)'
+                          from: 70
+                          to: 84
+                    - entity: sensor.memory_use_percent
+                      name: Muistinkulutus
+                      severity: &memory_severities
+                        - color: 'var(--error-color)'
+                          from: 85
+                          to: 100
+                        - color: 'var(--warning-color)'
+                          from: 70
+                          to: 84
                 - type: section
 
             - type: custom:mod-card
@@ -77,8 +102,18 @@ browser_mod:
               entities:
                 - entity: binary_sensor.galaxy_tab_a8_interactive
                   name: Näyttö
-                - entity: sensor.galaxy_tab_a8_battery_level
-                  name: Akun taso
+                - type: custom:bar-card
+                  entity_row: true
+                  unit_of_measurement: '%'
+                  width: 50%
+                  height: 2rem
+                  positions:
+                    icon: outside
+                    indicator: 'off'
+                    name: outside
+                  entities:
+                    - entity: sensor.galaxy_tab_a8_battery_level
+                      name: Akun taso
                 - entity: sensor.galaxy_tab_a8_battery_state
                   name: Akun kunto
                 - entity: sensor.galaxy_tab_a8_battery_temperature
@@ -114,10 +149,22 @@ browser_mod:
               title: Synology
               show_header_toggle: false
               entities:
-                - entity: sensor.synology_cpu_utilization_total
-                  name: CPU
-                - entity: sensor.synology_memory_usage_real
-                  name: Muistinkäyttö
+                - type: custom:bar-card
+                  entity_row: true
+                  unit_of_measurement: '%'
+                  width: 50%
+                  height: 2rem
+                  positions:
+                    icon: outside
+                    indicator: 'off'
+                    name: outside
+                  entities:
+                    - entity: sensor.synology_cpu_utilization_total
+                      name: CPU
+                      severity: *cpu_severities
+                    - entity: sensor.synology_memory_usage_real
+                      name: Muistinkäyttö
+                      severity: *memory_severities
                 - entity: binary_sensor.synology_security_status
                   name: Turvataso
                 - entity: update.synology_dsm_update

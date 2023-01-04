@@ -23,10 +23,34 @@ browser_mod:
               name: Asennettu version
             - entity: sensor.hass_version_latest
               name: Uusin version
-            - entity: sensor.processor_use
-              name: Prosessorikäyttö
-            - entity: sensor.memory_use_percent
-              name: Muistinkulutus
+            - type: custom:bar-card
+              entity_row: true
+              unit_of_measurement: '%'
+              width: 50%
+              height: 2rem
+              positions:
+                icon: outside
+                indicator: 'off'
+                name: outside
+              entities:
+                - entity: sensor.processor_use
+                  name: Prosessorikäyttö
+                  severity: &cpu_severities
+                    - color: 'var(--error-color)'
+                      from: 85
+                      to: 100
+                    - color: 'var(--warning-color)'
+                      from: 70
+                      to: 84
+                - entity: sensor.memory_use_percent
+                  name: Muistinkulutus
+                  severity: &memory_severities
+                    - color: 'var(--error-color)'
+                      from: 85
+                      to: 100
+                    - color: 'var(--warning-color)'
+                      from: 70
+                      to: 84
             - type: section
 
         - type: custom:mod-card

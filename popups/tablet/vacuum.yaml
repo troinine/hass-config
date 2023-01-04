@@ -37,18 +37,39 @@ browser_mod:
               name: Viimeksi siivonnut
             - entity: sensor.roborock_s6_pure_time_to_next_clean
               name: Seuraava siivous
-            - entity: sensor.roborock_s6_pure_dustbin_level
-              name: Pölysäiliön taso
-            - type: attribute
-              entity: vacuum.roborock_s6_pure
-              attribute: battery_level
-              name: Akun taso
-              icon: mdi:battery
-              suffix: '%'
-            - entity: sensor.roborock_s6_pure_filter
-            - entity: sensor.template_roborock_s6_pure_main_brush
-            - entity: sensor.template_roborock_s6_pure_side_brush
-            - entity: sensor.template_roborock_s6_pure_sensors
+            - type: custom:bar-card
+              entity_row: true
+              unit_of_measurement: '%'
+              width: 50%
+              height: 2rem
+              positions:
+                icon: outside
+                indicator: 'off'
+                name: outside
+              entities:
+                - entity: sensor.roborock_s6_pure_dustbin_level
+                  name: Pölysäiliön taso
+                  severity:
+                    - color: 'var(--error-color)'
+                      from: 85
+                      to: 100
+                - type: attribute
+                  entity: vacuum.roborock_s6_pure
+                  attribute: battery_level
+                  name: Akun taso
+                  icon: mdi:battery
+                  suffix: '%'
+                - entity: sensor.roborock_s6_pure_filter
+                  severity: &roborock_severity_low
+                    - color: 'var(--error-color)'
+                      from: 0
+                      to: 25
+                - entity: sensor.template_roborock_s6_pure_main_brush
+                  severity: *roborock_severity_low
+                - entity: sensor.template_roborock_s6_pure_side_brush
+                  severity: *roborock_severity_low
+                - entity: sensor.template_roborock_s6_pure_sensors
+                  severity: *roborock_severity_low
 
         - type: entities
           view_layout:
