@@ -6,57 +6,57 @@
       color_mode: yellow
     light.sisun_katto:
       state: 'off'
-    light.eteinen:
+    light.group_entrance:
       state: 'off'
-    light.otson_huone:
+    light.group_otsos_room:
       state: 'off'
-    light.tyohuone:
+    light.group_office:
       state: 'off'
-    light.keittio:
+    light.group_kitchen:
       state: 'off'
-    light.olohuone:
+    light.group_living_room:
       state: 'off'
-    light.makuuhuone:
+    light.group_bedroom:
       state: 'off'
 
 - name: Herätys
   entities:
-    light.makuuhuone:
+    light.group_bedroom:
       state: 'on'
       brightness: 190
       color_temp: 233
-    light.otson_huone:
+    light.group_otsos_room:
       state: 'on'
       brightness: 190
       color_temp: 233
-    light.sisun_huone:
+    light.group_sisus_room:
       state: 'on'
       brightness: 190
       color_temp: 233
 
 - name: Hereillä
   entities:
-    light.olohuone:
+    light.group_living_room:
       state: 'on'
       brightness: 150
       color_temp: 346
-    light.eteinen:
+    light.group_entrance:
       state: 'on'
       brightness: 150
       color_temp: 346
 
 - name: Liike yöllä
   entities:
-    light.eteinen:
+    light.group_entrance:
       state: 'on'
       brightness: 13
-    light.olohuone:
+    light.group_living_room:
       state: 'on'
       brightness: 13
 
 - name: Takaisin nukkumaan
   entities:
-    light.eteinen:
+    light.group_entrance:
       state: 'off'
-    light.olohuone:
+    light.group_living_room:
       state: 'off'
