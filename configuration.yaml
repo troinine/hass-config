@@ -75,6 +75,8 @@ lovelace:
       type: module
     - url: /local/community_cards/bar-card.js
       type: module
+    - url: /local/community_cards/template-entity-row.js
+      type: module
     - url: /local/style.css
       type: css
   dashboards:
@@ -172,3 +174,6 @@ notify:
 
 utility_meter:
   !include include/utility-meters.yaml
+
+group:
+  !include include/groups.yaml

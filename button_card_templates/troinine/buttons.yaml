@@ -22,10 +22,10 @@ icon_button:
       - filter: |
           [[[ return variables.is_active ? 'drop-shadow(3px 3px 5px #00000050)' : 'opacity(30%)' ]]]
       - background-color: |
-          [[[ return variables.is_active ? 'green' : 'rgba(255, 255, 255, 0.12)' ]]]
-      - height: 4rem
+          [[[ return variables.is_active ? '#388e3c' : 'rgba(255, 255, 255, 0.12)' ]]]
+      - height: 3rem
       - padding: 0 1rem 0 1rem
-      - border-radius: 1rem
+      - border-radius: 0.5rem
       - width: 100%
 
 button_hass_update:
@@ -169,6 +169,19 @@ button_vacuum_dustbin_emptied:
     service_data:
       entity_id: input_number.vacuum_total_area_cleaned_since_emptying
       value: 0
+
+button_request_location_update:
+  template:
+    - icon_button
+  variables:
+    is_active: true
+  icon: mdi:map-marker
+  name: Päivitä sijainti
+  tap_action:
+    action: call-service
+    service: "[[[ return `notify.mobile_app_${states[entity.entity_id].attributes.id}` ]]]"
+    service_data:
+      message: request_location_update
 
 harmony_remote_button:
   template:

@@ -10,6 +10,8 @@ user:
   show_label: false
   show_name: true
   show_entity_picture: true
+  tap_action:
+    !include ../../popups/common/user.yaml
   custom_fields:
     state2: |
       [[[

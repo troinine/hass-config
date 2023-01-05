@@ -1,0 +1,7 @@
+family:
+  name: Perhe
+  entities:
+    - person.tero
+    - person.pia
+    - person.otso
+    - person.sisu

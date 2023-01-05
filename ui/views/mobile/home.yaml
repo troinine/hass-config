@@ -90,6 +90,7 @@ cards:
             variables:
               battery_charge_entity: sensor.tero_battery_level
               battery_charging_status_entity: sensor.tero_battery_state
+              wifi_ssid_entity: sensor.tero_ssid
 
           - type: 'custom:button-card'
             template: compact_user
@@ -97,6 +98,7 @@ cards:
             variables:
               battery_charge_entity: sensor.pia_akun_varaustaso
               battery_charging_status_entity: binary_sensor.pia_latautuu
+              wifi_ssid_entity: sensor.pia_wifi_connection
 
       - type: horizontal-stack
         cards:
@@ -106,6 +108,7 @@ cards:
             variables:
               battery_charge_entity: sensor.otso_battery_level
               battery_charging_status_entity: sensor.otso_battery_state
+              wifi_ssid_entity: sensor.otso_ssid
 
           - type: 'custom:button-card'
             template: compact_user
@@ -113,6 +116,7 @@ cards:
             variables:
               battery_charge_entity: sensor.sisu_battery_level
               battery_charging_status_entity: sensor.sisu_battery_state
+              wifi_ssid_entity: sensor.sisu_wifi_connection
 
   - type: custom:button-card
     template: mobile_navbar
