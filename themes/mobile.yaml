@@ -50,6 +50,11 @@ mobile:
         height: 100vh;
       }
 
+    ha-header-bar$: |
+      header {
+        background: var(--popup-header-color) !important;
+      }
+
   card-mod-card: |
     .type-custom-bar-card bar-card-name {
       padding-left: 0.4rem;
@@ -192,6 +197,7 @@ mobile:
 
       # Popups
       popup-background-color: var(--primary-background-color)
+      popup-header-color: var(--primary-background-color)
 
       # Bar card
       bar-card-color: '#303435'

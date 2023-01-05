@@ -35,6 +35,11 @@ tablet:
         background-color: var(--primary-background-color) !important;
       }
 
+    ha-header-bar$: |
+      header {
+        background: var(--popup-header-color) !important;
+      }
+
 
   card-mod-card: |
     .type-custom-bar-card bar-card-name {
@@ -149,6 +154,7 @@ tablet:
 
       # Popups
       popup-background-color: var(--primary-background-color)
+      popup-header-color: var(--primary-background-color)
 
       # Media player
       mini-media-player-accent-color: "var(--google-blue)"
