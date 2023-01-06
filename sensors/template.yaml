@@ -421,6 +421,15 @@
       tap_action: url
       tap_action_url_path: "https://www.home-assistant.io/latest-release-notes/"
 
+  - name: "notification_udm_update_available"
+    unique_id: "notification_udm_update_available"
+    icon: "mdi:update"
+    state: "{{ states('update.dream_machine') }}"
+    attributes:
+      icon_color: 'green'
+      text_summary: "UDM päivitys saatavilla"
+      text_description: "Uusin version on {{ state_attr('update.dream_machine', 'latest_version') }}."
+
   - name: notification_on_vacation
     unique_id: notification_on_vacation
     icon: mdi:palm-tree

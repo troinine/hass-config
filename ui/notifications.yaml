@@ -194,6 +194,15 @@
 
 - type: conditional
   conditions:
+    - entity: binary_sensor.notification_udm_update_available
+      state: 'on'
+  card:
+    type: 'custom:button-card'
+    template: auto_notification
+    entity: binary_sensor.notification_udm_update_available
+
+- type: conditional
+  conditions:
     - entity: binary_sensor.notification_vacuum_dustbin_full
       state: 'on'
   card:
