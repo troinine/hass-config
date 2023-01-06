@@ -72,8 +72,18 @@ browser_mod:
               name: Meno
             - entity: sensor.nibe_supply_return_temp
               name: Paluu
-            - entity: sensor.nibe_supply_pump_speed
-              name: Pumpun nopeus
+            - type: custom:bar-card
+              entity_row: true
+              unit_of_measurement: '%'
+              width: 50%
+              height: 2rem
+              positions:
+                icon: outside
+                indicator: 'off'
+                name: outside
+              entities:
+                - entity: sensor.nibe_supply_pump_speed
+                  name: Pumpun nopeus
 
         - type: entities
           card_mod:
@@ -91,8 +101,18 @@ browser_mod:
               name: Matalin sisään
             - entity: sensor.nibe_daily_brine_min_output_temp
               name: Matalin ulos
-            - entity: sensor.nibe_brine_pump_speed
-              name: Pumpun nopeus
+            - type: custom:bar-card
+              entity_row: true
+              unit_of_measurement: '%'
+              width: 50%
+              height: 2rem
+              positions:
+                icon: outside
+                indicator: 'off'
+                name: outside
+              entities:
+                - entity: sensor.nibe_brine_pump_speed
+                  name: Pumpun nopeus
 
         - type: custom:apexcharts-card
           view_layout:

@@ -47,29 +47,36 @@ browser_mod:
                 indicator: 'off'
                 name: outside
               entities:
-                - entity: sensor.roborock_s6_pure_dustbin_level
-                  name: Pölysäiliön taso
-                  severity:
-                    - color: 'var(--error-color)'
-                      from: 85
-                      to: 100
                 - type: attribute
                   entity: vacuum.roborock_s6_pure
                   attribute: battery_level
                   name: Akun taso
                   icon: mdi:battery
                   suffix: '%'
-                - entity: sensor.roborock_s6_pure_filter
-                  severity: &roborock_severity_low
+                  severity: &roborock_severities
+                    - color: '#388e3c'
+                      from: 90
+                      to: 100
+                    - color: 'var(--warning-color)'
+                      from: 10
+                      to: 30
                     - color: 'var(--error-color)'
                       from: 0
                       to: 25
+                - entity: sensor.roborock_s6_pure_dustbin_level
+                  name: Pölysäiliön taso
+                  severity:
+                    - color: 'var(--error-color)'
+                      from: 85
+                      to: 100
+                - entity: sensor.roborock_s6_pure_filter
+                  severity: *roborock_severities
                 - entity: sensor.template_roborock_s6_pure_main_brush
-                  severity: *roborock_severity_low
+                  severity: *roborock_severities
                 - entity: sensor.template_roborock_s6_pure_side_brush
-                  severity: *roborock_severity_low
+                  severity: *roborock_severities
                 - entity: sensor.template_roborock_s6_pure_sensors
-                  severity: *roborock_severity_low
+                  severity: *roborock_severities
 
         - type: entities
           view_layout:
