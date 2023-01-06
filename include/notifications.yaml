@@ -4,3 +4,11 @@
   services:
     - service: mobile_app_tero
     - service: mobile_app_pia
+
+- name: everyone
+  platform: group
+  services:
+    - service: mobile_app_tero
+    - service: mobile_app_pia
+    - service: mobile_app_sisu
+    - service: mobile_app_otso

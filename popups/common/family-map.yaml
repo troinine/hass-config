@@ -1,0 +1,84 @@
+action: fire-dom-event
+browser_mod:
+  service: browser_mod.popup
+  data:
+    title: Perhe
+    style: |
+      --popup-min-width: 35vw;
+    card_mod:
+      !include ../../ui/styles/popup.yaml
+    content:
+      type: vertical-stack
+      cards:
+        - |
+          [[[
+            const isMobile = screen.availWidth < 600
+            const persons = states['group.family'].attributes.entity_id
+            const entitiesCardStyle = "ha-card { box-shadow: none; border-radius: 0; background-color: transparent; }"
+
+            if (isMobile) {
+              const entities = persons.map(person => {
+                return {
+                  "entity": person,
+                  "secondary_info": "last-changed",
+                }
+              })
+
+              return {
+                "type": "entities",
+                "style": entitiesCardStyle,
+                "entities": entities,
+              }
+            } else {
+              const cards = persons.map(person => {
+                return {
+                  "type": "entities",
+                  "card_mod": {
+                    "style": entitiesCardStyle
+                  },
+                  "entities": [
+                    {
+                      "entity": person,
+                      "secondary_info": "last-changed",
+                    },
+                  ],
+                }
+              });
+
+              return {
+                "type": "grid",
+                "columns": 2,
+                "square": false,
+                "cards": cards,
+              }
+            }
+          ]]]
+
+        - type: custom:mod-card
+          card_mod:
+            style: |
+              ha-card {
+                display: flex;
+                justify-content: center;
+                margin: 1rem 0 1rem 0;
+              }
+          card:
+            type: horizontal-stack
+            cards:
+              - type: custom:button-card
+                entity: group.family
+                template: button_request_location_update
+
+        - type: map
+          default_zoom: 16
+          entities: |
+            [[[
+              return states['group.family'].attributes.entity_id;
+            ]]]
+          card_mod:
+            style:
+              .: |
+                ha-card {
+                  margin-bottom: -4px !important;
+                  border-radius: 0;
+                }

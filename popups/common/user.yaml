@@ -61,16 +61,8 @@ browser_mod:
                 template: button_request_location_update
 
         - type: map
-          default_zoom: 16
-          entities: |
-            [[[
-              const family = states['group.family'].attributes.entity_id;
-              const others = family.filter(person => {
-                return (person !== entity.entity_id && states[person].state !== 'home')
-              })
-
-              return [entity.entity_id].concat(others)
-            ]]]
+          entities:
+            - "[[[ return entity.entity_id ]]]"
           card_mod:
             style:
               .: |

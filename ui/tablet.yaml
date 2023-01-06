@@ -267,6 +267,8 @@ views:
           - type: 'custom:button-card'
             template: group_title
             name: Perhe
+            tap_action:
+              !include ../popups/common/family-map.yaml
 
           - type: grid
             columns: 2

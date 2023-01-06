@@ -81,6 +81,8 @@ cards:
       - type: custom:button-card
         template: subtitle
         name: Perhe
+        tap_action:
+          !include ../../../popups/common/family-map.yaml
 
       - type: horizontal-stack
         cards:

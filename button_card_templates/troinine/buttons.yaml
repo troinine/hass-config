@@ -176,10 +176,18 @@ button_request_location_update:
   variables:
     is_active: true
   icon: mdi:map-marker
-  name: Päivitä sijainti
+  name: |
+    [[[
+      return (entity.attributes.entity_id ? "Päivitä sijannit" : "Päivitä sijainti")
+    ]]]
   tap_action:
     action: call-service
-    service: "[[[ return `notify.mobile_app_${states[entity.entity_id].attributes.id}` ]]]"
+    service: |
+      [[[
+        return entity.attributes.entity_id
+          ? "notify.everyone"
+          : `notify.mobile_app_${states[entity.entity_id].attributes.id}`
+      ]]]
     service_data:
       message: request_location_update
 
