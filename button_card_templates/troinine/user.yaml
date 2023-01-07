@@ -18,7 +18,7 @@ user:
         var extra_info = ''
         if (variables.battery_charging_status_entity &&
             (states[variables.battery_charging_status_entity].state === 'on' ||
-            states[variables.battery_charging_status_entity].state === 'Charging')) {
+            states[variables.battery_charging_status_entity].state.toLowerCase() === 'charging')) {
           extra_info = `<ha-icon icon="mdi:flash" style="--mdc-icon-size: 0.9rem;"></ha-icon>`
         }
 
