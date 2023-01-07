@@ -190,6 +190,9 @@ button_request_location_update:
       ]]]
     service_data:
       message: request_location_update
+      data:
+        ttl: 0
+        priority: high
 
 harmony_remote_button:
   template:
