@@ -62,9 +62,9 @@ Tablet design is mostly inspired by [@matt8707](https://github.com/matt8707/hass
 
 The tablet dashboards consists of a single view with many popups opening from titles and from cards. Here are few examples:
 
-| ![Air quality](/assets/images/screenshot-tablet-air-quality-popup.png) | ![Devices](/assets/images/screenshot-tablet-devices-popup.png) | ![Devices](/assets/images/screenshot-tablet-vacuum-popup.png) |
-|:---:|:---:|:---:|
-| ![Heating](/assets/images/screenshot-tablet-heating-popup.png) | ![Light](/assets/images/screenshot-tablet-light-popup.png) | ![Weather](/assets/images/screenshot-tablet-weather-popup.png) |
+| ![Air quality](/assets/images/screenshot-tablet-air-quality-popup.png) | ![Devices](/assets/images/screenshot-tablet-devices-popup.png) | ![Devices](/assets/images/screenshot-tablet-vacuum-popup.png) | ![User](/assets/images/screenshot-tablet-user-popup.png) |
+|:---:|:---:|:---:|:---:|
+| ![Heating](/assets/images/screenshot-tablet-heating-popup.png) | ![Light](/assets/images/screenshot-tablet-light-popup.png) | ![Weather](/assets/images/screenshot-tablet-weather-popup.png) | ![Users](/assets/images/screenshot-tablet-users-popup.png) |
 
 ## Features
 
