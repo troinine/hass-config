@@ -27,8 +27,9 @@ The following custom cards are extensively used throughout the dashboards:
 - [apexcharts-card](https://github.com/RomRider/apexcharts-card)
 - [xiaomi-vacuum-map-card](https://github.com/PiotrMachowski/lovelace-xiaomi-vacuum-map-card)
 - [swipe-card](https://github.com/bramkragten/swipe-card)
+- [swipe-navigation](https://github.com/zanna-37/hass-swipe-navigation)
 
-In addition I have create the following cards for my own use as I couldn't find one that would suit my needs:
+Community cards are managed and installed via [HACS](https://hacs.xyz). In addition I have create the following cards for my own use as I couldn't find one that would suit my needs:
 
 - [light-slider-card](www/troinine) (will publish this in its own repo in the future)
 

@@ -40,45 +40,42 @@ logger:
 frontend:
   themes: !include_dir_merge_named themes
   extra_module_url:
-    - /local/community_cards/card-mod.js
+    - /hacsfiles/lovelace-card-mod/card-mod.js
 
 lovelace:
   mode: yaml
   resources:
-    - url: /local/community_cards/button-card.js
+    - url: /hacsfiles/button-card/button-card.js
       type: module
-    - url: /local/community_cards/mini-graph-card-bundle.js?v=0.10.0
+    - url: /hacsfiles/mini-graph-card/mini-graph-card-bundle.js
       type: module
-    - url: /local/community_cards/fold-entity-row.js
+    - url: /hacsfiles/lovelace-fold-entity-row/fold-entity-row.js
       type: module
-    - url: /local/community_cards/slider-entity-row.js
+    - url: /hacsfiles/lovelace-slider-entity-row/slider-entity-row.js
       type: module
-    - url: /local/community_cards/state-switch.js
+    - url: /hacsfiles/lovelace-layout-card/layout-card.js
       type: module
-    - url: /local/community_cards/layout-card.js
+    - url: /hacsfiles/light-entity-card/light-entity-card.js
       type: module
-    - url: /local/community_cards/light-popup-card.js
+    - url: /hacsfiles/apexcharts-card/apexcharts-card.js
       type: module
-    - url: /local/community_cards/light-entity-card.js
+    - url: /hacsfiles/swipe-card/swipe-card.js
       type: module
-    - url: /local/community_cards/apexcharts-card.js
+    - url: /hacsfiles/weather-chart-card/weather-chart-card.js
       type: module
-    - url: /local/community_cards/swipe-card.js
+    - url: /hacsfiles/lovelace-xiaomi-vacuum-map-card/xiaomi-vacuum-map-card.js
       type: module
-    - url: /local/community_cards/weather-chart-card.js
+    - url: /hacsfiles/hass-swipe-navigation/swipe-navigation.js
       type: module
-    - url: /local/community_cards/xiaomi-vacuum-map-card.js
+    - url: /hacsfiles/bar-card/bar-card.js
+      type: module
+    - url: /hacsfiles/lovelace-template-entity-row/template-entity-row.js
       type: module
     - url: /local/troinine/light-slider-card.js
       type: module
-    - url: /local/community_cards/swipe-navigation.js?v=1.6.5
-      type: module
-    - url: /local/community_cards/bar-card.js
-      type: module
-    - url: /local/community_cards/template-entity-row.js
-      type: module
     - url: /local/style.css
       type: css
+
   dashboards:
     lovelace-mobile:
       mode: yaml
