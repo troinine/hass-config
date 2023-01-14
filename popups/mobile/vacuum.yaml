@@ -62,8 +62,11 @@ browser_mod:
                         - entity: sensor.roborock_s6_pure_dustbin_level
                           name: Pölysäiliön taso
                           severity:
+                            - color: 'var(--warning-color)'
+                              from: 75
+                              to: 90
                             - color: 'var(--error-color)'
-                              from: 85
+                              from: 90
                               to: 100
                         - entity: sensor.roborock_s6_pure_filter
                           severity: *roborock_severities
