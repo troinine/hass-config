@@ -24,6 +24,7 @@ mobile:
       hui-view {
         background: none !important;
         min-height: 100vh;
+        margin: 0 1.8rem
       }
 
       /* Fixes mobile navbar placement on iPhone 13 Pro */

@@ -2,150 +2,149 @@
 title: Laitteet
 path: devices
 icon: mdi:television
+type: custom:vertical-layout
 cards:
-  - type: vertical-stack
+  - type: custom:button-card
+    template: icon_title
+    icon: mdi:television
+    entity: binary_sensor.group_devices
+    group_expand: true
+    variables:
+      title: Laitteet
+      subtitle: |
+        [[[
+          var num_devices_on = entity.attributes.entity_id
+            .map(entity_id => states[entity_id])
+            .filter(entity => entity.state === 'on')
+            .length
+
+          if (num_devices_on == 1) {
+            return 'Yksi laite on päällä'
+          } else if (num_devices_on > 1) {
+            return `${num_devices_on} laitetta on päällä`
+          } else {
+            return 'Kaikki laitteet on sammutettu'
+          }
+        ]]]
+
+  - type: horizontal-stack
     cards:
-      - type: custom:button-card
-        template: icon_title
-        icon: mdi:television
-        entity: binary_sensor.group_devices
-        group_expand: true
+      - type: 'custom:button-card'
+        template:
+          - vacuum
+          - compact_card
+        entity: vacuum.roborock_s6_pure
         variables:
-          title: Laitteet
-          subtitle: |
-            [[[
-              var num_devices_on = entity.attributes.entity_id
-                .map(entity_id => states[entity_id])
-                .filter(entity => entity.state === 'on')
-                .length
+          tap_action:
+            !include ../../../popups/mobile/vacuum.yaml
 
-              if (num_devices_on == 1) {
-                return 'Yksi laite on päällä'
-              } else if (num_devices_on > 1) {
-                return `${num_devices_on} laitetta on päällä`
-              } else {
-                return 'Kaikki laitteet on sammutettu'
-              }
-            ]]]
+      - type: 'custom:button-card'
+        template:
+          - laundry
+          - compact_info
+        tap_action:
+          !include ../../../popups/mobile/laundry.yaml
+        variables:
+          icon_glow: true
+          state_colors:
+            'Pyykkää ja kuivaa': 'var(--color-blue)'
+            'Pyykkää': 'var(--color-blue)'
+            'Kuivaa': 'var(--color-green)'
+            'Päällä': 'var(--warning-color)'
 
-      - type: horizontal-stack
-        cards:
-          - type: 'custom:button-card'
-            template:
-              - vacuum
-              - compact_card
-            entity: vacuum.roborock_s6_pure
-            variables:
-              tap_action:
-                !include ../../../popups/mobile/vacuum.yaml
+  - type: horizontal-stack
+    cards:
+      - type: 'custom:button-card'
+        template: compact_info_extra
+        entity: binary_sensor.synology_security_status
+        name: Synology
+        state_display: |
+          [[[
+            var security_state = states['binary_sensor.synology_security_status'].state
+            if (security_state === 'on') {
+              return 'Tietoturvaongelma'
+            } else if (entity.state !== 'off') {
+              return entity.state
+            } else {
+              return 'Normaali'
+            }
+          ]]]
+        variables:
+          state_colors:
+            "off": 'var(--color-green)'
+            "on": 'var(--warning-color)'
+          extra_entity: sensor.synology_temperature
+        tap_action:
+          !include ../../../popups/mobile/nas.yaml
 
-          - type: 'custom:button-card'
-            template:
-              - laundry
-              - compact_info
-            tap_action:
-              !include ../../../popups/mobile/laundry.yaml
-            variables:
-              icon_glow: true
-              state_colors:
-                'Pyykkää ja kuivaa': 'var(--color-blue)'
-                'Pyykkää': 'var(--color-blue)'
-                'Kuivaa': 'var(--color-green)'
-                'Päällä': 'var(--warning-color)'
+      - type: 'custom:button-card'
+        template: compact_info
+        entity: binary_sensor.notification_hass_update_available
+        name: Hass päivitys
+        show_last_changed: false
+        show_label: true
+        label: |
+          [[[
+            if (entity.state === 'on') {
+              return entity.attributes.text_description
+            } else {
+              return 'Uusin versio asennettu'
+            }
+          ]]]
+        variables:
+          state_colors:
+            "on": 'var(--color-green)'
+        tap_action:
+          !include ../../../popups/mobile/hass.yaml
 
-      - type: horizontal-stack
-        cards:
-          - type: 'custom:button-card'
-            template: compact_info_extra
-            entity: binary_sensor.synology_security_status
-            name: Synology
-            state_display: |
-              [[[
-                var security_state = states['binary_sensor.synology_security_status'].state
-                if (security_state === 'on') {
-                  return 'Tietoturvaongelma'
-                } else if (entity.state !== 'off') {
-                  return entity.state
-                } else {
-                  return 'Normaali'
-                }
-              ]]]
-            variables:
-              state_colors:
-                "off": 'var(--color-green)'
-                "on": 'var(--warning-color)'
-              extra_entity: sensor.synology_temperature
-            tap_action:
-              !include ../../../popups/mobile/nas.yaml
+  - type: custom:button-card
+    template: subtitle
+    name: Media
 
-          - type: 'custom:button-card'
-            template: compact_info
-            entity: binary_sensor.notification_hass_update_available
-            name: Hass päivitys
-            show_last_changed: false
-            show_label: true
-            label: |
-              [[[
-                if (entity.state === 'on') {
-                  return entity.attributes.text_description
-                } else {
-                  return 'Uusin versio asennettu'
-                }
-              ]]]
-            variables:
-              state_colors:
-                "on": 'var(--color-green)'
-            tap_action:
-              !include ../../../popups/mobile/hass.yaml
+  - type: horizontal-stack
+    cards:
+      - type: 'custom:button-card'
+        template:
+          - media_player
+          - compact_card
+        entity: media_player.samsung_q90_series_65
+        variables:
+          name: Olohuone TV
+          tap_action:
+            !include ../../../popups/mobile/remote-control.yaml
 
-      - type: custom:button-card
-        template: subtitle
-        name: Media
+      - type: 'custom:button-card'
+        template:
+          - media_player
+          - compact_card
+        entity: media_player.lg_65_c1
+        name: Työhuone TV
+        variables:
+          state_colors:
+            'on': green
+            'idle': green
 
-      - type: horizontal-stack
-        cards:
-          - type: 'custom:button-card'
-            template:
-              - media_player
-              - compact_card
-            entity: media_player.samsung_q90_series_65
-            variables:
-              name: Olohuone TV
-              tap_action:
-                !include ../../../popups/mobile/remote-control.yaml
+  - type: horizontal-stack
+    cards:
+      - type: 'custom:button-card'
+        template: compact_info
+        entity: binary_sensor.ps5_status
+        name: Playstation 5
+        icon: mdi:sony-playstation
+        variables:
+          icon_glow: true
+          state_colors:
+            "on": 'var(--color-green)'
 
-          - type: 'custom:button-card'
-            template:
-              - media_player
-              - compact_card
-            entity: media_player.lg_65_c1
-            name: Työhuone TV
-            variables:
-              state_colors:
-                'on': green
-                'idle': green
-
-      - type: horizontal-stack
-        cards:
-          - type: 'custom:button-card'
-            template: compact_info
-            entity: binary_sensor.ps5_status
-            name: Playstation 5
-            icon: mdi:sony-playstation
-            variables:
-              icon_glow: true
-              state_colors:
-                "on": 'var(--color-green)'
-
-          - type: 'custom:button-card'
-            template: compact_info
-            entity: binary_sensor.nintendo_switch_status
-            name: Nintendo Switch
-            icon: mdi:nintendo-switch
-            variables:
-              icon_glow: true
-              state_colors:
-                "on": 'var(--color-green)'
+      - type: 'custom:button-card'
+        template: compact_info
+        entity: binary_sensor.nintendo_switch_status
+        name: Nintendo Switch
+        icon: mdi:nintendo-switch
+        variables:
+          icon_glow: true
+          state_colors:
+            "on": 'var(--color-green)'
 
   - type: custom:button-card
     template: mobile_navbar

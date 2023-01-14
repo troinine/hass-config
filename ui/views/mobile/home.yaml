@@ -2,123 +2,122 @@
 title: Koti
 path: home
 icon: mdi:home
+type: custom:vertical-layout
 cards:
-  - type: vertical-stack
+  - type: custom:button-card
+    template: welcome_title
+    icon: mdi:home-outline
+    entity: sensor.home_state
+    variables:
+      entity_weather: weather.koti_custom
+      entity_temperature: sensor.netatmo_koti_olohuone_ulko_temperature
+
+  - type: horizontal-stack
+    cards:
+      - type: 'custom:button-card'
+        template:
+          - compact_info_extra_2
+          - home_state
+        tap_action:
+          !include ../../../popups/mobile/home.yaml
+        variables:
+          extra_text: "Kuukausi"
+          extra_entity_2: sensor.mqtt_electricity_consumption_daily
+          extra_text_2: "Eilen"
+
+      - type: 'custom:button-card'
+        template:
+          - compact_info_extra
+          - air_quality
+        tap_action:
+          !include ../../../popups/mobile/air-quality.yaml
+        variables:
+          extra_entity: "[[[ return entity.attributes.reporting_entity ]]]"
+          extra_text: |
+            [[[
+              var device_class = states[entity.attributes.reporting_entity].attributes.device_class
+              switch (device_class) {
+                case 'humidity':
+                  return 'Kosteus'
+                case 'temperature':
+                  return 'Lämpötila'
+                default:
+                  return ''
+              }
+            ]]]
+
+  - type: horizontal-stack
+    cards:
+      - type: 'custom:button-card'
+        template:
+          - compact_info
+          - front_door
+
+      - type: 'custom:button-card'
+        template:
+          - compact_info_extra
+          - garage_door
+        tap_action:
+          !include ../../../popups/common/garage.yaml
+
+  - type: horizontal-stack
     cards:
       - type: custom:button-card
-        template: welcome_title
-        icon: mdi:home-outline
-        entity: sensor.home_state
-        variables:
-          entity_weather: weather.koti_custom
-          entity_temperature: sensor.netatmo_koti_olohuone_ulko_temperature
-
-      - type: horizontal-stack
-        cards:
-          - type: 'custom:button-card'
-            template:
-              - compact_info_extra_2
-              - home_state
-            tap_action:
-              !include ../../../popups/mobile/home.yaml
-            variables:
-              extra_text: "Kuukausi"
-              extra_entity_2: sensor.mqtt_electricity_consumption_daily
-              extra_text_2: "Eilen"
-
-          - type: 'custom:button-card'
-            template:
-              - compact_info_extra
-              - air_quality
-            tap_action:
-              !include ../../../popups/mobile/air-quality.yaml
-            variables:
-              extra_entity: "[[[ return entity.attributes.reporting_entity ]]]"
-              extra_text: |
-                [[[
-                  var device_class = states[entity.attributes.reporting_entity].attributes.device_class
-                  switch (device_class) {
-                    case 'humidity':
-                      return 'Kosteus'
-                    case 'temperature':
-                      return 'Lämpötila'
-                    default:
-                      return ''
-                  }
-                ]]]
-
-      - type: horizontal-stack
-        cards:
-          - type: 'custom:button-card'
-            template:
-              - compact_info
-              - front_door
-
-          - type: 'custom:button-card'
-            template:
-              - compact_info_extra
-              - garage_door
-            tap_action:
-              !include ../../../popups/common/garage.yaml
-
-      - type: horizontal-stack
-        cards:
-          - type: custom:button-card
-            template:
-              - compact_info
-              - heat_pump_state
-            tap_action:
-              !include ../../../popups/mobile/heating.yaml
-
-          - type: custom:button-card
-            template:
-              - compact_sensor_graph
-              - sensor_graph_thresholds_indoor_temperature
-            entity: sensor.mqtt_airthings_waveplus_living_room_temperature
-            variables:
-              name_override: Olohuone
+        template:
+          - compact_info
+          - heat_pump_state
+        tap_action:
+          !include ../../../popups/mobile/heating.yaml
 
       - type: custom:button-card
-        template: subtitle
-        name: Perhe
-        tap_action:
-          !include ../../../popups/common/family-map.yaml
+        template:
+          - compact_sensor_graph
+          - sensor_graph_thresholds_indoor_temperature
+        entity: sensor.mqtt_airthings_waveplus_living_room_temperature
+        variables:
+          name_override: Olohuone
 
-      - type: horizontal-stack
-        cards:
-          - type: 'custom:button-card'
-            template: compact_user
-            entity: person.tero
-            variables:
-              battery_charge_entity: sensor.tero_battery_level
-              battery_charging_status_entity: sensor.tero_battery_state
-              wifi_ssid_entity: sensor.tero_ssid
+  - type: custom:button-card
+    template: subtitle
+    name: Perhe
+    tap_action:
+      !include ../../../popups/common/family-map.yaml
 
-          - type: 'custom:button-card'
-            template: compact_user
-            entity: person.pia
-            variables:
-              battery_charge_entity: sensor.pia_akun_varaustaso
-              battery_charging_status_entity: binary_sensor.pia_latautuu
-              wifi_ssid_entity: sensor.pia_wifi_connection
+  - type: horizontal-stack
+    cards:
+      - type: 'custom:button-card'
+        template: compact_user
+        entity: person.tero
+        variables:
+          battery_charge_entity: sensor.tero_battery_level
+          battery_charging_status_entity: sensor.tero_battery_state
+          wifi_ssid_entity: sensor.tero_ssid
 
-      - type: horizontal-stack
-        cards:
-          - type: 'custom:button-card'
-            template: compact_user
-            entity: person.otso
-            variables:
-              battery_charge_entity: sensor.otso_battery_level
-              battery_charging_status_entity: sensor.otso_battery_state
-              wifi_ssid_entity: sensor.otso_ssid
+      - type: 'custom:button-card'
+        template: compact_user
+        entity: person.pia
+        variables:
+          battery_charge_entity: sensor.pia_akun_varaustaso
+          battery_charging_status_entity: binary_sensor.pia_latautuu
+          wifi_ssid_entity: sensor.pia_wifi_connection
 
-          - type: 'custom:button-card'
-            template: compact_user
-            entity: person.sisu
-            variables:
-              battery_charge_entity: sensor.sisu_battery_level
-              battery_charging_status_entity: sensor.sisu_battery_state
-              wifi_ssid_entity: sensor.sisu_wifi_connection
+  - type: horizontal-stack
+    cards:
+      - type: 'custom:button-card'
+        template: compact_user
+        entity: person.otso
+        variables:
+          battery_charge_entity: sensor.otso_battery_level
+          battery_charging_status_entity: sensor.otso_battery_state
+          wifi_ssid_entity: sensor.otso_ssid
+
+      - type: 'custom:button-card'
+        template: compact_user
+        entity: person.sisu
+        variables:
+          battery_charge_entity: sensor.sisu_battery_level
+          battery_charging_status_entity: sensor.sisu_battery_state
+          wifi_ssid_entity: sensor.sisu_wifi_connection
 
   - type: custom:button-card
     template: mobile_navbar
