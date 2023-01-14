@@ -35,6 +35,7 @@
     - light.eteinen_oikea_ala
     - light.eteinen_vasen_yla
     - light.eteinen_vasen_ala
+    - light.eteinen_poytalamppu
 
 - platform: group
   name: group_otsos_room
