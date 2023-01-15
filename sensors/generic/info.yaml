@@ -10,8 +10,6 @@
   value_template: '{{ value_json[0].q }} - {{ value_json[0].a }}'
   scan_interval: 900
 
-- platform: uptime
-
 - platform: systemmonitor
   resources:
     - type: memory_use_percent

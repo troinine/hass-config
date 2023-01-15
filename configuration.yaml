@@ -9,6 +9,7 @@ homeassistant:
   longitude: !secret hass_longitude
   unit_system: metric
   temperature_unit: C
+  country: FI
   currency: EUR
   time_zone: "Europe/Helsinki"
   internal_url: !secret hass_internal_url
