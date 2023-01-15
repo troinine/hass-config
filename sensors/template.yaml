@@ -320,12 +320,7 @@
   - name: "Home Assistant update available"
     unique_id: "hass_update_available"
     icon: mdi:update
-    state: |
-      {% if states('sensor.hass_version_installed') != states('sensor.hass_version_latest') %}
-        on
-      {% else %}
-        off
-      {% endif %}
+    state: "{{ iif(states('sensor.hass_version_installed') != states('sensor.hass_version_latest'), 'on', 'off') }}"
     attributes:
       latest_version: "{{ states('sensor.hass_version_latest') }}"
       icon_color: green
@@ -745,3 +740,15 @@
       text_summary: "Automaatiot pois päältä"
       tap_action: more-info
       tap_action_entity: input_boolean.automations_enabled
+
+  - name: "notification_hacs_update_available"
+    unique_id: "notification_hacs_update_available"
+    icon: mdi:update
+    state: "{{ iif(states('sensor.hacs') | int > 0, 'on', 'off') }}"
+    attributes:
+      icon_color: 'var(--color-green)'
+      text_summary: 'HACS päivityksiä saatavilla'
+      text_description: |
+        {% for repo in state_attr('sensor.hacs', 'repositories') %}
+          {{ repo['display_name'] }} {{ repo['installed_version'] }} -> {{ repo['available_version'] }}.
+        {% endfor %}

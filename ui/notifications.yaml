@@ -149,15 +149,6 @@
 
 - type: conditional
   conditions:
-    - entity: binary_sensor.notification_todays_precipitation
-      state: 'on'
-  card:
-    type: 'custom:button-card'
-    template: auto_notification
-    entity: binary_sensor.notification_todays_precipitation
-
-- type: conditional
-  conditions:
     - entity: binary_sensor.notification_on_vacation
       state: 'on'
   card:
@@ -194,6 +185,15 @@
 
 - type: conditional
   conditions:
+    - entity: binary_sensor.notification_hacs_update_available
+      state: 'on'
+  card:
+    type: 'custom:button-card'
+    template: auto_notification
+    entity: binary_sensor.notification_hacs_update_available
+
+- type: conditional
+  conditions:
     - entity: binary_sensor.notification_udm_update_available
       state: 'on'
   card:
@@ -227,6 +227,15 @@
     type: 'custom:button-card'
     template: auto_notification
     entity: binary_sensor.notification_time_to_vacuum
+
+- type: conditional
+  conditions:
+    - entity: binary_sensor.notification_todays_precipitation
+      state: 'on'
+  card:
+    type: 'custom:button-card'
+    template: auto_notification
+    entity: binary_sensor.notification_todays_precipitation
 
 - type: conditional
   conditions:
