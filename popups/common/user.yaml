@@ -44,6 +44,9 @@ browser_mod:
                     - color: 'var(--warning-color)'
                       from: 10
                       to: 20
+                    - color: 'var(--battery-full-color)'
+                      from: 90
+                      to: 100
 
         - type: custom:mod-card
           card_mod:

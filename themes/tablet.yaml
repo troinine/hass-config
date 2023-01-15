@@ -170,6 +170,8 @@ tablet:
       custom-icon-color: "dodgerblue"
       custom-icon-color-not-active: "rgba(var(--color-theme-rgb),0.2)"
       custom-color-icon-background: '#181515'
+      battery-full-color: "rgb(56, 142, 60)"
+      button-color: "rgb(56, 142, 60)"
 
       button-card-icon-drop-shadow-size: 0.2rem
       button-card-img-cell-box-shadow-size: 0.75rem

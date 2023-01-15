@@ -22,7 +22,7 @@ icon_button:
       - filter: |
           [[[ return variables.is_active ? 'drop-shadow(3px 3px 5px #00000050)' : 'opacity(30%)' ]]]
       - background-color: |
-          [[[ return variables.is_active ? '#388e3c' : 'rgba(255, 255, 255, 0.12)' ]]]
+          [[[ return variables.is_active ? 'var(--button-color)' : 'rgba(255, 255, 255, 0.12)' ]]]
       - height: 3rem
       - padding: 0 1rem 0 1rem
       - border-radius: 0.5rem
