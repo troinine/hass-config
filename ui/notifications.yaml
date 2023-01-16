@@ -12,6 +12,51 @@
 
 - type: conditional
   conditions:
+    - entity: binary_sensor.notification_synology_security_warning
+      state: 'on'
+  card:
+    type: 'custom:button-card'
+    template: auto_notification
+    entity: binary_sensor.notification_synology_security_warning
+
+- type: conditional
+  conditions:
+    - entity: binary_sensor.notification_synology_update_available
+      state: 'on'
+  card:
+    type: 'custom:button-card'
+    template: auto_notification
+    entity: binary_sensor.notification_synology_update_available
+
+- type: conditional
+  conditions:
+    - entity: binary_sensor.notification_hass_update_available
+      state: 'on'
+  card:
+    type: 'custom:button-card'
+    template: auto_notification
+    entity: binary_sensor.notification_hass_update_available
+
+- type: conditional
+  conditions:
+    - entity: binary_sensor.notification_hacs_update_available
+      state: 'on'
+  card:
+    type: 'custom:button-card'
+    template: auto_notification
+    entity: binary_sensor.notification_hacs_update_available
+
+- type: conditional
+  conditions:
+    - entity: binary_sensor.notification_udm_update_available
+      state: 'on'
+  card:
+    type: 'custom:button-card'
+    template: auto_notification
+    entity: binary_sensor.notification_udm_update_available
+
+- type: conditional
+  conditions:
     - entity: binary_sensor.notification_heat_pump_alarm
       state: 'on'
     - entity: sensor.nibe_alarm_number
@@ -155,51 +200,6 @@
     type: 'custom:button-card'
     template: auto_notification
     entity: binary_sensor.notification_on_vacation
-
-- type: conditional
-  conditions:
-    - entity: binary_sensor.notification_synology_security_warning
-      state: 'on'
-  card:
-    type: 'custom:button-card'
-    template: auto_notification
-    entity: binary_sensor.notification_synology_security_warning
-
-- type: conditional
-  conditions:
-    - entity: binary_sensor.notification_synology_update_available
-      state: 'on'
-  card:
-    type: 'custom:button-card'
-    template: auto_notification
-    entity: binary_sensor.notification_synology_update_available
-
-- type: conditional
-  conditions:
-    - entity: binary_sensor.notification_hass_update_available
-      state: 'on'
-  card:
-    type: 'custom:button-card'
-    template: auto_notification
-    entity: binary_sensor.notification_hass_update_available
-
-- type: conditional
-  conditions:
-    - entity: binary_sensor.notification_hacs_update_available
-      state: 'on'
-  card:
-    type: 'custom:button-card'
-    template: auto_notification
-    entity: binary_sensor.notification_hacs_update_available
-
-- type: conditional
-  conditions:
-    - entity: binary_sensor.notification_udm_update_available
-      state: 'on'
-  card:
-    type: 'custom:button-card'
-    template: auto_notification
-    entity: binary_sensor.notification_udm_update_available
 
 - type: conditional
   conditions:
