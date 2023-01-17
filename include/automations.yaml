@@ -1341,3 +1341,25 @@
           tag: tumble_dryer_finished
           ttl: 0
           priority: high
+
+### Room light automation
+
+- id: '1673798235231'
+  alias: otsos_room_motion_lights
+  description: ''
+  use_blueprint:
+    path: troinine/room_motion_lights.yaml
+    input:
+      motion_sensor: binary_sensor.otsos_room_motion_sensor
+      target_light: light.group_otsos_room
+      light_level_sensor: sensor.otsos_room_motion_sensor_illuminance
+
+- id: '1673798235232'
+  alias: sisus_room_motion_lights
+  description: ''
+  use_blueprint:
+    path: troinine/room_motion_lights.yaml
+    input:
+      motion_sensor: binary_sensor.sisus_room_motion_sensor
+      target_light: light.group_sisus_room
+      light_level_sensor: sensor.sisus_room_motion_sensor_illuminance
