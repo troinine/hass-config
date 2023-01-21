@@ -153,6 +153,7 @@ The following table contains some of the hardware and software I use with Home A
 | Roborock S6 Pure            | Xiaomi Mi          | Robot vacuum which can be controlled via HA, including cleaning of specific rooms. Live map is also available                                                                                       |
 | Logitech Harmony Remote     | Logitech Harmony Hub | Logitech Harmony remote for controlling living room media devices |
 | Miele Washing Machine and Tumble Dryer | [custom](https://github.com/HomeAssistant-Mods/home-assistant-miele) | Home Assistant support for Miele@home connected appliances |
+| UniFi Dream Machine | [Unifi Network](https://www.home-assistant.io/integrations/unifi/), [command_line](https://www.home-assistant.io/integrations/command_line/) | Unifi Dream Machine router and Wifi |
 
 In addition to hardware I use a collection of OSS to feed data to Home Assistant:
 
