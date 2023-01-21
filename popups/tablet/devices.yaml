@@ -4,8 +4,8 @@ browser_mod:
   data:
     title: Laitteet
     style: |
-      --popup-max-width: 90vw;
-      --popup-min-width: 80vw;
+      --popup-max-width: 95vw;
+      --popup-min-width: 90vw;
     card_mod:
       style:
         layout-card:
@@ -19,10 +19,10 @@ browser_mod:
       type: custom:layout-card
       layout_type: custom:grid-layout
       layout:
-        grid-template-columns: 1fr 1fr 1fr
+        grid-template-columns: 1fr 1fr 1fr 1fr
         grid-template-rows: max-content
         grid-template-areas: |
-          "hass tablet synology"
+          "hass tablet synology udm"
         place-items: start stretch
       cards:
         - type: vertical-stack
@@ -200,3 +200,56 @@ browser_mod:
                     styles:
                       card:
                         - width: 15vw
+
+        - type: vertical-stack
+          view_layout:
+            grid-area: udm
+          cards:
+            - type: entities
+              card_mod:
+                !include ../../ui/styles/entities-card.yaml
+              title: Unifi UDM
+              show_header_toggle: false
+              entities:
+                - entity: sensor.udm_uptime
+                  name: Käynnissä
+                  format: total
+                - type: custom:bar-card
+                  entity_row: true
+                  unit_of_measurement: '%'
+                  width: 50%
+                  height: 2rem
+                  positions:
+                    icon: outside
+                    indicator: 'off'
+                    name: outside
+                  entities:
+                    - entity: sensor.udm_cpu
+                      severity: *cpu_severities
+                    - entity: sensor.udm_memory
+                      severity: *memory_severities
+                    - entity: sensor.udm_disk_usage
+                - entity: sensor.udm_cpu_temp
+                - entity: sensor.udm_version
+                - type: section
+
+            - type: custom:mod-card
+              card_mod:
+                style: |
+                  ha-card {
+                    display: flex;
+                    justify-content: center;
+                  }
+              card:
+                type: horizontal-stack
+                cards:
+                  - type: custom:button-card
+                    template: icon_button
+                    name: Admin UI
+                    icon: mdi:router
+                    styles:
+                      card:
+                        - width: 15vw
+                    tap_action:
+                      action: url
+                      url_path: !secret udm_admin_url

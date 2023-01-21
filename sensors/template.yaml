@@ -276,6 +276,68 @@
         Pois
       {% endif %}
 
+  - name: udm_cpu
+    unique_id: udm_cpu
+    state: >
+      {{ state_attr('sensor.udm_info', 'cpu') | default }}
+    attributes:
+      friendly_name: CPU
+      icon: mdi:chip
+      unit_of_measurement: '%'
+
+  - name: udm_cpu_temp
+    unique_id: udm_cpu_temp
+    state: >
+      {{ state_attr('sensor.udm_info', 'cpu_temp') | default }}
+    attributes:
+      friendly_name: CPU lämpötila
+      icon: mdi:thermometer
+      unit_of_measurement: '°C'
+
+  - name: udm_system_temp
+    unique_id: udm_system_temp
+    state: >
+      {{ state_attr('sensor.udm_info', 'system_temp') | default }}
+    attributes:
+      friendly_name: Lämpötila
+      icon: mdi:thermometer
+      unit_of_measurement: '°C'
+
+  - name: udm_memory
+    unique_id: udm_memory
+    state: >
+      {{ state_attr('sensor.udm_info', 'memory') | default }}
+    attributes:
+      friendly_name: Muistinkäyttö
+      icon: mdi:memory
+      unit_of_measurement: '%'
+
+  - name: udm_disk_usage
+    unique_id: udm_disk
+    state: >
+      {{ state_attr('sensor.udm_info', 'disk') | default }}
+    attributes:
+      friendly_name: Levytilan käyttö
+      icon: mdi:harddisk
+      unit_of_measurement: '%'
+
+  - name: udm_uptime
+    unique_id: udm_uptime
+    state: >
+      {{ state_attr('sensor.udm_info', 'uptime') | default }}
+    attributes:
+      friendly_name: Viimeisin käynnistys
+      icon: mdi:clock
+      device_class: timestamp
+
+  - name: udm_version
+    unique_id: udm_version
+    state: >
+      {{ state_attr('sensor.udm_info', 'version') | default }}
+    attributes:
+      friendly_name: Versio
+      icon: mdi:package-up
+
 - select:
   - name: roborock_s6_pure_speed
     state: |
@@ -336,6 +398,15 @@
     unique_id: lg_65_c1
     icon: mdi:television
     state:  "{{ iif(is_state('media_player.lg_65_c1', 'off'), 'off', 'on') }}"
+
+  - name: "UDM Internet"
+    unique_id: udm_internet
+    state: |
+      {{ state_attr('sensor.udm_info', 'internet') | default }}
+    attributes:
+      friendly_name: Internet
+      icon: mdi:wan
+      device_class: connectivity
 
   ### Notifications ###
 

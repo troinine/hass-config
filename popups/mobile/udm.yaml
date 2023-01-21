@@ -1,0 +1,68 @@
+---
+action: fire-dom-event
+browser_mod:
+  service: browser_mod.popup
+  data:
+    title: Unifi Dream Machine
+    card_mod:
+      !include ../../ui/styles/popup.yaml
+    content:
+      type: vertical-stack
+      cards:
+        - type: entities
+          card_mod:
+            !include ../../ui/styles/entities-card.yaml
+          show_header_toggle: false
+          entities:
+            - entity: sensor.udm_uptime
+              name: Käynnissä
+              format: total
+            - type: custom:bar-card
+              entity_row: true
+              unit_of_measurement: '%'
+              width: 50%
+              height: 2rem
+              positions:
+                icon: outside
+                indicator: 'off'
+                name: outside
+              entities:
+                - entity: sensor.udm_cpu
+                  severity: &cpu_severities
+                    - color: 'var(--error-color)'
+                      from: 85
+                      to: 100
+                    - color: 'var(--warning-color)'
+                      from: 70
+                      to: 84
+                - entity: sensor.udm_memory
+                  severity: &memory_severities
+                    - color: 'var(--error-color)'
+                      from: 85
+                      to: 100
+                    - color: 'var(--warning-color)'
+                      from: 70
+                      to: 84
+                - entity: sensor.udm_disk_usage
+            - entity: sensor.udm_cpu_temp
+            - entity: sensor.udm_system_temp
+            - entity: sensor.udm_version
+            - type: section
+
+        - type: custom:mod-card
+          card_mod:
+            style: |
+              ha-card {
+                display: flex;
+                justify-content: center;
+              }
+          card:
+            type: horizontal-stack
+            cards:
+              - type: custom:button-card
+                template: icon_button
+                name: Admin UI
+                icon: mdi:router
+                tap_action:
+                  action: url
+                  url_path: !secret udm_admin_url

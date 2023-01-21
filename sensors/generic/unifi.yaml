@@ -1,0 +1,16 @@
+- platform: command_line
+  name: udm_info
+  command: "python /config/scripts/unifi_info.py"
+  command_timeout: 180
+  scan_interval: 900
+  value_template: |
+    {{ value_json.internet | lower }}
+  json_attributes:
+    - cpu
+    - cpu_temp
+    - system_temp
+    - memory
+    - disk
+    - internet
+    - uptime
+    - version

@@ -1,5 +1,7 @@
 ---
 icon_button:
+  variables:
+    is_active: true
   template:
     - base
   show_icon: true
