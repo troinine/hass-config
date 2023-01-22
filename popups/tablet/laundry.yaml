@@ -37,16 +37,18 @@ browser_mod:
               entities:
                 - entity: sensor.washing_machine_status
                   name: Tila
+                - entity: binary_sensor.washing_machine_door
+                  name: Ovi
                 - entity: sensor.washing_machine_energy
                   name: Sähkönkulutus
                 - entity: sensor.washing_machine_water_consumption
                   name: Vedenkulutus
                 - entity: sensor.washing_machine_program_id
                   name: Ohjelma
-                - entity: sensor.washing_machine_program_phase
-                  name: Ohjelman vaihe
                 - entity: sensor.washing_machine_remaining_time
                   name: Jäljellä oleva aika
+                - entity: sensor.washing_machine_energy_consumption_monthly
+                  name: Kuukauden sähkö
                 - type: section
 
         - type: vertical-stack
@@ -61,16 +63,18 @@ browser_mod:
               entities:
                 - entity: sensor.tumble_dryer_status
                   name: Tila
+                - entity: binary_sensor.tumble_dryer_door
+                  name: Ovi
                 - entity: sensor.tumble_dryer_energy
                   name: Sähkönkulutus
                 - entity: sensor.tumble_dryer_program_id
                   name: Ohjelma
-                - entity: sensor.tumble_dryer_program_phase
-                  name: Ohjelman vaihe
-                - entity: sensor.tumble_dryer_drying_step
-                  name: Kuivausvaihe
                 - entity: sensor.tumble_dryer_remaining_time
                   name: Jäljellä oleva aika
+                - entity: binary_sensor.tumble_dryer_failure
+                  name: Virhe
+                - entity: sensor.tumble_dryer_energy_consumption_monthly
+                  name: Kuukauden sähkö
                 - type: section
 
         - type: custom:apexcharts-card
