@@ -11,6 +11,7 @@ base:
       func: avg
       duration: 1h
   graph_span: 2d
+  locale: fi
   apex_config:
     dropShadow:
       enabled: true
@@ -95,6 +96,61 @@ base_column:
         show: true
         color: rgba(var(--primary-text-color-rgb), 0.4)
         height: 1
+
+simple:
+  layout: minimal
+  locale: fi
+  all_series_config:
+    type: area
+    stroke_width: 2
+    fill_raw: last
+    curve: smooth
+    group_by:
+      func: avg
+      duration: 30min
+  graph_span: 1d
+  yaxis:
+  - id: first
+    apex_config:
+      labels:
+        show: false
+  - id: second
+    opposite: true
+    apex_config:
+      labels:
+        show: false
+  apex_config:
+    chart:
+      height: 125px
+    dropShadow:
+      enabled: true
+      top: 0
+      left: 0
+      blur: 3
+      opacity: 0.5
+    stroke:
+      curve: smooth
+    fill:
+      type: gradient
+      gradient:
+        type: vertical
+        shadeIntensity: 0
+        opacityFrom: 0.6
+        opacityTo: 0.2
+        stops:
+          - 0
+          - 90
+          - 100
+    plotOptions:
+      area:
+        fillTo: end
+    xaxis:
+      tooltip:
+        enabled: false
+      crosshairs:
+        show: false
+      axisTicks:
+        show: false
 
 sensor_heating:
   config_templates:
