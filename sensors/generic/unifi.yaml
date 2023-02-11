@@ -13,4 +13,8 @@
     - disk
     - internet
     - uptime
+    - availability
+    - average_latency
+    - down
+    - up
     - version

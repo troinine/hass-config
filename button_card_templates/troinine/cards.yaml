@@ -117,3 +117,10 @@ laundry:
       'Pyykkää': 'var(--color-blue)'
       'Kuivaa': 'var(--color-green)'
       'Päällä': 'var(--warning-color)'
+
+networking:
+  entity: binary_sensor.udm_internet
+  variables:
+    state_colors:
+      'on': 'var(--color-green)'
+      'off': 'var(--warning-color)'

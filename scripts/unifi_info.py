@@ -38,5 +38,9 @@ print(json.dumps({
     'disk': round(data['storage'][1]['used'] / data['storage'][1]['size'] * 100, 1),
     'internet': data['internet'],
     'uptime': datetime.fromtimestamp(data['startup_timestamp']).isoformat(),
+    'availability': data['uptime_stats']['WAN']['availability'],
+    'average_latency': data['uptime_stats']['WAN']['latency_average'],
+    'down': data['uplink']['rx_rate'] / 1000000,
+    'up': data['uplink']['tx_rate'] / 1000000,
     'version': data['displayable_version']
 }))

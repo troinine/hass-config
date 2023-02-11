@@ -42,7 +42,7 @@ browser_mod:
             - entity: sensor.nibe_average_resting_cycle
               name: Lepoaika
             - entity: sensor.nibe_daily_num_starts
-
+            - type: section
         - type: entities
           card_mod:
             !include ../../ui/styles/entities-card.yaml
@@ -57,6 +57,11 @@ browser_mod:
               name: Yläosa
             - entity: sensor.nibe_hot_water_fill_temp
               name: Alaosa
+            - type: custom:template-entity-row
+            - type: custom:template-entity-row
+            - type: custom:template-entity-row
+            - type: custom:template-entity-row
+            - type: section
 
         - type: entities
           card_mod:
@@ -84,6 +89,10 @@ browser_mod:
               entities:
                 - entity: sensor.nibe_supply_pump_speed
                   name: Pumpun nopeus
+            - type: custom:template-entity-row
+            - type: custom:template-entity-row
+            - type: custom:template-entity-row
+            - type: section
 
         - type: entities
           card_mod:
@@ -113,7 +122,9 @@ browser_mod:
               entities:
                 - entity: sensor.nibe_brine_pump_speed
                   name: Pumpun nopeus
-
+            - type: custom:template-entity-row
+            - type: custom:template-entity-row
+            - type: section
         - type: custom:apexcharts-card
           view_layout:
             grid-area: starts-graph

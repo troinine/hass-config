@@ -330,6 +330,42 @@
       icon: mdi:clock
       device_class: timestamp
 
+  - name: udm_availability
+    unique_id: udm_availability
+    state: >
+      {{ state_attr('sensor.udm_info', 'availability') | default }}
+    attributes:
+      friendly_name: Saatavuus
+      icon: mdi:connection
+      unit_of_measurement: '%'
+
+  - name: udm_average_latency
+    unique_id: udm_average_latency
+    state: >
+      {{ state_attr('sensor.udm_info', 'average_latency') | default }}
+    attributes:
+      friendly_name: Viive
+      icon: mdi:clock-fast
+      unit_of_measurement: 'ms'
+
+  - name: udm_download_speed
+    unique_id: udm_download_speed
+    state: >
+      {{ state_attr('sensor.udm_info', 'down') | default | round(1) }}
+    attributes:
+      friendly_name: Latausnopeus
+      icon: mdi:download
+      unit_of_measurement: 'MB'
+
+  - name: udm_upload_speed
+    unique_id: udm_upload_speed
+    state: >
+      {{ state_attr('sensor.udm_info', 'up') | default | round(1) }}
+    attributes:
+      friendly_name: Lähetysnopeus
+      icon: mdi:upload
+      unit_of_measurement: 'MB'
+
   - name: udm_version
     unique_id: udm_version
     state: >

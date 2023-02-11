@@ -7,62 +7,161 @@ browser_mod:
     card_mod:
       !include ../../ui/styles/popup.yaml
     content:
-      type: vertical-stack
+      type: custom:swipe-card
+      parameters:
+        pagination:
+          type: bullets
+        keyboard:
+          enabled: true
+          onlyInViewport: true
       cards:
-        - type: entities
-          card_mod:
-            !include ../../ui/styles/entities-card.yaml
-          show_header_toggle: false
-          entities:
-            - entity: sensor.udm_uptime
-              name: Käynnissä
-              format: total
-            - type: custom:bar-card
-              entity_row: true
-              unit_of_measurement: '%'
-              width: 50%
-              height: 2rem
-              positions:
-                icon: outside
-                indicator: 'off'
-                name: outside
-              entities:
-                - entity: sensor.udm_cpu
-                  severity: &cpu_severities
-                    - color: 'var(--error-color)'
-                      from: 85
-                      to: 100
-                    - color: 'var(--warning-color)'
-                      from: 70
-                      to: 84
-                - entity: sensor.udm_memory
-                  severity: &memory_severities
-                    - color: 'var(--error-color)'
-                      from: 85
-                      to: 100
-                    - color: 'var(--warning-color)'
-                      from: 70
-                      to: 84
-                - entity: sensor.udm_disk_usage
-            - entity: sensor.udm_cpu_temp
-            - entity: sensor.udm_system_temp
-            - entity: sensor.udm_version
-            - type: section
+        - type: custom:layout-card
+          layout_type: custom:grid-layout
+          layout:
+            grid-template-columns: 1fr
+            grid-template-rows: 55vh 30vh
+            grid-template-areas: |
+              "info"
+              "graph"
+            place-items: stretch
+          cards:
+            - type: vertical-stack
+              view_layout:
+                grid-area: info
+              cards:
+                - type: entities
+                  card_mod:
+                    !include ../../ui/styles/entities-card.yaml
+                  show_header_toggle: false
+                  entities:
+                    - entity: sensor.udm_uptime
+                      name: Käynnissä
+                      format: total
+                    - entity: sensor.udm_cpu_temp
+                    - entity: sensor.udm_system_temp
+                    - entity: sensor.udm_version
+                    - type: custom:bar-card
+                      entity_row: true
+                      unit_of_measurement: '%'
+                      width: 50%
+                      height: 2rem
+                      positions:
+                        icon: outside
+                        indicator: 'off'
+                        name: outside
+                      entities:
+                        - entity: sensor.udm_disk_usage
+                        - entity: sensor.udm_cpu
+                          severity: &cpu_severities
+                            - color: 'var(--error-color)'
+                              from: 85
+                              to: 100
+                            - color: 'var(--warning-color)'
+                              from: 70
+                              to: 84
+                        - entity: sensor.udm_memory
+                          severity: &memory_severities
+                            - color: 'var(--error-color)'
+                              from: 85
+                              to: 100
+                            - color: 'var(--warning-color)'
+                              from: 70
+                              to: 84
 
-        - type: custom:mod-card
-          card_mod:
-            style: |
-              ha-card {
-                display: flex;
-                justify-content: center;
-              }
-          card:
-            type: horizontal-stack
-            cards:
-              - type: custom:button-card
-                template: icon_button
-                name: Admin UI
-                icon: mdi:router
-                tap_action:
-                  action: url
-                  url_path: !secret udm_admin_url
+                - type: custom:mod-card
+                  card_mod:
+                    style: |
+                      ha-card {
+                        display: flex;
+                        justify-content: center;
+                        margin-top: 1rem;
+                      }
+                  card:
+                    type: horizontal-stack
+                    cards:
+                      - type: custom:button-card
+                        template: icon_button
+                        name: Admin UI
+                        icon: mdi:router
+                        tap_action:
+                          action: url
+                          url_path: !secret udm_admin_url
+
+            - type: custom:apexcharts-card
+              card_mod:
+                !include ../../ui/styles/no-card.yaml
+              view_layout:
+                grid-area: graph
+              config_templates:
+                - simple
+              yaxis:
+                - id: first
+                  apex_config:
+                    labels:
+                      show: false
+                - id: second
+                  opposite: true
+                  apex_config:
+                    labels:
+                      show: false
+              apex_config:
+                chart:
+                  height: 150px
+              series:
+                - entity: sensor.udm_cpu
+                  yaxis_id: first
+                  color: var(--chart-first-series-color)
+                - entity: sensor.udm_cpu_temp
+                  name: Lämpö
+                  yaxis_id: second
+                  color: var(--chart-second-series-color)
+
+        - type: custom:layout-card
+          layout_type: custom:grid-layout
+          layout:
+            grid-template-columns: 1fr
+            grid-template-rows: 55vh 30vh
+            grid-template-areas: |
+              "info"
+              "graph"
+            place-items: stretch
+          cards:
+            - type: entities
+              card_mod:
+                !include ../../ui/styles/entities-card.yaml
+              view_layout:
+                grid-area: info
+              show_header_toggle: false
+              entities:
+                - entity: sensor.udm_availability
+                - entity: sensor.udm_average_latency
+                - entity: sensor.udm_download_speed
+                - entity: sensor.udm_upload_speed
+
+            - type: custom:apexcharts-card
+              card_mod:
+                !include ../../ui/styles/no-card.yaml
+              view_layout:
+                grid-area: graph
+              config_templates:
+                - simple
+              yaxis:
+                - id: first
+                  apex_config:
+                    labels:
+                      show: false
+                - id: second
+                  opposite: true
+                  apex_config:
+                    labels:
+                      show: false
+              apex_config:
+                chart:
+                  height: 150px
+              series:
+                - entity: sensor.udm_upload_speed
+                  yaxis_id: first
+                  color: var(--chart-first-series-color)
+                - entity: sensor.udm_download_speed
+                  yaxis_id: second
+                  color: var(--chart-second-series-color)

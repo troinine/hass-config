@@ -94,7 +94,7 @@ mobile:
   button-card-compact-height: 12vh
 
   # Entities card
-  custom-entities-card-marging: 0.2rem
+  custom-entities-card-marging: 0
 
   # Grid
   grid-card-gap: 2rem
@@ -208,12 +208,14 @@ mobile:
       bar-card-color: '#303435'
 
       # Custom
-      humidity-low-color: "#00ccf5"
-      humidity-high-color: "#0336FF"
-      warning-color-rgb: 255, 145, 1
-      primary-text-color-rgb: 205, 217, 229
-      custom-icon-color: dodgerblue
-      custom-icon-color-not-active: rgba(var(--color-theme-rgb), 0.2)
+      humidity-low-color: '#00ccf5'
+      humidity-high-color: '#0336FF'
+      warning-color-rgb: '255, 145, 1'
+      primary-text-color-rgb: '205, 217, 229'
+      custom-icon-color: 'dodgerblue'
+      custom-icon-color-not-active: 'rgba(var(--color-theme-rgb), 0.2)'
       custom-color-icon-background: '#181515'
-      battery-full-color: "rgb(56, 142, 60)"
-      button-color: "rgb(56, 142, 60)"
+      battery-full-color: "#388E3C"
+      button-color: "#388E3C"
+      chart-first-series-color: 'dodgerblue'
+      chart-second-series-color: '#388E3C'

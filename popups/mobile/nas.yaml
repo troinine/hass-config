@@ -14,6 +14,18 @@ browser_mod:
             !include ../../ui/styles/entities-card.yaml
           show_header_toggle: false
           entities:
+            - entity: binary_sensor.synology_security_status
+              name: Turvataso
+            - entity: update.synology_dsm_update
+              name: Päivitys
+            - entity: sensor.synology_drive_1_status
+              name: Levy 1
+            - entity: sensor.synology_drive_1_temperature
+              name: Lämpötila
+            - entity: sensor.synology_drive_2_status
+              name: Levy 2
+            - entity: sensor.synology_drive_2_temperature
+              name: Lämpötila
             - type: custom:bar-card
               entity_row: true
               unit_of_measurement: '%'
@@ -42,20 +54,6 @@ browser_mod:
                     - color: 'var(--warning-color)'
                       from: 70
                       to: 84
-            - entity: binary_sensor.synology_security_status
-              name: Turvataso
-            - entity: update.synology_dsm_update
-              name: Päivitys
-            - type: section
-              label: Levyt
-            - entity: sensor.synology_drive_1_status
-              name: Levy 1
-            - entity: sensor.synology_drive_1_temperature
-              name: Lämpötila
-            - entity: sensor.synology_drive_2_status
-              name: Levy 2
-            - entity: sensor.synology_drive_2_temperature
-              name: Lämpötila
             - type: section
 
         - type: custom:mod-card

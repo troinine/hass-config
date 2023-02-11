@@ -211,37 +211,11 @@ views:
         cards:
           - type: 'custom:button-card'
             template: group_title
-            name: Media ja laitteet
-            tap_action:
-              !include ../popups/tablet/devices.yaml
+            name: Kodinhoito
 
           - type: grid
             columns: 2
             cards:
-              - type: 'custom:button-card'
-                template: info
-                entity: media_player.samsung_q90_series_65
-                name: Olohuone TV
-                variables:
-                  state_colors:
-                    "on": 'var(--color-green)'
-
-              - type: 'custom:button-card'
-                template: info
-                entity: binary_sensor.ps5_status
-                name: Playstation 5
-                icon: mdi:sony-playstation
-                variables:
-                  state_colors:
-                    "on": 'var(--color-green)'
-
-              - type: 'custom:button-card'
-                template:
-                  - info
-                  - laundry
-                tap_action:
-                  !include ../popups/tablet/laundry.yaml
-
               - type: 'custom:button-card'
                 template: info
                 entity: vacuum.roborock_s6_pure
@@ -255,6 +229,35 @@ views:
                     "paused": yellow
                     "returning": dodgerblue
                     "error": var(--color-warning)
+
+              - type: 'custom:button-card'
+                template:
+                  - info
+                  - laundry
+                tap_action:
+                  !include ../popups/tablet/laundry.yaml
+
+              - type: 'custom:button-card'
+                template:
+                  - info
+                  - networking
+                tap_action:
+                  !include ../popups/tablet/networking.yaml
+
+              - type: 'custom:button-card'
+                template:
+                  - info
+                entity: binary_sensor.notification_hass_update_available
+                name: Home Assistant
+                state_display: |
+                  [[[
+                    return entity.state == 'on' ? 'Päivitys saatavilla' : 'Ajantasalla'
+                  ]]]
+                variables:
+                  state_colors:
+                    "on": 'var(--color-green)'
+                tap_action:
+                  !include ../popups/tablet/devices.yaml
 
       ###
       ### Family

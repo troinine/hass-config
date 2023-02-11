@@ -172,6 +172,8 @@ tablet:
       custom-color-icon-background: '#181515'
       battery-full-color: "rgb(56, 142, 60)"
       button-color: "rgb(56, 142, 60)"
+      chart-first-series-color: 'dodgerblue'
+      chart-second-series-color: '#388E3C'
 
       button-card-icon-drop-shadow-size: 0.2rem
       button-card-img-cell-box-shadow-size: 0.75rem

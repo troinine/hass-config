@@ -1,0 +1,138 @@
+---
+action: fire-dom-event
+browser_mod:
+  service: browser_mod.popup
+  data:
+    title: Unifi Dream Machine
+    card_mod:
+      !include ../../ui/styles/popup.yaml
+    content:
+      type: custom:layout-card
+      layout_type: custom:grid-layout
+      layout:
+        grid-template-columns: 1fr 1fr
+        grid-template-rows: max-content
+        grid-template-areas: |
+          "udm availability"
+          "buttons buttons"
+          "graph-cpu graph-speeds"
+        place-items: stretch
+      cards:
+        - type: vertical-stack
+          view_layout:
+            grid-area: udm
+          cards:
+            - type: entities
+              card_mod:
+                !include ../../ui/styles/entities-card.yaml
+              show_header_toggle: false
+              entities:
+                - entity: sensor.udm_uptime
+                  name: Käynnissä
+                  format: total
+                - entity: sensor.udm_cpu_temp
+                - entity: sensor.udm_system_temp
+                - entity: sensor.udm_version
+                - type: custom:bar-card
+                  entity_row: true
+                  unit_of_measurement: '%'
+                  width: 50%
+                  height: 2rem
+                  positions:
+                    icon: outside
+                    indicator: 'off'
+                    name: outside
+                  entities:
+                    - entity: sensor.udm_disk_usage
+                    - entity: sensor.udm_cpu
+                      severity: &cpu_severities
+                        - color: 'var(--error-color)'
+                          from: 85
+                          to: 100
+                        - color: 'var(--warning-color)'
+                          from: 70
+                          to: 84
+                    - entity: sensor.udm_memory
+                      severity: &memory_severities
+                        - color: 'var(--error-color)'
+                          from: 85
+                          to: 100
+                        - color: 'var(--warning-color)'
+                          from: 70
+                          to: 84
+                - type: section
+
+        - type: custom:mod-card
+          view_layout:
+            grid-area: buttons
+          card_mod:
+            style: |
+              ha-card {
+                display: flex;
+                justify-content: center;
+                margin-bottom: 1.5rem;
+              }
+          card:
+            type: horizontal-stack
+            cards:
+              - type: custom:button-card
+                template: icon_button
+                name: Admin UI
+                icon: mdi:router
+                tap_action:
+                  action: url
+                  url_path: !secret udm_admin_url
+                styles:
+                  card:
+                    - width: 15vw
+
+        - type: custom:apexcharts-card
+          card_mod:
+            !include ../../ui/styles/no-card.yaml
+          view_layout:
+            grid-area: graph-cpu
+          config_templates:
+            - simple
+          series:
+            - entity: sensor.udm_cpu
+              yaxis_id: first
+              color: var(--chart-first-series-color)
+            - entity: sensor.udm_cpu_temp
+              name: Lämpö
+              yaxis_id: second
+              color: var(--chart-second-series-color)
+
+        - type: vertical-stack
+          view_layout:
+            grid-area: availability
+          cards:
+            - type: entities
+              card_mod:
+                !include ../../ui/styles/entities-card.yaml
+              view_layout:
+                grid-area: info
+              show_header_toggle: false
+              entities:
+                - entity: sensor.udm_availability
+                - entity: sensor.udm_average_latency
+                - entity: sensor.udm_download_speed
+                - entity: sensor.udm_upload_speed
+                - type: custom:template-entity-row
+                - type: custom:template-entity-row
+                - type: custom:template-entity-row
+                - type: section
+
+        - type: custom:apexcharts-card
+          card_mod:
+            !include ../../ui/styles/no-card.yaml
+          view_layout:
+            grid-area: graph-speeds
+          config_templates:
+            - simple
+          series:
+            - entity: sensor.udm_upload_speed
+              yaxis_id: first
+              color: var(--chart-first-series-color)
+            - entity: sensor.udm_download_speed
+              yaxis_id: second
+              color: var(--chart-second-series-color)
