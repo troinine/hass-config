@@ -754,13 +754,13 @@
         {% else %}
           Robotti-imurin tila ei tiedossa
         {% endif %}
-      text_description: "Siivottu alue {{ states('sensor.roborock_s6_pure_current_clean_area') | round(0) }} neliötä"
+      text_description: "Siivottu alue {{ states('sensor.roborock_s6_pure_current_clean_area') | default(0) | round(0) }} neliötä"
 
   - name: notification_time_to_vacuum
     unique_id: notification_time_to_vacuum
     icon: mdi:robot-vacuum
     state: |
-      {% set last_cleaned_secs = as_timestamp(now()) - as_timestamp(states.sensor.roborock_s6_pure_last_clean_end.state) %}
+      {% set last_cleaned_secs = as_timestamp(now()) - as_timestamp(states.sensor.roborock_s6_pure_last_clean_end.state, now().timestamp()) %}
       {% if ((last_cleaned_secs / 60 / 60 / 24) > 3) and not is_state('binary_sensor.notification_vacuuming', 'on') %}
         on
       {% else %}
@@ -769,7 +769,7 @@
     attributes:
       icon_color: var(--warning-color)
       text_summary: |
-        {% set last_cleaned_secs = (as_timestamp(now()) - as_timestamp(states.sensor.roborock_s6_pure_last_clean_end.state)) %}
+        {% set last_cleaned_secs = as_timestamp(now()) - as_timestamp(states.sensor.roborock_s6_pure_last_clean_end.state, now().timestamp()) %}
         Imurointia ei ole suoritettu {{ (last_cleaned_secs / 60 / 60 / 24) | round(0) }} päivään
       text_description: Oleskelutilojen imurointi aloitetaan kun kotoa poistutaan tai kun se käynnistetään käsin
 
