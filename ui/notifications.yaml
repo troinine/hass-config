@@ -149,6 +149,15 @@
 
 - type: conditional
   conditions:
+    - entity: binary_sensor.notification_replace_ventilation_filters
+      state: 'on'
+  card:
+    type: 'custom:button-card'
+    template: auto_notification
+    entity: binary_sensor.notification_replace_ventilation_filters
+
+- type: conditional
+  conditions:
     - entity: binary_sensor.notification_sauna
       state: 'on'
   card:

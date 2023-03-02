@@ -140,6 +140,9 @@ input_number:
 input_text:
   !include include/texts.yaml
 
+input_datetime:
+  !include include/datetimes.yaml
+
 sensor:
   !include_dir_merge_list sensors/generic
 

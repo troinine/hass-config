@@ -40,7 +40,14 @@ browser_mod:
                 - entity: lock.ulko_ovi
                   name: Ulko-ovi
                 - entity: binary_sensor.mqtt_garage_door
+                - type: custom:template-entity-row
+                  entity: input_datetime.ventilation_filters_replaced
+                  icon: mdi:air-filter
+                  name: Suodattimet vaihdettu
+                  state: "{{ states('input_datetime.ventilation_filters_replaced') }}"
+                - entity: sensor.ventilation_filters_days_remaining
                 - entity: input_boolean.on_vacation
+                - entity: input_boolean.automations_enabled
                 - type: section
                   label: Automaatiot
                 - entity: input_boolean.automations_enabled
@@ -70,6 +77,9 @@ browser_mod:
                   name: Kuukauden kulutus
                 - entity: sensor.mqtt_energy_cost_monthly
                   name: Kuukauden hinta
+                - type: custom:template-entity-row
+                - type: custom:template-entity-row
+                - type: custom:template-entity-row
                 - type: section
         - type: custom:apexcharts-card
           view_layout:
@@ -101,6 +111,9 @@ browser_mod:
                   name: Lämpötila
                 - entity: sensor.mqtt_sauna_humidity
                   name: Kosteus
+                - type: custom:template-entity-row
+                - type: custom:template-entity-row
+                - type: custom:template-entity-row
                 - type: section
 
         - type: custom:apexcharts-card

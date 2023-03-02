@@ -408,6 +408,15 @@
           None
         {% endif %}
 
+  - name: ventilation_filters_days_remaining
+    unique_id: ventilation_filters_days_remaining
+    state: |
+      {% set diff_days = (30 * 4) - (((as_timestamp(now()) - as_timestamp(states('input_datetime.ventilation_filters_replaced'), 0)) / 60 / 60 / 24) | int) %}
+      {{ [diff_days, 0] | max }}
+    attributes:
+      icon: mdi:clock
+      friendly_name: Suodattimien vaihtoon
+      unit_of_measurement: päivää
 
 - select:
   - name: roborock_s6_pure_speed
@@ -905,3 +914,12 @@
       text_description: "{{ state_attr('sensor.todoist_current_task', 'description') }}"
       tap_action: 'url'
       tap_action_url_path: "https://todoist.com/app/project/{{ state_attr('sensor.todoist_current_task', 'project_id') }}/task/{{ state_attr('sensor.todoist_current_task', 'id') }}"
+
+  - name: notification_replace_ventilation_filters
+    unique_id: notification_replace_ventilation_filters
+    icon: mdi:air-filter
+    state: "{{ iif(states('sensor.ventilation_filters_days_remaining') | int <= 0, 'on', 'off')}}"
+    attributes:
+      icon_color: var(--warning-color)
+      text_summary: "Vaihda IV-koneen suodattimet"
+      text_description: "Suodattimet vaihdettu viimeksi {{states('input_datetime.ventilation_filters_replaced') }}"
