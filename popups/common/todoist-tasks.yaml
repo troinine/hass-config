@@ -1,0 +1,67 @@
+action: fire-dom-event
+browser_mod:
+  service: browser_mod.popup
+  data:
+    title: Tehtävät
+    card_mod:
+      !include ../../ui/styles/popup.yaml
+    content:
+      type: custom:mod-card
+      card_mod:
+        style: |
+          ha-card {
+            margin: 1rem;
+          }
+      card:
+        type: vertical-stack
+        cards:
+          - type: vertical-stack
+            cards: |
+              [[[
+                const tasks = states['sensor.todoist_all_tasks'].attributes.items
+                const cards = tasks.map(task => {
+                  const task_description = task.description ? marked.parseInline(task.description) : null
+                  const task_card = {
+                    "type": "custom:button-card",
+                    "template": "todoist_task",
+                    "icon": "mdi:checkbox-marked-circle-outline",
+                    "variables": {
+                      "task_id": task.id,
+                      "summary": task.content,
+                      "description": task_description,
+                      "icon_color": 'var(--color-green)',
+                    },
+                    "tap_action": {
+                      "action": "url",
+                      "url_path": `https://todoist.com/app/project/${task.project_id}/task/${task.id}`
+                    },
+                    "styles": {
+                      "card": [
+                        { "margin-bottom": "0.5rem" }
+                      ]
+                    },
+                    "extra_styles": "a { color: var(--mdc-theme-primary); }"
+                  }
+
+                  return task_card
+                })
+
+                return cards
+              ]]]
+          - type: entities
+            card_mod:
+              !include ../../ui/styles/entities-card.yaml
+            title: Lisää uusi tehtävä
+            entities:
+              - entity: input_text.todoist_new_task_title
+                type: custom:text-input-row
+              - entity: input_text.todoist_new_task_description
+                type: custom:text-input-row
+              - type: buttons
+                entities:
+                  - entity: input_text.todoist_new_task_title
+                    show_icon: false
+                    name: Tallenna
+                    tap_action:
+                      action: call-service
+                      service: script.todoist_create_new_task

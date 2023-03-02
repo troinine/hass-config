@@ -10,6 +10,21 @@
   value_template: '{{ value_json[0].q }} - {{ value_json[0].a }}'
   scan_interval: 900
 
+- platform: rest
+  name: Todoist all tasks
+  unique_id: todoist_all_tasks
+  icon: mdi:list-status
+  scan_interval: 300
+  resource: 'https://api.todoist.com/sync/v9/projects/get_data'
+  params:
+    project_id: !secret todoist_home_project_id
+  headers:
+    Authorization: !secret todoist_authorization_header
+  value_template: "{{ iif(value_json, 'on', 'off') }}"
+  json_attributes:
+    - project
+    - items
+
 - platform: systemmonitor
   resources:
     - type: memory_use_percent

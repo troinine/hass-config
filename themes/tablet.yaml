@@ -28,18 +28,20 @@ tablet:
         background: none !important;
         min-height: 100vh;
       }
-
   card-mod-more-info-yaml: |
     $: |
       .mdc-dialog .mdc-dialog__surface {
         background-color: var(--primary-background-color) !important;
       }
-
+    .: |
+      ha-dialog {
+        --vertical-align-dialog: center !important;
+        --dialog-surface-margin-top: 0 !important;
+      }
     ha-header-bar$: |
       header {
         background: var(--popup-header-color) !important;
       }
-
 
   card-mod-card: |
     .type-custom-bar-card bar-card-name {
@@ -155,6 +157,11 @@ tablet:
       # Popups
       popup-background-color: var(--primary-background-color)
       popup-header-color: var(--primary-background-color)
+
+      # Browser mod popup
+      popup-border-radius: var(--border-radius)
+      popup-padding-x: 0
+      popup-padding-y: 0
 
       # Media player
       mini-media-player-accent-color: "var(--google-blue)"

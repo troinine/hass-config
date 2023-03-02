@@ -1,0 +1,8 @@
+todoist_new_task_title:
+  name: Otsikko
+  icon: mdi:text-short
+  initial: ''
+todoist_new_task_description:
+  name: Kuvaus
+  icon: mdi:text-long
+  initial: ''

@@ -124,3 +124,23 @@ networking:
     state_colors:
       'on': 'var(--color-green)'
       'off': 'var(--warning-color)'
+
+tasks:
+  entity: sensor.todoist_all_tasks
+  name: Tehtävät
+  state_display: |
+    [[[
+      if (entity.state == 'on') {
+        if (entity.attributes.items.length == 1) {
+          return 'Yksi tehtävä'
+        } else {
+          return `${entity.attributes.items.length} tehtävää`
+        }
+      } else {
+        return 'Ei tehtäviä'
+      }
+    ]]]
+  variables:
+    icon_glow: true
+    state_colors:
+      "on": 'var(--color-green)'

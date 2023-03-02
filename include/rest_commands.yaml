@@ -2,3 +2,23 @@ hass_update:
   url: !secret hass_update_url
   headers:
     Authorization: !secret hass_update_url_secret
+
+todoist_create_task:
+  method: post
+  url: "https://api.todoist.com/rest/v2/tasks"
+  payload: '{ "content": "{{ content }}", "description": "{{ description }}", "project_id": {{ project_id }} }'
+  headers:
+    Authorization: !secret todoist_authorization_header
+  content_type: application/json
+
+todoist_delete_task:
+  method: delete
+  url: "https://api.todoist.com/rest/v2/tasks/{{ task_id }}"
+  headers:
+    Authorization: !secret todoist_authorization_header
+
+todoist_complete_task:
+  method: post
+  url: "https://api.todoist.com/rest/v2/tasks/{{ task_id }}/close"
+  headers:
+    Authorization: !secret todoist_authorization_header

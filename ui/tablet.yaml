@@ -247,17 +247,9 @@ views:
               - type: 'custom:button-card'
                 template:
                   - info
-                entity: binary_sensor.notification_hass_update_available
-                name: Home Assistant
-                state_display: |
-                  [[[
-                    return entity.state == 'on' ? 'Päivitys saatavilla' : 'Ajantasalla'
-                  ]]]
-                variables:
-                  state_colors:
-                    "on": 'var(--color-green)'
+                  - tasks
                 tap_action:
-                  !include ../popups/tablet/devices.yaml
+                  !include ../popups/common/todoist-tasks.yaml
 
       ###
       ### Family

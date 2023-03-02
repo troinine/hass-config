@@ -134,6 +134,10 @@ base_icon:
       - color: |
           [[[
             if (!entity) {
+              if (variables.icon_color) {
+                return variables.icon_color
+              }
+
               return 'var(--custom-icon-color-not-active)'
             }
 

@@ -71,11 +71,10 @@ cards:
 
       - type: custom:button-card
         template:
-          - compact_sensor_graph
-          - sensor_graph_thresholds_indoor_temperature
-        entity: sensor.mqtt_airthings_waveplus_living_room_temperature
-        variables:
-          name_override: Olohuone
+          - compact_info
+          - tasks
+        tap_action:
+          !include ../../../popups/common/todoist-tasks.yaml
 
   - type: custom:button-card
     template: subtitle

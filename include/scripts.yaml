@@ -177,3 +177,41 @@ scene_parameterized_brightness:
         entity_id: |
           {{ expand(state_attr(entity, 'entity_id')) | selectattr('state', 'eq', 'on') | map(attribute='entity_id') | list }}
         brightness_pct: "{{ brightness }}"
+
+todoist_create_new_task:
+  mode: single
+  alias: Todoist create new task
+  sequence:
+    - service: rest_command.todoist_create_task
+      data:
+        content: "{{ states('input_text.todoist_new_task_title') }}"
+        description: "{{ states('input_text.todoist_new_task_description') }}"
+        project_id: !secret todoist_home_project_id
+    - service: input_text.set_value
+      data_template:
+        entity_id:
+          - input_text.todoist_new_task_title
+          - input_text.todoist_new_task_description
+        value: ''
+    - service: homeassistant.update_entity
+      entity_id: sensor.todoist_all_tasks
+
+todoist_delete_task:
+  mode: single
+  alias: Todoist delete task
+  sequence:
+    - service: rest_command.todoist_delete_task
+      data:
+        task_id: "{{ task_id }}"
+    - service: homeassistant.update_entity
+      entity_id: sensor.todoist_all_tasks
+
+todoist_complete_task:
+  mode: single
+  alias: Todoist complete task
+  sequence:
+    - service: rest_command.todoist_complete_task
+      data:
+        task_id: "{{ task_id }}"
+    - service: homeassistant.update_entity
+      entity_id: sensor.todoist_all_tasks

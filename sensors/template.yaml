@@ -374,6 +374,41 @@
       friendly_name: Versio
       icon: mdi:package-up
 
+  - name: todoist_current_task
+    unique_id: todoist_current_task
+    state: |
+      {% set all_tasks = state_attr('sensor.todoist_all_tasks', 'items') | sort(attribute='child_order') %}
+      {% if all_tasks %}
+        {{ (all_tasks | first).content }}
+      {% else %}
+        off
+      {% endif %}
+    attributes:
+      icon: mdi:list-status
+      friendly_name: Viimeisin tehtävä
+      description: |
+        {% set all_tasks = state_attr('sensor.todoist_all_tasks', 'items') | sort(attribute='child_order') %}
+        {% if all_tasks %}
+          {{ (all_tasks | first).description }}
+        {% else %}
+          None
+        {% endif %}
+      id: |
+        {% set all_tasks = state_attr('sensor.todoist_all_tasks', 'items') | sort(attribute='child_order') %}
+        {% if all_tasks %}
+          {{ (all_tasks | first).id }}
+        {% else %}
+          None
+        {% endif %}
+      project_id: |
+        {% set all_tasks = state_attr('sensor.todoist_all_tasks', 'items') | sort(attribute='child_order') %}
+        {% if all_tasks %}
+          {{ (all_tasks | first).project_id }}
+        {% else %}
+          None
+        {% endif %}
+
+
 - select:
   - name: roborock_s6_pure_speed
     state: |
@@ -859,3 +894,14 @@
         {% for repo in state_attr('sensor.hacs', 'repositories') %}
           {{ repo['display_name'] }} {{ repo['installed_version'] }} -> {{ repo['available_version'] }}.
         {% endfor %}
+
+  - name: "notification_current_home_task"
+    unique_id: "notification_current_home_task"
+    icon: mdi:checkbox-marked-circle-outline
+    state: "{{ iif(states('sensor.todoist_current_task') != 'off', 'on', 'off') }}"
+    attributes:
+      icon_color: 'var(--color-green)'
+      text_summary: "Tehtävä: {{ states('sensor.todoist_current_task') }}"
+      text_description: "{{ state_attr('sensor.todoist_current_task', 'description') }}"
+      tap_action: 'url'
+      tap_action_url_path: "https://todoist.com/app/project/{{ state_attr('sensor.todoist_current_task', 'project_id') }}/task/{{ state_attr('sensor.todoist_current_task', 'id') }}"

@@ -119,3 +119,84 @@ compact_info_extra_2:
       state3:
         - place-self: end start
         - filter: opacity(40%)
+
+info_text:
+  variables:
+    summary: ''
+    description: false
+    active: true
+    icon_color: 'var(--custom-icon-color-not-active)'
+    icon_glow: false
+    show_last_changed: false
+  template:
+    - "base_icon_name"
+  aspect_ratio: ''
+  show_icon: true
+  show_state: true
+  show_name: false
+  show_label: true
+  label: |
+    [[[
+      if (variables.description) {
+        return marked.parseInline(variables.description)
+      }
+      return undefined
+    ]]]
+  state_display: "[[[ return variables.summary ]]]"
+  styles:
+    grid:
+      - grid-template-areas: |
+          [[[
+            if (variables.description || variables.show_last_changed) {
+              return '"i s" "i l"'
+            } else {
+              return '"i s"'
+            }
+          ]]]
+      - grid-template-columns: 0.15fr 0.85fr
+      - grid-template-rows: |
+          [[[
+            if (variables.description || variables.show_last_changed) {
+              return 'min-content min-content'
+            } else {
+              return 'min-content'
+            }
+          ]]]
+    img_cell:
+      - background-color: transparent
+      - border-radius: 0
+      - justify-self: start
+      - width: 1.5rem
+      - overflow: visible
+    state:
+      - padding: 0 0 0 0
+      - font-weight: 300
+      - justify-self: start
+      - align-self: |
+          [[[
+            return variables.description ? 'end': 'center'
+          ]]]
+      - font-size: 1.1rem
+    label:
+      - padding: 0 0 0 0
+      - filter: "opacity(40%)"
+      - font-size: 1.0rem
+      - justify-self: start
+      - align-self: start
+      - text-overflow: unset
+      - white-space: unset
+      - word-break: break-word
+      - text-align: initial
+      - text-justify: none
+    card:
+      - background-color: transparent
+      - justify-self: start
+      - border-radius: 0
+      - box-shadow: none
+      - margin: 0 0 0 0
+      - padding: 0 0 0 0
+      - max-width: 100%
+  extra_styles: |
+    a {
+      color: var(--mdc-theme-primary);
+    }

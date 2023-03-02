@@ -51,6 +51,12 @@ mobile:
         height: 100vh;
       }
 
+    .: |
+      ha-dialog {
+        --vertical-align-dialog: center !important;
+        --dialog-surface-margin-top: 0 !important;
+      }
+
     ha-header-bar$: |
       header {
         background: var(--popup-header-color) !important;
@@ -106,6 +112,8 @@ mobile:
 
   # Browser mod popup
   popup-border-radius: 0
+  popup-padding-x: 0
+  popup-padding-y: 0
 
   # Stack cards
   horizontal-stack-card-margin: 0.5rem

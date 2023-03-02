@@ -1,0 +1,58 @@
+todoist_task_action:
+  template:
+    - base_icon_button
+  styles:
+    card:
+      - background-color: transparent
+
+todoist_task:
+  variables:
+    task_id: false
+  template:
+    - info_text
+  styles:
+    grid:
+      - grid-template-areas: |
+          [[[
+            if (variables.description) {
+              return '"i s mark-completed delete" "i l mark-completed delete"'
+            } else {
+              return '"i s mark-completed delete"'
+            }
+          ]]]
+      - grid-template-columns: 0.15fr 0.85fr 0.15fr 0.15fr
+  extra_styles: |
+    a {
+      color: var(--mdc-theme-primary);
+    }
+  custom_fields:
+    mark-completed:
+      card:
+        type: custom:button-card
+        template: todoist_task_action
+        icon: mdi:check
+        styles:
+          icon:
+            - color: 'var(--color-green)'
+        tap_action:
+          action: call-service
+          service: script.todoist_complete_task
+          service_data:
+            task_id: "[[[ return variables.task_id ]]]"
+          confirmation:
+            text: "[[[ return `Merkitäänkö tehtävä \"${variables.summary}\" valmiiksi?`]]]"
+    delete:
+      card:
+        type: custom:button-card
+        template: todoist_task_action
+        icon: mdi:trash-can-outline
+        styles:
+          icon:
+            - color: 'red'
+        tap_action:
+          action: call-service
+          service: script.todoist_delete_task
+          service_data:
+            task_id: "[[[ return variables.task_id ]]]"
+          confirmation:
+            text: "[[[ return `Poistetaanko tehtävä \"${variables.summary}\"?`]]]"
