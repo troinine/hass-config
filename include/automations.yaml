@@ -1363,3 +1363,22 @@
       motion_sensor: binary_sensor.sisus_room_motion_sensor
       target_light: light.group_sisus_room
       light_level_sensor: sensor.sisus_room_motion_sensor_illuminance
+
+- id: '1673798235233'
+  alias: replace_ventilation_filters
+  description: ""
+  mode: single
+  trigger:
+    - platform: state
+      entity_id:
+        - binary_sensor.notification_replace_ventilation_filters
+      from: "off"
+      to: "on"
+  condition: []
+  action:
+    - service: notify.mobile_app_tero
+      data:
+        message: Vaihda IV-koneen suodattimet
+        data:
+          group: Ilmanvainhto
+          tag: replace_filters
