@@ -158,7 +158,7 @@
   - name: roborock_s6_pure_time_to_next_clean
     unique_id: roborock_s6_pure_time_to_next_clean
     state: |
-      {{ (as_datetime(states('sensor.roborock_s6_pure_last_clean_end')) + timedelta(days = 3)).isoformat() }}
+      {{ (states('sensor.roborock_s6_pure_last_clean_end') | default(now().isoformat()) | as_datetime + timedelta(days = 3)).isoformat() }}
     attributes:
       friendly_name: Seuraava siivous
       icon: mdi:vacuum-outline
