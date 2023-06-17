@@ -7,14 +7,15 @@ tablet:
   card-mod-theme: "tablet"
 
   card-mod-root: |
-    ha-app-layout {
+    div#view {
       background: url('/local/img/background.png');
       background-size: cover;
+      margin-top: 0;
+      height: 100vh;
     }
-    app-toolbar {
+    div.header {
       display: none;
     }
-
   card-mod-view-yaml: |
     "*:first-child$": |
       #columns .column > * {
@@ -70,6 +71,7 @@ tablet:
     }
 
   masonry-view-card-margin: 0
+  header-height: 0
 
   modes:
     dark:
