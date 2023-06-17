@@ -16,6 +16,7 @@ base_card:
   variables:
     state_colors: false
     card_glow: false
+    card_shadow_enabled: true
   aspect_ratio: 1/1
   template:
     - base
@@ -39,7 +40,7 @@ base_card:
       - '-webkit-box-shadow': |
           [[[
             if (!variables.card_glow) {
-              return 'var(--box-shadow)'
+              return variables.card_shadow_enabled ? 'var(--box-shadow)' : 'none'
             }
 
             var state = entity.state
@@ -54,12 +55,12 @@ base_card:
               return '0 0 0.95rem 0.2rem ' + variables.icon_color
             }
 
-            return 'var(--box-shadow)'
+            return variables.card_shadow_enabled ? 'var(--box-shadow)' : 'none'
           ]]]
       - box-shadow: |
           [[[
             if (!variables.card_glow) {
-              return 'var(--box-shadow)'
+              return variables.card_shadow_enabled ? 'var(--box-shadow)' : 'none'
             }
 
             var state = entity.state
@@ -74,7 +75,7 @@ base_card:
               return '0 0 0.95rem 0.2rem ' + variables.icon_color
             }
 
-            return 'var(--box-shadow)'
+            return variables.card_shadow_enabled ? 'var(--box-shadow)' : 'none'
           ]]]
       - transition: |
           [[[

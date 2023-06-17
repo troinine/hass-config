@@ -77,6 +77,8 @@ lovelace:
       type: module
     - url: /hacsfiles/lovelace-text-input-row/lovelace-text-input-row.js
       type: module
+    - url: /hacsfiles/lovelace-mushroom/mushroom.js
+      type: module
 
     - url: /local/troinine/light-slider-card.js
       type: module

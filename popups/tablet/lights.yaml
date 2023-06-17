@@ -5,6 +5,7 @@ browser_mod:
     title: Valaistus
     style: |
       --popup-max-width: 90vw;
+      --popup-min-width: 80vw;
     card_mod:
       style:
         hui-vertical-stack-card:
@@ -93,44 +94,60 @@ browser_mod:
           square: false
           cards:
             - type: custom:button-card
-              template: compact_light
+              template: new_compact_light
               entity: light.group_entrance
-              name: Eteinen
+              variables:
+                name: Eteinen
+                card_shadow_enabled: false
 
             - type: custom:button-card
-              template: compact_light
+              template: new_compact_light
               entity: light.group_kitchen
-              name: Keittiö
+              variables:
+                name: Keittiö
+                card_shadow_enabled: false
 
             - type: custom:button-card
-              template: compact_light
+              template: new_compact_light
               entity: light.group_living_room
-              name: Olohuone
+              variables:
+                name: Olohuone
+                card_shadow_enabled: false
 
             - type: custom:button-card
-              template: compact_light
+              template: new_compact_light
               entity: light.group_bedroom
-              name: Makuuhuone
+              variables:
+                name: Makuuhuone
+                card_shadow_enabled: false
 
             - type: custom:button-card
-              template: compact_light
+              template: new_compact_light
               entity: light.group_otsos_room
-              name: Otso
+              variables:
+                name: Otso
+                card_shadow_enabled: false
 
             - type: custom:button-card
-              template: compact_light
+              template: new_compact_light
               entity: light.group_sisus_room
-              name: Sisu
+              variables:
+                name: Sisu
+                card_shadow_enabled: false
 
             - type: custom:button-card
-              template: compact_light
+              template: new_compact_light
               entity: light.group_office
-              name: Työhuone
+              variables:
+                name: Työhuone
+                card_shadow_enabled: false
 
             - type: custom:button-card
-              template: compact_light
+              template: new_compact_light
               entity: switch.tplink_hs100_3
-              name: Kodinhoito
+              variables:
+                name: Kodinhoito
+                card_shadow_enabled: false
 
         - type: custom:button-card
           template: subtitle
@@ -141,21 +158,29 @@ browser_mod:
           square: false
           cards:
             - type: custom:button-card
-              template: compact_light
+              template: new_compact_light
               entity: light.group_all
-              name: Kaikki
+              variables:
+                name: Kaikki
+                card_shadow_enabled: false
 
             - type: custom:button-card
-              template: compact_light
+              template: new_compact_light
               entity: light.group_living_areas
-              name: Oleskelutilat
+              variables:
+                name: Oleskelutilat
+                card_shadow_enabled: false
 
             - type: custom:button-card
-              template: compact_light
+              template: new_compact_light
               entity: light.group_kids_rooms
-              name: Lapset
+              variables:
+                name: Lapset
+                card_shadow_enabled: false
 
             - type: custom:button-card
-              template: compact_light
+              template: new_compact_light
               entity: light.group_outdoor
-              name: Ulkovalot
+              variables:
+                name: Ulkovalot
+                card_shadow_enabled: false

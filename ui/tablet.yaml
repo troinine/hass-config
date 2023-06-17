@@ -124,26 +124,32 @@ views:
             columns: 2
             cards:
               - type: 'custom:button-card'
-                template: light_no_action
+                template: new_light
                 entity: light.group_all
-                name: Kaikki
-                tap_action:
-                  !include ../popups/tablet/lights.yaml
+                variables:
+                  name: Kaikki
+                  tap_action:
+                    !include ../popups/tablet/lights.yaml
+                  hold_action:
+                    action: toggle
 
               - type: 'custom:button-card'
-                template: light
+                template: new_light
                 entity: light.group_living_areas
-                name: Oleskelutilat
+                variables:
+                  name: Oleskelutilat
 
               - type: 'custom:button-card'
-                template: light
+                template: new_light
                 entity: light.group_office
-                name: Työhuone
+                variables:
+                  name: Työhuone
 
               - type: 'custom:button-card'
-                template: light
+                template: new_light
                 entity: light.group_bedroom
-                name: Makuuhuone
+                variables:
+                  name: Makuuhuone
 
       ###
       ### LVI
@@ -316,20 +322,20 @@ views:
             columns: 2
             cards:
               - type: 'custom:button-card'
-                template: light
+                template: new_light
                 entity: light.group_otsos_room
-                name: Otson huone
                 variables:
-                  popup_show_colorwheel: true
-                  popup_show_predefined_colors: true
+                  name: Otson huone
+                  tap_action:
+                    action: more-info
 
               - type: 'custom:button-card'
-                template: light
+                template: new_light
                 entity: light.group_sisus_room
-                name: Sisun huone
                 variables:
-                  popup_show_colorwheel: true
-                  popup_show_predefined_colors: true
+                  name: Sisun huone
+                  tap_action:
+                    action: more-info
 
               - type: 'custom:button-card'
                 template:

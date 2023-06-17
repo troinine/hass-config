@@ -5,7 +5,7 @@ apexcharts_card_templates:
   !include templates/apexcharts/charts.yaml
 swipe_nav:
   animate: swipe
-  pevent_default: true
+  enable: false
 
 views:
   - !include views/mobile/home.yaml

@@ -115,50 +115,58 @@ cards:
   - type: horizontal-stack
     cards:
       - type: 'custom:button-card'
-        template: compact_light
+        template: new_compact_light
         entity: light.group_entrance
-        name: Eteinen
+        variables:
+          name: Eteinen
 
       - type: 'custom:button-card'
-        template: compact_light
+        template: new_compact_light
         entity: light.group_kitchen
-        name: Keittiö
+        variables:
+          name: Keittiö
 
   - type: horizontal-stack
     cards:
       - type: 'custom:button-card'
-        template: compact_light
+        template: new_compact_light
         entity: light.group_living_room
-        name: Olohuone
+        variables:
+          name: Olohuone
 
       - type: 'custom:button-card'
-        template: compact_light
+        template: new_compact_light
         entity: light.group_bedroom
-        name: Makuu
+        variables:
+          name: Makuu
 
   - type: horizontal-stack
     cards:
       - type: 'custom:button-card'
-        template: compact_light
+        template: new_compact_light
         entity: light.group_otsos_room
-        name: Otso
+        variables:
+          name: Otso
 
       - type: 'custom:button-card'
-        template: compact_light
+        template: new_compact_light
         entity: light.group_sisus_room
-        name: Sisu
+        variables:
+          name: Sisu
 
   - type: horizontal-stack
     cards:
       - type: 'custom:button-card'
-        template: compact_light
+        template: new_compact_light
         entity: light.group_office
-        name: Työhuone
+        variables:
+          name: Työhuone
 
       - type: 'custom:button-card'
-        template: compact_light
+        template: new_compact_light
         entity: light.group_outdoor
-        name: Ulkovalot
+        variables:
+          name: Ulkovalot
 
   - type: custom:button-card
     template: mobile_navbar

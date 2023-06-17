@@ -61,27 +61,6 @@ browser_mod:
     content:
       type: vertical-stack
       cards:
-        - type: entities
-          entities:
-            - entity: "[[[ return entity.entity_id ]]]"
-              secondary_info: last-changed
-
-        - type: custom:button-card
-          template: conditional
-          variables:
-            show: |
-              [[[ return entity.attributes.supported_features > 0 ]]]
-            card:
-              type: custom:slider-entity-row
-              entity: |
-                [[[ return entity.entity_id ]]]
-              name: Kirkkaus
-              icon: mdi:weather-sunny
-          styles:
-            card:
-              - height: 5rem
-              - overflow: visible
-
         - type: custom:button-card
           template: conditional
           variables:
@@ -167,81 +146,6 @@ browser_mod:
           template: conditional
           variables:
             show: |
-              [[[ return entity.attributes.supported_features > 0 && variables.popup_show_predefined_colors ]]]
-            card:
-              type: vertical-stack
-              cards:
-                - type: horizontal-stack
-                  cards:
-                    - type: custom:button-card
-                      template: scene_icon_rgb
-                      entity: "[[[ return entity.entity_id ]]]"
-                      name: Red
-                      variables:
-                        color_rgb: 255, 0, 0
-                        brightness: 100
-
-                    - type: custom:button-card
-                      template: scene_icon_rgb
-                      entity: "[[[ return entity.entity_id ]]]"
-                      name: Green
-                      variables:
-                        color_rgb: 0, 255, 0
-                        brightness: 100
-
-                    - type: custom:button-card
-                      template: scene_icon_rgb
-                      entity: "[[[ return entity.entity_id ]]]"
-                      name: Blue
-                      variables:
-                        color_rgb: 0, 0, 255
-                        brightness: 100
-
-                    - type: custom:button-card
-                      template: scene_icon_rgb
-                      entity: "[[[ return entity.entity_id ]]]"
-                      name: Yellow
-                      variables:
-                        color_rgb: 255, 255, 0
-                        brightness: 100
-
-        - type: custom:button-card
-          template: conditional
-          variables:
-            show: |
-              [[[ return variables.popup_show_colorwheel ]]]
-            card:
-              type: custom:light-entity-card
-              card_mod:
-                style: |
-                  ha-card {
-                    box-shadow: none;
-                    background-color: transparent;
-                    margin-bottom: 1rem;
-                  }
-                  .light-entity-card__header {
-                    padding: 0 20px 0 20px;
-                  }
-                  .light-entity-card-sliders {
-                    padding: 0 20px 0 20px;
-                  }
-              entity: "[[[ return entity.entity_id ]]]"
-              brightness: false
-              color_temp: false
-              white_value: false
-              full_width_sliders: true
-              hide_header: true
-              show_slider_percent: false
-              smooth_color_wheel: true
-              persist_features: true
-              consolidate_entities: true
-              child_card: true
-              effects_list: false
-
-        - type: custom:button-card
-          template: conditional
-          variables:
-            show: |
               [[[ return Boolean(entity.attributes.entity_id) ]]]
             card:
               type: vertical-stack
@@ -252,14 +156,20 @@ browser_mod:
 
                   for (let i = 0; i < ids.length; i++) {
                       cards.push({
-                          "type": "tile",
+                          "type": "custom:mushroom-light-card",
                           "entity": ids[i],
-                          "features": [
-                            { type: "light-brightness" },
-                          ],
+                          "fill_container": false,
+                          "primary_info": "name",
+                          "secondary_info": "state",
+                          "icon_type": "icon",
+                          "show_brightness_control": true,
+                          "use_light_color": true,
+                          "show_color_temp_control": true,
+                          "show_color_control": true,
+                          "collapsible_controls": false,
                           "card_mod": {
                             "class": "swiper-no-swiping",
-                            "style": "ha-card { margin-bottom: 1rem; text-align: start }",
+                            "style": "ha-card { margin-bottom: 1rem; text-align: start; box-shadow: none; }",
                           },
                       });
                   }
