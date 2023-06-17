@@ -58,6 +58,15 @@ auto_notification:
           return undefined
         }
       ]]]
+    navigation_path: |
+      [[[
+        var action = entity.attributes.tap_action
+        if (action === 'navigate') {
+          return entity.attributes.tap_action_navigation_path
+        } else {
+          return undefined
+        }
+      ]]]
 
 compact_auto_notification:
   template:
