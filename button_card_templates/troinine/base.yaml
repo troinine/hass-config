@@ -4,6 +4,19 @@ base:
       [[[ return ['on', 'open', 'Kotona', 'home', 'cleaning', 'returning', 'idle'].indexOf(entity === undefined || entity.state) !== -1; ]]]
   template:
     - language_variables
+  # Fix to https://github.com/custom-cards/button-card/issues/693
+  state_display: |
+    [[[
+      const domain = entity.entity_id.split(".")[0];
+      switch (entity.state) {
+        case "home":
+          return variables.text_state_home;
+        case "not_home":
+          return variables.text_state_not_home
+        default:
+          return variables[`text_state_${domain}_${entity.state}`];
+      }
+    ]]]
   styles:
     card:
       # Fixes ripple border-radius with Safari
