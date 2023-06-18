@@ -925,3 +925,21 @@
       icon_color: var(--warning-color)
       text_summary: "Vaihda IV-koneen suodattimet"
       text_description: "Suodattimet vaihdettu viimeksi {{states('input_datetime.ventilation_filters_replaced') }}"
+
+  - name: notification_clean_washing_machine
+    unique_id: notification_clean_washing_machine
+    icon: mdi:washing-machine-alert
+    state: "{{ iif(states('counter.washing_machine_runs_after_cleaning') | int >= 40, 'on', 'off')}}"
+    attributes:
+      icon_color: var(--warning-color)
+      text_summary: "Puhdista pyykinpesukone"
+      text_description: "Pyykinpesukone puhdistettu viimeksi {{states('input_datetime.washing_machine_cleaned') | as_timestamp | timestamp_custom('%d.%m.%Y') }}"
+
+  - name: notification_clean_tumble_dryer
+    unique_id: notification_clean_tumble_dryer
+    icon: mdi:tumble-dryer-alert
+    state: "{{ iif(states('counter.tumble_dryer_runs_after_cleaning') | int >= 20, 'on', 'off')}}"
+    attributes:
+      icon_color: var(--warning-color)
+      text_summary: "Puhdista kuivausrumpu"
+      text_description: "Suodattimet ja lämmönvaihdin puhdistettu viimeksi {{states('input_datetime.tumble_dryer_cleaned') | as_timestamp | timestamp_custom('%d.%m.%Y') }}"

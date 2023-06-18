@@ -192,3 +192,6 @@ utility_meter:
 
 group:
   !include include/groups.yaml
+
+counter:
+  !include include/counters.yaml

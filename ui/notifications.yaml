@@ -158,6 +158,24 @@
 
 - type: conditional
   conditions:
+    - entity: binary_sensor.notification_clean_washing_machine
+      state: 'on'
+  card:
+    type: 'custom:button-card'
+    template: auto_notification
+    entity: binary_sensor.notification_clean_washing_machine
+
+- type: conditional
+  conditions:
+    - entity: binary_sensor.notification_clean_tumble_dryer
+      state: 'on'
+  card:
+    type: 'custom:button-card'
+    template: auto_notification
+    entity: binary_sensor.notification_clean_tumble_dryer
+
+- type: conditional
+  conditions:
     - entity: binary_sensor.notification_sauna
       state: 'on'
   card:

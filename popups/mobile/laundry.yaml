@@ -39,6 +39,12 @@ browser_mod:
                       name: Jäljellä oleva aika
                     - entity: sensor.washing_machine_energy_consumption_monthly
                       name: Kuukauden sähkö
+                    - type: custom:template-entity-row
+                      entity: input_datetime.washing_machine_cleaned
+                      icon: mdi:spray-bottle
+                      name: Puhdistettu
+                      state: "{{ states('input_datetime.washing_machine_cleaned') }}"
+                    - entity: counter.washing_machine_runs_after_cleaning
                     - type: section
 
                 - type: custom:apexcharts-card
@@ -74,6 +80,12 @@ browser_mod:
                       name: Virhe
                     - entity: sensor.tumble_dryer_energy_consumption_monthly
                       name: Kuukauden sähkö
+                    - type: custom:template-entity-row
+                      entity: input_datetime.tumble_dryer_cleaned
+                      icon: mdi:spray-bottle
+                      name: Puhdistettu
+                      state: "{{ states('input_datetime.tumble_dryer_cleaned') }}"
+                    - entity: counter.tumble_dryer_runs_after_cleaning
                     - type: section
 
                 - type: custom:apexcharts-card

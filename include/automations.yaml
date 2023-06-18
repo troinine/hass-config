@@ -1303,6 +1303,8 @@
     target:
       entity_id: light.group_outdoor
 
+### Laundry
+
 - id: '1665849632672'
   mode: single
   alias: Pesukone valmis
@@ -1321,6 +1323,41 @@
         data:
           group: Pyykinhuolto
           tag: washing_machine_finished
+          ttl: 0
+          priority: high
+    - service: counter.increment
+      target:
+        entity_id: counter.washing_machine_runs_after_cleaning
+
+- id: '1665849632674'
+  mode: single
+  alias: Pesukone puhdistettu
+  description: ''
+  trigger:
+    - platform: state
+      entity_id:
+        - sensor.washing_machine_status
+      to: Finished
+  condition:
+    - condition: state
+      entity_id: sensor.washing_machine_program_id
+      state: Clean machine
+  action:
+    - service: counter.reset
+      target:
+        entity_id: counter.washing_machine_runs_after_cleaning
+    - service: input_datetime.set_datetime
+      target:
+        entity_id: intput_datetime.washing_machine_cleaned
+      data:
+        timestamp: "{{ now().timestamp() }}"
+    - service: notify.parents
+      data:
+        title: Pesukone puhdistettu
+        message: Muista sulkea vesihana! Vedenkulutus oli {{ states('sensor.washing_machine_water_consumption') }} {{ state_attr('sensor.washing_machine_water_consumption', 'unit_of_measurement') }}. Sähkönkulutus oli {{ states('sensor.washing_machine_energy') }} {{ state_attr('sensor.washing_machine_energy', 'unit_of_measurement') }}
+        data:
+          group: Pyykinhuolto
+          tag: washing_machine_cleaned
           ttl: 0
           priority: high
 
@@ -1344,6 +1381,9 @@
           tag: tumble_dryer_finished
           ttl: 0
           priority: high
+    - service: counter.increment
+      target:
+        entity_id: counter.washing_machine_runs_after_cleaning
 
 ### Room light automation
 

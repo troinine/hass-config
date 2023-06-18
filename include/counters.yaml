@@ -1,0 +1,9 @@
+washing_machine_runs_after_cleaning:
+  name: Käynnistykset puhdistuksen jälkeen
+  initial: 0
+  step: 1
+
+tumble_dryer_runs_after_cleaning:
+  name: Käynnistykset puhdistuksen jälkeen
+  initial: 0
+  step: 1

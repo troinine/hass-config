@@ -1,3 +1,11 @@
 ventilation_filters_replaced:
   name: "IV-koneen suodattimet vaihdettu"
   has_date: true
+
+washing_machine_cleaned:
+  name: "Pesukone puhdistettu"
+  has_date: true
+
+tumble_dryer_cleaned:
+  name: "Kuivausrumpu puhdistettu"
+  has_date: true
