@@ -65,9 +65,6 @@ vacuum:
                   { sensor: 'input_boolean.vacuum_clean_sisus_room',  id: 22 },
                   { sensor: 'input_boolean.vacuum_clean_wc',          id: 21 },
                 ]
-
-                console.log(rooms.filter(room => states[room.sensor].state === 'on')
-                  .map(room => room.id))
               ]]]
 
     button2:
