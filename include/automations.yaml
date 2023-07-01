@@ -1383,7 +1383,7 @@
           priority: high
     - service: counter.increment
       target:
-        entity_id: counter.washing_machine_runs_after_cleaning
+        entity_id: counter.tumble_dryer_runs_after_cleaning
 
 ### Room light automation
 
