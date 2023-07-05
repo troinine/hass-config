@@ -207,8 +207,8 @@ cards:
         variables:
           name: Ulkovalot
 
- # - type: custom:button-card
- #   template: empty
+  - type: custom:button-card
+    template: empty
 
   - type: custom:button-card
     template: mobile_navbar
