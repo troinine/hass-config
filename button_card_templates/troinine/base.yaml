@@ -284,3 +284,22 @@ icon_name_state:
       - padding: 0 0 0 0
       - margin: 0 0 0 0
       - overflow: visible
+
+empty:
+  variables:
+    height: 6rem
+  show_name: false
+  show_label: false
+  show_icon: false
+  tap_action:
+    action: none
+  hold_action:
+    action: none
+  double_tap_action:
+    action: none
+  styles:
+    card:
+      - height: "[[[ return variables.height ]]]"
+      - background-color: transparent
+      - box-shadow: none
+      - '--mdc-ripple-press-opacity': 0

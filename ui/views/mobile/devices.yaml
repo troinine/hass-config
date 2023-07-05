@@ -5,7 +5,10 @@ icon: mdi:television
 type: custom:vertical-layout
 cards:
   - type: custom:button-card
-    template: icon_title
+    template: empty
+
+  - type: custom:button-card
+    template: mobile_view_title
     icon: mdi:television
     entity: binary_sensor.group_devices
     group_expand: true
@@ -202,6 +205,9 @@ cards:
           icon_glow: true
           state_colors:
             "on": 'var(--color-green)'
+
+  - type: custom:button-card
+    template: empty
 
   - type: custom:button-card
     template: mobile_navbar

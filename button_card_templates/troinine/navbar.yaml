@@ -55,7 +55,7 @@ navbar_icon:
           ]]]
       - padding: 0.5rem 1rem 0.5rem 1rem
       - display: inline-block
-      - background-color: |
+      - background: |
           [[[
             if (variables.active_view === variables.id) {
               return 'rgba(var(--primary-text-color-rgb), 0.05)'
@@ -110,33 +110,6 @@ navbar_icon_with_badge:
             [[[ return variables.notification.count > 0 && variables.active_view !== variables.id ? 'block' : 'none' ]]]
 
 mobile_navbar:
-  custom_fields:
-    navbar_content:
-      card:
-        type: custom:button-card
-        template:
-          - navbar_content
-    navbar_space:
-      card:
-        type: custom:button-card
-      template:
-        - base
-      show_name: false
-      show_label: false
-      show_icon: false
-      styles:
-        card:
-          - height: 6rem
-          - background-color: transparent
-          - box-shadow: none
-  styles:
-    card:
-      - height: 6rem
-      - background-color: transparent
-      - box-shadow: none
-
-
-navbar_content:
   template:
     - base
   show_name: false
@@ -218,6 +191,7 @@ navbar_content:
       - overflow: hidden
       - bottom: 0
       - left: 0
+      - z-index: 1
       - position: fixed
       - border-radius: 0
       - box-shadow: none
@@ -225,4 +199,4 @@ navbar_content:
       - '--mdc-ripple-press-opacity': 0
       - backdrop-filter: blur(4px)
       - '-webkit-backdrop-filter': blur(4px)
-      - background: rgba(var(--card-background-color-rgb), 0.75)
+      - background: rgba(var(--card-background-color-rgb), 0.8)

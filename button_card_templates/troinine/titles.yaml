@@ -119,7 +119,7 @@ icon_title:
     card:
       - background-color: transparent
       - justify-self: start
-      - border-radius: var(--border-radius)
+      - border-radius: 0
       - box-shadow: none
       - margin: 0 0 0 0
       - padding: 1.5rem 0.75rem 1.5rem 0.75rem
@@ -225,8 +225,9 @@ welcome_title:
       - grid-template-areas: |
           "i n temp weather"
           "i l temp weather"
-      - grid-template-columns: min-content 1.75fr 1fr auto
+      - grid-template-columns: 0.15fr 0.5fr 0.2fr 0.15fr
       - grid-template-rows: repeat(2, min-content)
+      - justify-items: stretch
     custom_fields:
       weather:
         - place-self: center start
@@ -235,3 +236,40 @@ welcome_title:
         - place-self: center end
         - padding-right: 0.9rem
         - border-right: 0.1rem solid rgba(var(--primary-text-color-rgb), 0.4)
+
+mobile_welcome_title:
+  template:
+    - welcome_title
+  styles:
+    card:
+      - padding: 1.7rem var(--view-side-margin)
+      - top: 0
+      - left: 0
+      - z-index: 1
+      - overflow: hidden
+      - position: fixed
+      - border-radius: 0
+      - box-shadow: none
+      - height: 6rem
+      - '--mdc-ripple-press-opacity': 0
+      - backdrop-filter: blur(4px)
+      - '-webkit-backdrop-filter': blur(4px)
+
+mobile_view_title:
+  template:
+    - icon_title
+  styles:
+    card:
+      - padding: 1.7rem var(--view-side-margin)
+      - top: 0
+      - left: 0
+      - z-index: 1
+      - overflow: hidden
+      - position: fixed
+      - border-radius: 0
+      - box-shadow: none
+      - height: 6rem
+      - '--mdc-ripple-press-opacity': 0
+      - backdrop-filter: blur(4px)
+      - '-webkit-backdrop-filter': blur(4px)
+
