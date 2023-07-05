@@ -112,6 +112,10 @@ cards:
           variables:
             brightness: 20
 
+  - type: custom:button-card
+    template: subtitle
+    name: Valot
+
   - type: horizontal-stack
     cards:
       - type: 'custom:button-card'
@@ -161,6 +165,38 @@ cards:
         entity: light.group_office
         variables:
           name: Työhuone
+
+      - type: 'custom:button-card'
+        template: new_compact_light
+        entity: switch.tplink_hs100_3
+        variables:
+          name: Kodinhoito
+
+  - type: custom:button-card
+    template: subtitle
+    name: Alueet
+
+  - type: horizontal-stack
+    cards:
+      - type: 'custom:button-card'
+        template: new_compact_light
+        entity: light.group_all
+        variables:
+          name: Kaikki
+
+      - type: 'custom:button-card'
+        template: new_compact_light
+        entity: light.group_living_areas
+        variables:
+          name: Oleskelutilat
+
+  - type: horizontal-stack
+    cards:
+      - type: 'custom:button-card'
+        template: new_compact_light
+        entity: light.group_kids_rooms
+        variables:
+          name: Lastenhuoneet
 
       - type: 'custom:button-card'
         template: new_compact_light

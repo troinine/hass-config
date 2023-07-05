@@ -110,6 +110,33 @@ navbar_icon_with_badge:
             [[[ return variables.notification.count > 0 && variables.active_view !== variables.id ? 'block' : 'none' ]]]
 
 mobile_navbar:
+  custom_fields:
+    navbar_content:
+      card:
+        type: custom:button-card
+        template:
+          - navbar_content
+    navbar_space:
+      card:
+        type: custom:button-card
+      template:
+        - base
+      show_name: false
+      show_label: false
+      show_icon: false
+      styles:
+        card:
+          - height: 6rem
+          - background-color: transparent
+          - box-shadow: none
+  styles:
+    card:
+      - height: 6rem
+      - background-color: transparent
+      - box-shadow: none
+
+
+navbar_content:
   template:
     - base
   show_name: false
@@ -196,3 +223,6 @@ mobile_navbar:
       - box-shadow: none
       - height: 6rem
       - '--mdc-ripple-press-opacity': 0
+      - backdrop-filter: blur(4px)
+      - '-webkit-backdrop-filter': blur(4px)
+      - background: rgba(var(--card-background-color-rgb), 0.75)
