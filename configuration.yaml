@@ -69,8 +69,6 @@ lovelace:
       type: module
     - url: /hacsfiles/lovelace-xiaomi-vacuum-map-card/xiaomi-vacuum-map-card.js
       type: module
-    - url: /hacsfiles/hass-swipe-navigation/swipe-navigation.js
-      type: module
     - url: /hacsfiles/bar-card/bar-card.js
       type: module
     - url: /hacsfiles/lovelace-template-entity-row/template-entity-row.js
@@ -78,6 +76,8 @@ lovelace:
     - url: /hacsfiles/lovelace-text-input-row/lovelace-text-input-row.js
       type: module
     - url: /hacsfiles/lovelace-mushroom/mushroom.js
+      type: module
+    - url: /hacsfiles/hass-sidebar-swipe/hass-sidebar-swipe.js
       type: module
 
     - url: /local/troinine/light-slider-card.js

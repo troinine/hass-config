@@ -11,6 +11,7 @@ tablet:
       background: url('/local/img/background.png');
       background-size: cover;
       margin-top: 0;
+      padding-top: 0;
       height: 100vh;
     }
     div.header {
@@ -71,7 +72,6 @@ tablet:
     }
 
   masonry-view-card-margin: 0
-  header-height: 0
 
   modes:
     dark:
