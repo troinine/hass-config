@@ -237,9 +237,31 @@ welcome_title:
         - padding-right: 0.9rem
         - border-right: 0.1rem solid rgba(var(--primary-text-color-rgb), 0.4)
 
-mobile_welcome_title:
-  template:
-    - welcome_title
+sticky_title:
+  custom_fields:
+    scroll: |
+      [[[
+        const element = this;
+        function updateStyle() {
+          let opacity = 0.8;
+          let blur = '5px';
+          let boxShadow = '0 2px 4px 0 rgba(0,0,0,.4)';
+
+          if (document.documentElement.scrollTop < 5) {
+            opacity = 0;
+            blur = '0px';
+            boxShadow = 'none';
+          }
+
+          const card = element.shadowRoot.querySelector("#card");
+          card.style.background = `rgba(var(--card-background-color-rgb), ${opacity})`;
+          card.style['backdrop-filter'] = `blur(${blur})`;
+          card.style['-webkit-backdrop-filter'] = `blur(${blur})`;
+          card.style['box-shadow'] = boxShadow;
+        }
+
+        window.addEventListener('scroll', updateStyle, { passive: true })
+      ]]]
   styles:
     card:
       - padding: 1.7rem var(--view-side-margin)
@@ -250,26 +272,17 @@ mobile_welcome_title:
       - position: fixed
       - border-radius: 0
       - box-shadow: none
-      - height: 6rem
+      - height: 7rem
       - '--mdc-ripple-press-opacity': 0
-      - backdrop-filter: blur(4px)
-      - '-webkit-backdrop-filter': blur(4px)
+      - transition: all 0.7s ease
+
+mobile_welcome_title:
+  template:
+    - welcome_title
+    - sticky_title
 
 mobile_view_title:
   template:
     - icon_title
-  styles:
-    card:
-      - padding: 1.7rem var(--view-side-margin)
-      - top: 0
-      - left: 0
-      - z-index: 1
-      - overflow: hidden
-      - position: fixed
-      - border-radius: 0
-      - box-shadow: none
-      - height: 6rem
-      - '--mdc-ripple-press-opacity': 0
-      - backdrop-filter: blur(4px)
-      - '-webkit-backdrop-filter': blur(4px)
+    - sticky_title
 

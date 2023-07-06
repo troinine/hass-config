@@ -6,6 +6,8 @@ type: custom:vertical-layout
 cards:
   - type: custom:button-card
     template: empty
+    variables:
+      height: 7rem
 
   - type: custom:button-card
     template: mobile_view_title

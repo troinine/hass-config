@@ -197,6 +197,6 @@ mobile_navbar:
       - box-shadow: none
       - height: 6rem
       - '--mdc-ripple-press-opacity': 0
-      - backdrop-filter: blur(4px)
-      - '-webkit-backdrop-filter': blur(4px)
+      - backdrop-filter: blur(5px)
+      - '-webkit-backdrop-filter': blur(5px)
       - background: rgba(var(--card-background-color-rgb), 0.8)
