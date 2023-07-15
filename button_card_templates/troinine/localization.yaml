@@ -18,3 +18,5 @@ language_variables:
     text_state_vacuum_error: "Virhe"
     text_state_media_player_on: "Päällä"
     text_state_media_player_off: "Pois"
+    text_state_switch_off: "Pois"
+    text_state_switch_on: "Päällä"
