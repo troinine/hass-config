@@ -78,8 +78,11 @@ browser_mod:
                 - entity: sensor.mqtt_energy_cost_monthly
                   name: Kuukauden hinta
                 - type: custom:template-entity-row
+                  state: ""
                 - type: custom:template-entity-row
+                  state: ""
                 - type: custom:template-entity-row
+                  state: ""
                 - type: section
         - type: custom:apexcharts-card
           view_layout:
@@ -112,8 +115,11 @@ browser_mod:
                 - entity: sensor.mqtt_sauna_humidity
                   name: Kosteus
                 - type: custom:template-entity-row
+                  state: ""
                 - type: custom:template-entity-row
+                  state: ""
                 - type: custom:template-entity-row
+                  state: ""
                 - type: section
 
         - type: custom:apexcharts-card

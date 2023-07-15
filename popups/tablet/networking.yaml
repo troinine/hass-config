@@ -118,8 +118,11 @@ browser_mod:
                 - entity: sensor.udm_download_speed
                 - entity: sensor.udm_upload_speed
                 - type: custom:template-entity-row
+                  state: ""
                 - type: custom:template-entity-row
+                  state: ""
                 - type: custom:template-entity-row
+                  state: ""
                 - type: section
 
         - type: custom:apexcharts-card

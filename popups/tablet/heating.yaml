@@ -58,9 +58,13 @@ browser_mod:
             - entity: sensor.nibe_hot_water_fill_temp
               name: Alaosa
             - type: custom:template-entity-row
+              state: ""
             - type: custom:template-entity-row
+              state: ""
             - type: custom:template-entity-row
+              state: ""
             - type: custom:template-entity-row
+              state: ""
             - type: section
 
         - type: entities
@@ -90,8 +94,11 @@ browser_mod:
                 - entity: sensor.nibe_supply_pump_speed
                   name: Pumpun nopeus
             - type: custom:template-entity-row
+              state: ""
             - type: custom:template-entity-row
+              state: ""
             - type: custom:template-entity-row
+              state: ""
             - type: section
 
         - type: entities
@@ -123,7 +130,9 @@ browser_mod:
                 - entity: sensor.nibe_brine_pump_speed
                   name: Pumpun nopeus
             - type: custom:template-entity-row
+              state: ""
             - type: custom:template-entity-row
+              state: ""
             - type: section
         - type: custom:apexcharts-card
           view_layout:
