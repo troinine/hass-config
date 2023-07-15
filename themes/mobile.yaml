@@ -33,28 +33,12 @@ mobile:
       }
 
   card-mod-more-info-yaml: |
-    $: |
-      .mdc-dialog .mdc-dialog__container {
-        background: none;
-      }
-      .mdc-dialog .mdc-dialog__surface {
-        background-color: var(--primary-background-color) !important;
-      }
-      .content {
-        height: 100vh;
-      }
-
     .: |
       ha-dialog {
         --vertical-align-dialog: center !important;
         --dialog-surface-margin-top: 0 !important;
+        --mdc-theme-surface: var(--primary-background-color);
       }
-      .main-title {
-        margin-left: 4.3rem;
-        margin-top: -3.3rem;
-        font-size: 22px;
-      }
-
     ha-header-bar$: |
       header {
         background: var(--popup-header-color) !important;
