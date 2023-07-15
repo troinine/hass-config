@@ -31,14 +31,11 @@ tablet:
         min-height: 100vh;
       }
   card-mod-more-info-yaml: |
-    $: |
-      .mdc-dialog .mdc-dialog__surface {
-        background-color: var(--primary-background-color) !important;
-      }
     .: |
       ha-dialog {
         --vertical-align-dialog: center !important;
         --dialog-surface-margin-top: 0 !important;
+        --mdc-theme-surface: var(--primary-background-color);
       }
     ha-header-bar$: |
       header {
