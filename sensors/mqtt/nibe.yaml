@@ -138,12 +138,13 @@
 - object_id: nibe_average_heating_cycle
   state_topic: /home/nibe/data/daily
   expire_after: 90000
-  unit_of_measurement: "minuuttia"
+  unit_of_measurement: min
+  device_class: duration
   icon: mdi:clock
   value_template: >-
     {% set value = value_json.compressor.average_heating_cycle %}
     {% if value == None %}
-      N/A
+      unknown
     {% else %}
       {{ (value / 1000 / 60) | round | int }}
     {% endif %}
@@ -151,12 +152,13 @@
 - object_id: nibe_average_resting_cycle
   state_topic: /home/nibe/data/daily
   expire_after: 90000
-  unit_of_measurement: "minuuttia"
+  unit_of_measurement: min
+  device_class: duration
   icon: mdi:clock
   value_template: >-
     {% set value = value_json.compressor.average_resting_cycle %}
     {% if value == None %}
-      N/A
+      unknown
     {% else %}
       {{ (value / 1000 / 60) | round | int }}
     {% endif %}
