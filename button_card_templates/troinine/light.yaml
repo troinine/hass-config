@@ -44,11 +44,14 @@ new_light:
     card_glow: true
     icon_glow: false
     tap_action:
-      action: toggle
+      action: |
+        [[[
+          return entity.state === 'on' ? "more-info" : "toggle"
+        ]]]
     double_tap_action:
-      !include ../../popups/common/light.yaml
+      action: toggle
     hold_action:
-      action: more-info
+      !include ../../popups/common/light.yaml
   show_state: false
   show_name: false
   show_icon: false
