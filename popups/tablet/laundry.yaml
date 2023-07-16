@@ -39,11 +39,11 @@ browser_mod:
                   name: Tila
                 - entity: binary_sensor.washing_machine_door
                   name: Ovi
-                - entity: sensor.washing_machine_energy
+                - entity: sensor.washing_machine_energy_consumption
                   name: Sähkönkulutus
                 - entity: sensor.washing_machine_water_consumption
                   name: Vedenkulutus
-                - entity: sensor.washing_machine_program_id
+                - entity: sensor.washing_machine_program
                   name: Ohjelma
                 - entity: sensor.washing_machine_remaining_time
                   name: Jäljellä oleva aika
@@ -71,9 +71,9 @@ browser_mod:
                   name: Tila
                 - entity: binary_sensor.tumble_dryer_door
                   name: Ovi
-                - entity: sensor.tumble_dryer_energy
+                - entity: sensor.tumble_dryer_energy_consumption
                   name: Sähkönkulutus
-                - entity: sensor.tumble_dryer_program_id
+                - entity: sensor.tumble_dryer_program
                   name: Ohjelma
                 - entity: sensor.tumble_dryer_remaining_time
                   name: Jäljellä oleva aika

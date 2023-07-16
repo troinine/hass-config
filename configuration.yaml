@@ -181,9 +181,6 @@ camera:
 mqtt:
   !include sensors/mqtt.yaml
 
-miele:
-  !include include/miele.yaml
-
 notify:
   !include include/notifications.yaml
 

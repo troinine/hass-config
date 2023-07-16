@@ -248,29 +248,29 @@
   - name: laundry_tower_state
     unique_id: laundry_tower_state
     icon: |
-      {% set washerStatus = states('sensor.washing_machine_status') %}
-      {% set dryerStatus = states('sensor.tumble_dryer_status') %}
-      {% if washerStatus == 'In use' and dryerStatus == 'In use' %}
+      {% set washerStatus = states('sensor.washing_machine_status') | lower  %}
+      {% set dryerStatus = states('sensor.tumble_dryer_status') | lower %}
+      {% if washerStatus == 'in use' and dryerStatus == 'in use' %}
         mdi:washing-machine
-      {% elif washerStatus == 'In use' %}
+      {% elif washerStatus == 'in use' %}
         mdi:washing-machine
-      {% elif dryerStatus == 'In use' %}
+      {% elif dryerStatus == 'in use' %}
         mdi:tumble-dryer
-      {% elif washerStatus != 'Off' or dryerStatus != 'Off' %}
+      {% elif washerStatus != 'off' or dryerStatus != 'off' %}
         mdi:washing-machine-alert
       {% else %}
         mdi:washing-machine-off
       {% endif %}
     state: |
-      {% set washerStatus = states('sensor.washing_machine_status') %}
-      {% set dryerStatus = states('sensor.tumble_dryer_status') %}
-      {% if washerStatus == 'In use' and dryerStatus == 'In use' %}
+      {% set washerStatus = states('sensor.washing_machine_status') | lower %}
+      {% set dryerStatus = states('sensor.tumble_dryer_status') | lower %}
+      {% if washerStatus == 'in use' and dryerStatus == 'in use' %}
         Pyykkää ja kuivaa
-      {% elif washerStatus == 'In use' %}
+      {% elif washerStatus == 'in use' %}
         Pyykkää
-      {% elif dryerStatus == 'In use' %}
+      {% elif dryerStatus == 'in use' %}
         Kuivaa
-      {% elif washerStatus != 'Off' or dryerStatus != 'Off' %}
+      {% elif washerStatus != 'off' or dryerStatus != 'off' %}
         Päällä
       {% else %}
         Pois
@@ -837,20 +837,20 @@
   - name: notification_washing_machine
     unique_id: notification_washing_machine
     icon: mdi:washing-machine
-    state: "{{ iif(is_state('sensor.washing_machine_status', 'Off'), 'off', 'on') }}"
+    state: "{{ iif(is_state('sensor.washing_machine_status', 'off'), 'off', 'on') }}"
     attributes:
       icon_color: var(--color-blue)
       text_summary: |
         {% set mapper =  {
-          'In use' : 'käynnissä',
-          'Finished' : 'valmis' } %}
-        {% set state = states('sensor.washing_machine_status') %}
+          'in use' : 'käynnissä',
+          'finished' : 'valmis' } %}
+        {% set state = states('sensor.washing_machine_status') | lower %}
         Pesukone on {{ mapper[state] if state in mapper else 'päällä' }}
       text_description: |
-        {% if states('sensor.washing_machine_status') != 'Finished' %}
-          {% set time = states('sensor.washing_machine_remaining_time').split(':') %}
-          {% set hours = time[0] | int %}
-          {% set minutes = time[1] | int %}
+        {% if states('sensor.washing_machine_status') != 'finished' %}
+          {% set time = states('sensor.washing_machine_remaining_time') | int %}
+          {% set hours = (time / 60) | round(0, "floor") %}
+          {% set minutes = (time % 60) | round(0, "floor") %}
           {% set hoursStr = hours ~ ' tuntia' if hours != 1 else '1 tunti' %}
           {% set minutesStr = minutes ~ ' minuuttia' if minutes != 1 else '1 minuutti' %}
         Ohjelmaa on jäljellä{{ ' ' ~ hoursStr if hours > 0 else ''}} {{ minutesStr if minutes > 0 else ''}}.
@@ -861,20 +861,20 @@
   - name: notification_tumble_dryer
     unique_id: notification_tumble_dryer
     icon: mdi:tumble-dryer
-    state: "{{ iif(is_state('sensor.tumble_dryer_status', 'Off'), 'off', 'on') }}"
+    state: "{{ iif(is_state('sensor.tumble_dryer_status', 'off'), 'off', 'on') }}"
     attributes:
       icon_color: var(--color-green)
       text_summary: |
         {% set mapper =  {
-          'In use' : 'käynnissä',
-          'Finished' : 'valmis' } %}
-        {% set state = states('sensor.tumble_dryer_status') %}
+          'in use' : 'käynnissä',
+          'finished' : 'valmis' } %}
+        {% set state = states('sensor.tumble_dryer_status') | lower %}
         Kuivausrumpu on {{ mapper[state] if state in mapper else 'päällä' }}
       text_description: |
         {% if states('sensor.tumble_dryer_status') != 'Finished' %}
-          {% set time = states('sensor.tumble_dryer_remaining_time').split(':') %}
-          {% set hours = time[0] | int %}
-          {% set minutes = time[1] | int %}
+          {% set time = states('sensor.tumble_dryer_remaining_time') | int %}
+          {% set hours = (time / 60) | round(0, "floor") %}
+          {% set minutes = (time % 60) | round(0, "floor") %}
           {% set hoursStr = hours ~ ' tuntia' if hours != 1 else 'yksi tunti' %}
           {% set minutesStr = minutes ~ ' minuuttia' if minutes != 1 else 'yksi minuutti' %}
         Ohjelmaa on jäljellä{{ ' ' ~ hoursStr if hours > 0 else ''}} {{ minutesStr if minutes > 0 else ''}}.
