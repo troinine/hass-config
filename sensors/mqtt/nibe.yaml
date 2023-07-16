@@ -2,17 +2,20 @@
 ### These are MQTT sensors included through sensors/mqtt.yml
 
 - object_id: mqtt_nibe_data
+  unique_id: mqtt_nibe_data
   state_topic: /home/nibe/data
   expire_after: 3600
   value_template: '{{ value_json.logged_at }}'
   json_attributes_topic: /home/nibe/data
 
 - object_id: mqtt_nibe_heat_pump_state
+  unique_id: mqtt_nibe_heat_pump_state
   state_topic: /home/nibe/data
   expire_after: 3600
   value_template: '{{ value_json.state.current }}'
 
 - object_id: nibe_supply_temp
+  unique_id: nibe_supply_temp
   state_topic: /home/nibe/data
   expire_after: 3600
   unit_of_measurement: "°C"
@@ -20,6 +23,7 @@
   value_template: '{{ value_json.supply.temp }}'
 
 - object_id: nibe_supply_return_temp
+  unique_id: nibe_supply_return_temp
   state_topic: /home/nibe/data
   expire_after: 3600
   unit_of_measurement: "°C"
@@ -27,6 +31,7 @@
   value_template: '{{ value_json.supply.return_temp }}'
 
 - object_id: nibe_calculated_supply_temp
+  unique_id: nibe_calculated_supply_temp
   state_topic: /home/nibe/data
   expire_after: 3600
   unit_of_measurement: "°C"
@@ -34,6 +39,7 @@
   value_template: '{{ value_json.supply.calculated_temp }}'
 
 - object_id: nibe_brine_in_temp
+  unique_id: nibe_brine_in_temp
   state_topic: /home/nibe/data
   expire_after: 3600
   unit_of_measurement: "°C"
@@ -41,6 +47,7 @@
   value_template: '{{ value_json.brine.in_temp }}'
 
 - object_id: nibe_brine_out_temp
+  unique_id: nibe_brine_out_temp
   state_topic: /home/nibe/data
   expire_after: 3600
   unit_of_measurement: "°C"
@@ -48,6 +55,7 @@
   value_template: '{{ value_json.brine.out_temp }}'
 
 - object_id: nibe_outdoor_temp
+  unique_id: nibe_outdoor_temp
   state_topic: /home/nibe/data
   expire_after: 3600
   unit_of_measurement: "°C"
@@ -55,6 +63,7 @@
   value_template: '{{ value_json.outdoor.temp }}'
 
 - object_id: nibe_average_outdoor_temp
+  unique_id: nibe_average_outdoor_temp
   state_topic: /home/nibe/data
   expire_after: 3600
   unit_of_measurement: "°C"
@@ -62,6 +71,7 @@
   value_template: '{{ value_json.outdoor.average_temp }}'
 
 - object_id: nibe_hot_water_top_temp
+  unique_id: nibe_hot_water_top_temp
   state_topic: /home/nibe/data
   expire_after: 3600
   unit_of_measurement: "°C"
@@ -69,6 +79,7 @@
   value_template: '{{ value_json.hot_water.top_temp }}'
 
 - object_id: nibe_hot_water_fill_temp
+  unique_id: nibe_hot_water_fill_temp
   state_topic: /home/nibe/data
   expire_after: 3600
   unit_of_measurement: "°C"
@@ -76,6 +87,7 @@
   value_template: '{{ value_json.hot_water.fill_temp }}'
 
 - object_id: nibe_degree_minutes
+  unique_id: nibe_degree_minutes
   state_topic: /home/nibe/data
   expire_after: 3600
   unit_of_measurement: "minuuttia"
@@ -83,18 +95,21 @@
   icon: mdi:clock
 
 - object_id: nibe_alarm_number
+  unique_id: nibe_alarm_number
   state_topic: /home/nibe/data
   expire_after: 3600
   value_template: '{{ value_json.state.alarm_number | int }}'
   icon: mdi:bell
 
 - object_id: nibe_data_age
+  unique_id: nibe_data_age
   state_topic: /home/nibe/data
   expire_after: 3600
   value_template: '{{ as_timestamp(value_json.logged_at) | timestamp_custom("%H:%M") }}'
   icon: mdi:clock
 
 - object_id: nibe_supply_pump_speed
+  unique_id: nibe_supply_pump_speed
   state_topic: /home/nibe/data
   expire_after: 3600
   unit_of_measurement: "%"
@@ -102,6 +117,7 @@
   icon: mdi:pump
 
 - object_id: nibe_brine_pump_speed
+  unique_id: nibe_brine_pump_speed
   state_topic: /home/nibe/data
   expire_after: 3600
   unit_of_measurement: "%"
@@ -109,12 +125,14 @@
   icon: mdi:pump
 
 - object_id: mqtt_nibe_stats_daily
+  unique_id: mqtt_nibe_stats_daily
   state_topic: /home/nibe/data/daily
   expire_after: 90000
   value_template: '{{ value_json.updated_at }}'
   json_attributes_topic: /home/nibe/data/daily
 
 - object_id: nibe_daily_num_starts
+  unique_id: nibe_daily_num_starts
   state_topic: /home/nibe/data/daily
   expire_after: 90000
   unit_of_measurement: "kertaa"
@@ -122,6 +140,7 @@
   value_template: '{{ value_json.compressor.starts }}'
 
 - object_id: nibe_daily_brine_min_input_temp
+  unique_id: nibe_daily_brine_min_input_temp
   state_topic: /home/nibe/data/daily
   expire_after: 90000
   unit_of_measurement: "°C"
@@ -129,6 +148,7 @@
   value_template: "{{ value_json.brine.min_in_temp }}"
 
 - object_id: nibe_daily_brine_min_output_temp
+  unique_id: nibe_daily_brine_min_output_temp
   state_topic: /home/nibe/data/daily
   expire_after: 90000
   unit_of_measurement: "°C"
@@ -136,10 +156,10 @@
   value_template: "{{ value_json.brine.min_out_temp }}"
 
 - object_id: nibe_average_heating_cycle
+  unique_id: nibe_average_heating_cycle
   state_topic: /home/nibe/data/daily
   expire_after: 90000
   unit_of_measurement: min
-  device_class: duration
   icon: mdi:clock
   value_template: >-
     {% set value = value_json.compressor.average_heating_cycle %}
@@ -150,10 +170,10 @@
     {% endif %}
 
 - object_id: nibe_average_resting_cycle
+  unique_id: nibe_average_resting_cycle
   state_topic: /home/nibe/data/daily
   expire_after: 90000
   unit_of_measurement: min
-  device_class: duration
   icon: mdi:clock
   value_template: >-
     {% set value = value_json.compressor.average_resting_cycle %}
