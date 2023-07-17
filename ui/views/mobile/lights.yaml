@@ -176,6 +176,8 @@ cards:
         entity: switch.tplink_hs100_3
         variables:
           name: Kodinhoito
+          state_colors:
+            'on': orange
 
   - type: custom:button-card
     template: subtitle
