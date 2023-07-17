@@ -843,11 +843,11 @@
       text_summary: |
         {% set mapper =  {
           'in use' : 'käynnissä',
-          'finished' : 'valmis' } %}
+          'program ended ' : 'valmis' } %}
         {% set state = states('sensor.washing_machine_status') | lower %}
         Pesukone on {{ mapper[state] if state in mapper else 'päällä' }}
       text_description: |
-        {% if states('sensor.washing_machine_status') != 'finished' %}
+        {% if states('sensor.washing_machine_status') != 'program ended' %}
           {% set time = states('sensor.washing_machine_remaining_time') | int %}
           {% set hours = (time / 60) | round(0, "floor") %}
           {% set minutes = (time % 60) | round(0, "floor") %}
@@ -867,11 +867,11 @@
       text_summary: |
         {% set mapper =  {
           'in use' : 'käynnissä',
-          'finished' : 'valmis' } %}
+          'program ended' : 'valmis' } %}
         {% set state = states('sensor.tumble_dryer_status') | lower %}
         Kuivausrumpu on {{ mapper[state] if state in mapper else 'päällä' }}
       text_description: |
-        {% if states('sensor.tumble_dryer_status') != 'Finished' %}
+        {% if states('sensor.tumble_dryer_status') != 'program ended' %}
           {% set time = states('sensor.tumble_dryer_remaining_time') | int %}
           {% set hours = (time / 60) | round(0, "floor") %}
           {% set minutes = (time % 60) | round(0, "floor") %}

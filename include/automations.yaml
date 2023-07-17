@@ -1313,7 +1313,7 @@
     - platform: state
       entity_id:
         - sensor.washing_machine_status
-      to: finished
+      to: Program ended
   condition: []
   action:
     - service: notify.parents
@@ -1337,7 +1337,7 @@
     - platform: state
       entity_id:
         - sensor.washing_machine_status
-      to: finished
+      to: Program ended
   condition:
     - condition: state
       entity_id: sensor.washing_machine_program_id
@@ -1369,7 +1369,7 @@
     - platform: state
       entity_id:
         - sensor.tumble_dryer_status
-      to: Finished
+      to: Program ended
   condition: []
   action:
     - service: notify.parents
