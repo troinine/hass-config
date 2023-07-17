@@ -842,12 +842,12 @@
       icon_color: var(--color-blue)
       text_summary: |
         {% set mapper =  {
-          'in use' : 'käynnissä',
-          'program ended ' : 'valmis' } %}
+          'running' : 'käynnissä',
+          'program_ended ' : 'valmis' } %}
         {% set state = states('sensor.washing_machine_status') | lower %}
         Pesukone on {{ mapper[state] if state in mapper else 'päällä' }}
       text_description: |
-        {% if states('sensor.washing_machine_status') != 'program ended' %}
+        {% if states('sensor.washing_machine_status') != 'program_ended' %}
           {% set time = states('sensor.washing_machine_remaining_time') | int %}
           {% set hours = (time / 60) | round(0, "floor") %}
           {% set minutes = (time % 60) | round(0, "floor") %}
@@ -855,7 +855,7 @@
           {% set minutesStr = minutes ~ ' minuuttia' if minutes != 1 else '1 minuutti' %}
         Ohjelmaa on jäljellä{{ ' ' ~ hoursStr if hours > 0 else ''}} {{ minutesStr if minutes > 0 else ''}}.
         {% else %}
-        Kulutettu sähkö {{ states('sensor.washing_machine_energy') }} W ja vesimäärä {{ states('sensor.washing_machine_water_consumption') }} l.
+        Kulutettu sähkö {{ states('sensor.washing_machine_energy_consumption') }} W ja vesimäärä {{ states('sensor.washing_machine_water_consumption') }} l.
         {% endif %}
 
   - name: notification_tumble_dryer
@@ -866,12 +866,12 @@
       icon_color: var(--color-green)
       text_summary: |
         {% set mapper =  {
-          'in use' : 'käynnissä',
-          'program ended' : 'valmis' } %}
+          'running' : 'käynnissä',
+          'program_ended' : 'valmis' } %}
         {% set state = states('sensor.tumble_dryer_status') | lower %}
         Kuivausrumpu on {{ mapper[state] if state in mapper else 'päällä' }}
       text_description: |
-        {% if states('sensor.tumble_dryer_status') != 'program ended' %}
+        {% if states('sensor.tumble_dryer_status') != 'program_ended' %}
           {% set time = states('sensor.tumble_dryer_remaining_time') | int %}
           {% set hours = (time / 60) | round(0, "floor") %}
           {% set minutes = (time % 60) | round(0, "floor") %}
@@ -879,7 +879,7 @@
           {% set minutesStr = minutes ~ ' minuuttia' if minutes != 1 else 'yksi minuutti' %}
         Ohjelmaa on jäljellä{{ ' ' ~ hoursStr if hours > 0 else ''}} {{ minutesStr if minutes > 0 else ''}}.
         {% else %}
-        Kulutettu sähkö {{ states('sensor.tumble_dryer_energy') }} W.
+        Kulutettu sähkö {{ states('sensor.tumble_dryer_energy_consumption') }} W.
         {% endif %}
 
   - name: notification_automations_disabled

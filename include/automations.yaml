@@ -1313,13 +1313,13 @@
     - platform: state
       entity_id:
         - sensor.washing_machine_status
-      to: Program ended
+      to: program_ended
   condition: []
   action:
     - service: notify.parents
       data:
         title: Pesukone on valmis
-        message: Muista sulkea vesihana! Vedenkulutus oli {{ states('sensor.washing_machine_water_consumption') }} {{ state_attr('sensor.washing_machine_water_consumption', 'unit_of_measurement') }}. Sähkönkulutus oli {{ states('sensor.washing_machine_energy') }} {{ state_attr('sensor.washing_machine_energy', 'unit_of_measurement') }}
+        message: Muista sulkea vesihana! Vedenkulutus oli {{ states('sensor.washing_machine_water_consumption') }} {{ state_attr('sensor.washing_machine_water_consumption', 'unit_of_measurement') }}. Sähkönkulutus oli {{ states('sensor.washing_machine_energy_consumption') }} {{ state_attr('sensor.washing_machine_energy_consumption', 'unit_of_measurement') }}
         data:
           group: Pyykinhuolto
           tag: washing_machine_finished
@@ -1337,7 +1337,7 @@
     - platform: state
       entity_id:
         - sensor.washing_machine_status
-      to: Program ended
+      to: program_ended
   condition:
     - condition: state
       entity_id: sensor.washing_machine_program_id
@@ -1354,7 +1354,7 @@
     - service: notify.parents
       data:
         title: Pesukone puhdistettu
-        message: Muista sulkea vesihana! Vedenkulutus oli {{ states('sensor.washing_machine_water_consumption') }} {{ state_attr('sensor.washing_machine_water_consumption', 'unit_of_measurement') }}. Sähkönkulutus oli {{ states('sensor.washing_machine_energy') }} {{ state_attr('sensor.washing_machine_energy', 'unit_of_measurement') }}
+        message: Muista sulkea vesihana! Vedenkulutus oli {{ states('sensor.washing_machine_water_consumption') }} {{ state_attr('sensor.washing_machine_water_consumption', 'unit_of_measurement') }}. Sähkönkulutus oli {{ states('sensor.washing_machine_energy_consumption') }} {{ state_attr('sensor.washing_machine_energy_consumption', 'unit_of_measurement') }}
         data:
           group: Pyykinhuolto
           tag: washing_machine_cleaned
@@ -1369,13 +1369,13 @@
     - platform: state
       entity_id:
         - sensor.tumble_dryer_status
-      to: Program ended
+      to: program_ended
   condition: []
   action:
     - service: notify.parents
       data:
         title: Kuivausrumpu on valmis
-        message: Sähkönkulutus oli {{ states('sensor.tumble_dryer_energy') }} {{ state_attr('sensor.tumble_dryer_energy', 'unit_of_measurement') }}
+        message: Sähkönkulutus oli {{ states('sensor.tumble_dryer_energy_consumption') }} {{ state_attr('sensor.tumble_dryer_energy_consumption', 'unit_of_measurement') }}
         data:
           group: Pyykinhuolto
           tag: tumble_dryer_finished
