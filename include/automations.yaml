@@ -1340,8 +1340,8 @@
       to: program_ended
   condition:
     - condition: state
-      entity_id: sensor.washing_machine_program_id
-      state: Clean machine
+      entity_id: sensor.washing_machine_program
+      state: clean_machine
   action:
     - service: counter.reset
       target:
@@ -1425,3 +1425,24 @@
         data:
           group: Ilmanvainhto
           tag: replace_filters
+
+- id: '1689670551154'
+  alias: notify_when_raining
+  description: ''
+  mode: single
+  trigger:
+    - platform: state
+      entity_id:
+        - binary_sensor.notification_raining
+      to: 'on'
+  condition: []
+  action:
+    - service: notify.parents
+      data:
+        title: Kotona sataa
+        message: "Kotona sataa, sademäärä nyt {{ states('sensor.netatmo_koti_olohuone_sade_rain') | float | round(1) }} mm"
+        data:
+          group: Sää
+          tag: raining
+          ttl: 0
+          priority: high
