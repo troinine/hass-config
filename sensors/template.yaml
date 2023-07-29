@@ -519,7 +519,7 @@
         {% endif %}
     state: |
       {% set precipitation = states('sensor.koti_precipitation' ) %}
-      {% if precipitation | float(0) > 0.0 %}
+      {% if precipitation | float(0) > 0.0 and is_state('binary_sensor.notification_raining', 'off') %}
         on
       {% else %}
         off
@@ -815,7 +815,12 @@
       text_summary: |
         {% set last_cleaned_secs = as_timestamp(now()) - as_timestamp(states.sensor.roborock_s6_pure_last_clean_end.state, now().timestamp()) %}
         Imurointia ei ole suoritettu {{ (last_cleaned_secs / 60 / 60 / 24) | round(0) }} päivään
-      text_description: Oleskelutilojen imurointi aloitetaan kun kotoa poistutaan tai kun se käynnistetään käsin
+      text_description: |
+        {% if is_state('automation.start_scheduled_vacuuming', 'on') %}
+          Oleskelutilojen imurointi aloitetaan kun kotoa poistutaan tai kun se käynnistetään käsin.
+        {% else %}
+          Ajastettu imurointi on pois päältä. Käynnistä imurointi käsin.
+        {% endif %}
 
   - name: notification_vacuum_dustbin_full
     unique_id: notification_vacuum_dustbin_full
@@ -842,10 +847,14 @@
       icon_color: var(--color-blue)
       text_summary: |
         {% set mapper =  {
-          'running' : 'käynnissä',
-          'program_ended ' : 'valmis' } %}
+          'running' : 'Pesukone on käynnissä',
+          'program_ended ' : 'Pesukone on valmis' } %}
         {% set state = states('sensor.washing_machine_status') | lower %}
-        Pesukone on {{ mapper[state] if state in mapper else 'päällä' }}
+        {% if is_state('sensor.washing_machine_program', 'clean_machine') %}
+          Pesukoneen puhdistus käynnissä
+        {% else %}
+          {{ mapper[state] if state in mapper else 'Pesukone on päällä' }}
+        {% endif %}
       text_description: |
         {% if states('sensor.washing_machine_status') != 'program_ended' %}
           {% set time = states('sensor.washing_machine_remaining_time') | int %}
@@ -866,10 +875,10 @@
       icon_color: var(--color-green)
       text_summary: |
         {% set mapper =  {
-          'running' : 'käynnissä',
-          'program_ended' : 'valmis' } %}
+          'running' : 'Kuivausrumpu on käynnissä',
+          'program_ended' : 'Kuivausrumpu on valmis' } %}
         {% set state = states('sensor.tumble_dryer_status') | lower %}
-        Kuivausrumpu on {{ mapper[state] if state in mapper else 'päällä' }}
+        {{ mapper[state] if state in mapper else 'Kuivausrumpu on päällä' }}
       text_description: |
         {% if states('sensor.tumble_dryer_status') != 'program_ended' %}
           {% set time = states('sensor.tumble_dryer_remaining_time') | int %}
@@ -929,7 +938,7 @@
   - name: notification_clean_washing_machine
     unique_id: notification_clean_washing_machine
     icon: mdi:washing-machine-alert
-    state: "{{ iif(states('counter.washing_machine_runs_after_cleaning') | int >= 40, 'on', 'off')}}"
+    state: "{{ iif(states('counter.washing_machine_runs_after_cleaning') | int >= 40 and not is_state('sensor.washing_machine_program', 'clean_machine'), 'on', 'off')}}"
     attributes:
       icon_color: var(--warning-color)
       text_summary: "Puhdista pyykinpesukone"
