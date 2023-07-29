@@ -1314,7 +1314,12 @@
       entity_id:
         - sensor.washing_machine_status
       to: program_ended
-  condition: []
+  condition:
+    - condition: not
+      conditions:
+        - condition: state
+          entity_id: sensor.washing_machine_program
+          state: clean_machine
   action:
     - service: notify.parents
       data:
@@ -1348,7 +1353,7 @@
         entity_id: counter.washing_machine_runs_after_cleaning
     - service: input_datetime.set_datetime
       target:
-        entity_id: intput_datetime.washing_machine_cleaned
+        entity_id: input_datetime.washing_machine_cleaned
       data:
         timestamp: "{{ now().timestamp() }}"
     - service: notify.parents
