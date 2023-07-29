@@ -18,7 +18,7 @@ browser_mod:
       layout_type: custom:grid-layout
       layout:
         grid-template-columns: 1fr 1fr 1fr
-        grid-template-rows: min-content min-content
+        grid-template-rows: max-content min-content
         grid-template-areas: |
           "info rooms map"
           "buttons buttons buttons"
@@ -33,10 +33,10 @@ browser_mod:
           entities:
             - entity: vacuum.roborock_s6_pure
               name: Tila
+            - entity: automation.start_scheduled_vacuuming
+              name: Ajastettu imurointi
             - entity: sensor.roborock_s6_pure_last_clean_end
               name: Viimeksi siivonnut
-            - entity: sensor.roborock_s6_pure_time_to_next_clean
-              name: Seuraava siivous
             - type: custom:bar-card
               entity_row: true
               unit_of_measurement: '%'
@@ -140,16 +140,18 @@ browser_mod:
                     - width: 17vw
                     - margin: 0 2vw 0 2vw
 
-        - type: custom:xiaomi-vacuum-map-card
-          card_mod:
-            !include ../../ui/styles/vacuum-map-only.yaml
-          title: Kartta
-          view_layout:
-            grid-area: map
-          entity: vacuum.roborock_s6_pure
-          map_source:
-            camera: camera.vacuum_map
-          calibration_source:
-            camera: true
-          language: en
-          map_locked: true
+        - type: vertical-stack
+          cards:
+            - type: custom:xiaomi-vacuum-map-card
+              card_mod:
+                !include ../../ui/styles/vacuum-map.yaml
+              title: Kartta
+              view_layout:
+                grid-area: map
+              entity: vacuum.roborock_s6_pure
+              map_source:
+                camera: camera.vacuum_map
+              calibration_source:
+                camera: true
+              language: fi
+              map_locked: true

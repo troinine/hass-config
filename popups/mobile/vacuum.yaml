@@ -16,6 +16,7 @@ browser_mod:
             keyboard:
               enabled: true
               onlyInViewport: true
+            noSwipingClass: map-wrapper
           cards:
             - type: vertical-stack
               cards:
@@ -29,6 +30,8 @@ browser_mod:
                   entities:
                     - entity: vacuum.roborock_s6_pure
                       name: Tila
+                    - entity: automation.start_scheduled_vacuuming
+                      name: Ajastettu imurointi
                     - entity: sensor.roborock_s6_pure_last_clean_end
                       name: Viimeksi siivonnut
                     - entity: sensor.roborock_s6_pure_time_to_next_clean
@@ -131,7 +134,7 @@ browser_mod:
 
             - type: custom:xiaomi-vacuum-map-card
               card_mod:
-                !include ../../ui/styles/vacuum-map-only-mobile.yaml
+                !include ../../ui/styles/vacuum-map.yaml
               title: Kartta
               view_layout:
                 grid-area: map
@@ -140,5 +143,5 @@ browser_mod:
                 camera: camera.vacuum_map
               calibration_source:
                 camera: true
-              language: en
+              language: fi
               map_locked: true
