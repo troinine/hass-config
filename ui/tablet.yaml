@@ -47,7 +47,7 @@ views:
               entity_date: sensor.date
               entity_temperature: sensor.netatmo_koti_olohuone_ulko_temperature
               weather_tap_action:
-                !include ../popups/tablet/weather-forecast.yaml
+                !include ../popups/common/weather-forecast.yaml
 
           - type: vertical-stack
             view_layout:
