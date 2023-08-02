@@ -4,7 +4,7 @@ base:
       [[[ return ['on', 'open', 'Kotona', 'home', 'cleaning', 'returning', 'idle'].indexOf(entity === undefined || entity.state) !== -1; ]]]
   template:
     - language_variables
-  # Fix to https://github.com/custom-cards/button-card/issues/693
+  # Fix to https://github.com/home-assistant/core/issues/90957
   state_display: |
     [[[
       const domain = entity.entity_id.split(".")[0];
@@ -18,6 +18,10 @@ base:
       }
     ]]]
   styles:
+    name:
+      - margin-top: 0
+    state:
+      - margin-top: 0
     card:
       # Fixes ripple border-radius with Safari
       - '-webkit-backface-visibility': hidden

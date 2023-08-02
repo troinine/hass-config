@@ -40,7 +40,7 @@ media_player:
           action: call-service
           service: |
             [[[ return entity.state === 'off' ? 'media_player.turn_on' : 'media_player.turn_off' ]]]
-          service_data:
+          data:
             entity_id: |
               [[[ return entity.entity_id ]]]
 
@@ -54,7 +54,7 @@ media_player:
         tap_action:
             action: call-service
             service: media_player.volume_down
-            service_data:
+            data:
               entity_id: |
                 [[[ return entity.entity_id ]]]
 
@@ -68,6 +68,6 @@ media_player:
         tap_action:
             action: call-service
             service: media_player.volume_up
-            service_data:
+            data:
               entity_id: |
                 [[[ return entity.entity_id ]]]

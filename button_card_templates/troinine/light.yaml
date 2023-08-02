@@ -514,7 +514,7 @@ scene_icon_rgb:
     action: |
       [[[ return variables.is_active ? 'call-service' : 'none' ]]]
     service: script.scene_parameterized_color_rgb
-    service_data:
+    data:
       entity: "[[[ return entity.entity_id ]]]"
       color_rgb: "[[[ return variables.color_rgb ]]]"
       brightness: "[[[ return variables.brightness ]]]"
@@ -528,7 +528,7 @@ scene_icon_temperature:
     action: |
       [[[ return variables.is_active ? 'call-service' : 'none' ]]]
     service: script.scene_parameterized_color_temperature
-    service_data:
+    data:
       entity: "[[[ return entity.entity_id ]]]"
       color_temperature: "[[[ return variables.color_temperature ]]]"
       brightness: "[[[ return variables.brightness ]]]"
@@ -540,7 +540,7 @@ scene_icon_brightness:
     action: |
       [[[ return variables.is_active ? 'call-service' : 'none' ]]]
     service: script.scene_parameterized_brightness
-    service_data:
+    data:
       entity: "[[[ return entity.entity_id ]]]"
       brightness: "[[[ return variables.brightness ]]]"
 

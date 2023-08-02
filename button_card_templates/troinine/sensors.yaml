@@ -145,9 +145,10 @@ sensor_graph:
             - grid-template-rows: 1.25rem 1.25rem
           name:
             - padding-left: 0.5rem
-            - font-size: 0.8rem
+            - font-size: 0.9rem
             - filter: opacity(40%)
             - place-self: start
+            - margin-top: 0
           state:
             - padding-left: 0.5rem
             - font-size: 1rem

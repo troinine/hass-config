@@ -54,7 +54,7 @@ button_synology_reboot:
   tap_action:
     action: call-service
     service: button.press
-    service_data:
+    data:
       entity_id: button.synology_reboot
     confirmation:
       text: Haluatko varmasti käynnistää Synologyn uudelleen?
@@ -69,7 +69,7 @@ button_galaxy_tab_wake_up:
   tap_action:
     action: call-service
     service: automation.trigger
-    service_data:
+    data:
       entity_id: automation.wake_up_galaxy_tab_a8
 
 button_vacuum:
@@ -96,7 +96,7 @@ button_vacuum_clean:
   tap_action:
     action: call-service
     service: vacuum.send_command
-    service_data:
+    data:
       entity_id: |
         [[[ return entity.entity_id ]]]
       command: app_segment_clean
@@ -138,7 +138,7 @@ button_vacuum_start_stop:
             ? 'vacuum.start'
             : 'vacuum.pause';
       ]]]
-    service_data:
+    data:
       entity_id: |
         [[[ return entity.entity_id ]]]
 
@@ -153,7 +153,7 @@ button_vacuum_return_to_base:
   tap_action:
     action: call-service
     service: vacuum.return_to_base
-    service_data:
+    data:
       entity_id: |
         [[[ return entity.entity_id ]]]
 
@@ -168,7 +168,7 @@ button_vacuum_dustbin_emptied:
   tap_action:
     action: call-service
     service: input_number.set_value
-    service_data:
+    data:
       entity_id: input_number.vacuum_total_area_cleaned_since_emptying
       value: 0
 
@@ -190,7 +190,7 @@ button_request_location_update:
           ? "notify.everyone"
           : `notify.mobile_app_${states[entity.entity_id].attributes.id}`
       ]]]
-    service_data:
+    data:
       message: request_location_update
       data:
         ttl: 0
@@ -208,7 +208,7 @@ harmony_remote_button:
   tap_action:
     action: call-service
     service: remote.send_command
-    service_data: |
+    data: |
       [[[
         const data = {
           entity_id: entity.entity_id
@@ -279,7 +279,7 @@ harmony_remote_button_off:
   tap_action:
     action: call-service
     service: remote.turn_off
-    service_data:
+    data:
       entity_id: |
         [[[ return entity.entity_id ]]]
 
@@ -294,7 +294,7 @@ harmony_remote_button_num:
   tap_action:
     action: call-service
     service: remote.send_command
-    service_data:
+    data:
       entity_id: |
         [[[ return entity.entity_id ]]]
       command: |
@@ -310,7 +310,7 @@ harmony_remote_button_activity:
   tap_action:
     action: call-service
     service: remote.turn_on
-    service_data:
+    data:
       entity_id: |
         [[[ return entity.entity_id ]]]
       activity: |
@@ -324,7 +324,7 @@ harmony_remote_button_set_source:
   tap_action:
     action: call-service
     service: media_player.select_source
-    service_data:
+    data:
       entity_id: |
         [[[ return entity.entity_id ]]]
       source: |

@@ -37,7 +37,7 @@ todoist_task:
         tap_action:
           action: call-service
           service: script.todoist_complete_task
-          service_data:
+          data:
             task_id: "[[[ return variables.task_id ]]]"
           confirmation:
             text: "[[[ return `Merkitäänkö tehtävä \"${variables.summary}\" valmiiksi?`]]]"
@@ -52,7 +52,7 @@ todoist_task:
         tap_action:
           action: call-service
           service: script.todoist_delete_task
-          service_data:
+          data:
             task_id: "[[[ return variables.task_id ]]]"
           confirmation:
             text: "[[[ return `Poistetaanko tehtävä \"${variables.summary}\"?`]]]"

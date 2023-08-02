@@ -19,7 +19,6 @@ footer_info:
       - grid-template-rows: min-content
     icon:
       - width: 0.9vw
-      #- filter: "opacity(40%)"
     img_cell:
       - background-color: transparent
       - border-radius: 0
@@ -33,7 +32,7 @@ footer_info:
       - padding: 0 0 0 0.5vw
       - filter: "opacity(40%)"
       - font-size: 0.9vw
-      - justify-self: start     
+      - justify-self: start
     card:
       - background-color: transparent
       - justify-self: start
