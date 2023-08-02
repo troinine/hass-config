@@ -1451,3 +1451,15 @@
           tag: raining
           ttl: 0
           priority: high
+
+- id: '1689670551155'
+  alias: set_backend_preferred_theme
+  description: ''
+  mode: single
+  trigger:
+    - event: start
+      platform: homeassistant
+  action:
+    - service: frontend.set_theme
+      data:
+        name: mobile
