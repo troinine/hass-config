@@ -1,5 +1,5 @@
 ---
-icon_button:
+icon_text_button:
   variables:
     is_active: true
   template:
@@ -11,28 +11,44 @@ icon_button:
     grid:
       - grid-template-areas: |
           "i n"
-      - grid-template-columns: min-content min-content
+      - grid-template-columns: |
+          "min-content min-content"
       - grid-template-rows: 1fr
       - justify-content: center
     icon:
       - width: 1.6rem
+      - color: var(--primary-text-color)
     img_cell:
       - width: 1.6rem
     name:
       - margin-left: 1rem
     card:
-      - filter: |
-          [[[ return variables.is_active ? 'drop-shadow(3px 3px 5px #00000050)' : 'opacity(30%)' ]]]
       - background-color: |
           [[[ return variables.is_active ? 'var(--button-color)' : 'rgba(255, 255, 255, 0.12)' ]]]
+      - filter: |
+          [[[ return variables.is_active ? 'none' : 'opacity(30%)' ]]]
+      - '-webkit-box-shadow': |
+          [[[ return variables.is_active ? 'var(--box-shadow)' : 'none' ]]]
+      - box-shadow: |
+          [[[ return variables.is_active ? 'var(--box-shadow)' : 'none' ]]]
       - height: 3rem
       - padding: 0 1rem 0 1rem
       - border-radius: 0.5rem
       - width: 100%
 
+icon_button:
+  template:
+    - icon_text_button
+  show_name: false
+  styles:
+    card:
+      - width: 5rem
+      - height: 5rem
+      - padding: none
+
 button_hass_update:
   template:
-    - icon_button
+    - icon_text_button
   name: Päivitä nyt
   entity: binary_sensor.notification_hass_update_available
   tap_action:
@@ -46,7 +62,7 @@ button_hass_update:
 
 button_synology_reboot:
   template:
-    - icon_button
+    - icon_text_button
   variables:
     is_active: true
   name: Uudelleenkäynnistä
@@ -61,7 +77,7 @@ button_synology_reboot:
 
 button_galaxy_tab_wake_up:
   template:
-    - icon_button
+    - icon_text_button
   variables:
     is_active: true
   name: Herätä
@@ -94,7 +110,8 @@ button_vacuum_clean:
     - input_boolean.vacuum_clean_wc
   name: Aloita
   tap_action:
-    action: call-service
+    action: |
+      [[[ return variables.is_active ? 'call-service' : 'none' ]]]
     service: vacuum.send_command
     data:
       entity_id: |
@@ -131,7 +148,8 @@ button_vacuum_start_stop:
           : 'Pysäytä';
     ]]]
   tap_action:
-    action: call-service
+    action: |
+      [[[ return variables.is_active ? 'call-service' : 'none' ]]]
     service: |
       [[[
         return entity.state === 'docked' || entity.state === 'paused'
@@ -151,7 +169,8 @@ button_vacuum_return_to_base:
   icon: mdi:home
   name: Telakkaan
   tap_action:
-    action: call-service
+    action: |
+      [[[ return variables.is_active ? 'call-service' : 'none' ]]]
     service: vacuum.return_to_base
     data:
       entity_id: |
@@ -166,7 +185,8 @@ button_vacuum_dustbin_emptied:
   icon: mdi:trash-can-outline
   name: Pölysäiliö tyhjennetty
   tap_action:
-    action: call-service
+    action: |
+      [[[ return variables.is_active ? 'call-service' : 'none' ]]]
     service: input_number.set_value
     data:
       entity_id: input_number.vacuum_total_area_cleaned_since_emptying
@@ -174,7 +194,7 @@ button_vacuum_dustbin_emptied:
 
 button_request_location_update:
   template:
-    - icon_button
+    - icon_text_button
   variables:
     is_active: true
   icon: mdi:map-marker

@@ -3,8 +3,10 @@ browser_mod:
   service: browser_mod.popup
   data:
     title: Robotti-imuri
+    timeout: 600000
     style: |
       --popup-max-width: 90vw;
+      --primary-color: transparent; /* hide timeout progress */
     card_mod:
       style:
         layout-card:
@@ -18,10 +20,10 @@ browser_mod:
       layout_type: custom:grid-layout
       layout:
         grid-template-columns: 1fr 1fr 1fr
-        grid-template-rows: max-content min-content
+        grid-template-rows: min-content min-content
         grid-template-areas: |
           "info rooms map"
-          "buttons buttons buttons"
+          "buttons buttons map"
       cards:
         - type: entities
           view_layout:
@@ -104,54 +106,34 @@ browser_mod:
           view_layout:
             grid-area: buttons
           card_mod:
-            style: |
-              ha-card {
-                display: flex;
-                justify-content: center;
-              }
+            style:
+              hui-horizontal-stack-card:
+                $: |
+                  #root {
+                    justify-content: space-evenly !important;
+                  }
           card:
             type: horizontal-stack
             cards:
               - type: custom:button-card
                 template: button_vacuum_clean
-                styles:
-                  card:
-                    - width: 17vw
-                    - margin: 0 2vw 0 2vw
-
               - type: custom:button-card
                 template: button_vacuum_start_stop
-                styles:
-                  card:
-                    - width: 17vw
-                    - margin: 0 2vw 0 2vw
-
               - type: custom:button-card
                 template: button_vacuum_return_to_base
-                styles:
-                  card:
-                    - width: 17vw
-                    - margin: 0 2vw 0 2vw
-
               - type: custom:button-card
                 template: button_vacuum_dustbin_emptied
-                styles:
-                  card:
-                    - width: 17vw
-                    - margin: 0 2vw 0 2vw
 
-        - type: vertical-stack
-          cards:
-            - type: custom:xiaomi-vacuum-map-card
-              card_mod:
-                !include ../../ui/styles/vacuum-map.yaml
-              title: Kartta
-              view_layout:
-                grid-area: map
-              entity: vacuum.roborock_s6_pure
-              map_source:
-                camera: camera.vacuum_map
-              calibration_source:
-                camera: true
-              language: fi
-              map_locked: true
+        - type: custom:xiaomi-vacuum-map-card
+          view_layout:
+            grid-area: map
+          card_mod:
+            !include ../../ui/styles/vacuum-map.yaml
+          title: Kartta
+          entity: vacuum.roborock_s6_pure
+          map_source:
+            camera: camera.vacuum_map
+          calibration_source:
+            camera: true
+          language: fi
+          map_locked: true

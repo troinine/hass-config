@@ -21,8 +21,6 @@ browser_mod:
             - type: vertical-stack
               cards:
                 - type: entities
-                  view_layout:
-                    grid-area: info
                   card_mod:
                     !include ../../ui/styles/entities-card.yaml
                   title: Tiedot
@@ -81,35 +79,25 @@ browser_mod:
                           severity: *roborock_severities
 
                 - type: custom:mod-card
-                  view_layout:
-                    grid-area: button1
                   card_mod:
-                    style: |
-                      ha-card {
-                        display: flex;
-                        justify-content: center;
-                      }
+                    style:
+                      hui-horizontal-stack-card:
+                        $: |
+                          #root {
+                            justify-content: space-evenly !important;
+                            margin-bottom: 3rem;
+                          }
                   card:
-                    type: vertical-stack
+                    type: horizontal-stack
                     cards:
                       - type: custom:button-card
                         template: button_vacuum_clean
-                        styles:
-                          card:
-                            - margin-bottom: 1rem
-                            - width: 50vw
                       - type: custom:button-card
                         template: button_vacuum_start_stop
-                        styles:
-                          card:
-                            - margin-bottom: 1rem
-                            - width: 50vw
                       - type: custom:button-card
                         template: button_vacuum_return_to_base
-                        styles:
-                          card:
-                            - margin-bottom: 4rem
-                            - width: 50vw
+                      - type: custom:button-card
+                        template: button_vacuum_dustbin_emptied
 
             - type: entities
               view_layout:
