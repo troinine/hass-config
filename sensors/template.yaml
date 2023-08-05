@@ -3,22 +3,22 @@
     unique_id: 'radon_warning'
     icon: mdi:radioactive
     state: |
-      {% if states('sensor.mqtt_airthings_waveplus_sisu_radon_short_term') | float(0) > 150 or states('sensor.mqtt_airthings_waveplus_living_room_radon_short_term') | float(0) > 150 %}
+      {% if states('sensor.mqtt_airthings_waveplus_sisu_radon_short_term') | float(default=0) > 150 or states('sensor.mqtt_airthings_waveplus_living_room_radon_short_term') | float(default=0) > 150 %}
         Korkea
-      {% elif states('sensor.mqtt_airthings_waveplus_sisu_radon_short_term') | float(0) > 100 or states('sensor.mqtt_airthings_waveplus_living_room_radon_short_term') | float(0) > 100 %}
+      {% elif states('sensor.mqtt_airthings_waveplus_sisu_radon_short_term') | float(default=0) > 100 or states('sensor.mqtt_airthings_waveplus_living_room_radon_short_term') | float(default=0) > 100 %}
         Nousussa
       {% else %}
         Alhainen
       {% endif %}
     attributes:
       reporting_entity: |
-        {% if states('sensor.radon_warning') == 'Korkea' and states('sensor.mqtt_airthings_waveplus_sisu_radon_short_term') | float(0) > 150 %}
+        {% if states('sensor.radon_warning') == 'Korkea' and states('sensor.mqtt_airthings_waveplus_sisu_radon_short_term') | float(default=0) > 150 %}
           sensor.mqtt_airthings_waveplus_sisu_radon_short_term
-        {% elif states('sensor.radon_warning') == 'Korkea' and states('sensor.mqtt_airthings_waveplus_living_room_radon_short_term') | float(0) > 150 %}
+        {% elif states('sensor.radon_warning') == 'Korkea' and states('sensor.mqtt_airthings_waveplus_living_room_radon_short_term') | float(default=0) > 150 %}
           sensor.mqtt_airthings_waveplus_living_room_radon_short_term
-        {% elif states('sensor.radon_warning') == 'Nousussa' and states('sensor.mqtt_airthings_waveplus_sisu_radon_short_term') | float(0) > 100 %}
+        {% elif states('sensor.radon_warning') == 'Nousussa' and states('sensor.mqtt_airthings_waveplus_sisu_radon_short_term') | float(default=0) > 100 %}
           sensor.mqtt_airthings_waveplus_sisu_radon_short_term
-        {% elif states('sensor.radon_warning') == 'Nousussa' and states('sensor.mqtt_airthings_waveplus_living_room_radon_short_term') | float(0) > 100 %}
+        {% elif states('sensor.radon_warning') == 'Nousussa' and states('sensor.mqtt_airthings_waveplus_living_room_radon_short_term') | float(default=0) > 100 %}
           sensor.mqtt_airthings_waveplus_living_room_radon_short_term
         {% endif %}
 
@@ -26,50 +26,50 @@
     unique_id: 'co2_state'
     icon: mdi:molecule-co2
     state: |
-      {% if (states('sensor.mqtt_airthings_waveplus_sisu_co2') | float(0) < 1000) and (states('sensor.mqtt_airthings_waveplus_living_room_co2') | float(0) < 1000) and (states('sensor.netatmo_koti_olohuone_co2') | float(0) < 1000) and (states('sensor.netatmo_koti_olohuone_makuuhuone_co2') | float(0) < 1000) %}
+      {% if (states('sensor.mqtt_airthings_waveplus_sisu_co2') | float(default=0) < 1000) and (states('sensor.mqtt_airthings_waveplus_living_room_co2') | float(default=0) < 1000) and (states('sensor.netatmo_koti_olohuone_co2') | float(default=0) < 1000) and (states('sensor.netatmo_koti_olohuone_makuuhuone_co2') | float(default=0) < 1000) %}
         Alhainen
       {% else %}
         Korkea
       {% endif %}
     attributes:
       reporting_entity: |
-        {% if (states('sensor.mqtt_airthings_waveplus_sisu_co2') | float(0) >= 1000) %}
+        {% if (states('sensor.mqtt_airthings_waveplus_sisu_co2') | float(default=0) >= 1000) %}
           sensor.mqtt_airthings_waveplus_sisu_co2
-        {% elif (states('sensor.mqtt_airthings_waveplus_living_room_co2') | float(0) >= 1000) %}
+        {% elif (states('sensor.mqtt_airthings_waveplus_living_room_co2') | float(default=0) >= 1000) %}
           sensor.mqtt_airthings_waveplus_living_room_co2
-        {% elif (states('sensor.netatmo_koti_olohuone_co2') | float(0) >= 1000) %}
+        {% elif (states('sensor.netatmo_koti_olohuone_co2') | float(default=0) >= 1000) %}
           sensor.netatmo_koti_olohuone_co2
-        {% elif (states('sensor.netatmo_koti_olohuone_makuuhuone_co2') | float(0) >= 1000) %}
+        {% elif (states('sensor.netatmo_koti_olohuone_makuuhuone_co2') | float(default=0) >= 1000) %}
           sensor.netatmo_koti_olohuone_makuuhuone_co2
         {% endif %}
 
   - name: "Kosteus tila"
     unique_id: 'humidity_state'
     icon: |
-      {% if (states('sensor.mqtt_airthings_waveplus_sisu_humidity') | float(0) < 25) or (states('sensor.mqtt_airthings_waveplus_living_room_humidity') | float(0) < 25) or (states('sensor.netatmo_koti_olohuone_humidity') | float(0) < 25) or (states('sensor.mqtt_otso_humidity') | float(0) < 25) %}
+      {% if (states('sensor.mqtt_airthings_waveplus_sisu_humidity') | float(default=0) < 25) or (states('sensor.mqtt_airthings_waveplus_living_room_humidity') | float(default=0) < 25) or (states('sensor.netatmo_koti_olohuone_humidity') | float(default=0) < 25) or (states('sensor.mqtt_otso_humidity') | float(default=0) < 25) %}
         mdi:water-minus
-      {% elif (states('sensor.mqtt_airthings_waveplus_sisu_humidity') | float(0) > 60) or (states('sensor.mqtt_airthings_waveplus_living_room_humidity') | float(0) > 60) or (states('sensor.netatmo_koti_olohuone_humidity') | float(0) > 60) or (states('sensor.mqtt_otso_humidity') | float(0) > 60) %}
+      {% elif (states('sensor.mqtt_airthings_waveplus_sisu_humidity') | float(default=0) > 60) or (states('sensor.mqtt_airthings_waveplus_living_room_humidity') | float(default=0) > 60) or (states('sensor.netatmo_koti_olohuone_humidity') | float(default=0) > 60) or (states('sensor.mqtt_otso_humidity') | float(default=0) > 60) %}
         mdi:water-alert
       {% else %}
         mdi:water-check
       {% endif %}
     state: |
-      {% if (states('sensor.mqtt_airthings_waveplus_sisu_humidity') | float(0) < 25) or (states('sensor.mqtt_airthings_waveplus_living_room_humidity') | float(0) < 25) or (states('sensor.netatmo_koti_olohuone_humidity') | float(0) < 25) or (states('sensor.mqtt_otso_humidity') | float(0) < 25) %}
+      {% if (states('sensor.mqtt_airthings_waveplus_sisu_humidity') | float(default=0) < 25) or (states('sensor.mqtt_airthings_waveplus_living_room_humidity') | float(default=0) < 25) or (states('sensor.netatmo_koti_olohuone_humidity') | float(default=0) < 25) or (states('sensor.mqtt_otso_humidity') | float(default=0) < 25) %}
         Alhainen
-      {% elif (states('sensor.mqtt_airthings_waveplus_sisu_humidity') | float(0) > 60) or (states('sensor.mqtt_airthings_waveplus_living_room_humidity') | float(0) > 60) or (states('sensor.netatmo_koti_olohuone_humidity') | float(0) > 60) or (states('sensor.mqtt_otso_humidity') | float(0) > 60) %}
+      {% elif (states('sensor.mqtt_airthings_waveplus_sisu_humidity') | float(default=0) > 60) or (states('sensor.mqtt_airthings_waveplus_living_room_humidity') | float(default=0) > 60) or (states('sensor.netatmo_koti_olohuone_humidity') | float(default=0) > 60) or (states('sensor.mqtt_otso_humidity') | float(default=0) > 60) %}
         Korkea
       {% else %}
         Normaali
       {% endif %}
     attributes:
       reporting_entity: |
-        {% if (states('sensor.mqtt_airthings_waveplus_sisu_humidity') | float(0) < 25) or (states('sensor.mqtt_airthings_waveplus_sisu_humidity') | float(0) > 60) %}
+        {% if (states('sensor.mqtt_airthings_waveplus_sisu_humidity') | float(default=0) < 25) or (states('sensor.mqtt_airthings_waveplus_sisu_humidity') | float(default=0) > 60) %}
           sensor.mqtt_airthings_waveplus_sisu_humidity
-        {% elif (states('sensor.mqtt_airthings_waveplus_living_room_humidity') | float(0) < 25) or (states('sensor.mqtt_airthings_waveplus_living_room_humidity') | float(0) > 60) %}
+        {% elif (states('sensor.mqtt_airthings_waveplus_living_room_humidity') | float(default=0) < 25) or (states('sensor.mqtt_airthings_waveplus_living_room_humidity') | float(default=0) > 60) %}
           sensor.mqtt_airthings_waveplus_living_room_humidity
-        {% elif (states('sensor.netatmo_koti_olohuone_humidity') | float(0) < 25) or (states('sensor.netatmo_koti_olohuone_humidity') | float(0) > 60) %}
+        {% elif (states('sensor.netatmo_koti_olohuone_humidity') | float(default=0) < 25) or (states('sensor.netatmo_koti_olohuone_humidity') | float(default=0) > 60) %}
           sensor.netatmo_koti_olohuone_humidity
-        {% elif (states('sensor.mqtt_otso_humidity') | float(0) < 25) or (states('sensor.mqtt_otso_humidity') | float(0) > 60) %}
+        {% elif (states('sensor.mqtt_otso_humidity') | float(default=0) < 25) or (states('sensor.mqtt_otso_humidity') | float(default=0) > 60) %}
           sensor.mqtt_otso_humidity
         {% endif %}
 
@@ -179,7 +179,7 @@
       {% if (percentage > 100) %}
         {{ 100 }}
       {% else %}
-        {{ percentage | int }}
+        {{ percentage | int(default=0) }}
       {% endif %}
     attributes:
       friendly_name: Pölysäiliön taso
@@ -447,7 +447,7 @@
 
   - name: "Autotallin ilmankuivaimen tila"
     unique_id: 'garage_dehumidifier'
-    state: '{{ states("sensor.garage_dehumidifier_energy_consumption_current") | float(0) > 10.0 }}'
+    state: '{{ states("sensor.garage_dehumidifier_energy_consumption_current") | float(default=0) > 10.0 }}'
 
   - name: "Ovet"
     unique_id: 'doors'
@@ -519,7 +519,7 @@
         {% endif %}
     state: |
       {% set precipitation = states('sensor.koti_precipitation' ) %}
-      {% if precipitation | float(0) > 0.0 and is_state('binary_sensor.notification_raining', 'off') %}
+      {% if precipitation | float(default=0) > 0.0 and is_state('binary_sensor.notification_raining', 'off') %}
         on
       {% else %}
         off
@@ -530,7 +530,7 @@
         {% set forecast = state_attr('weather.koti_custom', 'forecast') %}
         {% set precipitation = states('sensor.koti_precipitation' ) %}
         {% set precipitation_type = state_attr('sensor.koti_precipitation', 'type') %}
-        {% if precipitation | float(0) > 0.0 %}
+        {% if precipitation | float(default=0) > 0.0 %}
           {% if precipitation_type == 'Snow' or (forecast and forecast[0] and forecast[0].condition == 'snowy') %}
             Odotettavissa lumisadetta {{ precipitation }} mm
           {% elif forecast and forecast[0] and forecast[0].condition == 'snowy-rainy' %}
@@ -717,7 +717,7 @@
     icon: mdi:format-color-fill
     state: |
       {% set current_state_duration = as_timestamp(now()) - as_timestamp(states.switch.tplink_hs110_2.last_changed) %}
-      {% set current_consumption = states('sensor.garage_dehumidifier_energy_consumption_current') | int(0) %}
+      {% set current_consumption = states('sensor.garage_dehumidifier_energy_consumption_current') | int(default=0) %}
       {% if is_state('switch.tplink_hs110_2', 'on') and current_state_duration > (5 * 60) and current_consumption < 10 %}
         on
       {% else %}
@@ -743,7 +743,7 @@
   - name: notification_stiga_charger_charging
     unique_id: notification_stiga_charger_charging
     icon: mdi:battery-charging-medium
-    state: "{{ iif(states('switch.tplink_hs110_1') == 'on' and states('sensor.tplink_hs110_1_current_consumption') | float(0) > 5, 'on', 'off') }}"
+    state: "{{ iif(states('switch.tplink_hs110_1') == 'on' and states('sensor.tplink_hs110_1_current_consumption') | float(default=0) > 5, 'on', 'off') }}"
     attributes:
       icon_color: var(--warning-color)
       text_summary: Stigan laturi lataa akkua
@@ -754,7 +754,7 @@
   - name: notification_stiga_charger_full
     unique_id: notification_stiga_charger_full
     icon: mdi:battery-high
-    state: "{{ iif(states('switch.tplink_hs110_1') == 'on' and states('sensor.tplink_hs110_1_current_consumption') | float(0) <= 5, 'on', 'off') }}"
+    state: "{{ iif(states('switch.tplink_hs110_1') == 'on' and states('sensor.tplink_hs110_1_current_consumption') | float(default=0) <= 5, 'on', 'off') }}"
     attributes:
       icon_color: var(--color-green)
       text_summary: Stigan akku täynnä
@@ -798,7 +798,7 @@
         {% else %}
           Robotti-imurin tila ei tiedossa
         {% endif %}
-      text_description: "Siivottu alue {{ states('sensor.roborock_s6_pure_current_clean_area') | default(0) | round(0) }} neliötä"
+      text_description: "Siivottu alue {{ states('sensor.roborock_s6_pure_current_clean_area') | float(default=0) | round(0) }} neliötä"
 
   - name: notification_time_to_vacuum
     unique_id: notification_time_to_vacuum
@@ -833,11 +833,11 @@
   - name: notification_raining
     unique_id: notification_raining
     icon: mdi:weather-rainy
-    state: "{{ iif(states('sensor.netatmo_koti_olohuone_sade_rain') | float > 0, 'on', 'off') }}"
+    state: "{{ iif(states('sensor.netatmo_koti_olohuone_sade_rain') | float(default=0) > 0, 'on', 'off') }}"
     attributes:
       icon_color: var(--color-blue)
-      text_summary: "Ulkona sataa, sademäärä nyt {{ states('sensor.netatmo_koti_olohuone_sade_rain') | float | round(1) }} mm"
-      text_description: "Koko päivän sademäärä {{ states('sensor.netatmo_koti_olohuone_sade_rain_today') | float | round(1) }} mm"
+      text_summary: "Ulkona sataa, sademäärä nyt {{ states('sensor.netatmo_koti_olohuone_sade_rain') | float(default=0) | round(1) }} mm"
+      text_description: "Koko päivän sademäärä {{ states('sensor.netatmo_koti_olohuone_sade_rain_today') | float(default=0) | round(1) }} mm"
 
   - name: notification_washing_machine
     unique_id: notification_washing_machine
@@ -857,7 +857,7 @@
         {% endif %}
       text_description: |
         {% if states('sensor.washing_machine_status') != 'program_ended' %}
-          {% set time = states('sensor.washing_machine_remaining_time') | int %}
+          {% set time = states('sensor.washing_machine_remaining_time') | int(default=0) %}
           {% set hours = (time / 60) | round(0, "floor") %}
           {% set minutes = (time % 60) | round(0, "floor") %}
           {% set hoursStr = hours ~ ' tuntia' if hours != 1 else '1 tunti' %}
@@ -881,7 +881,7 @@
         {{ mapper[state] if state in mapper else 'Kuivausrumpu on päällä' }}
       text_description: |
         {% if states('sensor.tumble_dryer_status') != 'program_ended' %}
-          {% set time = states('sensor.tumble_dryer_remaining_time') | int %}
+          {% set time = states('sensor.tumble_dryer_remaining_time') | int(default=0) %}
           {% set hours = (time / 60) | round(0, "floor") %}
           {% set minutes = (time % 60) | round(0, "floor") %}
           {% set hoursStr = hours ~ ' tuntia' if hours != 1 else 'yksi tunti' %}
@@ -904,7 +904,7 @@
   - name: "notification_hacs_update_available"
     unique_id: "notification_hacs_update_available"
     icon: mdi:update
-    state: "{{ iif(states('sensor.hacs') | default(0) | int > 0, 'on', 'off') }}"
+    state: "{{ iif(states('sensor.hacs') | int(default=0) > 0, 'on', 'off') }}"
     attributes:
       icon_color: 'var(--color-green)'
       text_summary: 'HACS päivityksiä saatavilla'
@@ -929,7 +929,7 @@
   - name: notification_replace_ventilation_filters
     unique_id: notification_replace_ventilation_filters
     icon: mdi:air-filter
-    state: "{{ iif(states('sensor.ventilation_filters_days_remaining') | int <= 0, 'on', 'off')}}"
+    state: "{{ iif(states('sensor.ventilation_filters_days_remaining') | int(1) <= 0, 'on', 'off')}}"
     attributes:
       icon_color: var(--warning-color)
       text_summary: "Vaihda IV-koneen suodattimet"
@@ -938,7 +938,7 @@
   - name: notification_clean_washing_machine
     unique_id: notification_clean_washing_machine
     icon: mdi:washing-machine-alert
-    state: "{{ iif(states('counter.washing_machine_runs_after_cleaning') | int >= 40 and not is_state('sensor.washing_machine_program', 'clean_machine'), 'on', 'off')}}"
+    state: "{{ iif(states('counter.washing_machine_runs_after_cleaning') | int(default=0) >= 40 and not is_state('sensor.washing_machine_program', 'clean_machine'), 'on', 'off')}}"
     attributes:
       icon_color: var(--warning-color)
       text_summary: "Puhdista pyykinpesukone"
@@ -947,7 +947,7 @@
   - name: notification_clean_tumble_dryer
     unique_id: notification_clean_tumble_dryer
     icon: mdi:tumble-dryer-alert
-    state: "{{ iif(states('counter.tumble_dryer_runs_after_cleaning') | int >= 20, 'on', 'off')}}"
+    state: "{{ iif(states('counter.tumble_dryer_runs_after_cleaning') | int(default=0) >= 20, 'on', 'off')}}"
     attributes:
       icon_color: var(--warning-color)
       text_summary: "Puhdista kuivausrumpu"
