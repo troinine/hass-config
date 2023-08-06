@@ -26,7 +26,7 @@
     unique_id: 'co2_state'
     icon: mdi:molecule-co2
     state: |
-      {% if (states('sensor.mqtt_airthings_waveplus_sisu_co2') | float(default=0) < 1000) and (states('sensor.mqtt_airthings_waveplus_living_room_co2') | float(default=0) < 1000) and (states('sensor.netatmo_koti_olohuone_co2') | float(default=0) < 1000) and (states('sensor.netatmo_koti_olohuone_makuuhuone_co2') | float(default=0) < 1000) %}
+      {% if (states('sensor.mqtt_airthings_waveplus_sisu_co2') | float(default=0) < 1000) and (states('sensor.mqtt_airthings_waveplus_living_room_co2') | float(default=0) < 1000) and (states('sensor.netatmo_office_co2') | float(default=0) < 1000) and (states('sensor.netatmo_bedroom_co2') | float(default=0) < 1000) %}
         Alhainen
       {% else %}
         Korkea
@@ -37,41 +37,32 @@
           sensor.mqtt_airthings_waveplus_sisu_co2
         {% elif (states('sensor.mqtt_airthings_waveplus_living_room_co2') | float(default=0) >= 1000) %}
           sensor.mqtt_airthings_waveplus_living_room_co2
-        {% elif (states('sensor.netatmo_koti_olohuone_co2') | float(default=0) >= 1000) %}
-          sensor.netatmo_koti_olohuone_co2
-        {% elif (states('sensor.netatmo_koti_olohuone_makuuhuone_co2') | float(default=0) >= 1000) %}
-          sensor.netatmo_koti_olohuone_makuuhuone_co2
+        {% elif (states('sensor.netatmo_office_co2') | float(default=0) >= 1000) %}
+          sensor.netatmo_office_co2
+        {% elif (states('sensor.netatmo_bedroom_co2') | float(default=0) >= 1000) %}
+          sensor.netatmo_bedroom_co2
         {% endif %}
 
   - name: "Kosteus tila"
     unique_id: 'humidity_state'
     icon: |
-      {% if (states('sensor.mqtt_airthings_waveplus_sisu_humidity') | float(default=0) < 25) or (states('sensor.mqtt_airthings_waveplus_living_room_humidity') | float(default=0) < 25) or (states('sensor.netatmo_koti_olohuone_humidity') | float(default=0) < 25) or (states('sensor.mqtt_otso_humidity') | float(default=0) < 25) %}
+      {% if (states('sensor.group_indoor_humidity') | float(default=0) < 25) %}
         mdi:water-minus
-      {% elif (states('sensor.mqtt_airthings_waveplus_sisu_humidity') | float(default=0) > 60) or (states('sensor.mqtt_airthings_waveplus_living_room_humidity') | float(default=0) > 60) or (states('sensor.netatmo_koti_olohuone_humidity') | float(default=0) > 60) or (states('sensor.mqtt_otso_humidity') | float(default=0) > 60) %}
+      {% elif (states('sensor.group_indoor_humidity') | float(default=0) > 60) %}
         mdi:water-alert
       {% else %}
         mdi:water-check
       {% endif %}
     state: |
-      {% if (states('sensor.mqtt_airthings_waveplus_sisu_humidity') | float(default=0) < 25) or (states('sensor.mqtt_airthings_waveplus_living_room_humidity') | float(default=0) < 25) or (states('sensor.netatmo_koti_olohuone_humidity') | float(default=0) < 25) or (states('sensor.mqtt_otso_humidity') | float(default=0) < 25) %}
+      {% if (states('sensor.group_indoor_humidity') | float(default=0) < 25) %}
         Alhainen
-      {% elif (states('sensor.mqtt_airthings_waveplus_sisu_humidity') | float(default=0) > 60) or (states('sensor.mqtt_airthings_waveplus_living_room_humidity') | float(default=0) > 60) or (states('sensor.netatmo_koti_olohuone_humidity') | float(default=0) > 60) or (states('sensor.mqtt_otso_humidity') | float(default=0) > 60) %}
+      {% elif (states('sensor.group_indoor_humidity') | float(default=0) > 60) %}
         Korkea
       {% else %}
         Normaali
       {% endif %}
     attributes:
-      reporting_entity: |
-        {% if (states('sensor.mqtt_airthings_waveplus_sisu_humidity') | float(default=0) < 25) or (states('sensor.mqtt_airthings_waveplus_sisu_humidity') | float(default=0) > 60) %}
-          sensor.mqtt_airthings_waveplus_sisu_humidity
-        {% elif (states('sensor.mqtt_airthings_waveplus_living_room_humidity') | float(default=0) < 25) or (states('sensor.mqtt_airthings_waveplus_living_room_humidity') | float(default=0) > 60) %}
-          sensor.mqtt_airthings_waveplus_living_room_humidity
-        {% elif (states('sensor.netatmo_koti_olohuone_humidity') | float(default=0) < 25) or (states('sensor.netatmo_koti_olohuone_humidity') | float(default=0) > 60) %}
-          sensor.netatmo_koti_olohuone_humidity
-        {% elif (states('sensor.mqtt_otso_humidity') | float(default=0) < 25) or (states('sensor.mqtt_otso_humidity') | float(default=0) > 60) %}
-          sensor.mqtt_otso_humidity
-        {% endif %}
+      reporting_entity: sensor.group_indoor_humidity
 
   - name: "Ilmanlaatu"
     unique_id: 'air_quality'
@@ -104,7 +95,7 @@
         {% if states('sensor.humidity_state') == 'Alhainen' or states('sensor.humidity_state') == 'Korkea' %}
           {{ state_attr('sensor.humidity_state', 'reporting_entity') }}
         {% else %}
-          sensor.mqtt_airthings_waveplus_living_room_temperature
+          sensor.group_indoor_temperature
         {% endif %}
 
   - name: "home_state"
@@ -710,7 +701,7 @@
     attributes:
       icon_color: var(--humidity-high-color)
       text_summary: 'Autotallin ilmankuivain on päällä'
-      text_description: "Kosteus tällä hetkellä {{ states('sensor.netatmo_koti_olohuone_autotalli_humidity') }} %"
+      text_description: "Kosteus tällä hetkellä {{ states('sensor.netatmo_garage_humidity') }} %"
 
   - name: notification_garage_dehumidifier_bucket_full
     unique_id: notification_garage_dehumidifier_bucket_full
@@ -833,11 +824,11 @@
   - name: notification_raining
     unique_id: notification_raining
     icon: mdi:weather-rainy
-    state: "{{ iif(states('sensor.netatmo_koti_olohuone_sade_rain') | float(default=0) > 0, 'on', 'off') }}"
+    state: "{{ iif(states('sensor.netatmo_rain_current') | float(default=0) > 0, 'on', 'off') }}"
     attributes:
       icon_color: var(--color-blue)
-      text_summary: "Ulkona sataa, sademäärä nyt {{ states('sensor.netatmo_koti_olohuone_sade_rain') | float(default=0) | round(1) }} mm"
-      text_description: "Koko päivän sademäärä {{ states('sensor.netatmo_koti_olohuone_sade_rain_today') | float(default=0) | round(1) }} mm"
+      text_summary: "Ulkona sataa, sademäärä nyt {{ states('sensor.netatmo_rain_current') | float(default=0) | round(1) }} mm"
+      text_description: "Koko päivän sademäärä {{ states('sensor.netatmo_rain_today') | float(default=0) | round(1) }} mm"
 
   - name: notification_washing_machine
     unique_id: notification_washing_machine
@@ -909,9 +900,11 @@
       icon_color: 'var(--color-green)'
       text_summary: 'HACS päivityksiä saatavilla'
       text_description: |
-        {% for repo in state_attr('sensor.hacs', 'repositories') %}
-          {{ repo['display_name'] }} {{ repo['installed_version'] }} -> {{ repo['available_version'] }}.
-        {% endfor %}
+        {% if state_attr('sensor.hacs', 'repositories') is not none %}
+          {% for repo in state_attr('sensor.hacs', 'repositories') %}
+            {{ repo['display_name'] }} {{ repo['installed_version'] }} -> {{ repo['available_version'] }}.
+          {% endfor %}
+        {% endif %}
       tap_action: navigate
       tap_action_navigation_path: /hacs
 

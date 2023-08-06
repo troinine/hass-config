@@ -105,6 +105,12 @@ sensor.todays_precipitation:
 sensor.mqtt_garage_door:
   friendly_name: Autotallin ovi
 
+# Groups
+sensor.group_indoor_humidity:
+  friendly_name: Ilmankosteus
+sensor.group_indoor_temperature:
+  friendly_name: Sisälämpötila
+
 # Lights
 
 light.group_office:

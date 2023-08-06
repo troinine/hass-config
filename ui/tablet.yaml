@@ -45,7 +45,7 @@ views:
             variables:
               entity_weather: weather.koti_custom
               entity_date: sensor.date
-              entity_temperature: sensor.netatmo_koti_olohuone_ulko_temperature
+              entity_temperature: sensor.netatmo_outdoor_temperature
               weather_tap_action:
                 !include ../popups/common/weather-forecast.yaml
 
@@ -84,7 +84,11 @@ views:
                 label: |
                   [[[
                     var sensor = states['sensor.mqtt_electricity_consumption_daily']
-                    return `Eilen ${sensor.state} ${sensor.attributes.unit_of_measurement}`
+                    if (sensor) {
+                      return `Eilen ${sensor.state} ${sensor.attributes.unit_of_measurement}`
+                    } else {
+                      return helpers.relativeTime(sensor.last_changed)
+                    }
                   ]]]
 
               - type: 'custom:button-card'

@@ -298,7 +298,7 @@
   - service: notify.parents
     data:
       title: Autotallin ovi edelleen auki
-      message: Autotallin ovi on ollut auki 10 minuuttia. Lämpötila {{ states.sensor.netatmo_koti_olohuone_autotalli_temperature.state
+      message: Autotallin ovi on ollut auki 10 minuuttia. Lämpötila {{ states.sensor.netatmo_garage_temperature.state
         }} °C
       data:
         group: Autotalli
@@ -776,7 +776,7 @@
   mode: single
   trigger:
   - platform: numeric_state
-    entity_id: sensor.netatmo_koti_olohuone_autotalli_humidity
+    entity_id: sensor.netatmo_garage_humidity
     above: '60'
   condition:
   - condition: state
@@ -792,8 +792,8 @@
   - service: notify.mobile_app_tero
     data:
       title: Autotallin ilmankuivain käynnistetty
-      message: Autotallin kosteus {{ states.sensor.netatmo_koti_olohuone_autotalli_humidity.state
-        | round(0) }} % ja lämpötila {{ states.sensor.netatmo_koti_olohuone_autotalli_temperature.state
+      message: Autotallin kosteus {{ states.sensor.netatmo_garage_humidity.state
+        | round(0) }} % ja lämpötila {{ states.sensor.netatmo_garage_temperature.state
         | round(1) }} °C
       data:
         group: Autotalli
@@ -807,7 +807,7 @@
   mode: single
   trigger:
   - platform: numeric_state
-    entity_id: sensor.netatmo_koti_olohuone_autotalli_humidity
+    entity_id: sensor.netatmo_garage_humidity
     below: '50'
   condition:
   - condition: state
@@ -826,8 +826,8 @@
   - service: notify.mobile_app_tero
     data:
       title: Autotallin ilmankuivain sammutettu
-      message: Autotallin kosteus {{ states.sensor.netatmo_koti_olohuone_autotalli_humidity.state
-        | round(0) }} % ja lämpötila {{ states.sensor.netatmo_koti_olohuone_autotalli_temperature.state
+      message: Autotallin kosteus {{ states.sensor.netatmo_garage_humidity.state
+        | round(0) }} % ja lämpötila {{ states.sensor.netatmo_garage_temperature.state
         | round(1) }} °C
       data:
         group: Autotalli
@@ -872,7 +872,7 @@
   - service: notify.mobile_app_tero
     data:
       title: Autotallin ilmankuivain edelleen päällä
-      message: Ilmankuivain ollut päällä 12 tuntia. Autotallin kosteus {{ states.sensor.netatmo_koti_olohuone_autotalli_humidity.state
+      message: Ilmankuivain ollut päällä 12 tuntia. Autotallin kosteus {{ states.sensor.netatmo_garage_humidity.state
         | round(0) }} %
       data:
         group: Autotalli
@@ -1451,7 +1451,7 @@
     - service: notify.parents
       data:
         title: Kotona sataa
-        message: "Kotona sataa, sademäärä nyt {{ states('sensor.netatmo_koti_olohuone_sade_rain') | float | round(1) }} mm"
+        message: "Kotona sataa, sademäärä nyt {{ states('sensor.netatmo_rain_current') | float | round(1) }} mm"
         data:
           group: Sää
           tag: raining

@@ -1,0 +1,21 @@
+- platform: group
+  name: group_indoor_temperature
+  unique_id: group_indoor_temperature
+  type: mean
+  entities:
+    - sensor.netatmo_office_temperature
+    - sensor.netatmo_bedroom_temperature
+    - sensor.mqtt_airthings_waveplus_living_room_temperature
+    - sensor.mqtt_airthings_waveplus_sisu_temperature
+    - sensor.mqtt_airthings_waveplus_otso_temperature
+
+- platform: group
+  name: group_indoor_humidity
+  unique_id: group_indoor_humidity
+  type: mean
+  entities:
+    - sensor.netatmo_office_humidity
+    - sensor.netatmo_bedroom_humidity
+    - sensor.mqtt_airthings_waveplus_living_room_humidity
+    - sensor.mqtt_airthings_waveplus_sisu_humidity
+    - sensor.mqtt_airthings_waveplus_otso_humidity

@@ -10,7 +10,7 @@ info:
   custom_fields:
     state2: |
       [[[
-        if (variables.extra_entity) {
+        if (variables.extra_entity && states[variables.extra_entity].state !== 'unavailable') {
           var extra_entity = states[variables.extra_entity]
 
           if (variables.extra_text) {

@@ -13,11 +13,11 @@ browser_mod:
             !include ../../ui/styles/entities-card.yaml
           entities:
             - entity: binary_sensor.mqtt_garage_door
-            - entity: sensor.netatmo_koti_olohuone_autotalli_temperature
+            - entity: sensor.netatmo_garage_temperature
               name: Lömpötila
-            - entity: sensor.netatmo_koti_olohuone_autotalli_humidity
+            - entity: sensor.netatmo_garage_humidity
               name: Kosteus
-            - entity: sensor.netatmo_koti_olohuone_autotalli_co2
+            - entity: sensor.netatmo_garage_co2
               name: CO2
             - entity: switch.tplink_hs110_1
               name: Stigan laturi

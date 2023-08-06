@@ -269,7 +269,7 @@ sensor_temperature_outdoor:
     show: true
     show_states: true
   series:
-    - entity: sensor.netatmo_koti_olohuone_ulko_temperature
+    - entity: sensor.netatmo_outdoor_temperature
       stroke_width: 2
       color_threshold:
         - value: -5
@@ -442,10 +442,10 @@ sensor_garage_temperature_humidity:
   header:
     title: Lämpötila ja kosteus
   series:
-    - entity: sensor.netatmo_koti_olohuone_autotalli_temperature
+    - entity: sensor.netatmo_garage_temperature
       name: Lämpötila
       color: green
-    - entity: sensor.netatmo_koti_olohuone_autotalli_humidity
+    - entity: sensor.netatmo_garage_humidity
       name: Kosteus
       color: dodgerblue
 
@@ -458,7 +458,7 @@ sensor_rain:
     show: true
     show_states: true
   series:
-    - entity: sensor.netatmo_koti_olohuone_sade_rain_today
+    - entity: sensor.netatmo_rain_today
       type: column
       color: dodgerblue
       group_by:

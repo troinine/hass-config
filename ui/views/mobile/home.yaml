@@ -15,7 +15,7 @@ cards:
     entity: sensor.home_state
     variables:
       entity_weather: weather.koti_custom
-      entity_temperature: sensor.netatmo_koti_olohuone_ulko_temperature
+      entity_temperature: sensor.netatmo_outdoor_temperature
 
   - type: horizontal-stack
     cards:

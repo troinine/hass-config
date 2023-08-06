@@ -102,15 +102,15 @@ browser_mod:
                   title: Työhuone
                   show_header_toggle: false
                   entities:
-                    - entity: sensor.netatmo_koti_olohuone_temperature
+                    - entity: sensor.netatmo_office_temperature
                       name: Lämpötila
-                    - entity: sensor.netatmo_koti_olohuone_humidity
+                    - entity: sensor.netatmo_office_humidity
                       name: Kosteus
-                    - entity: sensor.netatmo_koti_olohuone_co2
+                    - entity: sensor.netatmo_office_co2
                       name: CO2
-                    - entity: sensor.netatmo_koti_olohuone_noise
+                    - entity: sensor.netatmo_office_noise
                       name: Ääni
-                    - entity: sensor.netatmo_koti_olohuone_pressure
+                    - entity: sensor.netatmo_office_pressure
                       name: Paine
 
                 - type: custom:apexcharts-card
@@ -123,10 +123,10 @@ browser_mod:
                   header:
                     title: Lämpötila ja kosteus
                   series:
-                    - entity: sensor.netatmo_koti_olohuone_temperature
+                    - entity: sensor.netatmo_office_temperature
                       color: "#008000"
                       name: Lämpötila
-                    - entity: sensor.netatmo_koti_olohuone_humidity
+                    - entity: sensor.netatmo_office_humidity
                       color: dodgerblue
                       name: Kosteus
 
@@ -140,7 +140,7 @@ browser_mod:
                   header:
                     title: CO2
                   series:
-                    - entity: sensor.netatmo_koti_olohuone_co2
+                    - entity: sensor.netatmo_office_co2
                       color: green
                       name: CO2
 
@@ -163,11 +163,11 @@ browser_mod:
                   title: Makuuhuone
                   show_header_toggle: false
                   entities:
-                    - entity: sensor.netatmo_koti_olohuone_makuuhuone_temperature
+                    - entity: sensor.netatmo_bedroom_temperature
                       name: Lämpötila
-                    - entity: sensor.netatmo_koti_olohuone_makuuhuone_humidity
+                    - entity: sensor.netatmo_bedroom_humidity
                       name: Kosteus
-                    - entity: sensor.netatmo_koti_olohuone_makuuhuone_co2
+                    - entity: sensor.netatmo_bedroom_co2
                       name: CO2
 
 
@@ -181,7 +181,7 @@ browser_mod:
                   header:
                     title: Lämpötila
                   series:
-                    - entity: sensor.netatmo_koti_olohuone_makuuhuone_temperature
+                    - entity: sensor.netatmo_bedroom_temperature
                       color: "#008000"
                       name: Lämpötila
 
@@ -195,7 +195,7 @@ browser_mod:
                   header:
                     title: Kosteus
                   series:
-                    - entity: sensor.netatmo_koti_olohuone_makuuhuone_humidity
+                    - entity: sensor.netatmo_bedroom_humidity
                       color: dodgerblue
                       name: Kosteus
 
@@ -334,13 +334,13 @@ browser_mod:
                   title: Ulko
                   show_header_toggle: false
                   entities:
-                    - entity: sensor.netatmo_koti_olohuone_ulko_temperature
+                    - entity: sensor.netatmo_outdoor_temperature
                       name: Lämpötila
-                    - entity: sensor.netatmo_koti_olohuone_ulko_humidity
+                    - entity: sensor.netatmo_outdoor_humidity
                       name: Kosteus
-                    - entity: sensor.netatmo_koti_olohuone_sade_rain
+                    - entity: sensor.netatmo_rain_current
                       name: Sademäärä
-                    - entity: sensor.netatmo_koti_olohuone_sade_rain_today
+                    - entity: sensor.netatmo_rain_today
                       name: Sademäärä tänään
 
                 - type: custom:apexcharts-card
@@ -361,6 +361,6 @@ browser_mod:
                   header:
                     title: Kosteus
                   series:
-                    - entity: sensor.netatmo_koti_olohuone_ulko_humidity
+                    - entity: sensor.netatmo_outdoor_humidity
                       color: dodgerblue
                       name: Kosteus

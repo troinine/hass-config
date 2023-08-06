@@ -76,7 +76,7 @@ garage_door:
   entity: binary_sensor.mqtt_garage_door
   name: Autotalli
   variables:
-    extra_entity: sensor.netatmo_koti_olohuone_autotalli_temperature
+    extra_entity: sensor.netatmo_garage_temperature
     icon_glow: true
     state_colors:
       'on': 'var(--warning-color)'

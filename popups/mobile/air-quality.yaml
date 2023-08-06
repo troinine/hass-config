@@ -82,15 +82,15 @@ browser_mod:
                   title: Työhuone
                   show_header_toggle: false
                   entities:
-                    - entity: sensor.netatmo_koti_olohuone_temperature
+                    - entity: sensor.netatmo_office_temperature
                       name: Lämpötila
-                    - entity: sensor.netatmo_koti_olohuone_humidity
+                    - entity: sensor.netatmo_office_humidity
                       name: Kosteus
-                    - entity: sensor.netatmo_koti_olohuone_co2
+                    - entity: sensor.netatmo_office_co2
                       name: CO2
-                    - entity: sensor.netatmo_koti_olohuone_noise
+                    - entity: sensor.netatmo_office_noise
                       name: Ääni
-                    - entity: sensor.netatmo_koti_olohuone_pressure
+                    - entity: sensor.netatmo_office_pressure
                       name: Paine
 
                 - type: custom:apexcharts-card
@@ -102,10 +102,10 @@ browser_mod:
                   config_templates:
                     - sensor_temperature_humidity
                   series:
-                    - entity: sensor.netatmo_koti_olohuone_temperature
+                    - entity: sensor.netatmo_office_temperature
                       color: "#008000"
                       name: Lämpötila
-                    - entity: sensor.netatmo_koti_olohuone_humidity
+                    - entity: sensor.netatmo_office_humidity
                       color: dodgerblue
                       name: Kosteus
 
@@ -128,11 +128,11 @@ browser_mod:
                   title: Makuuhuone
                   show_header_toggle: false
                   entities:
-                    - entity: sensor.netatmo_koti_olohuone_makuuhuone_temperature
+                    - entity: sensor.netatmo_bedroom_temperature
                       name: Lämpötila
-                    - entity: sensor.netatmo_koti_olohuone_makuuhuone_humidity
+                    - entity: sensor.netatmo_bedroom_humidity
                       name: Kosteus
-                    - entity: sensor.netatmo_koti_olohuone_makuuhuone_co2
+                    - entity: sensor.netatmo_bedroom_co2
                       name: CO2
 
                 - type: custom:apexcharts-card
@@ -144,10 +144,10 @@ browser_mod:
                   config_templates:
                     - sensor_temperature_humidity
                   series:
-                    - entity: sensor.netatmo_koti_olohuone_makuuhuone_temperature
+                    - entity: sensor.netatmo_bedroom_temperature
                       color: "#008000"
                       name: Lämpötila
-                    - entity: sensor.netatmo_koti_olohuone_makuuhuone_humidity
+                    - entity: sensor.netatmo_bedroom_humidity
                       color: dodgerblue
                       name: Kosteus
 

@@ -30,8 +30,6 @@ recorder:
   db_url: !secret postgresql_url
   purge_keep_days: 30
 
-discovery:
-
 tts:
   - platform: google_translate
 
@@ -105,7 +103,7 @@ weather:
     name: "Sää"
     unique_id: koti_custom
     condition_template: "{{ states('weather.koti') }}"
-    temperature_template: "{{ states('sensor.netatmo_koti_olohuone_ulko_temperature') | float }}"
+    temperature_template: "{{ states('sensor.netatmo_outdoor_temperature') | float }}"
     humidity_template: "{{ state_attr('weather.koti', 'humidity') | float }}"
     forecast_template: "{{ state_attr('weather.koti', 'forecast') }}"
     pressure_template: "{{ state_attr('weather.koti', 'pressure') }}"
