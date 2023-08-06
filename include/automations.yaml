@@ -1176,7 +1176,7 @@
         entity_id: input_number.vacuum_total_area_cleaned_since_emptying
       data:
         value: |
-          {{ states('input_number.vacuum_total_area_cleaned_since_emptying') | float + states('sensor.roborock_s6_pure_current_clean_area') | float }}
+          {{ (states('input_number.vacuum_total_area_cleaned_since_emptying') | float + states('sensor.roborock_s6_pure_current_clean_area') | float) | round(1) }}
 
 - id: '1649095358456'
   alias: Stiga charging completed
