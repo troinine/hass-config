@@ -85,7 +85,7 @@ views:
                   [[[
                     var sensor = states['sensor.mqtt_electricity_consumption_daily']
                     if (sensor) {
-                      return `Eilen ${sensor.state} ${sensor.attributes.unit_of_measurement}`
+                      return `Eilen ${helpers.localize(sensor)}`
                     } else {
                       return helpers.relativeTime(sensor.last_changed)
                     }

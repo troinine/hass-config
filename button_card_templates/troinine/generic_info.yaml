@@ -14,9 +14,9 @@ info:
           var extra_entity = states[variables.extra_entity]
 
           if (variables.extra_text) {
-            return `${variables.extra_text} ${extra_entity.state} ${extra_entity.attributes.unit_of_measurement}`
+            return `${variables.extra_text} ${helpers.localize(extra_entity)}`
           } else {
-            return `${extra_entity.state} ${extra_entity.attributes.unit_of_measurement}`
+            return helpers.localize(extra_entity);
           }
         }
 
@@ -94,13 +94,13 @@ compact_info_extra_2:
   custom_fields:
     state3: |
       [[[
-        if (variables.extra_entity_2) {
+        if (variables.extra_entity_2 && states[variables.extra_entity_2].state !== 'unavailable') {
           var extra_entity = states[variables.extra_entity_2]
 
           if (variables.extra_text_2) {
-            return `${variables.extra_text_2} ${extra_entity.state} ${extra_entity.attributes.unit_of_measurement}`
+            return `${variables.extra_text_2} ${helpers.localize(extra_entity)}`
           } else {
-            return `${extra_entity.state} ${extra_entity.attributes.unit_of_measurement}`
+            return helpers.localize(extra_entity);
           }
         }
 
