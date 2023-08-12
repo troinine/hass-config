@@ -293,6 +293,15 @@
 
 - type: conditional
   conditions:
+    - entity: binary_sensor.notification_low_battery
+      state: 'on'
+  card:
+    type: custom:button-card
+    template: auto_notification
+    entity: binary_sensor.notification_low_battery
+
+- type: conditional
+  conditions:
     - entity: binary_sensor.notification_current_home_task
       state: 'on'
   card:

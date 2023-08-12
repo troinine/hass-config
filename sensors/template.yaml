@@ -409,6 +409,28 @@
       friendly_name: Suodattimien vaihtoon
       unit_of_measurement: päivää
 
+  - name: low_battery_devices
+    unique_id: low_battery_devices
+    state: |
+      {% set result = namespace(low_battery_devices=[]) %}
+      {% for sensor in states.sensor | selectattr('attributes.device_class', 'defined') | selectattr('attributes.device_class', 'equalto', 'battery') | map(attribute='entity_id') | list %}
+        {% if (states(sensor) | int(100)) <= 10 %}
+          {% set result.low_battery_devices = result.low_battery_devices + [sensor] %}
+        {% endif %}
+      {% endfor %}
+      {{ result.low_battery_devices | length }}
+    attributes:
+      friendly_name: Sensorit, joiden varaus on matala
+      icon: mdi:battery-low
+      devices: |
+        {% set result = namespace(low_battery_devices=[]) %}
+        {% for sensor in states.sensor | selectattr('attributes.device_class', 'defined') | selectattr('attributes.device_class', 'equalto', 'battery') | map(attribute='entity_id') | list %}
+          {% if (states(sensor) | int(100)) <= 10 %}
+            {% set result.low_battery_devices = result.low_battery_devices + [sensor] %}
+          {% endif %}
+        {% endfor %}
+        {{ result.low_battery_devices }}
+
 - select:
   - name: roborock_s6_pure_speed
     state: |
@@ -468,7 +490,7 @@
   - name: "LG 65 C1"
     unique_id: lg_65_c1
     icon: mdi:television
-    state:  "{{ iif(is_state('media_player.lg_65_c1', 'off'), 'off', 'on') }}"
+    state: "{{ iif(is_state('media_player.lg_65_c1', 'off'), 'off', 'on') }}"
 
   - name: "UDM Internet"
     unique_id: udm_internet
@@ -647,7 +669,7 @@
       text_description: |
         {% set reporting_entity = state_attr('sensor.humidity_state', 'reporting_entity') %}
         {% if reporting_entity %}
-          {{ state_attr(reporting_entity, 'friendly_name') }} {{ states(reporting_entity) }} {{ state_attr(reporting_entity, 'unit_of_measurement') }}
+          {{ state_attr(reporting_entity, 'friendly_name') }} {{ states(reporting_entity) | round(0) }} {{ state_attr(reporting_entity, 'unit_of_measurement') }}
         {% endif %}
       tap_action: more-info
       tap_action_entity: "{{ state_attr('sensor.humidity_state', 'reporting_entity') }}"
@@ -674,7 +696,7 @@
       text_description: |
         {% set reporting_entity = state_attr('sensor.radon_warning', 'reporting_entity') %}
         {% if reporting_entity %}
-          {{ state_attr(reporting_entity, 'friendly_name') }} {{ states(reporting_entity) }} {{ state_attr(reporting_entity, 'unit_of_measurement') }}
+          {{ state_attr(reporting_entity, 'friendly_name') }} {{ states(reporting_entity, with_unit=True, rounded=True) }}
         {% endif %}
       tap_action: more-info
       tap_action_entity: "{{ state_attr('sensor.radon_warning', 'reporting_entity') }}"
@@ -689,7 +711,7 @@
       text_description: |
         {% set reporting_entity = state_attr('sensor.co2_state', 'reporting_entity') %}
         {% if reporting_entity %}
-          {{ state_attr(reporting_entity, 'friendly_name') }} {{ states(reporting_entity) }} {{ state_attr(reporting_entity, 'unit_of_measurement') }}
+          {{ state_attr(reporting_entity, 'friendly_name') }} {{ states(reporting_entity, with_unit=True, rounded=True) }}
         {% endif %}
       tap_action: more-info
       tap_action_entity: "{{ state_attr('sensor.co2_state', 'reporting_entity') }}"
@@ -945,3 +967,25 @@
       icon_color: var(--warning-color)
       text_summary: "Puhdista kuivausrumpu"
       text_description: "Suodattimet ja lämmönvaihdin puhdistettu viimeksi {{states('input_datetime.tumble_dryer_cleaned') | as_timestamp | timestamp_custom('%d.%m.%Y') }}"
+
+  - name: notification_low_battery
+    unique_id: notification_low_battery
+    icon: mdi:battery-low
+    state: "{{ iif(is_state('sensor.low_battery_devices', '0'), 'off', 'on') }}"
+    attributes:
+      icon_color: var(--warning-color)
+      text_summary: "Alhainen akun varaus"
+      text_description: |
+        {% set devices = state_attr('sensor.low_battery_devices', 'devices') | list %}
+        {% if states('sensor.low_battery_devices') | int == 1 %}
+          {% set device = devices[0] %}
+          Laitteen {{ state_attr(device, 'friendly_name') }} akun varaus {{ states(device, with_unit=True, rounded=True) }}
+        {% else %}
+          Laitteissa {{ devices | join(', ') }} on alhainen varaus
+        {% endif %}
+      tap_action: more-info
+      tap_action_entity: |
+        {% set devices = state_attr('sensor.low_battery_devices', 'devices') | list %}
+        {% if devices | length > 0 %}
+          {{ devices | first }}
+        {% endif %}
