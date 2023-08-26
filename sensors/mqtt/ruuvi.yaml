@@ -46,3 +46,19 @@
     {% else %}
       {{ (value * 0.01) | round(0) }}
     {% endif %}
+
+- object_id: mqtt_utility_room_leak_detector_temperature
+  unique_id: mqtt_utility_room_leak_detector_temperature
+  state_topic: "/home/ruuvi/utility-room"
+  unit_of_measurement: "°C"
+  device_class: temperature
+  expire_after: 900
+  value_template: '{{ value_json.temperature | float | round(1) }}'
+
+- object_id: mqtt_utility_room_leak_detector_humidity
+  unique_id: mqtt_utility_room_leak_detector_humidity
+  state_topic: "/home/ruuvi/utility-room"
+  unit_of_measurement: "%"
+  device_class: humidity
+  expire_after: 900
+  value_template: '{{ value_json.humidity | float | round(0) }}'

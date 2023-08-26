@@ -396,6 +396,8 @@ sensor_electricity_consumption_daily:
           color: yellow
         - value: 50
           color: red
+      show:
+        name_in_header: false
 
 sensor_heat_pump_starts:
   config_templates:

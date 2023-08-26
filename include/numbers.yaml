@@ -6,3 +6,37 @@ vacuum_total_area_cleaned_since_emptying:
   min: 0
   max: 250
   icon: mdi:trash-can-outline
+
+miele_washing_machine_ultraphase_1_level:
+  name: Miele Washing Machine Ultraphase 1 level
+  unit_of_measurement: ml
+  mode: box
+  min: 0
+  max: 1440
+  icon: mdi:cup-water
+
+miele_washing_machine_ultraphase_1_dose:
+  name: Miele Washing Machine Ultraphase 1 dose
+  unit_of_measurement: ml
+  mode: box
+  initial: 45
+  min: 0
+  max: 100
+  icon: mdi:cup-water
+
+miele_washing_machine_ultraphase_2_level:
+  name: Miele Washing Machine Ultraphase 2 level
+  unit_of_measurement: ml
+  mode: box
+  min: 0
+  max: 1440
+  icon: mdi:cup-water
+
+miele_washing_machine_ultraphase_2_dose:
+  name: Miele Washing Machine Ultraphase 2 dose
+  unit_of_measurement: ml
+  initial: 35
+  mode: box
+  min: 0
+  max: 100
+  icon: mdi:cup-water

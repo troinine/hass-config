@@ -18,4 +18,11 @@
     - sensor.netatmo_bedroom_humidity
     - sensor.mqtt_airthings_waveplus_living_room_humidity
     - sensor.mqtt_airthings_waveplus_sisu_humidity
-    - sensor.mqtt_airthings_waveplus_otso_humidity
+    - sensor.mqtt_otso_humidity
+
+- platform: group
+  name: group_ruuvi_indoor_humidity
+  unique_id: group_ruuvi_indoor_humidity
+  type: mean
+  entities:
+    - sensor.mqtt_otso_humidity

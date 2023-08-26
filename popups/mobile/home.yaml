@@ -17,34 +17,43 @@ browser_mod:
               enabled: true
               onlyInViewport: true
           cards:
-            - type: entities
-              title: Tila ja automaatiot
-              card_mod:
-                !include ../../ui/styles/entities-card.yaml
-              show_header_toggle: false
-              entities:
-                - entity: sensor.home_state
-                  name: Tila
-                - entity: lock.ulko_ovi
-                  name: Ulko-ovi
-                - entity: binary_sensor.mqtt_garage_door
-                - type: custom:template-entity-row
-                  entity: input_datetime.ventilation_filters_replaced
-                  icon: mdi:air-filter
-                  name: Suodattimet vaihdettu
-                  state: "{{ states('input_datetime.ventilation_filters_replaced') }}"
-                - entity: sensor.ventilation_filters_days_remaining
-                - entity: input_boolean.on_vacation
-                - entity: input_boolean.automations_enabled
-                - type: section
-                  label: Automaatiot
-                - entity: automation.liike_eteisessa
-                - entity: automation.aloita_iltarutiinit
-                - entity: automation.start_go_to_sleep
-                - entity: automation.aloita_nukkumaanmeno_viikonloppuisin
-                  name: Aloita nukkumaanmeno vkl
-                - entity: automation.herata_arkisin
-                - entity: automation.valot_paalle_yolla
+            - type: vertical-stack
+              cards:
+                - type: entities
+                  title: Tila ja automaatiot
+                  card_mod:
+                    !include ../../ui/styles/entities-card.yaml
+                  show_header_toggle: false
+                  entities:
+                    - entity: sensor.home_state
+                      name: Tila
+                    - entity: lock.ulko_ovi
+                      name: Ulko-ovi
+                    - entity: binary_sensor.mqtt_garage_door
+                    - type: custom:template-entity-row
+                      entity: input_datetime.ventilation_filters_replaced
+                      icon: mdi:air-filter
+                      name: Suodattimet vaihdettu
+                      state: "{{ states('input_datetime.ventilation_filters_replaced') }}"
+                    - entity: sensor.ventilation_filters_days_remaining
+                    - entity: input_boolean.on_vacation
+                    - type: section
+
+                - type: custom:apexcharts-card
+                  view_layout:
+                    grid-area: graph2
+                    place-self: end stretch
+                  card_mod:
+                    !include ../../ui/styles/no-card.yaml
+                  config_templates:
+                    - sensor_generic_dual
+                  header:
+                    title: Vuotovahdit
+                  series:
+                    - entity: sensor.mqtt_utility_room_leak_detector_humidity
+                      color: dodgerblue
+                      show:
+                        name_in_header: false
 
             - type: vertical-stack
               cards:
@@ -66,14 +75,35 @@ browser_mod:
                       state: ""
                     - type: custom:template-entity-row
                       state: ""
-                    - type: custom:template-entity-row
-                      state: ""
                     - type: section
                 - type: custom:apexcharts-card
                   card_mod:
                     !include ../../ui/styles/no-card.yaml
                   config_templates:
                     - sensor_electricity_consumption_daily
+
+            - type: entities
+              view_layout:
+                grid-area: automations
+              card_mod:
+                !include ../../ui/styles/entities-card.yaml
+              title: Automaatiot
+              show_header_toggle: false
+              entities:
+                - entity: input_boolean.automations_enabled
+                - entity: automation.aseta_poissa_tila
+                - entity: automation.kotona
+                - entity: automation.liike_eteisessa
+                - entity: automation.aloita_iltarutiinit
+                - entity: automation.start_go_to_sleep
+                - entity: automation.aloita_nukkumaanmeno_viikonloppuisin
+                  name: Aloita nukkumaanmeno vkl
+                - entity: automation.herata_arkisin
+                - entity: automation.valot_paalle_yolla
+                - entity: automation.valojen_palautus_yolla
+                - entity: automation.sytyta_ulkovalot
+                - entity: automation.sammuta_ulkovalot_2
+                - entity: automation.sammuta_kodinhoitohuoneen_valot
 
             - type: vertical-stack
               cards:
@@ -98,10 +128,7 @@ browser_mod:
                       state: ""
                     - type: custom:template-entity-row
                       state: ""
-                    - type: custom:template-entity-row
-                      state: ""
                     - type: section
-
                 - type: custom:apexcharts-card
                   view_layout:
                     grid-area: graph2
@@ -116,6 +143,10 @@ browser_mod:
                     - entity: sensor.mqtt_sauna_temperature
                       name: Lämpötila
                       color: green
+                      show:
+                        name_in_header: false
                     - entity: sensor.mqtt_sauna_humidity
                       name: Kosteus
                       color: dodgerblue
+                      show:
+                        name_in_header: false

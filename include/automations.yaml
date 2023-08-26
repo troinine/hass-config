@@ -1339,6 +1339,16 @@
     - service: counter.increment
       target:
         entity_id: counter.washing_machine_runs_after_cleaning
+    - service: input_number.set_value
+      target:
+        entity_id: input_number.miele_washing_machine_ultraphase_1_level
+      data:
+        value: "{{ states('input_number.miele_washing_machine_ultraphase_1_level') | int - states('input_number.miele_washing_machine_ultraphase_1_dose') | int }}"
+    - service: input_number.set_value
+      target:
+        entity_id: input_number.miele_washing_machine_ultraphase_2_level
+      data:
+        value: "{{ states('input_number.miele_washing_machine_ultraphase_2_level') | int - states('input_number.miele_washing_machine_ultraphase_2_dose') | int }}"
 
 - id: '1665849632674'
   mode: single
@@ -1485,6 +1495,27 @@
       data:
         title: Tarkista akkujen varaukset
         message: "{{ state_attr('binary_sensor.notification_low_battery', 'text_description') }}"
+        data:
+          group: Koti
+          tag: maintenance
+          ttl: 0
+          priority: high
+
+- id: '1689670551157'
+  alias: notify_possible_water_leak
+  description: ''
+  mode: single
+  trigger:
+    - platform: state
+      entity_id:
+        - binary_sensor.notification_possible_utility_room_water_leak
+      to: 'on'
+  condition: []
+  action:
+    - service: notify.mobile_app_tero
+      data:
+        title: "{{ state_attr(trigger.entity_id, 'text_summary') }}"
+        message: "{{ state_attr(trigger.entity_id, 'text_description') }}"
         data:
           group: Koti
           tag: maintenance

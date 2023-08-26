@@ -267,6 +267,36 @@
         Pois
       {% endif %}
 
+  - name: miele_washing_machine_ultraphase_1_level_percentage
+    state: |
+      {% set percentage = states('input_number.miele_washing_machine_ultraphase_1_level') | float / 1440 * 100 %}
+      {% if (percentage > 100) %}
+        {{ 100 }}
+      {% elif (percentage < 0) %}
+        {{ 0 }}
+      {% else %}
+        {{ percentage | int(default=0) }}
+      {% endif %}
+    attributes:
+      friendly_name: Miele Ultraphase 1 taso
+      icon: mdi:cup-water
+      unit_of_measurement: '%'
+
+  - name: miele_washing_machine_ultraphase_2_level_percentage
+    state: |
+      {% set percentage = states('input_number.miele_washing_machine_ultraphase_2_level') | float / 1440 * 100 %}
+      {% if (percentage > 100) %}
+        {{ 100 }}
+      {% elif (percentage < 0) %}
+        {{ 0 }}
+      {% else %}
+        {{ percentage | int(default=0) }}
+      {% endif %}
+    attributes:
+      friendly_name: Miele Ultraphase 2 taso
+      icon: mdi:cup-water
+      unit_of_measurement: '%'
+
   - name: udm_cpu
     unique_id: udm_cpu
     state: >
@@ -669,10 +699,22 @@
       text_description: |
         {% set reporting_entity = state_attr('sensor.humidity_state', 'reporting_entity') %}
         {% if reporting_entity %}
-          {{ state_attr(reporting_entity, 'friendly_name') }} {{ states(reporting_entity) | round(0) }} {{ state_attr(reporting_entity, 'unit_of_measurement') }}
+          {{ state_attr(reporting_entity, 'friendly_name') }} {{ states(reporting_entity) | float(0) | round(0) }} {{ state_attr(reporting_entity, 'unit_of_measurement') }}
         {% endif %}
       tap_action: more-info
       tap_action_entity: "{{ state_attr('sensor.humidity_state', 'reporting_entity') }}"
+
+  - name: notification_possible_utility_room_water_leak
+    unique_id: notification_possible_utility_room_water_leak
+    icon: mdi:water-alert
+    state: "{{ iif((states('sensor.mqtt_utility_room_leak_detector_humidity') | float(0) - states('sensor.group_indoor_humidity') | float(0)) > 3, 'on', 'off') }}"
+    attributes:
+      icon_color: var(--humidity-high-color)
+      text_summary: "Kodinhoitohuoneen vuotosensori laennut"
+      text_description: |
+        Anturin kosteus {{ states('sensor.mqtt_utility_room_leak_detector_humidity', with_unit=True, rounded=True) }}. Sisäilma {{ states('sensor.group_indoor_humidity', with_unit=True, rounded=True) }}.
+      tap_action: more-info
+      tap_action_entity: sensor.mqtt_utility_room_leak_detector_humidity
 
   - name: notification_radon_warning
     unique_id: notification_radon_warning
@@ -903,6 +945,24 @@
         {% else %}
         Kulutettu sähkö {{ states('sensor.tumble_dryer_energy_consumption') }} W.
         {% endif %}
+
+  - name: notification_ultraphase_1_level_low
+    unique_id: notification_ultraphase_1_level_low
+    icon: mdi:cup-water
+    state: "{{ states('sensor.miele_washing_machine_ultraphase_1_level_percentage') | int <= 10 }}"
+    attributes:
+      icon_color: 'var(--warning-color)'
+      text_summary: "Ultraphase 1 vähissä"
+      text_description: "Säiliössä on pesuainetta {{ states('input_number.miele_washing_machine_ultraphase_1_level', with_unit=True, rounded=True) }}"
+
+  - name: notification_ultraphase_2_level_low
+    unique_id: notification_ultraphase_2_level_low
+    icon: mdi:cup-water
+    state: "{{ states('sensor.miele_washing_machine_ultraphase_2_level_percentage') | int <= 10 }}"
+    attributes:
+      icon_color: 'var(--warning-color)'
+      text_summary: "Ultraphase 2 vähissä"
+      text_description: "Säiliössä on pesuainetta {{ states('input_number.miele_washing_machine_ultraphase_2_level', with_unit=True, rounded=True) }}"
 
   - name: notification_automations_disabled
     unique_id: notification_automations_disabled
