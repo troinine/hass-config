@@ -45,6 +45,44 @@ browser_mod:
                       name: Puhdistettu
                       state: "{{ states('input_datetime.washing_machine_cleaned') }}"
                     - entity: counter.washing_machine_runs_after_cleaning
+                    - type: custom:bar-card
+                      entity_row: true
+                      unit_of_measurement: '%'
+                      width: 50%
+                      height: 2rem
+                      positions:
+                        icon: outside
+                        indicator: 'off'
+                        name: outside
+                      entities:
+                        - entity: sensor.miele_washing_machine_ultraphase_1_level_percentage
+                          name: Ultraphase 1
+                          severity:
+                            - color: 'var(--warning-color)'
+                              from: 10
+                              to: 15
+                            - color: 'var(--error-color)'
+                              from: 0
+                              to: 9
+                    - type: custom:bar-card
+                      entity_row: true
+                      unit_of_measurement: '%'
+                      width: 50%
+                      height: 2rem
+                      positions:
+                        icon: outside
+                        indicator: 'off'
+                        name: outside
+                      entities:
+                        - entity: sensor.miele_washing_machine_ultraphase_2_level_percentage
+                          name: Ultraphase 2
+                          severity:
+                            - color: 'var(--warning-color)'
+                              from: 10
+                              to: 15
+                            - color: 'var(--error-color)'
+                              from: 0
+                              to: 9
                     - type: section
 
                 - type: custom:apexcharts-card

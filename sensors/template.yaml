@@ -241,11 +241,11 @@
     icon: |
       {% set washerStatus = states('sensor.washing_machine_status') | lower  %}
       {% set dryerStatus = states('sensor.tumble_dryer_status') | lower %}
-      {% if washerStatus == 'in use' and dryerStatus == 'in use' %}
+      {% if washerStatus == 'running' and dryerStatus == 'running' %}
         mdi:washing-machine
-      {% elif washerStatus == 'in use' %}
+      {% elif washerStatus == 'running' %}
         mdi:washing-machine
-      {% elif dryerStatus == 'in use' %}
+      {% elif dryerStatus == 'running' %}
         mdi:tumble-dryer
       {% elif washerStatus != 'off' or dryerStatus != 'off' %}
         mdi:washing-machine-alert
@@ -255,11 +255,11 @@
     state: |
       {% set washerStatus = states('sensor.washing_machine_status') | lower %}
       {% set dryerStatus = states('sensor.tumble_dryer_status') | lower %}
-      {% if washerStatus == 'in use' and dryerStatus == 'in use' %}
+      {% if washerStatus == 'running' and dryerStatus == 'running' %}
         Pyykkää ja kuivaa
-      {% elif washerStatus == 'in use' %}
+      {% elif washerStatus == 'running' %}
         Pyykkää
-      {% elif dryerStatus == 'in use' %}
+      {% elif dryerStatus == 'running' %}
         Kuivaa
       {% elif washerStatus != 'off' or dryerStatus != 'off' %}
         Päällä
@@ -911,15 +911,17 @@
           {{ mapper[state] if state in mapper else 'Pesukone on päällä' }}
         {% endif %}
       text_description: |
-        {% if states('sensor.washing_machine_status') != 'program_ended' %}
+        {% if states('sensor.washing_machine_status') == 'running' %}
           {% set time = states('sensor.washing_machine_remaining_time') | int(default=0) %}
           {% set hours = (time / 60) | round(0, "floor") %}
           {% set minutes = (time % 60) | round(0, "floor") %}
           {% set hoursStr = hours ~ ' tuntia' if hours != 1 else '1 tunti' %}
           {% set minutesStr = minutes ~ ' minuuttia' if minutes != 1 else '1 minuutti' %}
-        Ohjelmaa on jäljellä{{ ' ' ~ hoursStr if hours > 0 else ''}} {{ minutesStr if minutes > 0 else ''}}.
+          Ohjelmaa on jäljellä{{ ' ' ~ hoursStr if hours > 0 else ''}} {{ minutesStr if minutes > 0 else ''}}.
+        {% elif states('sensor.washing_machine_status') == 'program_ended' %}
+          Kulutettu sähkö {{ states('sensor.washing_machine_energy_consumption') }} W ja vesimäärä {{ states('sensor.washing_machine_water_consumption') }} l.
         {% else %}
-        Kulutettu sähkö {{ states('sensor.washing_machine_energy_consumption') }} W ja vesimäärä {{ states('sensor.washing_machine_water_consumption') }} l.
+          Ultraphase 1 taso {{ states('sensor.miele_washing_machine_ultraphase_1_level_percentage', with_unit=True, rounded=True) }} Ultraphase 2 taso {{ states('sensor.miele_washing_machine_ultraphase_2_level_percentage', with_unit=True, rounded=True) }}
         {% endif %}
 
   - name: notification_tumble_dryer
