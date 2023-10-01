@@ -1509,6 +1509,7 @@
     - platform: state
       entity_id:
         - binary_sensor.notification_possible_utility_room_water_leak
+        - binary_sensor.notification_possible_kitchen_water_leak
       to: 'on'
   condition: []
   action:

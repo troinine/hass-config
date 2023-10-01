@@ -12,6 +12,15 @@
 
 - type: conditional
   conditions:
+    - entity: binary_sensor.notification_possible_kitchen_water_leak
+      state: 'on'
+  card:
+    type: 'custom:button-card'
+    template: auto_notification
+    entity: binary_sensor.notification_possible_kitchen_water_leak
+
+- type: conditional
+  conditions:
     - entity: binary_sensor.notification_automations_disabled
       state: 'on'
   card:

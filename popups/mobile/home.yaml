@@ -54,6 +54,10 @@ browser_mod:
                       color: dodgerblue
                       show:
                         name_in_header: false
+                    - entity: sensor.mqtt_kitchen_leak_detector_humidity
+                      color: dodgerblue
+                      show:
+                        name_in_header: false
 
             - type: vertical-stack
               cards:

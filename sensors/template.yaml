@@ -707,7 +707,7 @@
   - name: notification_possible_utility_room_water_leak
     unique_id: notification_possible_utility_room_water_leak
     icon: mdi:water-alert
-    state: "{{ iif((states('sensor.mqtt_utility_room_leak_detector_humidity') | float(0) - states('sensor.group_indoor_humidity') | float(0)) > 3, 'on', 'off') }}"
+    state: "{{ iif((states('sensor.mqtt_utility_room_leak_detector_humidity') | float(0) - states('sensor.group_indoor_humidity') | float(0)) > 5.0, 'on', 'off') }}"
     attributes:
       icon_color: var(--humidity-high-color)
       text_summary: "Kodinhoitohuoneen vuotosensori laennut"
@@ -715,6 +715,18 @@
         Anturin kosteus {{ states('sensor.mqtt_utility_room_leak_detector_humidity', with_unit=True, rounded=True) }}. Sisäilma {{ states('sensor.group_indoor_humidity', with_unit=True, rounded=True) }}.
       tap_action: more-info
       tap_action_entity: sensor.mqtt_utility_room_leak_detector_humidity
+
+  - name: notification_possible_kitchen_water_leak
+    unique_id: notification_possible_kitchen_water_leak
+    icon: mdi:water-alert
+    state: "{{ iif((states('sensor.mqtt_kitchen_leak_detector_humidity') | float(0) - states('sensor.group_indoor_humidity') | float(0)) > 5.0, 'on', 'off') }}"
+    attributes:
+      icon_color: var(--humidity-high-color)
+      text_summary: "Keittiön vuotosensori laennut"
+      text_description: |
+        Anturin kosteus {{ states('sensor.mqtt_kitchen_leak_detector_humidity', with_unit=True, rounded=True) }}. Sisäilma {{ states('sensor.group_indoor_humidity', with_unit=True, rounded=True) }}.
+      tap_action: more-info
+      tap_action_entity: sensor.mqtt_kitchen_leak_detector_humidity
 
   - name: notification_radon_warning
     unique_id: notification_radon_warning
@@ -999,7 +1011,13 @@
     attributes:
       icon_color: 'var(--color-green)'
       text_summary: "Tehtävä: {{ states('sensor.todoist_current_task') }}"
-      text_description: "{{ state_attr('sensor.todoist_current_task', 'description') }}"
+      text_description: |
+        {% set all_tasks = state_attr('sensor.todoist_all_tasks', 'items') | sort(attribute='child_order') %}
+        {% if all_tasks and all_tasks | length > 1 %}
+          Seuraava tehtävä: {{ (all_tasks[1]).content }}
+        {% elif all_tasks and all_tasks | length == 1 %}
+          {{ state_attr('sensor.todoist_current_task', 'description') }}
+        {% endif %}
       tap_action: 'url'
       tap_action_url_path: "https://todoist.com/app/project/{{ state_attr('sensor.todoist_current_task', 'project_id') }}/task/{{ state_attr('sensor.todoist_current_task', 'id') }}"
 
