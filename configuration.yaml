@@ -105,7 +105,7 @@ weather:
     condition_template: "{{ states('weather.koti') }}"
     temperature_template: "{{ states('sensor.netatmo_outdoor_temperature') | float }}"
     humidity_template: "{{ state_attr('weather.koti', 'humidity') | float }}"
-    forecast_template: "{{ state_attr('weather.koti', 'forecast') }}"
+    forecast_daily_template: "{{ state_attr('weather.koti', 'forecast') }}"
     pressure_template: "{{ state_attr('weather.koti', 'pressure') }}"
     wind_speed_template: "{{ state_attr('weather.koti', 'wind_speed') }}"
     wind_bearing_template: "{{ state_attr('weather.koti', 'wind_bearing') }}"
