@@ -100,8 +100,10 @@ views:
 
               - type: 'custom:button-card'
                 template:
-                  - info
-                  - front_door
+                  - sensor
+                  - nordpool
+                tap_action:
+                  !include ../popups/tablet/electricity.yaml
 
               - type: 'custom:button-card'
                 template:

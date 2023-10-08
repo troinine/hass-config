@@ -144,3 +144,23 @@ tasks:
     icon_glow: true
     state_colors:
       "on": 'var(--color-green)'
+
+nordpool:
+  entity: sensor.nordpool
+  name: Sähkö
+  styles:
+    icon:
+      - color: |
+          [[[
+            const percentage_to_avg = states['sensor.nordpool'].attributes.price_percent_to_average
+            const avg = states['sensor.nordpool'].attributes.average
+            const current = states['sensor.nordpool'].state
+
+            if (current < avg) {
+              return 'var(--color-green)'
+            } else if (percentage_to_avg > 0.25) {
+              return 'var(--error-color)'
+            } else {
+              return 'var(--warning-color)'
+            }
+          ]]]

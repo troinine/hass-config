@@ -10,6 +10,8 @@ base:
     group_by:
       func: avg
       duration: 1h
+    show:
+      in_header: raw
   graph_span: 2d
   locale: fi
   apex_config:
@@ -68,6 +70,8 @@ base_column:
     group_by:
       func: max
       duration: 1d
+    show:
+      in_header: raw
   apex_config:
     dropShadow:
       enabled: true
@@ -96,6 +100,50 @@ base_column:
         show: true
         color: rgba(var(--primary-text-color-rgb), 0.4)
         height: 1
+
+base_simple:
+  layout: minimal
+  locale: fi
+  all_series_config:
+    stroke_width: 2
+    fill_raw: last
+    curve: smooth
+  graph_span: 1d
+  yaxis:
+    - id: first
+      apex_config:
+        labels:
+          show: false
+  apex_config:
+    chart:
+      height: 125px
+    dropShadow:
+      enabled: true
+      top: 0
+      left: 0
+      blur: 3
+      opacity: 0.5
+    # fill:
+    #   type: gradient
+    #   gradient:
+    #     type: vertical
+    #     shadeIntensity: 0
+    #     opacityFrom: 0.6
+    #     opacityTo: 0.2
+    #     stops:
+    #       - 0
+    #       - 90
+    #       - 100
+    plotOptions:
+      area:
+        fillTo: end
+    xaxis:
+      tooltip:
+        enabled: false
+      crosshairs:
+        show: false
+      axisTicks:
+        show: false
 
 simple:
   layout: minimal
@@ -521,3 +569,50 @@ sensor_tumble_dryer:
     - entity: sensor.tumble_dryer_energy_consumption_daily
       name: Sähkö
       color: yellow
+
+sensor_electricity_price_nordpool:
+  config_templates:
+    - base_column
+  experimental:
+    color_threshold: true
+  all_series_config:
+    stroke_width: 8
+    group_by:
+      func: max
+      duration: 1h
+  span:
+    start: day
+  header:
+    title: Hintakehitys
+    show: true
+    show_states: true
+  graph_span: 24h # Should be dynamic but can't be without button-card
+  yaxis:
+    - min: 0
+      apex_config:
+        tickAmount: 5
+  series:
+    - entity: sensor.nordpool
+      data_generator: |
+        var data = (entity.attributes.raw_today.map((entry, index) => {
+          const timestamp = new Date(entry.start);
+          return [timestamp, entry.value];
+        }))
+
+        if (entity.attributes.tomorrow_valid) {
+          data = data.concat(entity.attributes.raw_tomorrow.map((entry, index) => {
+            const timestamp = new Date(entry.start);
+            return [timestamp, entry.value];
+          }))
+        }
+
+        return data
+      color_threshold:
+        - value: 0
+          color: "#3BB143"
+        - value: 5
+          color: "#E9D502"
+        - value: 7
+          color: "#ff4545"
+      show:
+        name_in_header: false

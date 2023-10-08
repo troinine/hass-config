@@ -40,3 +40,10 @@ miele_washing_machine_ultraphase_2_dose:
   min: 0
   max: 100
   icon: mdi:cup-water
+
+electricity_price_additional_cost:
+  name: Electricity price additional cost
+  initial: 0.0038
+  mode: box
+  min: 0
+  max: 1

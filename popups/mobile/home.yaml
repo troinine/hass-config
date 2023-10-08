@@ -59,33 +59,6 @@ browser_mod:
                       show:
                         name_in_header: false
 
-            - type: vertical-stack
-              cards:
-                - type: entities
-                  title: Sähkönkulutus
-                  card_mod:
-                    !include ../../ui/styles/entities-card.yaml
-                  show_header_toggle: false
-                  entities:
-                    - entity: sensor.mqtt_electricity_consumption_daily_updated
-                      name: Päivitetty
-                    - entity: sensor.mqtt_electricity_consumption_daily
-                      name: Päivän kulutus
-                    - entity: sensor.mqtt_electricity_consumption_monthly
-                      name: Kuukauden kulutus
-                    - entity: sensor.mqtt_energy_cost_monthly
-                      name: Kuukauden hinta
-                    - type: custom:template-entity-row
-                      state: ""
-                    - type: custom:template-entity-row
-                      state: ""
-                    - type: section
-                - type: custom:apexcharts-card
-                  card_mod:
-                    !include ../../ui/styles/no-card.yaml
-                  config_templates:
-                    - sensor_electricity_consumption_daily
-
             - type: entities
               view_layout:
                 grid-area: automations

@@ -84,6 +84,31 @@ compact_info_extra:
       state2:
         - place-self: end start
 
+compact_info_additional_text:
+  template:
+    - compact_info
+  variables:
+    additionaL_text: false
+  show_last_changed: false
+  custom_fields:
+    text: |
+      [[[
+        return variables.additional_text ? variables.additional_text : ''
+      ]]]
+  styles:
+    grid:
+      - grid-template-areas: |
+          "i n"
+          "i s"
+          "text text"
+      - grid-template-columns: 2.5rem 3.5fr
+      - grid-template-rows: 1.25rem 1.25rem 2fr
+    custom_fields:
+      text:
+        - place-self: end start
+        - filter: opacity(40%)
+        - font-size: 0.9rem
+
 compact_info_extra_2:
   template:
     - compact_info_extra

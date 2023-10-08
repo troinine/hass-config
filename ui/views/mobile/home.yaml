@@ -25,6 +25,8 @@ cards:
           - home_state
         tap_action:
           !include ../../../popups/mobile/home.yaml
+        hold_action:
+          !include ../../../popups/common/todoist-tasks.yaml
         variables:
           extra_text: "Kuukausi"
           extra_entity_2: sensor.mqtt_electricity_consumption_daily
@@ -76,10 +78,23 @@ cards:
 
       - type: custom:button-card
         template:
-          - compact_info
-          - tasks
+          - compact_info_additional_text
+          - nordpool
         tap_action:
-          !include ../../../popups/common/todoist-tasks.yaml
+          !include ../../../popups/mobile/electricity.yaml
+        variables:
+          additional_text: |
+            [[[
+              const max = states['sensor.nordpool'].attributes.max
+              const unit = states['sensor.nordpool'].attributes.unit_of_measurement
+              const values = states['sensor.nordpool'].attributes.today
+              const values_daytime = values.slice(8)
+              const min = Math.min(...values_daytime)
+              let minHour = values.indexOf(min)
+              let maxHour = values.indexOf(max)
+
+              return `${minHour.toString().padStart(2, '0')}:00 - ${min} ${unit}<br/>${maxHour.toString().padStart(2, '0')}:00 - ${max} ${unit}`
+            ]]]
 
   - type: custom:button-card
     template: subtitle

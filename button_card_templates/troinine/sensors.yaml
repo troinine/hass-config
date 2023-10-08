@@ -108,6 +108,89 @@ compact_sensor:
       - padding-left: 0.8rem
       - font-size: 0.9rem
 
+sensor_graph_new:
+  template:
+    - base_card
+    - base_icon_name
+    - base_sensor
+  variables:
+    chart_height: 45%
+  show_state: true
+  show_last_changed: false
+  custom_fields:
+    graph:
+      card:
+        type: custom:apexcharts-card
+        card_mod:
+          style: |
+            ha-card {
+              box-shadow: none;
+              border-radius: 0;
+              background-color: transparent;
+            }
+        experimental:
+          color_threshold: true
+        config_templates:
+          - base_simple
+        graph_span: 24h
+        span:
+          start: day
+        apex_config:
+          legend:
+            show: false
+          tooltip:
+            enabled: false
+          chart:
+            height: "[[[ return variables.chart_height ]]]"
+        series:
+          - yaxis_id: first
+            type: column
+            entity: "[[[ return entity.entity_id ]]]"
+            stroke_width: 5
+            data_generator: |
+              return (entity.attributes.raw_today.map((entry, index) => {
+                const timestamp = new Date(entry.start);
+                return [timestamp, entry.value];
+              }))
+            color_threshold:
+              - value: 0
+                color: "rgb(128, 201, 148)"
+              - value: 5
+                color: "#FCD663"
+              - value: 7
+                color: "#F18B82"
+  styles:
+    grid:
+      - grid-template-areas: |
+          ". . . ."
+          ". i s ."
+          ". i n ."
+          "graph graph graph graph"
+      - grid-template-columns: var(--button-card-padding) 2.5rem 3.5fr var(--button-card-padding)
+      - grid-template-rows: var(--button-card-padding) 1.25rem 1.25rem 3fr
+    name:
+      - padding-left: 0.5rem
+      - font-size: 0.9rem
+      - filter: opacity(40%)
+      - place-self: start
+      - margin-top: 0
+    state:
+      - padding-left: 0.5rem
+      - font-size: 1rem
+      - place-self: start
+    card:
+      - padding: 0
+    custom_fields:
+      graph:
+        - place-self: end stretch
+
+compact_sensor_graph_new:
+  template:
+    - sensor_graph_new
+    - compact_card
+  variables:
+    chart_height: 80px
+
 sensor_graph:
   variables:
     line_color: dodgerblue

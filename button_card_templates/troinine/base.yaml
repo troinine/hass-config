@@ -258,7 +258,6 @@ base_icon_name:
       - justify-self: start
       - align-self: center
 
-
 # Templates with grid styles
 icon_name_state:
   template:

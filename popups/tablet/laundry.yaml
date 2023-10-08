@@ -19,7 +19,7 @@ browser_mod:
       layout_type: custom:grid-layout
       layout:
         grid-template-columns: 1fr 1fr
-        grid-template-rows: max-content
+        grid-template-rows: min-content min-content
         grid-template-areas: |
           "washing dryer"
           "graph1 graph2"

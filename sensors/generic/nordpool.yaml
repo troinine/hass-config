@@ -1,0 +1,8 @@
+- platform: nordpool
+  region: FI
+  currency: EUR
+  VAT: true
+  precision: 2
+  price_in_cents: true
+  price_type: kWh
+  additional_costs: "{{ states('input_number.electricity_price_additional_cost') | float }}"

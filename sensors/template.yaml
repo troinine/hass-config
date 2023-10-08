@@ -111,7 +111,7 @@
   - name: notification_count
     unique_id: notification_count
     state: |
-      {{ states.binary_sensor | selectattr('state', 'equalto', 'on') | map(attribute='entity_id') | select('search', 'notification') | list | length }}
+      {{ states.binary_sensor | selectattr('state', 'equalto', 'on') | rejectattr('attributes.priority', 'equalto', 'info') | map(attribute='entity_id') | select('search', 'notification') | list | length }}
 
   - name: roborock_s6_pure_filter
     unique_id: roborock_s6_pure_filter
@@ -1069,3 +1069,38 @@
         {% if devices | length > 0 %}
           {{ devices | first }}
         {% endif %}
+
+  - name: notification_nordpool_pricing
+    unique_id: notification_nordpool_pricing
+    icon: mdi:flash
+    state: "{{ iif(state_attr('sensor.nordpool', 'max') | float > 6.00, 'on', 'off') }}"
+    attributes:
+      icon_color: |
+        {% set percentage_to_avg = state_attr('sensor.nordpool', 'price_percent_to_average') | float %}
+        {% set avg = state_attr('sensor.nordpool', 'average') | float %}
+        {% set current = states('sensor.nordpool') | float %}
+
+        {% if current < avg %}
+          green
+        {% elif percentage_to_avg > 0.25 %}
+          var(--error-color)
+        {% else %}
+          var(--warning-color)
+        {% endif %}
+      text_summary: |
+        {% set current = states('sensor.nordpool') | float | round(2) %}
+        {% set max = state_attr('sensor.nordpool', 'max') | float | round(2) %}
+        {% if current == max %}
+          Sähkö on nyt kalleinta {{ states('sensor.nordpool', with_unit=True, rounded=True) }}
+        {% else %}
+          Sähkönhinta nyt {{ states('sensor.nordpool', with_unit=True, rounded=True) }}
+        {% endif %}
+      text_description: |
+        {% set unit = state_attr('sensor.nordpool', 'unit_of_measurement') %}
+        {% set todays_values = state_attr('sensor.nordpool', 'today') %}
+        {% set highest = max(todays_values) %}
+        {% set highest_index = todays_values.index(highest) %}
+        {% set todays_values_daytime = todays_values[8:22] %}
+        {% set lowest_daytime = min(todays_values_daytime) %}
+        {% set lowest_index = todays_values.index(lowest_daytime) %}
+        Kalleinta on klo {{ highest_index }} ({{ highest }} {{ unit }}). Keskihinta {{ state_attr('sensor.nordpool', 'average') | round(2) }} {{ unit }}.

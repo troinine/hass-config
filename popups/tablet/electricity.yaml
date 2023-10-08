@@ -1,0 +1,89 @@
+---
+action: fire-dom-event
+browser_mod:
+  service: browser_mod.popup
+  data:
+    title: Sähkö
+    style: |
+      --popup-max-width: 90vw;
+    card_mod:
+      style:
+        layout-card:
+          $grid-layout$:
+            .: |
+              #root {
+                margin: 0 1rem 1rem 1rem !important;
+              }
+    content:
+      type: custom:layout-card
+      layout_type: custom:grid-layout
+      layout:
+        grid-template-columns: 1fr 1fr
+        grid-template-rows: min-content min-content
+        grid-template-areas: |
+          "entities1 entities2"
+          "graph1 graph2"
+      cards:
+        - type: entities
+          view_layout:
+            grid-area: entities1
+            place-self: start stretch
+          card_mod:
+            !include ../../ui/styles/entities-card.yaml
+          title: Pörssisähkö
+          entities:
+            - entity: sensor.nordpool
+              name: Sähkönhinta nyt
+            - entity: sensor.nordpool
+              type: custom:template-entity-row
+              state: "{{ state_attr('sensor.nordpool', 'average') | round(2) }} {{ state_attr('sensor.nordpool', 'unit_of_measurement') }}"
+              name: Keskihinta
+            - entity: sensor.nordpool
+              type: custom:template-entity-row
+              state: "{{ state_attr('sensor.nordpool', 'max') | round(2) }} {{ state_attr('sensor.nordpool', 'unit_of_measurement') }}"
+              name: Kallein
+            - entity: sensor.nordpool
+              type: custom:template-entity-row
+              state: "{{ state_attr('sensor.nordpool', 'min') | round(2) }} {{ state_attr('sensor.nordpool', 'unit_of_measurement') }}"
+              name: Halvin
+            - type: section
+
+        - type: custom:apexcharts-card
+          view_layout:
+            grid-area: graph1
+            place-self: start stretch
+          card_mod:
+            !include ../../ui/styles/no-card.yaml
+          config_templates:
+            - sensor_electricity_price_nordpool
+          all_series_config:
+            stroke_width: "[[[ return states['sensor.nordpool'].attributes.tomorrow_valid ? 2 : 0 ]]]"
+          graph_span: "[[[ return states['sensor.nordpool'].attributes.tomorrow_valid ? '48h' : '24h' ]]]"
+
+        - type: entities
+          title: Sähkönkulutus
+          view_layout:
+            grid-area: entities2
+            place-self: start stretch
+          card_mod:
+            !include ../../ui/styles/entities-card.yaml
+          show_header_toggle: false
+          entities:
+            - entity: sensor.mqtt_electricity_consumption_daily_updated
+              name: Päivitetty
+            - entity: sensor.mqtt_electricity_consumption_daily
+              name: Päivän kulutus
+            - entity: sensor.mqtt_electricity_consumption_monthly
+              name: Kuukauden kulutus
+            - entity: sensor.mqtt_energy_cost_monthly
+              name: Kuukauden hinta
+            - type: section
+
+        - type: custom:apexcharts-card
+          view_layout:
+            grid-area: graph2
+            place-self: start stretch
+          card_mod:
+            !include ../../ui/styles/no-card.yaml
+          config_templates:
+            - sensor_electricity_consumption_daily
