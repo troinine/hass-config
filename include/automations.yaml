@@ -707,50 +707,23 @@
       transition: 900
     entity_id: scene.nukkumassa
 
-- id: '1612732283884'
-  alias: Tauko käyttöveden kierrossa
-  description: ''
-  mode: single
-  trigger:
-  - platform: event
-    event_type: timer.finished
-    event_data:
-      entity_id: timer.hot_water_pump_on
-  condition: []
-  action:
-  - service: switch.turn_off
-    data: {}
-    target:
-      entity_id: switch.tplink_hs100_1
-  - service: timer.start
-    data:
-      duration: '0'
-    target:
-      entity_id: timer.hot_water_pump_off
-
 - id: '1612732392058'
-  alias: Tauko käyttöveden kierrossa ohi
+  alias: Käyttöveden kierto päälle
   description: ''
   mode: single
-  trigger:
-  - platform: event
-    event_type: timer.finished
-    event_data:
-      entity_id: timer.hot_water_pump_off
+  trigger: []
   condition:
-  - condition: state
-    entity_id: input_select.home_state
-    state: Kotona
+    - condition: state
+      entity_id: binary_sensor.high_electricity_price
+      state: 'off'
+    - condition: state
+      entity_id: input_select.home_state
+      state: Kotona
   action:
-  - service: switch.turn_on
-    data: {}
-    target:
-      entity_id: switch.tplink_hs100_1
-  - service: timer.start
-    data:
-      duration: '0'
-    target:
-      entity_id: timer.hot_water_pump_on
+    - service: switch.turn_on
+      data: {}
+      target:
+        entity_id: switch.tplink_hs100_1
 
 - id: '1612732939032'
   alias: Käyttöveden kierto pois
@@ -763,12 +736,6 @@
     data: {}
     target:
       entity_id: switch.tplink_hs100_1
-  - service: timer.cancel
-    data: {}
-    entity_id: timer.hot_water_pump_off
-  - service: timer.cancel
-    data: {}
-    entity_id: timer.hot_water_pump_on
 
 - id: '1614320129691'
   alias: Käynnistä ilmankuivain
@@ -1343,12 +1310,26 @@
       target:
         entity_id: input_number.miele_washing_machine_ultraphase_1_level
       data:
-        value: "{{ states('input_number.miele_washing_machine_ultraphase_1_level') | int - states('input_number.miele_washing_machine_ultraphase_1_dose') | int }}"
+        value: |
+          {% set level = states('input_number.miele_washing_machine_ultraphase_1_level') | int %}
+          {% set dose = states('input_number.miele_washing_machine_ultraphase_1_dose') | int %}
+          {% if level < dose %}
+            {{ 0 }}
+          {% else %}
+            {{ level - dose }}
+          {% endif %}
     - service: input_number.set_value
       target:
         entity_id: input_number.miele_washing_machine_ultraphase_2_level
       data:
-        value: "{{ states('input_number.miele_washing_machine_ultraphase_2_level') | int - states('input_number.miele_washing_machine_ultraphase_2_dose') | int }}"
+        value: |
+          {% set level = states('input_number.miele_washing_machine_ultraphase_2_level') | int %}
+          {% set dose = states('input_number.miele_washing_machine_ultraphase_2_dose') | int %}
+          {% if level < dose %}
+            {{ 0 }}
+          {% else %}
+            {{ level - dose }}
+          {% endif %}
 
 - id: '1665849632674'
   mode: single
@@ -1522,3 +1503,60 @@
           tag: maintenance
           ttl: 0
           priority: high
+
+- id: '1700507673421'
+  mode: single
+  alias: high_electricity_price
+  description: 'Sähkönhinta korkea'
+  trigger:
+    - platform: state
+      entity_id:
+        - binary_sensor.high_electricity_price
+      from: 'off'
+      to: 'on'
+  condition:
+    - condition: state
+      entity_id: switch.tplink_hs100_1
+      state: 'on'
+  action:
+    - service: notify.mobile_app_tero
+      data:
+        title: Sähkön hinta on korkealla
+        message: Hinta on nyt {{ states('sensor.nordpool', with_unit=True, rounded=True) }}
+        data:
+          group: Koti
+          tag: electricity
+          ttl: 0
+          priority: high
+    - service: automation.trigger
+      data: {}
+      entity_id: automation.hot_water_pump_off
+    - condition: state
+      entity_id: light.group_outdoor
+      state: 'on'
+    - service: light.turn_off
+      data: {}
+      target:
+        entity_id: light.group_outdoor
+
+- id: '1700508001777'
+  mode: single
+  alias: electricity_price_normal
+  description: 'Sähkönhinta normaali'
+  trigger:
+    - platform: state
+      entity_id:
+        - binary_sensor.high_electricity_price
+      from: 'on'
+      to: 'off'
+  condition:
+    - condition: state
+      entity_id: input_select.home_state
+      state: Kotona
+    - condition: time
+      after: 08:00:00
+      before: '21:30:00'
+  action:
+    - service: automation.trigger
+      data: {}
+      entity_id: automation.hot_water_pump_on

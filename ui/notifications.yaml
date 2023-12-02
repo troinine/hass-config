@@ -3,6 +3,15 @@
 
 - type: conditional
   conditions:
+    - entity: binary_sensor.notification_high_electricity_price
+      state: 'on'
+  card:
+    type: 'custom:button-card'
+    template: auto_notification
+    entity: binary_sensor.notification_high_electricity_price
+
+- type: conditional
+  conditions:
     - entity: binary_sensor.notification_nordpool_pricing
       state: 'on'
   card:

@@ -531,6 +531,13 @@
       icon: mdi:wan
       device_class: connectivity
 
+  - name: "high_electricity_price"
+    unique_id: "high_electricity_price"
+    icon: mdi:currency-eur
+    state: "{{ iif(states('sensor.nordpool') | float > 15.00, 'on', 'off') }}"
+    attributes:
+      friendly_name: Korkea sähkönhinta
+
   ### Notifications ###
 
   - name: "notification_heat_pump_alarm"
@@ -1073,7 +1080,7 @@
   - name: notification_nordpool_pricing
     unique_id: notification_nordpool_pricing
     icon: mdi:flash
-    state: "{{ iif(state_attr('sensor.nordpool', 'max') | float > 6.00, 'on', 'off') }}"
+    state: "{{ iif(state_attr('sensor.nordpool', 'average') | float > 9.00, 'on', 'off') }}"
     attributes:
       icon_color: |
         {% set percentage_to_avg = state_attr('sensor.nordpool', 'price_percent_to_average') | float %}
@@ -1104,3 +1111,14 @@
         {% set lowest_daytime = min(todays_values_daytime) %}
         {% set lowest_index = todays_values.index(lowest_daytime) %}
         Kalleinta on klo {{ highest_index }} ({{ highest }} {{ unit }}). Keskihinta {{ state_attr('sensor.nordpool', 'average') | round(2) }} {{ unit }}.
+
+  - name: notification_high_electricity_price
+    unique_id: notification_high_electricity_price
+    icon: mdi:currency-eur
+    state: "{{ states('binary_sensor.high_electricity_price') }}"
+    attributes:
+      icon_color: var(--error-color)
+      text_summary: |
+        Sähkö on erittäin kallista!
+      text_description: |
+        Hinta on nyt {{ states('sensor.nordpool', with_unit=True, rounded=True) }}. Automaatiota on pysäytetty kalliin sähkönhinnan takia.
