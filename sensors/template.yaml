@@ -3,22 +3,22 @@
     unique_id: 'radon_warning'
     icon: mdi:radioactive
     state: |
-      {% if states('sensor.mqtt_airthings_waveplus_sisu_radon_short_term') | float(default=0) > 150 or states('sensor.mqtt_airthings_waveplus_living_room_radon_short_term') | float(default=0) > 150 %}
+      {% if states('sensor.mqtt_airthings_waveplus_sisu_radon_short_term') | float(default=0) > 200 or states('sensor.mqtt_airthings_waveplus_living_room_radon_short_term') | float(default=0) > 200 %}
         Korkea
-      {% elif states('sensor.mqtt_airthings_waveplus_sisu_radon_short_term') | float(default=0) > 100 or states('sensor.mqtt_airthings_waveplus_living_room_radon_short_term') | float(default=0) > 100 %}
+      {% elif states('sensor.mqtt_airthings_waveplus_sisu_radon_short_term') | float(default=0) > 150 or states('sensor.mqtt_airthings_waveplus_living_room_radon_short_term') | float(default=0) > 150 %}
         Nousussa
       {% else %}
         Alhainen
       {% endif %}
     attributes:
       reporting_entity: |
-        {% if states('sensor.radon_warning') == 'Korkea' and states('sensor.mqtt_airthings_waveplus_sisu_radon_short_term') | float(default=0) > 150 %}
+        {% if states('sensor.radon_warning') == 'Korkea' and states('sensor.mqtt_airthings_waveplus_sisu_radon_short_term') | float(default=0) > 200 %}
           sensor.mqtt_airthings_waveplus_sisu_radon_short_term
-        {% elif states('sensor.radon_warning') == 'Korkea' and states('sensor.mqtt_airthings_waveplus_living_room_radon_short_term') | float(default=0) > 150 %}
+        {% elif states('sensor.radon_warning') == 'Korkea' and states('sensor.mqtt_airthings_waveplus_living_room_radon_short_term') | float(default=0) > 200 %}
           sensor.mqtt_airthings_waveplus_living_room_radon_short_term
-        {% elif states('sensor.radon_warning') == 'Nousussa' and states('sensor.mqtt_airthings_waveplus_sisu_radon_short_term') | float(default=0) > 100 %}
+        {% elif states('sensor.radon_warning') == 'Nousussa' and states('sensor.mqtt_airthings_waveplus_sisu_radon_short_term') | float(default=0) > 150 %}
           sensor.mqtt_airthings_waveplus_sisu_radon_short_term
-        {% elif states('sensor.radon_warning') == 'Nousussa' and states('sensor.mqtt_airthings_waveplus_living_room_radon_short_term') | float(default=0) > 100 %}
+        {% elif states('sensor.radon_warning') == 'Nousussa' and states('sensor.mqtt_airthings_waveplus_living_room_radon_short_term') | float(default=0) > 150 %}
           sensor.mqtt_airthings_waveplus_living_room_radon_short_term
         {% endif %}
 
@@ -46,17 +46,21 @@
   - name: "Kosteus tila"
     unique_id: 'humidity_state'
     icon: |
-      {% if (states('sensor.group_indoor_humidity') | float(default=0) < 25) %}
+      {% set indoor_humidity = states('sensor.group_indoor_humidity') | float(0) %}
+      {% set outdoor_temperature = states('sensor.netatmo_outdoor_temperature') | float(0) %}
+      {% if (indoor_humidity < 20 and outdoor_temperature <= 0) %}
         mdi:water-minus
-      {% elif (states('sensor.group_indoor_humidity') | float(default=0) > 60) %}
+      {% elif (indoor_humidity > 60 and outdoor_temperature > 0) %}
         mdi:water-alert
       {% else %}
         mdi:water-check
       {% endif %}
     state: |
-      {% if (states('sensor.group_indoor_humidity') | float(default=0) < 25) %}
+      {% set indoor_humidity = states('sensor.group_indoor_humidity') | float(0) %}
+      {% set outdoor_temperature = states('sensor.netatmo_outdoor_temperature') | float(0) %}
+      {% if (indoor_humidity < 20 and outdoor_temperature <= 0) %}
         Alhainen
-      {% elif (states('sensor.group_indoor_humidity') | float(default=0) > 60) %}
+      {% elif (indoor_humidity > 60 and outdoor_temperature > 0) %}
         Korkea
       {% else %}
         Normaali
@@ -714,7 +718,15 @@
   - name: notification_possible_utility_room_water_leak
     unique_id: notification_possible_utility_room_water_leak
     icon: mdi:water-alert
-    state: "{{ iif((states('sensor.mqtt_utility_room_leak_detector_humidity') | float(0) - states('sensor.group_indoor_humidity') | float(0)) > 5.0, 'on', 'off') }}"
+    state: |
+      {% set indoor_humidity = states('sensor.group_indoor_humidity') | float(0) %}
+      {% set leak_sensor_humidity = states('sensor.mqtt_utility_room_leak_detector_humidity') | float(0) %}
+      {% set max_diff = 5.0 %}
+      {% if indoor_humidity < 30 %}
+        {% set max_diff = 10.0 %}
+      {% endif %}
+
+      {{ iif(leak_sensor_humidity - indoor_humidity > max_diff, 'on', 'off') }}
     attributes:
       icon_color: var(--humidity-high-color)
       text_summary: "Kodinhoitohuoneen vuotosensori laennut"
@@ -726,7 +738,15 @@
   - name: notification_possible_kitchen_water_leak
     unique_id: notification_possible_kitchen_water_leak
     icon: mdi:water-alert
-    state: "{{ iif((states('sensor.mqtt_kitchen_leak_detector_humidity') | float(0) - states('sensor.group_indoor_humidity') | float(0)) > 5.0, 'on', 'off') }}"
+    state: |
+      {% set indoor_humidity = states('sensor.group_indoor_humidity') | float(0) %}
+      {% set leak_sensor_humidity = states('sensor.mqtt_kitchen_leak_detector_humidity') | float(0) %}
+      {% set max_diff = 5.0 %}
+      {% if indoor_humidity < 30 %}
+        {% set max_diff = 10.0 %}
+      {% endif %}
+
+      {{ iif(leak_sensor_humidity - indoor_humidity > max_diff, 'on', 'off') }}
     attributes:
       icon_color: var(--humidity-high-color)
       text_summary: "Keittiön vuotosensori laennut"
@@ -757,7 +777,7 @@
       text_description: |
         {% set reporting_entity = state_attr('sensor.radon_warning', 'reporting_entity') %}
         {% if reporting_entity %}
-          {{ state_attr(reporting_entity, 'friendly_name') }} {{ states(reporting_entity, with_unit=True, rounded=True) }}
+          {{ state_attr(reporting_entity, 'friendly_name') }} {{ states(reporting_entity, with_unit=True, rounded=True) }}. Ulkolämpötilan keskiarvo {{ states('sensor.nibe_average_outdoor_temp', with_unit=True, rounded=True) }}
         {% endif %}
       tap_action: more-info
       tap_action_entity: "{{ state_attr('sensor.radon_warning', 'reporting_entity') }}"
