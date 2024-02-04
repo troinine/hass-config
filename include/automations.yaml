@@ -1389,6 +1389,26 @@
 
 ### Room light automation
 
+- id: '1673798235229'
+  alias: bedroom_motion_lights
+  description: ''
+  use_blueprint:
+    path: troinine/room_motion_lights.yaml
+    input:
+      motion_sensor: binary_sensor.bedroom_motion_sensor
+      target_light: light.group_bedroom
+      light_level_sensor: sensor.bedroom_motion_sensor_illuminance
+
+- id: '1673798235230'
+  alias: office_motion_lights
+  description: ''
+  use_blueprint:
+    path: troinine/room_motion_lights.yaml
+    input:
+      motion_sensor: binary_sensor.office_motion_sensor
+      target_light: light.group_office
+      light_level_sensor: sensor.office_motion_sensor_illuminance
+
 - id: '1673798235231'
   alias: otsos_room_motion_lights
   description: ''
