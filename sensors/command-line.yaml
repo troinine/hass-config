@@ -1,0 +1,44 @@
+- binary_sensor:
+    command: !secret raspberry_pi_nibe_availability
+    name: "Nibe Raspberry Pi Zero status"
+    unique_id: nibe_raspberry_pi_zero_status
+    payload_on: 1
+    payload_off: 0
+    scan_interval: 180
+
+- binary_sensor:
+    command: !secret ps5_availability
+    name: "PS5 status"
+    unique_id: ps5_status
+    payload_on: 1
+    payload_off: 0
+    scan_interval: 180
+
+- binary_sensor:
+    command: !secret nintendo_switch_availability
+    name: "Nintendo Switch status"
+    unique_id: nintendo_switch_status
+    payload_on: 1
+    payload_off: 0
+    scan_interval: 180
+
+- sensor:
+    name: udm_info
+    command: "python /config/scripts/unifi_info.py"
+    command_timeout: 180
+    scan_interval: 900
+    value_template: |
+      {{ value_json.internet | lower }}
+    json_attributes:
+      - cpu
+      - cpu_temp
+      - system_temp
+      - memory
+      - disk
+      - internet
+      - uptime
+      - availability
+      - average_latency
+      - down
+      - up
+      - version
