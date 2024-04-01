@@ -42,15 +42,15 @@ scene_santa_is_coming:
   sequence:
   - delay:
       hours: 0
-      minutes: 1
-      seconds: 0
+      minutes: 0 # 1
+      seconds: 1
       milliseconds: 0
   - service: media_player.turn_off
     target:
       entity_id: media_player.samsung_q90_series_65
   - service: light.turn_off
     target:
-      entity_id: light.koti
+      entity_id: light.group_office
   - delay:
       hours: 0
       minutes: 0
@@ -63,21 +63,15 @@ scene_santa_is_coming:
       flash: long
     target:
       entity_id:
-      - light.keittio_nauha_1
-      - light.keittio_nauha_2
-      - light.makuuhuone_nauha
-      - light.olohuone_nauha
-      - light.tyohuone_nauha
-      - light.otson_huone
-      - light.sisun_huone
+      - light.group_office
   - delay:
       hours: 0
       minutes: 0
-      seconds: 15
+      seconds: 5
       milliseconds: 0
   - service: light.turn_on
     target:
-      entity_id: light.koti
+      entity_id: light.group_all
     data:
       brightness_step_pct: 75
       kelvin: 4000
@@ -215,3 +209,68 @@ todoist_complete_task:
         task_id: "{{ task_id }}"
     - service: homeassistant.update_entity
       entity_id: sensor.todoist_all_tasks
+
+scene_santa_is_coming_2023:
+  alias: Joulupukki tulee flash 2023
+  mode: single
+  sequence:
+    - delay:
+        hours: 0
+        minutes: 1
+        seconds: 0
+        milliseconds: 0
+    - service: media_player.turn_off
+      target:
+        entity_id: media_player.samsung_q90_series_65
+    - service: light.turn_on
+      target:
+        entity_id: light.group_all
+      data:
+        color_name: red
+        brightness_pct: 100
+    - delay:
+        hours: 0
+        minutes: 0
+        seconds: 1
+        milliseconds: 0
+    - repeat:
+        count: 10
+        sequence:
+          - service: light.toggle
+            data: {}
+            target:
+              entity_id: light.group_all
+          - service: light.toggle
+            data: {}
+            target:
+              entity_id: light.hue_smart_plug_1
+          - delay:
+              hours: 0
+              minutes: 0
+              seconds: 1
+              milliseconds: 0
+          - service: light.toggle
+            data: {}
+            target:
+              entity_id: light.group_all
+          - service: light.toggle
+            data: {}
+            target:
+              entity_id: light.hue_smart_plug_1
+          - delay:
+              hours: 0
+              minutes: 0
+              seconds: 1
+              milliseconds: 0
+    - service: light.turn_on
+      target:
+        entity_id: light.group_all
+      data:
+        brightness_step_pct: 75
+        kelvin: 4000
+    - service: light.turn_on
+      target:
+        entity_id: light.hue_smart_plug_1
+    # - service: media_player.turn_on
+    #   target:
+    #     entity_id: media_player.samsung_q90_series_65
