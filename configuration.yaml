@@ -4,6 +4,7 @@ homeassistant:
     - type: trusted_networks
       trusted_networks:
         - !secret hass_trusted_network_1
+        - !secret hass_trusted_network_2
   name: "Koti"
   latitude: !secret hass_latitude
   longitude: !secret hass_longitude
