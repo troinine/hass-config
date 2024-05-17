@@ -81,7 +81,7 @@ lovelace:
 
     - url: /local/troinine/light-slider-card.js
       type: module
-    - url: '/local/marked.min.js?v=4.2.12'
+    - url: "/local/marked.min.js?v=4.2.12"
       type: module
 
     - url: /local/style.css
@@ -106,7 +106,6 @@ weather:
     condition_template: "{{ states('weather.koti') }}"
     temperature_template: "{{ states('sensor.netatmo_outdoor_temperature') | float }}"
     humidity_template: "{{ state_attr('weather.koti', 'humidity') | float }}"
-    forecast_daily_template: "{{ state_attr('weather.koti', 'forecast') }}"
     pressure_template: "{{ state_attr('weather.koti', 'pressure') }}"
     wind_speed_template: "{{ state_attr('weather.koti', 'wind_speed') }}"
     wind_bearing_template: "{{ state_attr('weather.koti', 'wind_bearing') }}"
@@ -132,65 +131,44 @@ input_select:
       - Jäähtyy
     initial: Pois
 
-input_boolean:
-  !include include/booleans.yaml
+input_boolean: !include include/booleans.yaml
 
-input_number:
-  !include include/numbers.yaml
+input_number: !include include/numbers.yaml
 
-input_text:
-  !include include/texts.yaml
+input_text: !include include/texts.yaml
 
-input_datetime:
-  !include include/datetimes.yaml
+input_datetime: !include include/datetimes.yaml
 
-sensor:
-  !include_dir_merge_list sensors/generic
+sensor: !include_dir_merge_list sensors/generic
 
-binary_sensor:
-  !include sensors/binary-sensors.yaml
+binary_sensor: !include sensors/binary-sensors.yaml
 
-template:
-  !include sensors/template.yaml
+template: !include sensors/template.yaml
 
-automation:
-  !include include/automations.yaml
+automation: !include include/automations.yaml
 
-timer:
-  !include include/timers.yaml
+timer: !include include/timers.yaml
 
-script:
-  !include include/scripts.yaml
+script: !include include/scripts.yaml
 
-scene:
-  !include include/scenes.yaml
+scene: !include include/scenes.yaml
 
-switch:
-  !include include/switches.yaml
+switch: !include include/switches.yaml
 
-light:
-  !include include/lights.yaml
+light: !include include/lights.yaml
 
-rest_command:
-  !include include/rest_commands.yaml
+rest_command: !include include/rest_commands.yaml
 
-camera:
-  !include include/cameras.yaml
+camera: !include include/cameras.yaml
 
-mqtt:
-  !include sensors/mqtt.yaml
+mqtt: !include sensors/mqtt.yaml
 
-notify:
-  !include include/notifications.yaml
+notify: !include include/notifications.yaml
 
-utility_meter:
-  !include include/utility-meters.yaml
+utility_meter: !include include/utility-meters.yaml
 
-group:
-  !include include/groups.yaml
+group: !include include/groups.yaml
 
-counter:
-  !include include/counters.yaml
+counter: !include include/counters.yaml
 
-command_line:
-  !include sensors/command-line.yaml
+command_line: !include sensors/command-line.yaml

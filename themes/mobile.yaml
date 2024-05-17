@@ -100,10 +100,10 @@ mobile:
   # Stack cards
   horizontal-stack-card-margin: 0.5rem
   vertical-stack-card-margin: 0 0 0.2rem 0
-  masonry-view-card-margin: 0 0 0.2rem 0
 
   # Views
   view-side-margin: 1.5rem
+  masonry-view-card-margin: 1rem
 
   modes:
     light:
@@ -116,7 +116,7 @@ mobile:
       box-shadow: "0px 6px 8px 0px rgba(0,0,0,0.2)"
 
       # Custom
-      custom-color-icon-background: '#E9F0FE'
+      custom-color-icon-background: "#E9F0FE"
 
     dark:
       state-icon-color: "var(--color-theme)"
@@ -141,12 +141,12 @@ mobile:
       color-green-rgb: "128, 201, 148"
       color-yellow: "rgb(252, 214, 99)"
       color-blue: "rgb(137, 179, 248)"
-      color-blue-rgb: '137, 179, 248'
+      color-blue-rgb: "137, 179, 248"
       color-theme: "rgb(205, 217, 229)"
-      color-theme-rgb: '205, 217, 229'
+      color-theme-rgb: "205, 217, 229"
       color-purple: "rgb(102, 31, 255)"
       color-grey: "rgb(187, 187, 187)"
-      color-grey-rgb: '187, 187, 187'
+      color-grey-rgb: "187, 187, 187"
       color-pink: "rgb(233, 30, 99)"
       color-background-yellow: "var(--color-yellow)"
       color-background-blue: "var(--color-blue)"
@@ -195,17 +195,17 @@ mobile:
       popup-header-color: var(--primary-background-color)
 
       # Bar card
-      bar-card-color: '#303435'
+      bar-card-color: "#303435"
 
       # Custom
-      humidity-low-color: '#00ccf5'
-      humidity-high-color: '#0336FF'
-      warning-color-rgb: '255, 145, 1'
-      primary-text-color-rgb: '205, 217, 229'
-      custom-icon-color: 'dodgerblue'
-      custom-icon-color-not-active: 'rgba(var(--color-theme-rgb), 0.2)'
-      custom-color-icon-background: '#181515'
+      humidity-low-color: "#00ccf5"
+      humidity-high-color: "#0336FF"
+      warning-color-rgb: "255, 145, 1"
+      primary-text-color-rgb: "205, 217, 229"
+      custom-icon-color: "dodgerblue"
+      custom-icon-color-not-active: "rgba(var(--color-theme-rgb), 0.2)"
+      custom-color-icon-background: "#181515"
       battery-full-color: "#388E3C"
       button-color: "#388E3C"
-      chart-first-series-color: 'dodgerblue'
-      chart-second-series-color: '#388E3C'
+      chart-first-series-color: "dodgerblue"
+      chart-second-series-color: "#388E3C"

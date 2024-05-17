@@ -1,8 +1,6 @@
 ---
-button_card_templates:
-  !include_dir_merge_named ../button_card_templates/
-apexcharts_card_templates:
-  !include templates/apexcharts/charts.yaml
+button_card_templates: !include_dir_merge_named ../button_card_templates/
+apexcharts_card_templates: !include templates/apexcharts/charts.yaml
 
 views:
   - !include views/mobile/home.yaml

@@ -1,1144 +1,1165 @@
+- trigger:
+    - platform: state
+      entity_id: weather.koti
+    - platform: event
+      event_type: event_template_reloaded
+  action:
+    - service: weather.get_forecasts
+      data:
+        type: daily
+      target:
+        entity_id: weather.koti
+      response_variable: daily_forecasts
+  sensor:
+    - name: Päivän sääennuste
+      unique_id: weather_forecast_today
+      state: "{{ now().isoformat() }}"
+      attributes:
+        forecast: "{{ daily_forecasts['weather.koti'].forecast[0] }}"
+
 - sensor:
-  - name: "Radonin tila"
-    unique_id: 'radon_warning'
-    icon: mdi:radioactive
-    state: |
-      {% if states('sensor.mqtt_airthings_waveplus_sisu_radon_short_term') | float(default=0) > 200 or states('sensor.mqtt_airthings_waveplus_living_room_radon_short_term') | float(default=0) > 200 %}
-        Korkea
-      {% elif states('sensor.mqtt_airthings_waveplus_sisu_radon_short_term') | float(default=0) > 150 or states('sensor.mqtt_airthings_waveplus_living_room_radon_short_term') | float(default=0) > 150 %}
-        Nousussa
-      {% else %}
-        Alhainen
-      {% endif %}
-    attributes:
-      reporting_entity: |
-        {% if states('sensor.radon_warning') == 'Korkea' and states('sensor.mqtt_airthings_waveplus_sisu_radon_short_term') | float(default=0) > 200 %}
-          sensor.mqtt_airthings_waveplus_sisu_radon_short_term
-        {% elif states('sensor.radon_warning') == 'Korkea' and states('sensor.mqtt_airthings_waveplus_living_room_radon_short_term') | float(default=0) > 200 %}
-          sensor.mqtt_airthings_waveplus_living_room_radon_short_term
-        {% elif states('sensor.radon_warning') == 'Nousussa' and states('sensor.mqtt_airthings_waveplus_sisu_radon_short_term') | float(default=0) > 150 %}
-          sensor.mqtt_airthings_waveplus_sisu_radon_short_term
-        {% elif states('sensor.radon_warning') == 'Nousussa' and states('sensor.mqtt_airthings_waveplus_living_room_radon_short_term') | float(default=0) > 150 %}
-          sensor.mqtt_airthings_waveplus_living_room_radon_short_term
-        {% endif %}
-
-  - name: "CO2 tila"
-    unique_id: 'co2_state'
-    icon: mdi:molecule-co2
-    state: |
-      {% if (states('sensor.mqtt_airthings_waveplus_sisu_co2') | float(default=0) < 1000) and (states('sensor.mqtt_airthings_waveplus_living_room_co2') | float(default=0) < 1000) and (states('sensor.netatmo_office_co2') | float(default=0) < 1000) and (states('sensor.netatmo_bedroom_co2') | float(default=0) < 1000) %}
-        Alhainen
-      {% else %}
-        Korkea
-      {% endif %}
-    attributes:
-      reporting_entity: |
-        {% if (states('sensor.mqtt_airthings_waveplus_sisu_co2') | float(default=0) >= 1000) %}
-          sensor.mqtt_airthings_waveplus_sisu_co2
-        {% elif (states('sensor.mqtt_airthings_waveplus_living_room_co2') | float(default=0) >= 1000) %}
-          sensor.mqtt_airthings_waveplus_living_room_co2
-        {% elif (states('sensor.netatmo_office_co2') | float(default=0) >= 1000) %}
-          sensor.netatmo_office_co2
-        {% elif (states('sensor.netatmo_bedroom_co2') | float(default=0) >= 1000) %}
-          sensor.netatmo_bedroom_co2
-        {% endif %}
-
-  - name: "Kosteus tila"
-    unique_id: 'humidity_state'
-    icon: |
-      {% set indoor_humidity = states('sensor.group_indoor_humidity') | float(0) %}
-      {% set outdoor_temperature = states('sensor.netatmo_outdoor_temperature') | float(0) %}
-      {% if (indoor_humidity < 20 and outdoor_temperature <= 0) %}
-        mdi:water-minus
-      {% elif (indoor_humidity > 60 and outdoor_temperature > 0) %}
-        mdi:water-alert
-      {% else %}
-        mdi:water-check
-      {% endif %}
-    state: |
-      {% set indoor_humidity = states('sensor.group_indoor_humidity') | float(0) %}
-      {% set outdoor_temperature = states('sensor.netatmo_outdoor_temperature') | float(0) %}
-      {% if (indoor_humidity < 20 and outdoor_temperature <= 0) %}
-        Alhainen
-      {% elif (indoor_humidity > 60 and outdoor_temperature > 0) %}
-        Korkea
-      {% else %}
-        Normaali
-      {% endif %}
-    attributes:
-      reporting_entity: sensor.group_indoor_humidity
-
-  - name: "Ilmanlaatu"
-    unique_id: 'air_quality'
-    icon: |
-      {% if states('sensor.radon_warning') != 'Alhainen' %}
-        mdi:radioactive
-      {% elif states('sensor.co2_state') != 'Alhainen' %}
-        mdi:molecule-co2
-      {% elif states('sensor.humidity_state') != 'Normaali' %}
-        mdi:water-alert
-      {% else %}
-        mdi:leaf
-      {% endif %}
-    state: |
-      {% if states('sensor.radon_warning') == 'Nousussa' %}
-        Radon nousussa
-      {% elif states('sensor.radon_warning') == 'Korkea' %}
-        Radon korkealla
-      {% elif states('sensor.co2_state') != 'Alhainen' %}
-        CO2 korkealla
-      {% elif states('sensor.humidity_state') == 'Alhainen' %}
-        Matala ilmankosteus
-      {% elif states('sensor.humidity_state') == 'Korkea' %}
-        Korkea ilmankosteus
-      {% else %}
-        Hyvä
-      {% endif %}
-    attributes:
-      reporting_entity: |
-        {% if states('sensor.humidity_state') == 'Alhainen' or states('sensor.humidity_state') == 'Korkea' %}
-          {{ state_attr('sensor.humidity_state', 'reporting_entity') }}
+    - name: "Radonin tila"
+      unique_id: "radon_warning"
+      icon: mdi:radioactive
+      state: |
+        {% if states('sensor.mqtt_airthings_waveplus_sisu_radon_short_term') | float(default=0) > 200 or states('sensor.mqtt_airthings_waveplus_living_room_radon_short_term') | float(default=0) > 200 %}
+          Korkea
+        {% elif states('sensor.mqtt_airthings_waveplus_sisu_radon_short_term') | float(default=0) > 150 or states('sensor.mqtt_airthings_waveplus_living_room_radon_short_term') | float(default=0) > 150 %}
+          Nousussa
         {% else %}
-          sensor.group_indoor_temperature
+          Alhainen
+        {% endif %}
+      attributes:
+        reporting_entity: |
+          {% if states('sensor.radon_warning') == 'Korkea' and states('sensor.mqtt_airthings_waveplus_sisu_radon_short_term') | float(default=0) > 200 %}
+            sensor.mqtt_airthings_waveplus_sisu_radon_short_term
+          {% elif states('sensor.radon_warning') == 'Korkea' and states('sensor.mqtt_airthings_waveplus_living_room_radon_short_term') | float(default=0) > 200 %}
+            sensor.mqtt_airthings_waveplus_living_room_radon_short_term
+          {% elif states('sensor.radon_warning') == 'Nousussa' and states('sensor.mqtt_airthings_waveplus_sisu_radon_short_term') | float(default=0) > 150 %}
+            sensor.mqtt_airthings_waveplus_sisu_radon_short_term
+          {% elif states('sensor.radon_warning') == 'Nousussa' and states('sensor.mqtt_airthings_waveplus_living_room_radon_short_term') | float(default=0) > 150 %}
+            sensor.mqtt_airthings_waveplus_living_room_radon_short_term
+          {% endif %}
+
+    - name: "CO2 tila"
+      unique_id: "co2_state"
+      icon: mdi:molecule-co2
+      state: |
+        {% if (states('sensor.mqtt_airthings_waveplus_sisu_co2') | float(default=0) < 1000) and (states('sensor.mqtt_airthings_waveplus_living_room_co2') | float(default=0) < 1000) and (states('sensor.netatmo_office_co2') | float(default=0) < 1000) and (states('sensor.netatmo_bedroom_co2') | float(default=0) < 1000) %}
+          Alhainen
+        {% else %}
+          Korkea
+        {% endif %}
+      attributes:
+        reporting_entity: |
+          {% if (states('sensor.mqtt_airthings_waveplus_sisu_co2') | float(default=0) >= 1000) %}
+            sensor.mqtt_airthings_waveplus_sisu_co2
+          {% elif (states('sensor.mqtt_airthings_waveplus_living_room_co2') | float(default=0) >= 1000) %}
+            sensor.mqtt_airthings_waveplus_living_room_co2
+          {% elif (states('sensor.netatmo_office_co2') | float(default=0) >= 1000) %}
+            sensor.netatmo_office_co2
+          {% elif (states('sensor.netatmo_bedroom_co2') | float(default=0) >= 1000) %}
+            sensor.netatmo_bedroom_co2
+          {% endif %}
+
+    - name: "Kosteus tila"
+      unique_id: "humidity_state"
+      icon: |
+        {% set indoor_humidity = states('sensor.group_indoor_humidity') | float(0) %}
+        {% set outdoor_temperature = states('sensor.netatmo_outdoor_temperature') | float(0) %}
+        {% if (indoor_humidity < 20 and outdoor_temperature <= 0) %}
+          mdi:water-minus
+        {% elif (indoor_humidity > 60 and outdoor_temperature > 0) %}
+          mdi:water-alert
+        {% else %}
+          mdi:water-check
+        {% endif %}
+      state: |
+        {% set indoor_humidity = states('sensor.group_indoor_humidity') | float(0) %}
+        {% set outdoor_temperature = states('sensor.netatmo_outdoor_temperature') | float(0) %}
+        {% if (indoor_humidity < 20 and outdoor_temperature <= 0) %}
+          Alhainen
+        {% elif (indoor_humidity > 60 and outdoor_temperature > 0) %}
+          Korkea
+        {% else %}
+          Normaali
+        {% endif %}
+      attributes:
+        reporting_entity: sensor.group_indoor_humidity
+
+    - name: "Ilmanlaatu"
+      unique_id: "air_quality"
+      icon: |
+        {% if states('sensor.radon_warning') != 'Alhainen' %}
+          mdi:radioactive
+        {% elif states('sensor.co2_state') != 'Alhainen' %}
+          mdi:molecule-co2
+        {% elif states('sensor.humidity_state') != 'Normaali' %}
+          mdi:water-alert
+        {% else %}
+          mdi:leaf
+        {% endif %}
+      state: |
+        {% if states('sensor.radon_warning') == 'Nousussa' %}
+          Radon nousussa
+        {% elif states('sensor.radon_warning') == 'Korkea' %}
+          Radon korkealla
+        {% elif states('sensor.co2_state') != 'Alhainen' %}
+          CO2 korkealla
+        {% elif states('sensor.humidity_state') == 'Alhainen' %}
+          Matala ilmankosteus
+        {% elif states('sensor.humidity_state') == 'Korkea' %}
+          Korkea ilmankosteus
+        {% else %}
+          Hyvä
+        {% endif %}
+      attributes:
+        reporting_entity: |
+          {% if states('sensor.humidity_state') == 'Alhainen' or states('sensor.humidity_state') == 'Korkea' %}
+            {{ state_attr('sensor.humidity_state', 'reporting_entity') }}
+          {% else %}
+            sensor.group_indoor_temperature
+          {% endif %}
+
+    - name: "home_state"
+      unique_id: "home_state"
+      icon: mdi:home
+      state: "{{ states('input_select.home_state') }}"
+
+    - name: "sauna_state"
+      unique_id: "sauna_state"
+      icon: mdi:shower
+      state: "{{ states('input_select.sauna_state') }}"
+
+    - name: notification_count
+      unique_id: notification_count
+      state: |
+        {{ states.binary_sensor | selectattr('state', 'equalto', 'on') | rejectattr('attributes.priority', 'equalto', 'info') | map(attribute='entity_id') | select('search', 'notification') | list | length }}
+
+    - name: roborock_s6_pure_filter
+      unique_id: roborock_s6_pure_filter
+      state: |
+        {{ (states('sensor.roborock_s6_pure_filter_left') | int(default=0) / 5400) | int(default=0) }}
+      attributes:
+        friendly_name: Suodatin
+        icon: mdi:air-filter
+        unit_of_measurement: "%"
+
+    - unique_id: roborock_s6_pure_main_brush
+      state: |
+        {{ (states('sensor.roborock_s6_pure_main_brush_left') | int(default=0) / 10800) | int(default=0) }}
+      attributes:
+        friendly_name: Pääharja
+        icon: mdi:brush-variant
+        unit_of_measurement: "%"
+
+    - unique_id: roborock_s6_pure_sensors
+      state: |
+        {{ (states('sensor.roborock_s6_pure_sensor_dirty_left') | int(default=0) / 1080) | int(default=0) }}
+      attributes:
+        friendly_name: Sensorit
+        icon: mdi:broadcast
+        unit_of_measurement: "%"
+
+    - unique_id: roborock_s6_pure_side_brush
+      state: |
+        {{ (states('sensor.roborock_s6_pure_side_brush_left') | int(default=0) / 7200) | int(default=0) }}
+      attributes:
+        friendly_name: Sivuharja
+        icon: mdi:star-three-points-outline
+        unit_of_measurement: "%"
+
+    - name: roborock_s6_pure_time_to_next_clean
+      unique_id: roborock_s6_pure_time_to_next_clean
+      state: |
+        {{ (states('sensor.roborock_s6_pure_last_clean_end') | default(now().isoformat()) | as_datetime + timedelta(days = 3)).isoformat() }}
+      attributes:
+        friendly_name: Seuraava siivous
+        icon: mdi:vacuum-outline
+        device_class: timestamp
+
+    - name: roborock_s6_pure_area_cleaned_since_dustbin_emptying
+      unique_id: roborock_s6_pure_area_cleaned_since_dustbin_emptying
+      state: "{{ states('input_number.vacuum_total_area_cleaned_since_emptying') }}"
+      attributes:
+        friendly_name: Tyhjennyksen jälkeen siivottu alue
+        icon: mdi:texture-box
+        unit_of_measurement: "{{ state_attr('input_number.vacuum_total_area_cleaned_since_emptying', 'unit_of_measurement') }}"
+
+    - name: roborock_s6_pure_dustbin_level
+      unique_id: roborock_s6_pure_dustbin_level
+      state: |
+        {% set percentage = states('input_number.vacuum_total_area_cleaned_since_emptying') | float / 200 * 100 %}
+        {% if (percentage > 100) %}
+          {{ 100 }}
+        {% else %}
+          {{ percentage | int(default=0) }}
+        {% endif %}
+      attributes:
+        friendly_name: Pölysäiliön taso
+        icon: mdi:delete-empty
+        unit_of_measurement: "%"
+
+    - name: lights_on_count
+      unique_id: lights_on_count
+      state: |
+        {% set lights_on = expand('light.group_all_flat') | selectattr('state', 'equalto', 'on') | list | length %}
+        {% if is_state('switch.tplink_hs100_3', 'on') %}
+          {% set lights_on = lights_on + 1 %}
         {% endif %}
 
-  - name: "home_state"
-    unique_id: "home_state"
-    icon: mdi:home
-    state: "{{ states('input_select.home_state') }}"
+        {{ lights_on }}
 
-  - name: "sauna_state"
-    unique_id: "sauna_state"
-    icon: mdi:shower
-    state: "{{ states('input_select.sauna_state') }}"
+    - name: devices_on_count
+      unique_id: devices_on_count
+      state: |
+        {{ expand('binary_sensor.group_devices') | selectattr('state', 'equalto', 'on') | list | length }}
 
-  - name: notification_count
-    unique_id: notification_count
-    state: |
-      {{ states.binary_sensor | selectattr('state', 'equalto', 'on') | rejectattr('attributes.priority', 'equalto', 'info') | map(attribute='entity_id') | select('search', 'notification') | list | length }}
+    - name: nibe_heat_pump_state
+      unique_id: nibe_heat_pump_state
+      state: >-
+        {% set mapper =  {
+            'IDLE' : 'Joutilas',
+            'HEATING' : 'Lämmitys',
+            'HOT_WATER' : 'Käyttövesi',
+            'HOT_WATER_COMPRESSOR_OFF' : 'Käyttövesi, kompressori pois',
+            'HOT_WATER_WITH_ELECTRICITY' : 'Käyttövesi sähköllä',
+            'UNKNOWN': 'Tuntematon' } %}
+        {% set state = states('sensor.mqtt_nibe_heat_pump_state') %}
+        {{ mapper[state] if state in mapper else 'Unknown' }}
+      icon: >-
+        {% set mapper =  {
+            'IDLE' : 'mdi:sleep',
+            'HEATING' : 'mdi:fire',
+            'HOT_WATER' : 'mdi:water',
+            'HOT_WATER_COMPRESSOR_OFF' : 'mdi:water',
+            'HOT_WATER_WITH_ELECTRICITY' : 'hass:flash',
+            'UNKNOWN': 'mdi:help' } %}
+        {% set state = states('sensor.mqtt_nibe_heat_pump_state') %}
+        {{ mapper[state] if state in mapper else 'mdi:help' }}
 
-  - name: roborock_s6_pure_filter
-    unique_id: roborock_s6_pure_filter
-    state: |
-      {{ (states('sensor.roborock_s6_pure_filter_left') | int(default=0) / 5400) | int(default=0) }}
-    attributes:
-      friendly_name: Suodatin
-      icon: mdi:air-filter
-      unit_of_measurement: '%'
+    - name: nibe_supply_delta_temp
+      unique_id: nibe_supply_delta_temp
+      unit_of_measurement: "°C"
+      device_class: temperature
+      state: "{{ ((states('sensor.nibe_supply_temp')|float) - (states('sensor.nibe_supply_return_temp')|float))|round(1) }}"
+      availability: "{{ is_state('sensor.nibe_heat_pump_state', 'Lämmitys') }}"
 
-  - unique_id: roborock_s6_pure_main_brush
-    state: |
-      {{ (states('sensor.roborock_s6_pure_main_brush_left') | int(default=0) / 10800) | int(default=0) }}
-    attributes:
-      friendly_name: Pääharja
-      icon: mdi:brush-variant
-      unit_of_measurement: '%'
+    - name: nibe_hot_water_delta_temp
+      unique_id: nibe_hot_water_delta_temp
+      unit_of_measurement: "°C"
+      device_class: temperature
+      state: "{{ ((states('sensor.nibe_supply_temp')|float) - (states('sensor.nibe_supply_return_temp')|float))|round(1) }}"
+      availability: "{{ is_state('sensor.nibe_heat_pump_state', 'Käyttövesi') }}"
 
-  - unique_id: roborock_s6_pure_sensors
-    state: |
-      {{ (states('sensor.roborock_s6_pure_sensor_dirty_left') | int(default=0) / 1080) | int(default=0) }}
-    attributes:
-      friendly_name: Sensorit
-      icon: mdi:broadcast
-      unit_of_measurement: '%'
+    - name: nibe_brine_delta_temp
+      unique_id: nibe_brine_delta_temp
+      unit_of_measurement: "°C"
+      device_class: temperature
+      state: "{{ ((states('sensor.nibe_brine_in_temp')|float) - (states('sensor.nibe_brine_out_temp')|float))|round(1) }}"
+      availability: "{{ is_state('sensor.nibe_heat_pump_state', 'Lämmitys') }}"
 
-  - unique_id: roborock_s6_pure_side_brush
-    state: |
-      {{ (states('sensor.roborock_s6_pure_side_brush_left') | int(default=0) / 7200) | int(default=0) }}
-    attributes:
-      friendly_name: Sivuharja
-      icon: mdi:star-three-points-outline
-      unit_of_measurement: '%'
+    - name: laundry_tower_state
+      unique_id: laundry_tower_state
+      icon: |
+        {% set washerStatus = states('sensor.washing_machine_status') | lower  %}
+        {% set dryerStatus = states('sensor.tumble_dryer_status') | lower %}
+        {% if washerStatus == 'running' and dryerStatus == 'running' %}
+          mdi:washing-machine
+        {% elif washerStatus == 'running' %}
+          mdi:washing-machine
+        {% elif dryerStatus == 'running' %}
+          mdi:tumble-dryer
+        {% elif washerStatus != 'off' or dryerStatus != 'off' %}
+          mdi:washing-machine-alert
+        {% else %}
+          mdi:washing-machine-off
+        {% endif %}
+      state: |
+        {% set washerStatus = states('sensor.washing_machine_status') | lower %}
+        {% set dryerStatus = states('sensor.tumble_dryer_status') | lower %}
+        {% if washerStatus == 'running' and dryerStatus == 'running' %}
+          Pyykkää ja kuivaa
+        {% elif washerStatus == 'running' %}
+          Pyykkää
+        {% elif dryerStatus == 'running' %}
+          Kuivaa
+        {% elif washerStatus != 'off' or dryerStatus != 'off' %}
+          Päällä
+        {% else %}
+          Pois
+        {% endif %}
 
-  - name: roborock_s6_pure_time_to_next_clean
-    unique_id: roborock_s6_pure_time_to_next_clean
-    state: |
-      {{ (states('sensor.roborock_s6_pure_last_clean_end') | default(now().isoformat()) | as_datetime + timedelta(days = 3)).isoformat() }}
-    attributes:
-      friendly_name: Seuraava siivous
-      icon: mdi:vacuum-outline
-      device_class: timestamp
+    - name: miele_washing_machine_ultraphase_1_level_percentage
+      state: |
+        {% set percentage = states('input_number.miele_washing_machine_ultraphase_1_level') | float / 1440 * 100 %}
+        {% if (percentage > 100) %}
+          {{ 100 }}
+        {% elif (percentage < 0) %}
+          {{ 0 }}
+        {% else %}
+          {{ percentage | int(default=0) }}
+        {% endif %}
+      attributes:
+        friendly_name: Miele Ultraphase 1 taso
+        icon: mdi:cup-water
+        unit_of_measurement: "%"
 
-  - name: roborock_s6_pure_area_cleaned_since_dustbin_emptying
-    unique_id: roborock_s6_pure_area_cleaned_since_dustbin_emptying
-    state: "{{ states('input_number.vacuum_total_area_cleaned_since_emptying') }}"
-    attributes:
-      friendly_name: Tyhjennyksen jälkeen siivottu alue
-      icon: mdi:texture-box
-      unit_of_measurement: "{{ state_attr('input_number.vacuum_total_area_cleaned_since_emptying', 'unit_of_measurement') }}"
+    - name: miele_washing_machine_ultraphase_2_level_percentage
+      state: |
+        {% set percentage = states('input_number.miele_washing_machine_ultraphase_2_level') | float / 1440 * 100 %}
+        {% if (percentage > 100) %}
+          {{ 100 }}
+        {% elif (percentage < 0) %}
+          {{ 0 }}
+        {% else %}
+          {{ percentage | int(default=0) }}
+        {% endif %}
+      attributes:
+        friendly_name: Miele Ultraphase 2 taso
+        icon: mdi:cup-water
+        unit_of_measurement: "%"
 
-  - name: roborock_s6_pure_dustbin_level
-    unique_id: roborock_s6_pure_dustbin_level
-    state: |
-      {% set percentage = states('input_number.vacuum_total_area_cleaned_since_emptying') | float / 200 * 100 %}
-      {% if (percentage > 100) %}
-        {{ 100 }}
-      {% else %}
-        {{ percentage | int(default=0) }}
-      {% endif %}
-    attributes:
-      friendly_name: Pölysäiliön taso
-      icon: mdi:delete-empty
-      unit_of_measurement: '%'
+    - name: udm_cpu
+      unique_id: udm_cpu
+      state: >
+        {{ state_attr('sensor.udm_info', 'cpu') | default }}
+      attributes:
+        friendly_name: CPU
+        icon: mdi:chip
+        unit_of_measurement: "%"
 
-  - name: lights_on_count
-    unique_id: lights_on_count
-    state: |
-      {% set lights_on = expand('light.group_all_flat') | selectattr('state', 'equalto', 'on') | list | length %}
-      {% if is_state('switch.tplink_hs100_3', 'on') %}
-        {% set lights_on = lights_on + 1 %}
-      {% endif %}
+    - name: udm_cpu_temp
+      unique_id: udm_cpu_temp
+      state: >
+        {{ state_attr('sensor.udm_info', 'cpu_temp') | default }}
+      attributes:
+        friendly_name: CPU lämpötila
+        icon: mdi:thermometer
+        unit_of_measurement: "°C"
 
-      {{ lights_on }}
+    - name: udm_system_temp
+      unique_id: udm_system_temp
+      state: >
+        {{ state_attr('sensor.udm_info', 'system_temp') | default }}
+      attributes:
+        friendly_name: Lämpötila
+        icon: mdi:thermometer
+        unit_of_measurement: "°C"
 
-  - name: devices_on_count
-    unique_id: devices_on_count
-    state: |
-      {{ expand('binary_sensor.group_devices') | selectattr('state', 'equalto', 'on') | list | length }}
+    - name: udm_memory
+      unique_id: udm_memory
+      state: >
+        {{ state_attr('sensor.udm_info', 'memory') | default }}
+      attributes:
+        friendly_name: Muistinkäyttö
+        icon: mdi:memory
+        unit_of_measurement: "%"
 
-  - name: nibe_heat_pump_state
-    unique_id: nibe_heat_pump_state
-    state: >-
-      {% set mapper =  {
-          'IDLE' : 'Joutilas',
-          'HEATING' : 'Lämmitys',
-          'HOT_WATER' : 'Käyttövesi',
-          'HOT_WATER_COMPRESSOR_OFF' : 'Käyttövesi, kompressori pois',
-          'HOT_WATER_WITH_ELECTRICITY' : 'Käyttövesi sähköllä',
-          'UNKNOWN': 'Tuntematon' } %}
-      {% set state = states('sensor.mqtt_nibe_heat_pump_state') %}
-      {{ mapper[state] if state in mapper else 'Unknown' }}
-    icon: >-
-      {% set mapper =  {
-          'IDLE' : 'mdi:sleep',
-          'HEATING' : 'mdi:fire',
-          'HOT_WATER' : 'mdi:water',
-          'HOT_WATER_COMPRESSOR_OFF' : 'mdi:water',
-          'HOT_WATER_WITH_ELECTRICITY' : 'hass:flash',
-          'UNKNOWN': 'mdi:help' } %}
-      {% set state = states('sensor.mqtt_nibe_heat_pump_state') %}
-      {{ mapper[state] if state in mapper else 'mdi:help' }}
+    - name: udm_disk_usage
+      unique_id: udm_disk
+      state: >
+        {{ state_attr('sensor.udm_info', 'disk') | default }}
+      attributes:
+        friendly_name: Levytilan käyttö
+        icon: mdi:harddisk
+        unit_of_measurement: "%"
 
-  - name: nibe_supply_delta_temp
-    unique_id: nibe_supply_delta_temp
-    unit_of_measurement: "°C"
-    device_class: temperature
-    state: "{{ ((states('sensor.nibe_supply_temp')|float) - (states('sensor.nibe_supply_return_temp')|float))|round(1) }}"
-    availability: "{{ is_state('sensor.nibe_heat_pump_state', 'Lämmitys') }}"
+    - name: udm_uptime
+      unique_id: udm_uptime
+      state: >
+        {{ state_attr('sensor.udm_info', 'uptime') | default }}
+      attributes:
+        friendly_name: Viimeisin käynnistys
+        icon: mdi:clock
+        device_class: timestamp
 
-  - name: nibe_hot_water_delta_temp
-    unique_id: nibe_hot_water_delta_temp
-    unit_of_measurement: "°C"
-    device_class: temperature
-    state: "{{ ((states('sensor.nibe_supply_temp')|float) - (states('sensor.nibe_supply_return_temp')|float))|round(1) }}"
-    availability: "{{ is_state('sensor.nibe_heat_pump_state', 'Käyttövesi') }}"
+    - name: udm_availability
+      unique_id: udm_availability
+      state: >
+        {{ state_attr('sensor.udm_info', 'availability') | default }}
+      attributes:
+        friendly_name: Saatavuus
+        icon: mdi:connection
+        unit_of_measurement: "%"
 
-  - name: nibe_brine_delta_temp
-    unique_id: nibe_brine_delta_temp
-    unit_of_measurement: "°C"
-    device_class: temperature
-    state: "{{ ((states('sensor.nibe_brine_in_temp')|float) - (states('sensor.nibe_brine_out_temp')|float))|round(1) }}"
-    availability: "{{ is_state('sensor.nibe_heat_pump_state', 'Lämmitys') }}"
+    - name: udm_average_latency
+      unique_id: udm_average_latency
+      state: >
+        {{ state_attr('sensor.udm_info', 'average_latency') | default }}
+      attributes:
+        friendly_name: Viive
+        icon: mdi:clock-fast
+        unit_of_measurement: "ms"
 
-  - name: laundry_tower_state
-    unique_id: laundry_tower_state
-    icon: |
-      {% set washerStatus = states('sensor.washing_machine_status') | lower  %}
-      {% set dryerStatus = states('sensor.tumble_dryer_status') | lower %}
-      {% if washerStatus == 'running' and dryerStatus == 'running' %}
-        mdi:washing-machine
-      {% elif washerStatus == 'running' %}
-        mdi:washing-machine
-      {% elif dryerStatus == 'running' %}
-        mdi:tumble-dryer
-      {% elif washerStatus != 'off' or dryerStatus != 'off' %}
-        mdi:washing-machine-alert
-      {% else %}
-        mdi:washing-machine-off
-      {% endif %}
-    state: |
-      {% set washerStatus = states('sensor.washing_machine_status') | lower %}
-      {% set dryerStatus = states('sensor.tumble_dryer_status') | lower %}
-      {% if washerStatus == 'running' and dryerStatus == 'running' %}
-        Pyykkää ja kuivaa
-      {% elif washerStatus == 'running' %}
-        Pyykkää
-      {% elif dryerStatus == 'running' %}
-        Kuivaa
-      {% elif washerStatus != 'off' or dryerStatus != 'off' %}
-        Päällä
-      {% else %}
-        Pois
-      {% endif %}
+    - name: udm_download_speed
+      unique_id: udm_download_speed
+      state: >
+        {{ state_attr('sensor.udm_info', 'down') | default | round(1) }}
+      attributes:
+        friendly_name: Latausnopeus
+        icon: mdi:download
+        unit_of_measurement: "MB"
 
-  - name: miele_washing_machine_ultraphase_1_level_percentage
-    state: |
-      {% set percentage = states('input_number.miele_washing_machine_ultraphase_1_level') | float / 1440 * 100 %}
-      {% if (percentage > 100) %}
-        {{ 100 }}
-      {% elif (percentage < 0) %}
-        {{ 0 }}
-      {% else %}
-        {{ percentage | int(default=0) }}
-      {% endif %}
-    attributes:
-      friendly_name: Miele Ultraphase 1 taso
-      icon: mdi:cup-water
-      unit_of_measurement: '%'
+    - name: udm_upload_speed
+      unique_id: udm_upload_speed
+      state: >
+        {{ state_attr('sensor.udm_info', 'up') | default | round(1) }}
+      attributes:
+        friendly_name: Lähetysnopeus
+        icon: mdi:upload
+        unit_of_measurement: "MB"
 
-  - name: miele_washing_machine_ultraphase_2_level_percentage
-    state: |
-      {% set percentage = states('input_number.miele_washing_machine_ultraphase_2_level') | float / 1440 * 100 %}
-      {% if (percentage > 100) %}
-        {{ 100 }}
-      {% elif (percentage < 0) %}
-        {{ 0 }}
-      {% else %}
-        {{ percentage | int(default=0) }}
-      {% endif %}
-    attributes:
-      friendly_name: Miele Ultraphase 2 taso
-      icon: mdi:cup-water
-      unit_of_measurement: '%'
+    - name: udm_version
+      unique_id: udm_version
+      state: >
+        {{ state_attr('sensor.udm_info', 'version') | default }}
+      attributes:
+        friendly_name: Versio
+        icon: mdi:package-up
 
-  - name: udm_cpu
-    unique_id: udm_cpu
-    state: >
-      {{ state_attr('sensor.udm_info', 'cpu') | default }}
-    attributes:
-      friendly_name: CPU
-      icon: mdi:chip
-      unit_of_measurement: '%'
-
-  - name: udm_cpu_temp
-    unique_id: udm_cpu_temp
-    state: >
-      {{ state_attr('sensor.udm_info', 'cpu_temp') | default }}
-    attributes:
-      friendly_name: CPU lämpötila
-      icon: mdi:thermometer
-      unit_of_measurement: '°C'
-
-  - name: udm_system_temp
-    unique_id: udm_system_temp
-    state: >
-      {{ state_attr('sensor.udm_info', 'system_temp') | default }}
-    attributes:
-      friendly_name: Lämpötila
-      icon: mdi:thermometer
-      unit_of_measurement: '°C'
-
-  - name: udm_memory
-    unique_id: udm_memory
-    state: >
-      {{ state_attr('sensor.udm_info', 'memory') | default }}
-    attributes:
-      friendly_name: Muistinkäyttö
-      icon: mdi:memory
-      unit_of_measurement: '%'
-
-  - name: udm_disk_usage
-    unique_id: udm_disk
-    state: >
-      {{ state_attr('sensor.udm_info', 'disk') | default }}
-    attributes:
-      friendly_name: Levytilan käyttö
-      icon: mdi:harddisk
-      unit_of_measurement: '%'
-
-  - name: udm_uptime
-    unique_id: udm_uptime
-    state: >
-      {{ state_attr('sensor.udm_info', 'uptime') | default }}
-    attributes:
-      friendly_name: Viimeisin käynnistys
-      icon: mdi:clock
-      device_class: timestamp
-
-  - name: udm_availability
-    unique_id: udm_availability
-    state: >
-      {{ state_attr('sensor.udm_info', 'availability') | default }}
-    attributes:
-      friendly_name: Saatavuus
-      icon: mdi:connection
-      unit_of_measurement: '%'
-
-  - name: udm_average_latency
-    unique_id: udm_average_latency
-    state: >
-      {{ state_attr('sensor.udm_info', 'average_latency') | default }}
-    attributes:
-      friendly_name: Viive
-      icon: mdi:clock-fast
-      unit_of_measurement: 'ms'
-
-  - name: udm_download_speed
-    unique_id: udm_download_speed
-    state: >
-      {{ state_attr('sensor.udm_info', 'down') | default | round(1) }}
-    attributes:
-      friendly_name: Latausnopeus
-      icon: mdi:download
-      unit_of_measurement: 'MB'
-
-  - name: udm_upload_speed
-    unique_id: udm_upload_speed
-    state: >
-      {{ state_attr('sensor.udm_info', 'up') | default | round(1) }}
-    attributes:
-      friendly_name: Lähetysnopeus
-      icon: mdi:upload
-      unit_of_measurement: 'MB'
-
-  - name: udm_version
-    unique_id: udm_version
-    state: >
-      {{ state_attr('sensor.udm_info', 'version') | default }}
-    attributes:
-      friendly_name: Versio
-      icon: mdi:package-up
-
-  - name: todoist_current_task
-    unique_id: todoist_current_task
-    state: |
-      {% set all_tasks = state_attr('sensor.todoist_all_tasks', 'items') | sort(attribute='child_order') %}
-      {% if all_tasks %}
-        {{ (all_tasks | first).content }}
-      {% else %}
-        off
-      {% endif %}
-    attributes:
-      icon: mdi:list-status
-      friendly_name: Viimeisin tehtävä
-      description: |
+    - name: todoist_current_task
+      unique_id: todoist_current_task
+      state: |
         {% set all_tasks = state_attr('sensor.todoist_all_tasks', 'items') | sort(attribute='child_order') %}
         {% if all_tasks %}
-          {{ (all_tasks | first).description }}
+          {{ (all_tasks | first).content }}
         {% else %}
-          None
+          off
         {% endif %}
-      id: |
-        {% set all_tasks = state_attr('sensor.todoist_all_tasks', 'items') | sort(attribute='child_order') %}
-        {% if all_tasks %}
-          {{ (all_tasks | first).id }}
-        {% else %}
-          None
-        {% endif %}
-      project_id: |
-        {% set all_tasks = state_attr('sensor.todoist_all_tasks', 'items') | sort(attribute='child_order') %}
-        {% if all_tasks %}
-          {{ (all_tasks | first).project_id }}
-        {% else %}
-          None
-        {% endif %}
+      attributes:
+        icon: mdi:list-status
+        friendly_name: Viimeisin tehtävä
+        description: |
+          {% set all_tasks = state_attr('sensor.todoist_all_tasks', 'items') | sort(attribute='child_order') %}
+          {% if all_tasks %}
+            {{ (all_tasks | first).description }}
+          {% else %}
+            None
+          {% endif %}
+        id: |
+          {% set all_tasks = state_attr('sensor.todoist_all_tasks', 'items') | sort(attribute='child_order') %}
+          {% if all_tasks %}
+            {{ (all_tasks | first).id }}
+          {% else %}
+            None
+          {% endif %}
+        project_id: |
+          {% set all_tasks = state_attr('sensor.todoist_all_tasks', 'items') | sort(attribute='child_order') %}
+          {% if all_tasks %}
+            {{ (all_tasks | first).project_id }}
+          {% else %}
+            None
+          {% endif %}
 
-  - name: ventilation_filters_days_remaining
-    unique_id: ventilation_filters_days_remaining
-    state: |
-      {% set diff_days = (30 * 4) - (((as_timestamp(now()) - as_timestamp(states('input_datetime.ventilation_filters_replaced'), 0)) / 60 / 60 / 24) | int) %}
-      {{ [diff_days, 0] | max }}
-    attributes:
-      icon: mdi:clock
-      friendly_name: Suodattimien vaihtoon
-      unit_of_measurement: päivää
+    - name: ventilation_filters_days_remaining
+      unique_id: ventilation_filters_days_remaining
+      state: |
+        {% set diff_days = (30 * 4) - (((as_timestamp(now()) - as_timestamp(states('input_datetime.ventilation_filters_replaced'), 0)) / 60 / 60 / 24) | int) %}
+        {{ [diff_days, 0] | max }}
+      attributes:
+        icon: mdi:clock
+        friendly_name: Suodattimien vaihtoon
+        unit_of_measurement: päivää
 
-  - name: low_battery_devices
-    unique_id: low_battery_devices
-    state: |
-      {% set result = namespace(low_battery_devices=[]) %}
-      {% for sensor in states.sensor | selectattr('attributes.device_class', 'defined') | selectattr('attributes.device_class', 'equalto', 'battery') | map(attribute='entity_id') | list %}
-        {% if (states(sensor) | int(100)) <= 10 %}
-          {% set result.low_battery_devices = result.low_battery_devices + [sensor] %}
-        {% endif %}
-      {% endfor %}
-      {{ result.low_battery_devices | length }}
-    attributes:
-      friendly_name: Sensorit, joiden varaus on matala
-      icon: mdi:battery-low
-      devices: |
+    - name: low_battery_devices
+      unique_id: low_battery_devices
+      state: |
         {% set result = namespace(low_battery_devices=[]) %}
         {% for sensor in states.sensor | selectattr('attributes.device_class', 'defined') | selectattr('attributes.device_class', 'equalto', 'battery') | map(attribute='entity_id') | list %}
           {% if (states(sensor) | int(100)) <= 10 %}
             {% set result.low_battery_devices = result.low_battery_devices + [sensor] %}
           {% endif %}
         {% endfor %}
-        {{ result.low_battery_devices }}
+        {{ result.low_battery_devices | length }}
+      attributes:
+        friendly_name: Sensorit, joiden varaus on matala
+        icon: mdi:battery-low
+        devices: |
+          {% set result = namespace(low_battery_devices=[]) %}
+          {% for sensor in states.sensor | selectattr('attributes.device_class', 'defined') | selectattr('attributes.device_class', 'equalto', 'battery') | map(attribute='entity_id') | list %}
+            {% if (states(sensor) | int(100)) <= 10 %}
+              {% set result.low_battery_devices = result.low_battery_devices + [sensor] %}
+            {% endif %}
+          {% endfor %}
+          {{ result.low_battery_devices }}
 
 - select:
-  - name: roborock_s6_pure_speed
-    state: |
-      {% set fan_speed = state_attr('vacuum.roborock_s6_pure', 'fan_speed') %}
-      {{ iif(fan_speed == None, 'Standard', fan_speed) }}
-    options: |
-      {% set fan_speed_list = state_attr('vacuum.roborock_s6_pure', 'fan_speed_list') %}
-      {{ iif(fan_speed_list == None, ['Standard'], fan_speed_list) }}
-    select_option:
-      service: vacuum.set_fan_speed
-      target:
-        entity_id: vacuum.roborock_s6_pure
-      data:
-        fan_speed: >
-          {{ option }}
+    - name: roborock_s6_pure_speed
+      state: |
+        {% set fan_speed = state_attr('vacuum.roborock_s6_pure', 'fan_speed') %}
+        {{ iif(fan_speed == None, 'Standard', fan_speed) }}
+      options: |
+        {% set fan_speed_list = state_attr('vacuum.roborock_s6_pure', 'fan_speed_list') %}
+        {{ iif(fan_speed_list == None, ['Standard'], fan_speed_list) }}
+      select_option:
+        service: vacuum.set_fan_speed
+        target:
+          entity_id: vacuum.roborock_s6_pure
+        data:
+          fan_speed: >
+            {{ option }}
 
 - binary_sensor:
-  - name: "Liiketunnistimet sisällä"
-    unique_id: 'indoor_motion_sensors'
-    device_class: motion
-    state: |
-      {% if (is_state('binary_sensor.hue_motion_sensor_1', 'on') or is_state('binary_sensor.hue_motion_sensor_2', 'on')) %}
-        on
-      {% else %}
-        off
-      {% endif %}
+    - name: "Liiketunnistimet sisällä"
+      unique_id: "indoor_motion_sensors"
+      device_class: motion
+      state: |
+        {% if (is_state('binary_sensor.hue_motion_sensor_1', 'on') or is_state('binary_sensor.hue_motion_sensor_2', 'on')) %}
+          on
+        {% else %}
+          off
+        {% endif %}
 
-  - name: "Autotallin ilmankuivaimen tila"
-    unique_id: 'garage_dehumidifier'
-    state: '{{ states("sensor.garage_dehumidifier_energy_consumption_current") | float(default=0) > 10.0 }}'
+    - name: "Autotallin ilmankuivaimen tila"
+      unique_id: "garage_dehumidifier"
+      state: '{{ states("sensor.garage_dehumidifier_energy_consumption_current") | float(default=0) > 10.0 }}'
 
-  - name: "Ovet"
-    unique_id: 'doors'
-    device_class: door
-    state: |
-      {% if (is_state('binary_sensor.mqtt_garage_door', 'on') or is_state('lock.ulko_ovi', 'unlocked')) %}
-        on
-      {% else %}
-        off
-      {% endif %}
+    - name: "Ovet"
+      unique_id: "doors"
+      device_class: door
+      state: |
+        {% if (is_state('binary_sensor.mqtt_garage_door', 'on') or is_state('lock.ulko_ovi', 'unlocked')) %}
+          on
+        {% else %}
+          off
+        {% endif %}
 
-  - name: "Home Assistant update available"
-    unique_id: "hass_update_available"
-    icon: mdi:update
-    state: "{{ iif(states('sensor.hass_version_installed') != states('sensor.hass_version_latest'), 'on', 'off') }}"
-    attributes:
-      latest_version: "{{ states('sensor.hass_version_latest') }}"
-      icon_color: green
-      text_summary: 'Home Assistant päivitys saatavilla'
-      text_description: "Uusin version on {{ states('sensor.hass_version_latest') }}"
+    - name: "Home Assistant update available"
+      unique_id: "hass_update_available"
+      icon: mdi:update
+      state: "{{ iif(states('sensor.hass_version_installed') != states('sensor.hass_version_latest'), 'on', 'off') }}"
+      attributes:
+        latest_version: "{{ states('sensor.hass_version_latest') }}"
+        icon_color: green
+        text_summary: "Home Assistant päivitys saatavilla"
+        text_description: "Uusin version on {{ states('sensor.hass_version_latest') }}"
 
-  - name: "Samsung Q90 Series 65"
-    unique_id: samsung_q90_series_65
-    icon: mdi:television
-    state: "{{ iif(is_state('media_player.samsung_q90_series_65', 'on'), 'on', 'off') }}"
+    - name: "Samsung Q90 Series 65"
+      unique_id: samsung_q90_series_65
+      icon: mdi:television
+      state: "{{ iif(is_state('media_player.samsung_q90_series_65', 'on'), 'on', 'off') }}"
 
-  - name: "LG 65 C1"
-    unique_id: lg_65_c1
-    icon: mdi:television
-    state: "{{ iif(is_state('media_player.lg_65_c1', 'off'), 'off', 'on') }}"
+    - name: "LG 65 C1"
+      unique_id: lg_65_c1
+      icon: mdi:television
+      state: "{{ iif(is_state('media_player.lg_65_c1', 'off'), 'off', 'on') }}"
 
-  - name: "UDM Internet"
-    unique_id: udm_internet
-    state: |
-      {{ state_attr('sensor.udm_info', 'internet') | default }}
-    attributes:
-      friendly_name: Internet
-      icon: mdi:wan
-      device_class: connectivity
+    - name: "UDM Internet"
+      unique_id: udm_internet
+      state: |
+        {{ state_attr('sensor.udm_info', 'internet') | default }}
+      attributes:
+        friendly_name: Internet
+        icon: mdi:wan
+        device_class: connectivity
 
-  - name: "high_electricity_price"
-    unique_id: "high_electricity_price"
-    icon: mdi:currency-eur
-    state: "{{ iif(states('sensor.nordpool') | float > 15.00, 'on', 'off') }}"
-    attributes:
-      friendly_name: Korkea sähkönhinta
+    - name: "high_electricity_price"
+      unique_id: "high_electricity_price"
+      icon: mdi:currency-eur
+      state: "{{ iif(states('sensor.nordpool') | float > 15.00, 'on', 'off') }}"
+      attributes:
+        friendly_name: Korkea sähkönhinta
 
-  ### Notifications ###
+    ### Notifications ###
 
-  - name: "notification_heat_pump_alarm"
-    unique_id: "notification_heat_pump_alarm"
-    icon: mdi:alert-outline
-    state: |
-      {% if is_state('sensor.nibe_alarm_number', '0') %}
-        off
-      {% else %}
-        on
-      {% endif %}
-    attributes:
-      icon_color: 'var(--warning-color)'
-      text_summary: "Maalämpöpumpun hälytys {{ states('sensor.nibe_alarm_number') }}. <a href='https://ammattilaiset.nibe.fi/tuki/vikakoodihaku/'>Tarkista vikakoodi</a"
-      tap_action: url
-      tap_action_url_path: "https://ammattilaiset.nibe.fi/tuki/vikakoodihaku/"
+    - name: "notification_heat_pump_alarm"
+      unique_id: "notification_heat_pump_alarm"
+      icon: mdi:alert-outline
+      state: |
+        {% if is_state('sensor.nibe_alarm_number', '0') %}
+          off
+        {% else %}
+          on
+        {% endif %}
+      attributes:
+        icon_color: "var(--warning-color)"
+        text_summary: "Maalämpöpumpun hälytys {{ states('sensor.nibe_alarm_number') }}. <a href='https://ammattilaiset.nibe.fi/tuki/vikakoodihaku/'>Tarkista vikakoodi</a"
+        tap_action: url
+        tap_action_url_path: "https://ammattilaiset.nibe.fi/tuki/vikakoodihaku/"
 
-  - name: "notification_todays_precipitation"
-    unique_id: "notification_todays_precipitation"
-    icon: |
-        {% set forecast = state_attr('weather.koti_custom', 'forecast') %}
+    - name: "notification_todays_precipitation"
+      unique_id: "notification_todays_precipitation"
+      icon: |
+        {% set forecast = state_attr('sensor.weather_forecast_today', 'forecast') %}
         {% set precipitation_type = state_attr('sensor.koti_precipitation', 'type') %}
-        {% if precipitation_type == 'Snow' or (forecast and forecast[0] and forecast[0].condition == 'snowy') %}
+        {% if precipitation_type == 'Snow' or (forecast and forecast.condition == 'snowy') %}
           mdi:weather-snowy-heavy
-        {% elif forecast and forecast[0] and forecast[0].condition == 'snowy-rainy' %}
+        {% elif forecast and forecast.condition == 'snowy-rainy' %}
           mdi:weather-snowy-rainy
         {% else %}
           mdi:weather-rainy
         {% endif %}
-    state: |
-      {% set precipitation = states('sensor.koti_precipitation' ) %}
-      {% if precipitation | float(default=0) > 0.0 and is_state('binary_sensor.notification_raining', 'off') %}
-        on
-      {% else %}
-        off
-      {% endif %}
-    attributes:
-      icon_color: 'rgb(var(--color-blue))'
-      text_summary: |
-        {% set forecast = state_attr('weather.koti_custom', 'forecast') %}
+      state: |
         {% set precipitation = states('sensor.koti_precipitation' ) %}
-        {% set precipitation_type = state_attr('sensor.koti_precipitation', 'type') %}
-        {% if precipitation | float(default=0) > 0.0 %}
-          {% if precipitation_type == 'Snow' or (forecast and forecast[0] and forecast[0].condition == 'snowy') %}
-            Odotettavissa lumisadetta {{ precipitation }} mm
-          {% elif forecast and forecast[0] and forecast[0].condition == 'snowy-rainy' %}
-            Odotettavissa räntäsadetta {{ precipitation }} mm
-          {% else %}
-            Odotettavissa vesisadetta {{ precipitation }} mm
+        {% if precipitation | float(default=0) > 0.0 and is_state('binary_sensor.notification_raining', 'off') %}
+          on
+        {% else %}
+          off
+        {% endif %}
+      attributes:
+        icon_color: "rgb(var(--color-blue))"
+        text_summary: |
+          {% set forecast = state_attr('sensor.weather_forecast_today', 'forecast') %}
+          {% set precipitation = states('sensor.koti_precipitation' ) %}
+          {% set precipitation_type = state_attr('sensor.koti_precipitation', 'type') %}
+          {% if precipitation | float(default=0) > 0.0 %}
+            {% if precipitation_type == 'Snow' or (forecast and forecast.condition == 'snowy') %}
+              Odotettavissa lumisadetta {{ precipitation }} mm
+            {% elif forecast and forecast.condition == 'snowy-rainy' %}
+              Odotettavissa räntäsadetta {{ precipitation }} mm
+            {% else %}
+              Odotettavissa vesisadetta {{ precipitation }} mm
+            {% endif %}
           {% endif %}
+        text_description: |
+          {% set forecast = state_attr('sensor.weather_forecast_today', 'forecast') %}
+          {% if forecast and forecast.precipitation %}
+            Ennuste {{ forecast.precipitation }} mm. Todennäköisyys {{ forecast.precipitation_probability }} %
+          {% endif %}
+        tap_action: more-info
+        tap_action_entity: weather.koti
+
+    - name: "notification_synology_update_available"
+      unique_id: "notification_synology_update_available"
+      icon: "mdi:update"
+      state: "{{ states('update.synology_dsm_update') }}"
+      attributes:
+        icon_color: "green"
+        text_summary: "Synology päivitys saatavilla"
+        text_description: "Uusin version on {{ state_attr('update.synology_dsm_update', 'latest_version') }}"
+
+    - name: "notification_hass_update_available"
+      unique_id: "notification_hass_update_available"
+      icon: "mdi:update"
+      state: "{{ states('binary_sensor.hass_version_latest_update_available') }}"
+      attributes:
+        icon_color: "green"
+        text_summary: "Home Assistant päivitys saatavilla"
+        text_description: "Uusin version on {{ states('sensor.hass_version_latest') }}."
+        tap_action: url
+        tap_action_url_path: "https://www.home-assistant.io/latest-release-notes/"
+
+    - name: "notification_udm_update_available"
+      unique_id: "notification_udm_update_available"
+      icon: "mdi:update"
+      state: "{{ states('update.dream_machine') }}"
+      attributes:
+        icon_color: "green"
+        text_summary: "UDM päivitys saatavilla"
+        text_description: "Uusin version on {{ state_attr('update.dream_machine', 'latest_version') }}."
+
+    - name: notification_on_vacation
+      unique_id: notification_on_vacation
+      icon: mdi:palm-tree
+      state: "{{ states('input_boolean.on_vacation') }}"
+      attributes:
+        icon_color: green
+        text_summary: "Lomamoodi on päällä"
+        tap_action: more-info
+        tap_action_entity: input_boolean.on_vacation
+
+    - name: notification_synology_security_warning
+      unique_id: notification_synology_security_warning
+      icon: mdi:alert-outline
+      state: "{{ states('binary_sensor.synology_security_status') }}"
+      attributes:
+        icon_color: "var(--warning-color)"
+        text_summary: "Synologyn turvataso alhainen"
+        tap_action: more-info
+        tap_action_entity: binary_sensor.synology_security_status
+
+    - name: notification_garage_door_open
+      unique_id: notification_garage_door_open
+      icon: "{{ iif(is_state('binary_sensor.mqtt_garage_door', 'on'), 'mdi:garage-open', 'mdi:garage')  }}"
+      state: "{{ states('binary_sensor.mqtt_garage_door') }}"
+      attributes:
+        icon_color: "var(--warning-color)"
+        text_summary: "Autotallin ovi on auki"
+
+    - name: notification_front_door_open
+      unique_id: notification_front_door_open
+      icon: "{{ iif(is_state('lock.ulko_ovi', 'unlocked'), 'mdi:door-open', 'mdi:door')  }}"
+      state: "{{ iif(is_state('lock.ulko_ovi', 'unlocked'), 'on', 'off') }}"
+      attributes:
+        icon_color: "var(--warning-color)"
+        text_summary: "Ulko-ovi on auki"
+
+    - name: notification_sauna
+      unique_id: notification_sauna
+      icon: mdi:shower
+      state: "{{ iif(is_state('input_select.sauna_state', 'Pois'), 'off', 'on') }}"
+      attributes:
+        icon_color: |
+          {% if is_state('input_select.sauna_state', 'Lämpenee') %}
+            yellow
+          {% elif is_state('input_select.sauna_state', 'Lämmin') %}
+            red
+          {% elif is_state('input_select.sauna_state', 'Jäähtyy') %}
+            #00ccf5
+          {% endif %}
+        text_summary: |
+          {% if is_state('input_select.sauna_state', 'Lämpenee') %}
+            Sauna lämpenee
+          {% elif is_state('input_select.sauna_state', 'Lämmin') %}
+            Sauna on lämmin
+          {% elif is_state('input_select.sauna_state', 'Jäähtyy') %}
+            Sauna jäähtyy
+          {% endif %}
+        text_description: |
+          Lämpötila {{ states('sensor.mqtt_sauna_temperature') }} {{state_attr('sensor.mqtt_sauna_temperature', 'unit_of_measurement') }}. Kosteus {{ states('sensor.mqtt_sauna_humidity') }} {{state_attr('sensor.mqtt_sauna_humidity', 'unit_of_measurement') }}.
+
+    - name: notification_humidity
+      unique_id: notification_humidity
+      icon: "{{ state_attr('sensor.humidity_state', 'icon') }}"
+      state: "{{ iif(is_state('sensor.humidity_state', 'Normaali'), 'off', 'on') }}"
+      attributes:
+        icon_color: |
+          {% if is_state('sensor.humidity_state', 'Alhainen') %}
+            var(--humidity-low-color)
+          {% elif is_state('sensor.humidity_state', 'Korkea') %}
+            var(--humidity-high-color)
+          {% endif %}
+        text_summary: |
+          {% if is_state('sensor.humidity_state', 'Alhainen') %}
+            Alhainen ilmankosteus
+          {% elif is_state('sensor.humidity_state', 'Korkea') %}
+            Korkea ilmankosteus
+          {% endif %}
+        text_description: |
+          {% set reporting_entity = state_attr('sensor.humidity_state', 'reporting_entity') %}
+          {% if reporting_entity %}
+            {{ state_attr(reporting_entity, 'friendly_name') }} {{ states(reporting_entity) | float(0) | round(0) }} {{ state_attr(reporting_entity, 'unit_of_measurement') }}
+          {% endif %}
+        tap_action: more-info
+        tap_action_entity: "{{ state_attr('sensor.humidity_state', 'reporting_entity') }}"
+
+    - name: notification_possible_utility_room_water_leak
+      unique_id: notification_possible_utility_room_water_leak
+      icon: mdi:water-alert
+      state: |
+        {% set indoor_humidity = states('sensor.group_indoor_humidity') | float(0) %}
+        {% set leak_sensor_humidity = states('sensor.mqtt_utility_room_leak_detector_humidity') | float(0) %}
+        {% set max_diff = 5.0 %}
+        {% if indoor_humidity < 30 %}
+          {% set max_diff = 10.0 %}
         {% endif %}
-      text_description: |
-        {% set forecast = state_attr('weather.koti_custom', 'forecast') %}
-        {% if forecast and forecast[0] and forecast[0].precipitation %}
-          Ennuste {{ forecast[0].precipitation }} mm. Todennäköisyys {{ forecast[0].precipitation_probability }} %
+
+        {{ iif(leak_sensor_humidity - indoor_humidity > max_diff, 'on', 'off') }}
+      attributes:
+        icon_color: var(--humidity-high-color)
+        text_summary: "Kodinhoitohuoneen vuotosensori laennut"
+        text_description: |
+          Anturin kosteus {{ states('sensor.mqtt_utility_room_leak_detector_humidity', with_unit=True, rounded=True) }}. Sisäilma {{ states('sensor.group_indoor_humidity', with_unit=True, rounded=True) }}.
+        tap_action: more-info
+        tap_action_entity: sensor.mqtt_utility_room_leak_detector_humidity
+
+    - name: notification_possible_kitchen_water_leak
+      unique_id: notification_possible_kitchen_water_leak
+      icon: mdi:water-alert
+      state: |
+        {% set indoor_humidity = states('sensor.group_indoor_humidity') | float(0) %}
+        {% set leak_sensor_humidity = states('sensor.mqtt_kitchen_leak_detector_humidity') | float(0) %}
+        {% set max_diff = 5.0 %}
+        {% if indoor_humidity < 30 %}
+          {% set max_diff = 10.0 %}
         {% endif %}
-      tap_action: more-info
-      tap_action_entity: weather.koti_custom
 
-  - name: "notification_synology_update_available"
-    unique_id: "notification_synology_update_available"
-    icon: "mdi:update"
-    state: "{{ states('update.synology_dsm_update') }}"
-    attributes:
-      icon_color: 'green'
-      text_summary: "Synology päivitys saatavilla"
-      text_description: "Uusin version on {{ state_attr('update.synology_dsm_update', 'latest_version') }}"
+        {{ iif(leak_sensor_humidity - indoor_humidity > max_diff, 'on', 'off') }}
+      attributes:
+        icon_color: var(--humidity-high-color)
+        text_summary: "Keittiön vuotosensori laennut"
+        text_description: |
+          Anturin kosteus {{ states('sensor.mqtt_kitchen_leak_detector_humidity', with_unit=True, rounded=True) }}. Sisäilma {{ states('sensor.group_indoor_humidity', with_unit=True, rounded=True) }}.
+        tap_action: more-info
+        tap_action_entity: sensor.mqtt_kitchen_leak_detector_humidity
 
-  - name: "notification_hass_update_available"
-    unique_id: "notification_hass_update_available"
-    icon: "mdi:update"
-    state: "{{ states('binary_sensor.hass_version_latest_update_available') }}"
-    attributes:
-      icon_color: 'green'
-      text_summary: "Home Assistant päivitys saatavilla"
-      text_description: "Uusin version on {{ states('sensor.hass_version_latest') }}."
-      tap_action: url
-      tap_action_url_path: "https://www.home-assistant.io/latest-release-notes/"
+    - name: notification_radon_warning
+      unique_id: notification_radon_warning
+      icon: mdi:radioactive
+      state: "{{ iif(is_state('sensor.radon_warning', 'Alhainen'), 'off', 'on') }}"
+      attributes:
+        icon_color: |
+          {% if is_state('sensor.radon_warning', 'Nousussa') %}
+            var(--warning-color)
+          {% elif is_state('sensor.radon_warning', 'Korkea') %}
+            var(--error-color)
+          {% endif %}
+        text_summary: |
+          {% if is_state('sensor.radon_warning', 'Nousussa') %}
+            Radon nousussa
+          {% elif is_state('sensor.radon_warning', 'Korkea') %}
+            Radon korkealla!
+          {% else %}
+            Radon turvallisella tasolla
+          {% endif %}
+        text_description: |
+          {% set reporting_entity = state_attr('sensor.radon_warning', 'reporting_entity') %}
+          {% if reporting_entity %}
+            {{ state_attr(reporting_entity, 'friendly_name') }} {{ states(reporting_entity, with_unit=True, rounded=True) }}. Ulkolämpötilan keskiarvo {{ states('sensor.nibe_average_outdoor_temp', with_unit=True, rounded=True) }}
+          {% endif %}
+        tap_action: more-info
+        tap_action_entity: "{{ state_attr('sensor.radon_warning', 'reporting_entity') }}"
 
-  - name: "notification_udm_update_available"
-    unique_id: "notification_udm_update_available"
-    icon: "mdi:update"
-    state: "{{ states('update.dream_machine') }}"
-    attributes:
-      icon_color: 'green'
-      text_summary: "UDM päivitys saatavilla"
-      text_description: "Uusin version on {{ state_attr('update.dream_machine', 'latest_version') }}."
+    - name: notification_co2
+      unique_id: notification_co2
+      icon: mdi:molecule-co2
+      state: "{{ iif(is_state('sensor.co2_state', 'Alhainen'), 'off', 'on') }}"
+      attributes:
+        icon_color: var(--warning-color)
+        text_summary: Hiilidioksidi korkealla
+        text_description: |
+          {% set reporting_entity = state_attr('sensor.co2_state', 'reporting_entity') %}
+          {% if reporting_entity %}
+            {{ state_attr(reporting_entity, 'friendly_name') }} {{ states(reporting_entity, with_unit=True, rounded=True) }}
+          {% endif %}
+        tap_action: more-info
+        tap_action_entity: "{{ state_attr('sensor.co2_state', 'reporting_entity') }}"
 
-  - name: notification_on_vacation
-    unique_id: notification_on_vacation
-    icon: mdi:palm-tree
-    state: "{{ states('input_boolean.on_vacation') }}"
-    attributes:
-      icon_color: green
-      text_summary: "Lomamoodi on päällä"
-      tap_action: more-info
-      tap_action_entity: input_boolean.on_vacation
+    - name: notification_garage_dehumidifier
+      unique_id: notification_garage_dehumidifier
+      icon: mdi:fan
+      state: "{{ states('switch.tplink_hs110_2') }}"
+      attributes:
+        icon_color: var(--humidity-high-color)
+        text_summary: "Autotallin ilmankuivain on päällä"
+        text_description: "Kosteus tällä hetkellä {{ states('sensor.netatmo_garage_humidity') }} %"
 
-  - name: notification_synology_security_warning
-    unique_id: notification_synology_security_warning
-    icon: mdi:alert-outline
-    state: "{{ states('binary_sensor.synology_security_status') }}"
-    attributes:
-      icon_color: 'var(--warning-color)'
-      text_summary: "Synologyn turvataso alhainen"
-      tap_action: more-info
-      tap_action_entity: binary_sensor.synology_security_status
-
-  - name: notification_garage_door_open
-    unique_id: notification_garage_door_open
-    icon: "{{ iif(is_state('binary_sensor.mqtt_garage_door', 'on'), 'mdi:garage-open', 'mdi:garage')  }}"
-    state: "{{ states('binary_sensor.mqtt_garage_door') }}"
-    attributes:
-      icon_color: 'var(--warning-color)'
-      text_summary: "Autotallin ovi on auki"
-
-  - name: notification_front_door_open
-    unique_id: notification_front_door_open
-    icon: "{{ iif(is_state('lock.ulko_ovi', 'unlocked'), 'mdi:door-open', 'mdi:door')  }}"
-    state: "{{ iif(is_state('lock.ulko_ovi', 'unlocked'), 'on', 'off') }}"
-    attributes:
-      icon_color: 'var(--warning-color)'
-      text_summary: "Ulko-ovi on auki"
-
-  - name: notification_sauna
-    unique_id: notification_sauna
-    icon: mdi:shower
-    state: "{{ iif(is_state('input_select.sauna_state', 'Pois'), 'off', 'on') }}"
-    attributes:
-      icon_color: |
-        {% if is_state('input_select.sauna_state', 'Lämpenee') %}
-          yellow
-        {% elif is_state('input_select.sauna_state', 'Lämmin') %}
-          red
-        {% elif is_state('input_select.sauna_state', 'Jäähtyy') %}
-          #00ccf5
-        {% endif %}
-      text_summary: |
-        {% if is_state('input_select.sauna_state', 'Lämpenee') %}
-          Sauna lämpenee
-        {% elif is_state('input_select.sauna_state', 'Lämmin') %}
-          Sauna on lämmin
-        {% elif is_state('input_select.sauna_state', 'Jäähtyy') %}
-          Sauna jäähtyy
-        {% endif %}
-      text_description: |
-        Lämpötila {{ states('sensor.mqtt_sauna_temperature') }} {{state_attr('sensor.mqtt_sauna_temperature', 'unit_of_measurement') }}. Kosteus {{ states('sensor.mqtt_sauna_humidity') }} {{state_attr('sensor.mqtt_sauna_humidity', 'unit_of_measurement') }}.
-
-  - name: notification_humidity
-    unique_id: notification_humidity
-    icon: "{{ state_attr('sensor.humidity_state', 'icon') }}"
-    state: "{{ iif(is_state('sensor.humidity_state', 'Normaali'), 'off', 'on') }}"
-    attributes:
-      icon_color: |
-        {% if is_state('sensor.humidity_state', 'Alhainen') %}
-          var(--humidity-low-color)
-        {% elif is_state('sensor.humidity_state', 'Korkea') %}
-          var(--humidity-high-color)
-        {% endif %}
-      text_summary: |
-        {% if is_state('sensor.humidity_state', 'Alhainen') %}
-          Alhainen ilmankosteus
-        {% elif is_state('sensor.humidity_state', 'Korkea') %}
-          Korkea ilmankosteus
-        {% endif %}
-      text_description: |
-        {% set reporting_entity = state_attr('sensor.humidity_state', 'reporting_entity') %}
-        {% if reporting_entity %}
-          {{ state_attr(reporting_entity, 'friendly_name') }} {{ states(reporting_entity) | float(0) | round(0) }} {{ state_attr(reporting_entity, 'unit_of_measurement') }}
-        {% endif %}
-      tap_action: more-info
-      tap_action_entity: "{{ state_attr('sensor.humidity_state', 'reporting_entity') }}"
-
-  - name: notification_possible_utility_room_water_leak
-    unique_id: notification_possible_utility_room_water_leak
-    icon: mdi:water-alert
-    state: |
-      {% set indoor_humidity = states('sensor.group_indoor_humidity') | float(0) %}
-      {% set leak_sensor_humidity = states('sensor.mqtt_utility_room_leak_detector_humidity') | float(0) %}
-      {% set max_diff = 5.0 %}
-      {% if indoor_humidity < 30 %}
-        {% set max_diff = 10.0 %}
-      {% endif %}
-
-      {{ iif(leak_sensor_humidity - indoor_humidity > max_diff, 'on', 'off') }}
-    attributes:
-      icon_color: var(--humidity-high-color)
-      text_summary: "Kodinhoitohuoneen vuotosensori laennut"
-      text_description: |
-        Anturin kosteus {{ states('sensor.mqtt_utility_room_leak_detector_humidity', with_unit=True, rounded=True) }}. Sisäilma {{ states('sensor.group_indoor_humidity', with_unit=True, rounded=True) }}.
-      tap_action: more-info
-      tap_action_entity: sensor.mqtt_utility_room_leak_detector_humidity
-
-  - name: notification_possible_kitchen_water_leak
-    unique_id: notification_possible_kitchen_water_leak
-    icon: mdi:water-alert
-    state: |
-      {% set indoor_humidity = states('sensor.group_indoor_humidity') | float(0) %}
-      {% set leak_sensor_humidity = states('sensor.mqtt_kitchen_leak_detector_humidity') | float(0) %}
-      {% set max_diff = 5.0 %}
-      {% if indoor_humidity < 30 %}
-        {% set max_diff = 10.0 %}
-      {% endif %}
-
-      {{ iif(leak_sensor_humidity - indoor_humidity > max_diff, 'on', 'off') }}
-    attributes:
-      icon_color: var(--humidity-high-color)
-      text_summary: "Keittiön vuotosensori laennut"
-      text_description: |
-        Anturin kosteus {{ states('sensor.mqtt_kitchen_leak_detector_humidity', with_unit=True, rounded=True) }}. Sisäilma {{ states('sensor.group_indoor_humidity', with_unit=True, rounded=True) }}.
-      tap_action: more-info
-      tap_action_entity: sensor.mqtt_kitchen_leak_detector_humidity
-
-  - name: notification_radon_warning
-    unique_id: notification_radon_warning
-    icon: mdi:radioactive
-    state: "{{ iif(is_state('sensor.radon_warning', 'Alhainen'), 'off', 'on') }}"
-    attributes:
-      icon_color: |
-        {% if is_state('sensor.radon_warning', 'Nousussa') %}
-          var(--warning-color)
-        {% elif is_state('sensor.radon_warning', 'Korkea') %}
-          var(--error-color)
-        {% endif %}
-      text_summary: |
-        {% if is_state('sensor.radon_warning', 'Nousussa') %}
-          Radon nousussa
-        {% elif is_state('sensor.radon_warning', 'Korkea') %}
-          Radon korkealla!
+    - name: notification_garage_dehumidifier_bucket_full
+      unique_id: notification_garage_dehumidifier_bucket_full
+      icon: mdi:format-color-fill
+      state: |
+        {% set current_state_duration = as_timestamp(now()) - as_timestamp(states.switch.tplink_hs110_2.last_changed) %}
+        {% set current_consumption = states('sensor.garage_dehumidifier_energy_consumption_current') | int(default=0) %}
+        {% if is_state('switch.tplink_hs110_2', 'on') and current_state_duration > (5 * 60) and current_consumption < 10 %}
+          on
         {% else %}
-          Radon turvallisella tasolla
+          off
         {% endif %}
-      text_description: |
-        {% set reporting_entity = state_attr('sensor.radon_warning', 'reporting_entity') %}
-        {% if reporting_entity %}
-          {{ state_attr(reporting_entity, 'friendly_name') }} {{ states(reporting_entity, with_unit=True, rounded=True) }}. Ulkolämpötilan keskiarvo {{ states('sensor.nibe_average_outdoor_temp', with_unit=True, rounded=True) }}
-        {% endif %}
-      tap_action: more-info
-      tap_action_entity: "{{ state_attr('sensor.radon_warning', 'reporting_entity') }}"
+      attributes:
+        icon_color: var(--humidity-high-color)
+        text_summary: Tyhjennä autotallin ilmankuivain
 
-  - name: notification_co2
-    unique_id: notification_co2
-    icon: mdi:molecule-co2
-    state: "{{ iif(is_state('sensor.co2_state', 'Alhainen'), 'off', 'on') }}"
-    attributes:
-      icon_color: var(--warning-color)
-      text_summary: Hiilidioksidi korkealla
-      text_description: |
-        {% set reporting_entity = state_attr('sensor.co2_state', 'reporting_entity') %}
-        {% if reporting_entity %}
-          {{ state_attr(reporting_entity, 'friendly_name') }} {{ states(reporting_entity, with_unit=True, rounded=True) }}
-        {% endif %}
-      tap_action: more-info
-      tap_action_entity: "{{ state_attr('sensor.co2_state', 'reporting_entity') }}"
+    # Not in use during summer time
+    #
+    # - name: notification_sisu_humidifier
+    #   unique_id: notification_sisu_humidifier
+    #   icon: mdi:waves-arrow-up
+    #   state: "{{ states('switch.tplink_hs110_1') }}"
+    #   attributes:
+    #     icon_color: var(--humidity-high-color)
+    #     text_summary: 'Sisun ilmankostutin päällä'
+    #     text_description: "Kosteus tällä hetkellä {{ states('sensor.mqtt_airthings_waveplus_sisu_humidity') }} %"
+    #     tap_action: more-info
+    #     tap_action_entity: switch.tplink_hs110_1
 
-  - name: notification_garage_dehumidifier
-    unique_id: notification_garage_dehumidifier
-    icon: mdi:fan
-    state: "{{ states('switch.tplink_hs110_2') }}"
-    attributes:
-      icon_color: var(--humidity-high-color)
-      text_summary: 'Autotallin ilmankuivain on päällä'
-      text_description: "Kosteus tällä hetkellä {{ states('sensor.netatmo_garage_humidity') }} %"
+    - name: notification_stiga_charger_charging
+      unique_id: notification_stiga_charger_charging
+      icon: mdi:battery-charging-medium
+      state: "{{ iif(states('switch.tplink_hs110_1') == 'on' and states('sensor.tplink_hs110_1_current_consumption') | float(default=0) > 5, 'on', 'off') }}"
+      attributes:
+        icon_color: var(--warning-color)
+        text_summary: Stigan laturi lataa akkua
+        text_description: "Virankulutus tällä hetkellä {{ states('sensor.tplink_hs110_1_current_consumption') }} W"
+        tap_action: more-info
+        tap_action_entity: switch.tplink_hs110_1
 
-  - name: notification_garage_dehumidifier_bucket_full
-    unique_id: notification_garage_dehumidifier_bucket_full
-    icon: mdi:format-color-fill
-    state: |
-      {% set current_state_duration = as_timestamp(now()) - as_timestamp(states.switch.tplink_hs110_2.last_changed) %}
-      {% set current_consumption = states('sensor.garage_dehumidifier_energy_consumption_current') | int(default=0) %}
-      {% if is_state('switch.tplink_hs110_2', 'on') and current_state_duration > (5 * 60) and current_consumption < 10 %}
-        on
-      {% else %}
-        off
-      {% endif %}
-    attributes:
-      icon_color: var(--humidity-high-color)
-      text_summary: Tyhjennä autotallin ilmankuivain
+    - name: notification_stiga_charger_full
+      unique_id: notification_stiga_charger_full
+      icon: mdi:battery-high
+      state: "{{ iif(states('switch.tplink_hs110_1') == 'on' and states('sensor.tplink_hs110_1_current_consumption') | float(default=0) <= 5, 'on', 'off') }}"
+      attributes:
+        icon_color: var(--color-green)
+        text_summary: Stigan akku täynnä
+        tap_action: more-info
+        tap_action_entity: switch.tplink_hs110_1
 
-  # Not in use during summer time
-  #
-  # - name: notification_sisu_humidifier
-  #   unique_id: notification_sisu_humidifier
-  #   icon: mdi:waves-arrow-up
-  #   state: "{{ states('switch.tplink_hs110_1') }}"
-  #   attributes:
-  #     icon_color: var(--humidity-high-color)
-  #     text_summary: 'Sisun ilmankostutin päällä'
-  #     text_description: "Kosteus tällä hetkellä {{ states('sensor.mqtt_airthings_waveplus_sisu_humidity') }} %"
-  #     tap_action: more-info
-  #     tap_action_entity: switch.tplink_hs110_1
+    - name: notification_living_room_humidifier
+      unique_id: notification_living_room_humidifier
+      icon: mdi:waves-arrow-up
+      state: "{{ states('switch.tplink_hs100_2') }}"
+      attributes:
+        icon_color: var(--humidity-high-color)
+        text_summary: "Ilmankostutin päällä"
+        text_description: "Kosteus tällä hetkellä {{ states('sensor.mqtt_airthings_waveplus_living_room_humidity') }} %"
+        tap_action: more-info
+        tap_action_entity: switch.tplink_hs100_2
 
-  - name: notification_stiga_charger_charging
-    unique_id: notification_stiga_charger_charging
-    icon: mdi:battery-charging-medium
-    state: "{{ iif(states('switch.tplink_hs110_1') == 'on' and states('sensor.tplink_hs110_1_current_consumption') | float(default=0) > 5, 'on', 'off') }}"
-    attributes:
-      icon_color: var(--warning-color)
-      text_summary: Stigan laturi lataa akkua
-      text_description: "Virankulutus tällä hetkellä {{ states('sensor.tplink_hs110_1_current_consumption') }} W"
-      tap_action: more-info
-      tap_action_entity: switch.tplink_hs110_1
+    - name: notification_heat_pump_data_missing
+      unique_id: notification_heat_pump_data_missing
+      icon: mdi:alert-outline
+      state: "{{ iif(is_state('sensor.nibe_heat_pump_state', 'Unknown'), 'on', 'off') }}"
+      attributes:
+        icon_color: var(--warning-color)
+        text_summary: Maalämpöpumppu ei lähetä dataa
 
-  - name: notification_stiga_charger_full
-    unique_id: notification_stiga_charger_full
-    icon: mdi:battery-high
-    state: "{{ iif(states('switch.tplink_hs110_1') == 'on' and states('sensor.tplink_hs110_1_current_consumption') | float(default=0) <= 5, 'on', 'off') }}"
-    attributes:
-      icon_color: var(--color-green)
-      text_summary: Stigan akku täynnä
-      tap_action: more-info
-      tap_action_entity: switch.tplink_hs110_1
+    - name: notification_vacuuming
+      unique_id: notification_vacuuming
+      icon: mdi:robot-vacuum
+      state: "{{ iif(is_state('vacuum.roborock_s6_pure', 'docked') or is_state('vacuum.roborock_s6_pure', 'unavailable'), 'off', 'on') }}"
+      attributes:
+        icon_color: green
+        text_summary: |
+          {% if is_state('vacuum.roborock_s6_pure', 'cleaning') %}
+            Robotti-imuri siivoaa
+          {% elif is_state('vacuum.roborock_s6_pure', 'paused') or is_state('vacuum.roborock_s6_pure', 'idle') %}
+            Robotti-imuri on pysäytetty
+          {% elif is_state('vacuum.roborock_s6_pure', 'returning') %}
+            Robotti-imuri palaamassa telakkaan
+          {% elif is_state('vacuum.roborock_s6_pure', 'error') %}
+            Robotti-imuri on jumissa
+          {% else %}
+            Robotti-imurin tila ei tiedossa
+          {% endif %}
+        text_description: "Siivottu alue {{ states('sensor.roborock_s6_pure_current_clean_area') | float(default=0) | round(0) }} neliötä"
 
-  - name: notification_living_room_humidifier
-    unique_id: notification_living_room_humidifier
-    icon: mdi:waves-arrow-up
-    state: "{{ states('switch.tplink_hs100_2') }}"
-    attributes:
-      icon_color: var(--humidity-high-color)
-      text_summary: 'Ilmankostutin päällä'
-      text_description: "Kosteus tällä hetkellä {{ states('sensor.mqtt_airthings_waveplus_living_room_humidity') }} %"
-      tap_action: more-info
-      tap_action_entity: switch.tplink_hs100_2
-
-  - name: notification_heat_pump_data_missing
-    unique_id: notification_heat_pump_data_missing
-    icon: mdi:alert-outline
-    state: "{{ iif(is_state('sensor.nibe_heat_pump_state', 'Unknown'), 'on', 'off') }}"
-    attributes:
-      icon_color: var(--warning-color)
-      text_summary: Maalämpöpumppu ei lähetä dataa
-
-  - name: notification_vacuuming
-    unique_id: notification_vacuuming
-    icon: mdi:robot-vacuum
-    state: "{{ iif(is_state('vacuum.roborock_s6_pure', 'docked') or is_state('vacuum.roborock_s6_pure', 'unavailable'), 'off', 'on') }}"
-    attributes:
-      icon_color: green
-      text_summary: |
-        {% if is_state('vacuum.roborock_s6_pure', 'cleaning') %}
-          Robotti-imuri siivoaa
-        {% elif is_state('vacuum.roborock_s6_pure', 'paused') or is_state('vacuum.roborock_s6_pure', 'idle') %}
-          Robotti-imuri on pysäytetty
-        {% elif is_state('vacuum.roborock_s6_pure', 'returning') %}
-          Robotti-imuri palaamassa telakkaan
-        {% elif is_state('vacuum.roborock_s6_pure', 'error') %}
-          Robotti-imuri on jumissa
+    - name: notification_time_to_vacuum
+      unique_id: notification_time_to_vacuum
+      icon: mdi:robot-vacuum
+      state: |
+        {% set last_cleaned_timestamp = states.sensor.roborock_s6_pure_last_clean_end.state | default(0) %}
+        {% set last_cleaned_secs = as_timestamp(now()) - as_timestamp(last_cleaned_timestamp, now().timestamp()) %}
+        {% if ((last_cleaned_secs / 60 / 60 / 24) > 3) and not is_state('binary_sensor.notification_vacuuming', 'on') %}
+          on
         {% else %}
-          Robotti-imurin tila ei tiedossa
+          off
         {% endif %}
-      text_description: "Siivottu alue {{ states('sensor.roborock_s6_pure_current_clean_area') | float(default=0) | round(0) }} neliötä"
+      attributes:
+        icon_color: var(--warning-color)
+        text_summary: |
+          {% set last_cleaned_timestamp = states.sensor.roborock_s6_pure_last_clean_end.state | default(0) %}
+          {% set last_cleaned_secs = as_timestamp(now()) - as_timestamp(last_cleaned_timestamp, now().timestamp()) %}
+          Imurointia ei ole suoritettu {{ (last_cleaned_secs / 60 / 60 / 24) | round(0) }} päivään
+        text_description: |
+          {% if is_state('automation.start_scheduled_vacuuming', 'on') %}
+            Oleskelutilojen imurointi aloitetaan kun kotoa poistutaan tai kun se käynnistetään käsin.
+          {% else %}
+            Ajastettu imurointi on pois päältä. Käynnistä imurointi käsin.
+          {% endif %}
 
-  - name: notification_time_to_vacuum
-    unique_id: notification_time_to_vacuum
-    icon: mdi:robot-vacuum
-    state: |
-      {% set last_cleaned_secs = as_timestamp(now()) - as_timestamp(states.sensor.roborock_s6_pure_last_clean_end.state, now().timestamp()) %}
-      {% if ((last_cleaned_secs / 60 / 60 / 24) > 3) and not is_state('binary_sensor.notification_vacuuming', 'on') %}
-        on
-      {% else %}
-        off
-      {% endif %}
-    attributes:
-      icon_color: var(--warning-color)
-      text_summary: |
-        {% set last_cleaned_secs = as_timestamp(now()) - as_timestamp(states.sensor.roborock_s6_pure_last_clean_end.state, now().timestamp()) %}
-        Imurointia ei ole suoritettu {{ (last_cleaned_secs / 60 / 60 / 24) | round(0) }} päivään
-      text_description: |
-        {% if is_state('automation.start_scheduled_vacuuming', 'on') %}
-          Oleskelutilojen imurointi aloitetaan kun kotoa poistutaan tai kun se käynnistetään käsin.
-        {% else %}
-          Ajastettu imurointi on pois päältä. Käynnistä imurointi käsin.
-        {% endif %}
+    - name: notification_vacuum_dustbin_full
+      unique_id: notification_vacuum_dustbin_full
+      icon: mdi:delete-empty
+      state: "{{ iif(is_state('sensor.roborock_s6_pure_dustbin_level', '100'), 'on', 'off') }}"
+      attributes:
+        icon_color: var(--error-color)
+        text_summary: Robotti-imurin pölysäiliö on täynnä
 
-  - name: notification_vacuum_dustbin_full
-    unique_id: notification_vacuum_dustbin_full
-    icon: mdi:delete-empty
-    state: "{{ iif(is_state('sensor.roborock_s6_pure_dustbin_level', '100'), 'on', 'off') }}"
-    attributes:
-      icon_color: var(--error-color)
-      text_summary: Robotti-imurin pölysäiliö on täynnä
+    - name: notification_raining
+      unique_id: notification_raining
+      icon: mdi:weather-rainy
+      state: "{{ iif(states('sensor.netatmo_rain_current') | float(default=0) > 0, 'on', 'off') }}"
+      attributes:
+        icon_color: var(--color-blue)
+        text_summary: "Ulkona sataa, sademäärä nyt {{ states('sensor.netatmo_rain_current') | float(default=0) | round(1) }} mm"
+        text_description: "Koko päivän sademäärä {{ states('sensor.netatmo_rain_today') | float(default=0) | round(1) }} mm"
 
-  - name: notification_raining
-    unique_id: notification_raining
-    icon: mdi:weather-rainy
-    state: "{{ iif(states('sensor.netatmo_rain_current') | float(default=0) > 0, 'on', 'off') }}"
-    attributes:
-      icon_color: var(--color-blue)
-      text_summary: "Ulkona sataa, sademäärä nyt {{ states('sensor.netatmo_rain_current') | float(default=0) | round(1) }} mm"
-      text_description: "Koko päivän sademäärä {{ states('sensor.netatmo_rain_today') | float(default=0) | round(1) }} mm"
+    - name: notification_washing_machine
+      unique_id: notification_washing_machine
+      icon: mdi:washing-machine
+      state: "{{ iif(is_state('sensor.washing_machine_status', 'off'), 'off', 'on') }}"
+      attributes:
+        icon_color: var(--color-blue)
+        text_summary: |
+          {% set mapper =  {
+            'running' : 'Pesukone on käynnissä',
+            'program_ended ' : 'Pesukone on valmis' } %}
+          {% set state = states('sensor.washing_machine_status') | lower %}
+          {% if is_state('sensor.washing_machine_program', 'clean_machine') %}
+            Pesukoneen puhdistus käynnissä
+          {% else %}
+            {{ mapper[state] if state in mapper else 'Pesukone on päällä' }}
+          {% endif %}
+        text_description: |
+          {% if states('sensor.washing_machine_status') == 'running' %}
+            {% set time = states('sensor.washing_machine_remaining_time') | int(default=0) %}
+            {% set hours = (time / 60) | round(0, "floor") %}
+            {% set minutes = (time % 60) | round(0, "floor") %}
+            {% set hoursStr = hours ~ ' tuntia' if hours != 1 else '1 tunti' %}
+            {% set minutesStr = minutes ~ ' minuuttia' if minutes != 1 else '1 minuutti' %}
+            Ohjelmaa on jäljellä{{ ' ' ~ hoursStr if hours > 0 else ''}} {{ minutesStr if minutes > 0 else ''}}.
+          {% elif states('sensor.washing_machine_status') == 'program_ended' %}
+            Kulutettu sähkö {{ states('sensor.washing_machine_energy_consumption') }} W ja vesimäärä {{ states('sensor.washing_machine_water_consumption') }} l.
+          {% else %}
+            Ultraphase 1 taso {{ states('sensor.miele_washing_machine_ultraphase_1_level_percentage', with_unit=True, rounded=True) }} Ultraphase 2 taso {{ states('sensor.miele_washing_machine_ultraphase_2_level_percentage', with_unit=True, rounded=True) }}
+          {% endif %}
 
-  - name: notification_washing_machine
-    unique_id: notification_washing_machine
-    icon: mdi:washing-machine
-    state: "{{ iif(is_state('sensor.washing_machine_status', 'off'), 'off', 'on') }}"
-    attributes:
-      icon_color: var(--color-blue)
-      text_summary: |
-        {% set mapper =  {
-          'running' : 'Pesukone on käynnissä',
-          'program_ended ' : 'Pesukone on valmis' } %}
-        {% set state = states('sensor.washing_machine_status') | lower %}
-        {% if is_state('sensor.washing_machine_program', 'clean_machine') %}
-          Pesukoneen puhdistus käynnissä
-        {% else %}
-          {{ mapper[state] if state in mapper else 'Pesukone on päällä' }}
-        {% endif %}
-      text_description: |
-        {% if states('sensor.washing_machine_status') == 'running' %}
-          {% set time = states('sensor.washing_machine_remaining_time') | int(default=0) %}
-          {% set hours = (time / 60) | round(0, "floor") %}
-          {% set minutes = (time % 60) | round(0, "floor") %}
-          {% set hoursStr = hours ~ ' tuntia' if hours != 1 else '1 tunti' %}
-          {% set minutesStr = minutes ~ ' minuuttia' if minutes != 1 else '1 minuutti' %}
+    - name: notification_tumble_dryer
+      unique_id: notification_tumble_dryer
+      icon: mdi:tumble-dryer
+      state: "{{ iif(is_state('sensor.tumble_dryer_status', 'off'), 'off', 'on') }}"
+      attributes:
+        icon_color: var(--color-green)
+        text_summary: |
+          {% set mapper =  {
+            'running' : 'Kuivausrumpu on käynnissä',
+            'program_ended' : 'Kuivausrumpu on valmis' } %}
+          {% set state = states('sensor.tumble_dryer_status') | lower %}
+          {{ mapper[state] if state in mapper else 'Kuivausrumpu on päällä' }}
+        text_description: |
+          {% if states('sensor.tumble_dryer_status') != 'program_ended' %}
+            {% set time = states('sensor.tumble_dryer_remaining_time') | int(default=0) %}
+            {% set hours = (time / 60) | round(0, "floor") %}
+            {% set minutes = (time % 60) | round(0, "floor") %}
+            {% set hoursStr = hours ~ ' tuntia' if hours != 1 else 'yksi tunti' %}
+            {% set minutesStr = minutes ~ ' minuuttia' if minutes != 1 else 'yksi minuutti' %}
           Ohjelmaa on jäljellä{{ ' ' ~ hoursStr if hours > 0 else ''}} {{ minutesStr if minutes > 0 else ''}}.
-        {% elif states('sensor.washing_machine_status') == 'program_ended' %}
-          Kulutettu sähkö {{ states('sensor.washing_machine_energy_consumption') }} W ja vesimäärä {{ states('sensor.washing_machine_water_consumption') }} l.
-        {% else %}
-          Ultraphase 1 taso {{ states('sensor.miele_washing_machine_ultraphase_1_level_percentage', with_unit=True, rounded=True) }} Ultraphase 2 taso {{ states('sensor.miele_washing_machine_ultraphase_2_level_percentage', with_unit=True, rounded=True) }}
-        {% endif %}
+          {% else %}
+          Kulutettu sähkö {{ states('sensor.tumble_dryer_energy_consumption') }} W.
+          {% endif %}
 
-  - name: notification_tumble_dryer
-    unique_id: notification_tumble_dryer
-    icon: mdi:tumble-dryer
-    state: "{{ iif(is_state('sensor.tumble_dryer_status', 'off'), 'off', 'on') }}"
-    attributes:
-      icon_color: var(--color-green)
-      text_summary: |
-        {% set mapper =  {
-          'running' : 'Kuivausrumpu on käynnissä',
-          'program_ended' : 'Kuivausrumpu on valmis' } %}
-        {% set state = states('sensor.tumble_dryer_status') | lower %}
-        {{ mapper[state] if state in mapper else 'Kuivausrumpu on päällä' }}
-      text_description: |
-        {% if states('sensor.tumble_dryer_status') != 'program_ended' %}
-          {% set time = states('sensor.tumble_dryer_remaining_time') | int(default=0) %}
-          {% set hours = (time / 60) | round(0, "floor") %}
-          {% set minutes = (time % 60) | round(0, "floor") %}
-          {% set hoursStr = hours ~ ' tuntia' if hours != 1 else 'yksi tunti' %}
-          {% set minutesStr = minutes ~ ' minuuttia' if minutes != 1 else 'yksi minuutti' %}
-        Ohjelmaa on jäljellä{{ ' ' ~ hoursStr if hours > 0 else ''}} {{ minutesStr if minutes > 0 else ''}}.
-        {% else %}
-        Kulutettu sähkö {{ states('sensor.tumble_dryer_energy_consumption') }} W.
-        {% endif %}
+    - name: notification_ultraphase_1_level_low
+      unique_id: notification_ultraphase_1_level_low
+      icon: mdi:cup-water
+      state: "{{ states('sensor.miele_washing_machine_ultraphase_1_level_percentage') | int <= 10 }}"
+      attributes:
+        icon_color: "var(--warning-color)"
+        text_summary: "Ultraphase 1 vähissä"
+        text_description: "Säiliössä on pesuainetta {{ states('input_number.miele_washing_machine_ultraphase_1_level', with_unit=True, rounded=True) }}"
 
-  - name: notification_ultraphase_1_level_low
-    unique_id: notification_ultraphase_1_level_low
-    icon: mdi:cup-water
-    state: "{{ states('sensor.miele_washing_machine_ultraphase_1_level_percentage') | int <= 10 }}"
-    attributes:
-      icon_color: 'var(--warning-color)'
-      text_summary: "Ultraphase 1 vähissä"
-      text_description: "Säiliössä on pesuainetta {{ states('input_number.miele_washing_machine_ultraphase_1_level', with_unit=True, rounded=True) }}"
+    - name: notification_ultraphase_2_level_low
+      unique_id: notification_ultraphase_2_level_low
+      icon: mdi:cup-water
+      state: "{{ states('sensor.miele_washing_machine_ultraphase_2_level_percentage') | int <= 10 }}"
+      attributes:
+        icon_color: "var(--warning-color)"
+        text_summary: "Ultraphase 2 vähissä"
+        text_description: "Säiliössä on pesuainetta {{ states('input_number.miele_washing_machine_ultraphase_2_level', with_unit=True, rounded=True) }}"
 
-  - name: notification_ultraphase_2_level_low
-    unique_id: notification_ultraphase_2_level_low
-    icon: mdi:cup-water
-    state: "{{ states('sensor.miele_washing_machine_ultraphase_2_level_percentage') | int <= 10 }}"
-    attributes:
-      icon_color: 'var(--warning-color)'
-      text_summary: "Ultraphase 2 vähissä"
-      text_description: "Säiliössä on pesuainetta {{ states('input_number.miele_washing_machine_ultraphase_2_level', with_unit=True, rounded=True) }}"
+    - name: notification_automations_disabled
+      unique_id: notification_automations_disabled
+      icon: mdi:home-alert-outline
+      state: "{{ is_state('input_boolean.automations_enabled', 'off') }}"
+      attributes:
+        icon_color: "var(--warning-color)"
+        text_summary: "Automaatiot pois päältä"
+        tap_action: more-info
+        tap_action_entity: input_boolean.automations_enabled
 
-  - name: notification_automations_disabled
-    unique_id: notification_automations_disabled
-    icon: mdi:home-alert-outline
-    state: "{{ is_state('input_boolean.automations_enabled', 'off') }}"
-    attributes:
-      icon_color: 'var(--warning-color)'
-      text_summary: "Automaatiot pois päältä"
-      tap_action: more-info
-      tap_action_entity: input_boolean.automations_enabled
+    - name: "notification_hacs_update_available"
+      unique_id: "notification_hacs_update_available"
+      icon: mdi:update
+      state: "{{ iif(states('sensor.hacs') | int(default=0) > 0, 'on', 'off') }}"
+      attributes:
+        icon_color: "var(--color-green)"
+        text_summary: "HACS päivityksiä saatavilla"
+        text_description: |
+          {% if state_attr('sensor.hacs', 'repositories') is not none %}
+            {% for repo in state_attr('sensor.hacs', 'repositories') %}
+              {{ repo['display_name'] }} {{ repo['installed_version'] }} -> {{ repo['available_version'] }}.
+            {% endfor %}
+          {% endif %}
+        tap_action: navigate
+        tap_action_navigation_path: /hacs
 
-  - name: "notification_hacs_update_available"
-    unique_id: "notification_hacs_update_available"
-    icon: mdi:update
-    state: "{{ iif(states('sensor.hacs') | int(default=0) > 0, 'on', 'off') }}"
-    attributes:
-      icon_color: 'var(--color-green)'
-      text_summary: 'HACS päivityksiä saatavilla'
-      text_description: |
-        {% if state_attr('sensor.hacs', 'repositories') is not none %}
-          {% for repo in state_attr('sensor.hacs', 'repositories') %}
-            {{ repo['display_name'] }} {{ repo['installed_version'] }} -> {{ repo['available_version'] }}.
-          {% endfor %}
-        {% endif %}
-      tap_action: navigate
-      tap_action_navigation_path: /hacs
+    - name: "notification_current_home_task"
+      unique_id: "notification_current_home_task"
+      icon: mdi:checkbox-marked-circle-outline
+      state: "{{ iif(states('sensor.todoist_current_task') != 'off', 'on', 'off') }}"
+      attributes:
+        icon_color: "var(--color-green)"
+        text_summary: "Tehtävä: {{ states('sensor.todoist_current_task') }}"
+        text_description: |
+          {% set all_tasks = state_attr('sensor.todoist_all_tasks', 'items') | sort(attribute='child_order') %}
+          {% if all_tasks and all_tasks | length > 1 %}
+            Seuraava tehtävä: {{ (all_tasks[1]).content }}
+          {% elif all_tasks and all_tasks | length == 1 %}
+            {{ state_attr('sensor.todoist_current_task', 'description') }}
+          {% endif %}
+        tap_action: "url"
+        tap_action_url_path: "https://todoist.com/app/project/{{ state_attr('sensor.todoist_current_task', 'project_id') }}/task/{{ state_attr('sensor.todoist_current_task', 'id') }}"
 
-  - name: "notification_current_home_task"
-    unique_id: "notification_current_home_task"
-    icon: mdi:checkbox-marked-circle-outline
-    state: "{{ iif(states('sensor.todoist_current_task') != 'off', 'on', 'off') }}"
-    attributes:
-      icon_color: 'var(--color-green)'
-      text_summary: "Tehtävä: {{ states('sensor.todoist_current_task') }}"
-      text_description: |
-        {% set all_tasks = state_attr('sensor.todoist_all_tasks', 'items') | sort(attribute='child_order') %}
-        {% if all_tasks and all_tasks | length > 1 %}
-          Seuraava tehtävä: {{ (all_tasks[1]).content }}
-        {% elif all_tasks and all_tasks | length == 1 %}
-          {{ state_attr('sensor.todoist_current_task', 'description') }}
-        {% endif %}
-      tap_action: 'url'
-      tap_action_url_path: "https://todoist.com/app/project/{{ state_attr('sensor.todoist_current_task', 'project_id') }}/task/{{ state_attr('sensor.todoist_current_task', 'id') }}"
+    - name: notification_replace_ventilation_filters
+      unique_id: notification_replace_ventilation_filters
+      icon: mdi:air-filter
+      state: "{{ iif(states('sensor.ventilation_filters_days_remaining') | int(1) <= 0, 'on', 'off')}}"
+      attributes:
+        icon_color: var(--warning-color)
+        text_summary: "Vaihda IV-koneen suodattimet"
+        text_description: "Suodattimet vaihdettu viimeksi {{states('input_datetime.ventilation_filters_replaced') }}"
 
-  - name: notification_replace_ventilation_filters
-    unique_id: notification_replace_ventilation_filters
-    icon: mdi:air-filter
-    state: "{{ iif(states('sensor.ventilation_filters_days_remaining') | int(1) <= 0, 'on', 'off')}}"
-    attributes:
-      icon_color: var(--warning-color)
-      text_summary: "Vaihda IV-koneen suodattimet"
-      text_description: "Suodattimet vaihdettu viimeksi {{states('input_datetime.ventilation_filters_replaced') }}"
+    - name: notification_clean_washing_machine
+      unique_id: notification_clean_washing_machine
+      icon: mdi:washing-machine-alert
+      state: "{{ iif(states('counter.washing_machine_runs_after_cleaning') | int(default=0) >= 40 and not is_state('sensor.washing_machine_program', 'clean_machine'), 'on', 'off')}}"
+      attributes:
+        icon_color: var(--warning-color)
+        text_summary: "Puhdista pyykinpesukone"
+        text_description: "Pyykinpesukone puhdistettu viimeksi {{states('input_datetime.washing_machine_cleaned') | as_timestamp | timestamp_custom('%d.%m.%Y') }}"
 
-  - name: notification_clean_washing_machine
-    unique_id: notification_clean_washing_machine
-    icon: mdi:washing-machine-alert
-    state: "{{ iif(states('counter.washing_machine_runs_after_cleaning') | int(default=0) >= 40 and not is_state('sensor.washing_machine_program', 'clean_machine'), 'on', 'off')}}"
-    attributes:
-      icon_color: var(--warning-color)
-      text_summary: "Puhdista pyykinpesukone"
-      text_description: "Pyykinpesukone puhdistettu viimeksi {{states('input_datetime.washing_machine_cleaned') | as_timestamp | timestamp_custom('%d.%m.%Y') }}"
+    - name: notification_clean_tumble_dryer
+      unique_id: notification_clean_tumble_dryer
+      icon: mdi:tumble-dryer-alert
+      state: "{{ iif(states('counter.tumble_dryer_runs_after_cleaning') | int(default=0) >= 20, 'on', 'off')}}"
+      attributes:
+        icon_color: var(--warning-color)
+        text_summary: "Puhdista kuivausrumpu"
+        text_description: "Suodattimet ja lämmönvaihdin puhdistettu viimeksi {{states('input_datetime.tumble_dryer_cleaned') | as_timestamp | timestamp_custom('%d.%m.%Y') }}"
 
-  - name: notification_clean_tumble_dryer
-    unique_id: notification_clean_tumble_dryer
-    icon: mdi:tumble-dryer-alert
-    state: "{{ iif(states('counter.tumble_dryer_runs_after_cleaning') | int(default=0) >= 20, 'on', 'off')}}"
-    attributes:
-      icon_color: var(--warning-color)
-      text_summary: "Puhdista kuivausrumpu"
-      text_description: "Suodattimet ja lämmönvaihdin puhdistettu viimeksi {{states('input_datetime.tumble_dryer_cleaned') | as_timestamp | timestamp_custom('%d.%m.%Y') }}"
+    - name: notification_low_battery
+      unique_id: notification_low_battery
+      icon: mdi:battery-low
+      state: "{{ iif(is_state('sensor.low_battery_devices', '0'), 'off', 'on') }}"
+      attributes:
+        icon_color: var(--warning-color)
+        text_summary: "Alhainen akun varaus"
+        text_description: |
+          {% set devices = state_attr('sensor.low_battery_devices', 'devices') | list %}
+          {% if states('sensor.low_battery_devices') | int == 1 %}
+            {% set device = devices[0] %}
+            Laitteen {{ state_attr(device, 'friendly_name') }} akun varaus {{ states(device, with_unit=True, rounded=True) }}
+          {% else %}
+            Laitteissa {{ devices | join(', ') }} on alhainen varaus
+          {% endif %}
+        tap_action: more-info
+        tap_action_entity: |
+          {% set devices = state_attr('sensor.low_battery_devices', 'devices') | list %}
+          {% if devices | length > 0 %}
+            {{ devices | first }}
+          {% endif %}
 
-  - name: notification_low_battery
-    unique_id: notification_low_battery
-    icon: mdi:battery-low
-    state: "{{ iif(is_state('sensor.low_battery_devices', '0'), 'off', 'on') }}"
-    attributes:
-      icon_color: var(--warning-color)
-      text_summary: "Alhainen akun varaus"
-      text_description: |
-        {% set devices = state_attr('sensor.low_battery_devices', 'devices') | list %}
-        {% if states('sensor.low_battery_devices') | int == 1 %}
-          {% set device = devices[0] %}
-          Laitteen {{ state_attr(device, 'friendly_name') }} akun varaus {{ states(device, with_unit=True, rounded=True) }}
-        {% else %}
-          Laitteissa {{ devices | join(', ') }} on alhainen varaus
-        {% endif %}
-      tap_action: more-info
-      tap_action_entity: |
-        {% set devices = state_attr('sensor.low_battery_devices', 'devices') | list %}
-        {% if devices | length > 0 %}
-          {{ devices | first }}
-        {% endif %}
+    - name: notification_nordpool_pricing
+      unique_id: notification_nordpool_pricing
+      icon: mdi:flash
+      state: "{{ iif(state_attr('sensor.nordpool', 'average') | float > 9.00, 'on', 'off') }}"
+      attributes:
+        icon_color: |
+          {% set percentage_to_avg = state_attr('sensor.nordpool', 'price_percent_to_average') | float %}
+          {% set avg = state_attr('sensor.nordpool', 'average') | float %}
+          {% set current = states('sensor.nordpool') | float %}
 
-  - name: notification_nordpool_pricing
-    unique_id: notification_nordpool_pricing
-    icon: mdi:flash
-    state: "{{ iif(state_attr('sensor.nordpool', 'average') | float > 9.00, 'on', 'off') }}"
-    attributes:
-      icon_color: |
-        {% set percentage_to_avg = state_attr('sensor.nordpool', 'price_percent_to_average') | float %}
-        {% set avg = state_attr('sensor.nordpool', 'average') | float %}
-        {% set current = states('sensor.nordpool') | float %}
+          {% if current < avg %}
+            green
+          {% elif percentage_to_avg > 0.25 %}
+            var(--error-color)
+          {% else %}
+            var(--warning-color)
+          {% endif %}
+        text_summary: |
+          {% set current = states('sensor.nordpool') | float | round(2) %}
+          {% set max = state_attr('sensor.nordpool', 'max') | float | round(2) %}
+          {% if current == max %}
+            Sähkö on nyt kalleinta {{ states('sensor.nordpool', with_unit=True, rounded=True) }}
+          {% else %}
+            Sähkönhinta nyt {{ states('sensor.nordpool', with_unit=True, rounded=True) }}
+          {% endif %}
+        text_description: |
+          {% set unit = state_attr('sensor.nordpool', 'unit_of_measurement') %}
+          {% set todays_values = state_attr('sensor.nordpool', 'today') %}
+          {% set highest = max(todays_values) %}
+          {% set highest_index = todays_values.index(highest) %}
+          {% set todays_values_daytime = todays_values[8:22] %}
+          {% set lowest_daytime = min(todays_values_daytime) %}
+          {% set lowest_index = todays_values.index(lowest_daytime) %}
+          Kalleinta on klo {{ highest_index }} ({{ highest }} {{ unit }}). Keskihinta {{ state_attr('sensor.nordpool', 'average') | round(2) }} {{ unit }}.
 
-        {% if current < avg %}
-          green
-        {% elif percentage_to_avg > 0.25 %}
-          var(--error-color)
-        {% else %}
-          var(--warning-color)
-        {% endif %}
-      text_summary: |
-        {% set current = states('sensor.nordpool') | float | round(2) %}
-        {% set max = state_attr('sensor.nordpool', 'max') | float | round(2) %}
-        {% if current == max %}
-          Sähkö on nyt kalleinta {{ states('sensor.nordpool', with_unit=True, rounded=True) }}
-        {% else %}
-          Sähkönhinta nyt {{ states('sensor.nordpool', with_unit=True, rounded=True) }}
-        {% endif %}
-      text_description: |
-        {% set unit = state_attr('sensor.nordpool', 'unit_of_measurement') %}
-        {% set todays_values = state_attr('sensor.nordpool', 'today') %}
-        {% set highest = max(todays_values) %}
-        {% set highest_index = todays_values.index(highest) %}
-        {% set todays_values_daytime = todays_values[8:22] %}
-        {% set lowest_daytime = min(todays_values_daytime) %}
-        {% set lowest_index = todays_values.index(lowest_daytime) %}
-        Kalleinta on klo {{ highest_index }} ({{ highest }} {{ unit }}). Keskihinta {{ state_attr('sensor.nordpool', 'average') | round(2) }} {{ unit }}.
-
-  - name: notification_high_electricity_price
-    unique_id: notification_high_electricity_price
-    icon: mdi:currency-eur
-    state: "{{ states('binary_sensor.high_electricity_price') }}"
-    attributes:
-      icon_color: var(--error-color)
-      text_summary: |
-        Sähkö on erittäin kallista!
-      text_description: |
-        Hinta on nyt {{ states('sensor.nordpool', with_unit=True, rounded=True) }}. Automaatiota on pysäytetty kalliin sähkönhinnan takia.
+    - name: notification_high_electricity_price
+      unique_id: notification_high_electricity_price
+      icon: mdi:currency-eur
+      state: "{{ states('binary_sensor.high_electricity_price') }}"
+      attributes:
+        icon_color: var(--error-color)
+        text_summary: |
+          Sähkö on erittäin kallista!
+        text_description: |
+          Hinta on nyt {{ states('sensor.nordpool', with_unit=True, rounded=True) }}. Automaatiota on pysäytetty kalliin sähkönhinnan takia.

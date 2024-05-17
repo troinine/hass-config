@@ -1,8 +1,6 @@
 ---
-button_card_templates:
-  !include_dir_merge_named ../button_card_templates/
-apexcharts_card_templates:
-  !include templates/apexcharts/charts.yaml
+button_card_templates: !include_dir_merge_named ../button_card_templates/
+apexcharts_card_templates: !include templates/apexcharts/charts.yaml
 
 views:
   - title: "Tabletti"
@@ -19,7 +17,6 @@ views:
         ". sidebar  lights  children family  ."
         ". .        footer  footer   footer  ."
     cards:
-
       ###
       ### Sidebar
       ###
@@ -43,18 +40,16 @@ views:
             template: clock
             entity: sensor.time
             variables:
-              entity_weather: weather.koti_custom
+              entity_weather: weather.koti
               entity_date: sensor.date
               entity_temperature: sensor.netatmo_outdoor_temperature
-              weather_tap_action:
-                !include ../popups/common/weather-forecast.yaml
+              weather_tap_action: !include ../popups/common/weather-forecast.yaml
 
           - type: vertical-stack
             view_layout:
               grid-area: "notifications"
               place-self: "start stretch"
-            cards:
-              !include notifications.yaml
+            cards: !include notifications.yaml
 
       ###
       ### Home
@@ -64,11 +59,10 @@ views:
         view_layout:
           grid-area: "home"
         cards:
-          - type: 'custom:button-card'
+          - type: "custom:button-card"
             template: group_title
             name: Koti
-            tap_action:
-              !include ../popups/tablet/home.yaml
+            tap_action: !include ../popups/tablet/home.yaml
 
           - type: grid
             columns: 2
@@ -77,8 +71,7 @@ views:
                 template:
                   - info
                   - home_state
-                tap_action:
-                  !include ../popups/tablet/home.yaml
+                tap_action: !include ../popups/tablet/home.yaml
                 show_last_changed: false
                 show_label: true
                 label: |
@@ -91,26 +84,23 @@ views:
                     }
                   ]]]
 
-              - type: 'custom:button-card'
+              - type: "custom:button-card"
                 template:
                   - info
                   - air_quality
-                tap_action:
-                  !include ../popups/tablet/air-quality.yaml
+                tap_action: !include ../popups/tablet/air-quality.yaml
 
-              - type: 'custom:button-card'
+              - type: "custom:button-card"
                 template:
                   - sensor
                   - nordpool
-                tap_action:
-                  !include ../popups/tablet/electricity.yaml
+                tap_action: !include ../popups/tablet/electricity.yaml
 
-              - type: 'custom:button-card'
+              - type: "custom:button-card"
                 template:
                   - info
                   - garage_door
-                tap_action:
-                  !include ../popups/common/garage.yaml
+                tap_action: !include ../popups/common/garage.yaml
 
       ###
       ### Lights
@@ -120,38 +110,36 @@ views:
         view_layout:
           grid-area: "lights"
         cards:
-          - type: 'custom:button-card'
+          - type: "custom:button-card"
             template: group_title
             name: Valaistus
-            tap_action:
-              !include ../popups/tablet/lights.yaml
+            tap_action: !include ../popups/tablet/lights.yaml
 
           - type: grid
             columns: 2
             cards:
-              - type: 'custom:button-card'
+              - type: "custom:button-card"
                 template: new_light
                 entity: light.group_all
                 variables:
                   name: Kaikki
-                  tap_action:
-                    !include ../popups/tablet/lights.yaml
+                  tap_action: !include ../popups/tablet/lights.yaml
                   hold_action:
                     action: toggle
 
-              - type: 'custom:button-card'
+              - type: "custom:button-card"
                 template: new_light
                 entity: light.group_living_areas
                 variables:
                   name: Oleskelutilat
 
-              - type: 'custom:button-card'
+              - type: "custom:button-card"
                 template: new_light
                 entity: light.group_office
                 variables:
                   name: Työhuone
 
-              - type: 'custom:button-card'
+              - type: "custom:button-card"
                 template: new_light
                 entity: light.group_bedroom
                 variables:
@@ -165,11 +153,10 @@ views:
         view_layout:
           grid-area: "lvi"
         cards:
-          - type: 'custom:button-card'
+          - type: "custom:button-card"
             template: group_title
             name: Lämmitys ja vesi
-            tap_action:
-              !include ../popups/tablet/heating.yaml
+            tap_action: !include ../popups/tablet/heating.yaml
 
           - type: grid
             columns: 2
@@ -178,8 +165,7 @@ views:
                 template:
                   - info
                   - heat_pump_state
-                tap_action:
-                  !include ../popups/tablet/heating.yaml
+                tap_action: !include ../popups/tablet/heating.yaml
 
               - type: custom:button-card
                 template:
@@ -221,19 +207,18 @@ views:
         view_layout:
           grid-area: "devices"
         cards:
-          - type: 'custom:button-card'
+          - type: "custom:button-card"
             template: group_title
             name: Kodinhoito
 
           - type: grid
             columns: 2
             cards:
-              - type: 'custom:button-card'
+              - type: "custom:button-card"
                 template: info
                 entity: vacuum.roborock_s6_pure
                 name: Robotti-imuri
-                tap_action:
-                  !include ../popups/tablet/vacuum.yaml
+                tap_action: !include ../popups/tablet/vacuum.yaml
                 variables:
                   icon_glow: true
                   state_colors:
@@ -242,26 +227,23 @@ views:
                     "returning": dodgerblue
                     "error": var(--color-warning)
 
-              - type: 'custom:button-card'
+              - type: "custom:button-card"
                 template:
                   - info
                   - laundry
-                tap_action:
-                  !include ../popups/tablet/laundry.yaml
+                tap_action: !include ../popups/tablet/laundry.yaml
 
-              - type: 'custom:button-card'
+              - type: "custom:button-card"
                 template:
                   - info
                   - networking
-                tap_action:
-                  !include ../popups/tablet/networking.yaml
+                tap_action: !include ../popups/tablet/networking.yaml
 
-              - type: 'custom:button-card'
+              - type: "custom:button-card"
                 template:
                   - info
                   - tasks
-                tap_action:
-                  !include ../popups/common/todoist-tasks.yaml
+                tap_action: !include ../popups/common/todoist-tasks.yaml
 
       ###
       ### Family
@@ -271,16 +253,15 @@ views:
         view_layout:
           grid-area: "family"
         cards:
-          - type: 'custom:button-card'
+          - type: "custom:button-card"
             template: group_title
             name: Perhe
-            tap_action:
-              !include ../popups/common/family-map.yaml
+            tap_action: !include ../popups/common/family-map.yaml
 
           - type: grid
             columns: 2
             cards:
-              - type: 'custom:button-card'
+              - type: "custom:button-card"
                 template: user
                 entity: person.tero
                 variables:
@@ -288,7 +269,7 @@ views:
                   battery_charging_status_entity: sensor.tero_battery_state
                   wifi_ssid_entity: sensor.tero_ssid
 
-              - type: 'custom:button-card'
+              - type: "custom:button-card"
                 template: user
                 entity: person.pia
                 variables:
@@ -296,7 +277,7 @@ views:
                   battery_charging_status_entity: binary_sensor.pia_latautuu
                   wifi_ssid_entity: sensor.pia_wifi_connection
 
-              - type: 'custom:button-card'
+              - type: "custom:button-card"
                 template: user
                 entity: person.otso
                 variables:
@@ -304,7 +285,7 @@ views:
                   battery_charging_status_entity: sensor.otso_battery_state
                   wifi_ssid_entity: sensor.otso_ssid
 
-              - type: 'custom:button-card'
+              - type: "custom:button-card"
                 template: user
                 entity: person.sisu
                 variables:
@@ -320,14 +301,14 @@ views:
         view_layout:
           grid-area: "children"
         cards:
-          - type: 'custom:button-card'
+          - type: "custom:button-card"
             template: group_title
             name: Lasten huoneet
 
           - type: grid
             columns: 2
             cards:
-              - type: 'custom:button-card'
+              - type: "custom:button-card"
                 template: new_light
                 entity: light.group_otsos_room
                 variables:
@@ -335,7 +316,7 @@ views:
                   tap_action:
                     action: more-info
 
-              - type: 'custom:button-card'
+              - type: "custom:button-card"
                 template: new_light
                 entity: light.group_sisus_room
                 variables:
@@ -343,7 +324,7 @@ views:
                   tap_action:
                     action: more-info
 
-              - type: 'custom:button-card'
+              - type: "custom:button-card"
                 template:
                   - sensor_graph
                   - sensor_graph_thresholds_indoor_temperature
@@ -351,7 +332,7 @@ views:
                 variables:
                   name_override: Lämpötila
 
-              - type: 'custom:button-card'
+              - type: "custom:button-card"
                 template:
                   - sensor_graph
                   - sensor_graph_thresholds_indoor_temperature
@@ -363,7 +344,7 @@ views:
       ### Footer
       ###
 
-      - type: 'custom:button-card'
+      - type: "custom:button-card"
         view_layout:
           grid-area: "footer"
           place-self: "start center"

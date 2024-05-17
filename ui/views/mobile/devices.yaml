@@ -7,7 +7,7 @@ cards:
   - type: custom:button-card
     template: empty
     variables:
-      height: 7rem
+      height: 5rem
 
   - type: custom:button-card
     template: mobile_view_title
@@ -34,14 +34,14 @@ cards:
 
   - type: horizontal-stack
     cards:
-      - type: 'custom:button-card'
-        template:
-          - vacuum
-          - compact_card
-        entity: vacuum.roborock_s6_pure
-        variables:
-          tap_action:
-            !include ../../../popups/mobile/vacuum.yaml
+   #   - type: 'custom:button-card'
+   #     template:
+   #       - vacuum
+   #       - compact_card
+   #     entity: vacuum.roborock_s6_pure
+   #     variables:
+   #       tap_action:
+   #         !include ../../../popups/mobile/vacuum.yaml
 
       - type: 'custom:button-card'
         template:

@@ -6,8 +6,7 @@ browser_mod:
     title: Sääennuste
     style: |
       --popup-max-width: 60vw;
-    card_mod:
-      !include ../../ui/styles/popup.yaml
+    card_mod: !include ../../ui/styles/popup.yaml
     content:
       type: custom:layout-card
       layout_type: custom:grid-layout
@@ -30,9 +29,9 @@ browser_mod:
         - type: custom:weather-chart-card
           view_layout:
             grid-area: weather
-          card_mod:
-            !include ../../ui/styles/no-card.yaml
-          entity: weather.koti_custom
+          card_mod: !include ../../ui/styles/no-card.yaml
+          entity: weather.koti
+          temp: sensor.netatmo_outdoor_temperature
           icons: /local/img/weather/
           units:
             speed: m/s
@@ -40,8 +39,7 @@ browser_mod:
         - type: custom:apexcharts-card
           view_layout:
             grid-area: temperature
-          card_mod:
-            !include ../../ui/styles/no-card.yaml
+          card_mod: !include ../../ui/styles/no-card.yaml
           config_templates:
             - sensor_temperature_outdoor
           header:
@@ -52,7 +50,6 @@ browser_mod:
         - type: custom:apexcharts-card
           view_layout:
             grid-area: rain
-          card_mod:
-            !include ../../ui/styles/no-card.yaml
+          card_mod: !include ../../ui/styles/no-card.yaml
           config_templates:
             - sensor_rain

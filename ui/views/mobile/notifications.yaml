@@ -7,7 +7,7 @@ cards:
   - type: custom:button-card
     template: empty
     variables:
-      height: 7rem
+      height: 5rem
 
   - type: custom:button-card
     template: mobile_view_title
