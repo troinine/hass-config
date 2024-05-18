@@ -187,10 +187,9 @@ button_vacuum_dustbin_emptied:
   tap_action:
     action: |
       [[[ return variables.is_active ? 'call-service' : 'none' ]]]
-    service: input_number.set_value
-    data:
-      entity_id: input_number.vacuum_total_area_cleaned_since_emptying
-      value: 0
+    service: automation.trigger
+    target:
+      entity_id: automation.vacuum_dustbin_emptied
 
 button_request_location_update:
   template:
