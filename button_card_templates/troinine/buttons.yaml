@@ -27,7 +27,7 @@ icon_text_button:
           [[[ return variables.is_active ? 'var(--button-color)' : 'rgba(255, 255, 255, 0.12)' ]]]
       - filter: |
           [[[ return variables.is_active ? 'none' : 'opacity(30%)' ]]]
-      - '-webkit-box-shadow': |
+      - "-webkit-box-shadow": |
           [[[ return variables.is_active ? 'var(--box-shadow)' : 'none' ]]]
       - box-shadow: |
           [[[ return variables.is_active ? 'var(--box-shadow)' : 'none' ]]]
@@ -120,11 +120,11 @@ button_vacuum_clean:
       params: |
         [[[
           var rooms = [
-            { sensor: 'input_boolean.vacuum_clean_entrance',    id: 18 },
-            { sensor: 'input_boolean.vacuum_clean_kitchen',     id: 27 },
-            { sensor: 'input_boolean.vacuum_clean_living_room', id: 19 },
-            { sensor: 'input_boolean.vacuum_clean_bedroom',     id: 20 },
-            { sensor: 'input_boolean.vacuum_clean_office',      id: 16 },
+            { sensor: 'input_boolean.vacuum_clean_entrance',    id: 16 },
+            { sensor: 'input_boolean.vacuum_clean_kitchen',     id: 24 },
+            { sensor: 'input_boolean.vacuum_clean_living_room', id: 25 },
+            { sensor: 'input_boolean.vacuum_clean_bedroom',     id: 19 },
+            { sensor: 'input_boolean.vacuum_clean_office',      id: 20 },
             { sensor: 'input_boolean.vacuum_clean_otsos_room',  id: 23 },
             { sensor: 'input_boolean.vacuum_clean_sisus_room',  id: 22 },
             { sensor: 'input_boolean.vacuum_clean_wc',          id: 21 },
@@ -223,7 +223,7 @@ harmony_remote_button:
     command: false
     device: false
     is_active: false
-    box_shadow: '3px 3px 5px rgb(2, 2, 2), -3px -3px 5px rgb(60, 60, 60)'
+    box_shadow: "3px 3px 5px rgb(2, 2, 2), -3px -3px 5px rgb(60, 60, 60)"
   entity: remote.olohuone
   tap_action:
     action: call-service
@@ -252,8 +252,8 @@ harmony_remote_button:
     card:
       - height: 4rem
       - width: 4rem
-      - background: 'linear-gradient(145deg, rgb(25, 25, 25), rgb(10, 10, 10))'
-      - '-webkit-box-shadow': |
+      - background: "linear-gradient(145deg, rgb(25, 25, 25), rgb(10, 10, 10))"
+      - "-webkit-box-shadow": |
           [[[
             if (variables.is_active) {
               return '0 0 0.5rem 0.1rem yellow'
@@ -283,7 +283,7 @@ harmony_remote_button_empty:
       - background-color: transparent
       - background: none
       - box-shadow: none
-      - '-webkit-box-shadow': none
+      - "-webkit-box-shadow": none
 
 harmony_remote_button_text:
   show_icon: false

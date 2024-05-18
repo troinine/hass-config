@@ -6,34 +6,35 @@
   password: !secret xiaomi_cloud_password
   name: vacuum_map
   country: de
+  scan_interval: 30
   colors:
-    color_robo: [224,224,224]
-    color_charger: [27,117,27]
+    color_robo: [224, 224, 224]
+    color_charger: [27, 117, 27]
     color_path: [255, 255, 255]
     color_goto_path: [31, 113, 255]
     color_map_wall_v2: [69, 67, 70]
-    color_obstacle: [30,30,30]
-    color_virtual_walls: [255,0,0,60]
-    color_no_go_zones_outline: [255,0,0]
-    color_no_go_zones: [255,0,0,60]
-    color_scan: [0,0,0,0]
-    color_map_inside: [0,0,0,0]
-    color_map_outside: [0,0,0,0]
-    color_grey_wall: [0,0,0,0]
-    color_map_wall: [0,0,0,0]
-    color_zones_outline: [0,0,0,0]
-    color_zones: [0,0,0,0]
-    color_unknown: [0,0,0,0]
+    color_obstacle: [30, 30, 30]
+    color_virtual_walls: [255, 0, 0, 60]
+    color_no_go_zones_outline: [255, 0, 0]
+    color_no_go_zones: [255, 0, 0, 60]
+    color_scan: [0, 0, 0, 0]
+    color_map_inside: [0, 0, 0, 0]
+    color_map_outside: [0, 0, 0, 0]
+    color_grey_wall: [0, 0, 0, 0]
+    color_map_wall: [0, 0, 0, 0]
+    color_zones_outline: [0, 0, 0, 0]
+    color_zones: [0, 0, 0, 0]
+    color_unknown: [0, 0, 0, 0]
   room_colors:
-    16: [69, 121, 180]  # Office
-    17: [0, 126, 128]   # Utility room
-    18: [0, 126, 128]   # Entrance
-    19: [61, 121, 181]  # Living room
-    20: [192, 89, 64]   # Bedroom
-    21: [189, 124, 0]   # WC
-    22: [70, 120, 182]  # Sisu
-    23: [189, 124, 0]   # Otso
-    27: [191, 90, 64]   # Kitchen
+    16: [69, 121, 180] # Entrance
+    17: [0, 126, 128] # Utility room
+    25: [0, 126, 128] # Living room
+    20: [61, 121, 181] # Office
+    19: [192, 89, 64] # Bedroom
+    21: [189, 124, 0] # WC
+    22: [70, 120, 182] # Sisu
+    23: [189, 124, 0] # Otso
+    24: [191, 90, 64] # Kitchen
   draw:
     - charger
     - cleaned_area
@@ -52,3 +53,4 @@
     vacuum_radius: 8
   attributes:
     - calibration_points
+    - room_numbers

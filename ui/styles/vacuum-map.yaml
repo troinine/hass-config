@@ -24,9 +24,9 @@ style: |
   }
 
   #map-zoomer-content {
-    --x: -85px;
+    --x: -40px;
     --y: 0px;
-    --scale: 1.3;
+    --scale: 1;
   }
 
   #map-zoomer {
@@ -45,8 +45,8 @@ style: |
     }
 
     #map-zoomer-content {
-      --x: -120px;
-      --scale: 1.4;
+      --x: -90px;
+      --scale: 1.2;
     }
 
     ha-card > h1 {

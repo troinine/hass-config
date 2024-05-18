@@ -56,11 +56,11 @@ vacuum:
             params: |
               [[[
                 var rooms = [
-                  { sensor: 'input_boolean.vacuum_clean_entrance',    id: 18 },
-                  { sensor: 'input_boolean.vacuum_clean_kitchen',     id: 27 },
-                  { sensor: 'input_boolean.vacuum_clean_living_room', id: 19 },
-                  { sensor: 'input_boolean.vacuum_clean_bedroom',     id: 20 },
-                  { sensor: 'input_boolean.vacuum_clean_office',      id: 16 },
+                  { sensor: 'input_boolean.vacuum_clean_entrance',    id: 16 },
+                  { sensor: 'input_boolean.vacuum_clean_kitchen',     id: 24 },
+                  { sensor: 'input_boolean.vacuum_clean_living_room', id: 25 },
+                  { sensor: 'input_boolean.vacuum_clean_bedroom',     id: 19 },
+                  { sensor: 'input_boolean.vacuum_clean_office',      id: 20 },
                   { sensor: 'input_boolean.vacuum_clean_otsos_room',  id: 23 },
                   { sensor: 'input_boolean.vacuum_clean_sisus_room',  id: 22 },
                   { sensor: 'input_boolean.vacuum_clean_wc',          id: 21 },
