@@ -64,10 +64,54 @@
     - light.olohuone_vasen_ala
 
 - platform: group
-  name: group_outdoor
+  name: group_side_yard
+  entities:
+    - light.side_yard_1_down
+    - light.side_yard_1_up
+    - light.side_yard_2_down
+    - light.side_yard_2_up
+    - light.side_yard_3_down
+    - light.side_yard_3_up
+    - light.side_yard_4_down
+    - light.side_yard_4_up
+    - light.side_yard_5_down
+    - light.side_yard_5_up
+
+- platform: group
+  name: group_front_yard
   entities:
     - light.front_yard_bollard_1
     - light.front_yard_bollard_2
+
+- platform: group
+  name: group_backyard
+  entities:
+    - light.backyard_1_down
+    - light.backyard_1_up
+    - light.backyard_2_down
+    - light.backyard_2_up
+    - light.backyard_3_down
+    - light.backyard_3_up
+    - light.backyard_4_down
+    - light.backyard_4_up
+    - light.backyard_bollard_1
+    - light.backyard_bollard_2
+
+- platform: group
+  name: group_terrace
+  entities:
+    - light.backyard_bollard_1
+    - light.backyard_bollard_2
+    - light.backyard_4_down
+    - light.backyard_4_up
+
+- platform: group
+  name: group_outdoor
+  entities:
+    - light.group_front_yard
+    - light.group_backyard
+    - light.group_side_yard
+    - light.group_terrace
 
 - platform: group
   name: group_all_flat
@@ -95,6 +139,7 @@
     - light.otson_katto
     - light.sisun_katto
     - light.sisun_poytalamppu
+    - light.siemens_cooker_hood
 
 # Group of groups
 
@@ -121,3 +166,4 @@
     - light.group_entrance
     - light.group_office
     - light.group_bedroom
+    - light.siemens_cooker_hood

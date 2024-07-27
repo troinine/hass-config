@@ -148,6 +148,7 @@
       data:
         transition: 900
       entity_id: scene.nukkumassa
+    - service: light.turn_off
 
 - id: "1607352333578"
   alias: Herätä arkisin
@@ -1319,7 +1320,10 @@
         kelvin: 2700
         brightness_pct: 60
       target:
-        entity_id: light.group_outdoor
+        entity_id:
+          - light.group_front_yard
+          - light.backyard_bollard_1
+          - light.backyard_bollard_2
 
 - id: "1660327410460"
   mode: single
@@ -1338,7 +1342,10 @@
       data:
         transition: 1800
       target:
-        entity_id: light.group_outdoor
+        entity_id:
+          - light.group_front_yard
+          - light.backyard_bollard_1
+          - light.backyard_bollard_2
 
 ### Laundry
 
@@ -1493,6 +1500,57 @@
       target_light: light.group_sisus_room
       light_level_sensor: sensor.sisus_room_motion_sensor_illuminance
 
+### Outdoor light automation
+
+- id: "1722076843291"
+  alias: disable_outdoor_motion_sensors
+  mode: single
+  description: Disable motion sensing for outdoor motion sensors after sunrise.
+  trigger:
+    - platform: sun
+      event: sunrise
+  condition: []
+  action:
+    - service: switch.turn_off
+      target:
+        entity_id:
+          - switch.side_yard_motion_sensor
+          - switch.backyard_motion_sensor
+
+- id: "1722076843292"
+  alias: enable_outdoor_motion_sensors
+  mode: single
+  description: Enable motion sensing for outdoor motion sensors 30 minutes before sunset.
+  trigger:
+    - platform: sun
+      event: sunset
+      offset: "-00:30:00"
+  condition: []
+  action:
+    - service: switch.turn_on
+      target:
+        entity_id:
+          - switch.side_yard_motion_sensor
+          - switch.backyard_motion_sensor
+
+- id: "1673793535239"
+  alias: side_yard_motion_lights
+  description: ""
+  use_blueprint:
+    path: troinine/outdoor_motion_lights.yaml
+    input:
+      motion_sensor: binary_sensor.side_yard_motion_sensor
+      target_light: light.group_side_yard
+
+- id: "1673793535249"
+  alias: backyard_motion_lights
+  description: ""
+  use_blueprint:
+    path: troinine/outdoor_motion_lights.yaml
+    input:
+      motion_sensor: binary_sensor.backyard_motion_sensor
+      target_light: light.group_backyard
+
 - id: "1673798235233"
   alias: replace_ventilation_filters
   description: ""
@@ -1616,12 +1674,15 @@
       data: {}
       entity_id: automation.hot_water_pump_off
     - condition: state
-      entity_id: light.group_outdoor
+      entity_id: light.group_front_yard
       state: "on"
     - service: light.turn_off
       data: {}
       target:
-        entity_id: light.group_outdoor
+        entity_id:
+          - light.group_front_yard
+          - light.backyard_bollard_1
+          - light.backyard_bollard_2
 
 - id: "1700508001777"
   mode: single

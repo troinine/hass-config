@@ -123,13 +123,13 @@ cards:
 
   - type: horizontal-stack
     cards:
-      - type: 'custom:button-card'
+      - type: "custom:button-card"
         template: new_compact_light
         entity: light.group_entrance
         variables:
           name: Eteinen
 
-      - type: 'custom:button-card'
+      - type: "custom:button-card"
         template: new_compact_light
         entity: light.group_kitchen
         variables:
@@ -137,13 +137,13 @@ cards:
 
   - type: horizontal-stack
     cards:
-      - type: 'custom:button-card'
+      - type: "custom:button-card"
         template: new_compact_light
         entity: light.group_living_room
         variables:
           name: Olohuone
 
-      - type: 'custom:button-card'
+      - type: "custom:button-card"
         template: new_compact_light
         entity: light.group_bedroom
         variables:
@@ -151,13 +151,13 @@ cards:
 
   - type: horizontal-stack
     cards:
-      - type: 'custom:button-card'
+      - type: "custom:button-card"
         template: new_compact_light
         entity: light.group_otsos_room
         variables:
           name: Otso
 
-      - type: 'custom:button-card'
+      - type: "custom:button-card"
         template: new_compact_light
         entity: light.group_sisus_room
         variables:
@@ -165,19 +165,19 @@ cards:
 
   - type: horizontal-stack
     cards:
-      - type: 'custom:button-card'
+      - type: "custom:button-card"
         template: new_compact_light
         entity: light.group_office
         variables:
           name: Työhuone
 
-      - type: 'custom:button-card'
+      - type: "custom:button-card"
         template: new_compact_light
         entity: switch.tplink_hs100_3
         variables:
           name: Kodinhoito
           state_colors:
-            'on': orange
+            "on": orange
 
   - type: custom:button-card
     template: subtitle
@@ -185,13 +185,13 @@ cards:
 
   - type: horizontal-stack
     cards:
-      - type: 'custom:button-card'
+      - type: "custom:button-card"
         template: new_compact_light
         entity: light.group_all
         variables:
           name: Kaikki
 
-      - type: 'custom:button-card'
+      - type: "custom:button-card"
         template: new_compact_light
         entity: light.group_living_areas
         variables:
@@ -199,17 +199,43 @@ cards:
 
   - type: horizontal-stack
     cards:
-      - type: 'custom:button-card'
+      - type: "custom:button-card"
         template: new_compact_light
         entity: light.group_kids_rooms
         variables:
           name: Lastenhuoneet
 
-      - type: 'custom:button-card'
+  - type: custom:button-card
+    template: subtitle
+    name: Ulkovalot
+
+  - type: horizontal-stack
+    cards:
+      - type: "custom:button-card"
         template: new_compact_light
-        entity: light.group_outdoor
+        entity: light.group_front_yard
         variables:
-          name: Ulkovalot
+          name: Etupiha
+
+      - type: "custom:button-card"
+        template: new_compact_light
+        entity: light.group_backyard
+        variables:
+          name: Takapiha
+
+  - type: horizontal-stack
+    cards:
+      - type: "custom:button-card"
+        template: new_compact_light
+        entity: light.group_side_yard
+        variables:
+          name: Sivupiha
+
+      - type: "custom:button-card"
+        template: new_compact_light
+        entity: light.group_terrace
+        variables:
+          name: Terassi
 
   - type: custom:button-card
     template: empty

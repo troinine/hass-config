@@ -133,5 +133,11 @@ light.group_kids_rooms:
   friendly_name: Lasten valot
 light.group_all:
   friendly_name: Kaikki valot
-light.group_outdoor:
-  friendly_name: Ulkovalot
+light.group_front_yard:
+  friendly_name: Etupihan valot
+light.group_side_yard:
+  friendly_name: Sivupihan valot
+light.group_backyard:
+  friendly_name: Takapihan valot
+light.group_terrace:
+  friendly_name: Terassin valot
