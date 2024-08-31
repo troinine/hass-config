@@ -7,7 +7,7 @@
   unit_of_measurement: "°C"
   device_class: temperature
   expire_after: 900
-  value_template: '{{ value_json.temperature | float | round(1) }}'
+  value_template: "{{ value_json.temperature | float | round(1) }}"
 
 - object_id: mqtt_sauna_kosteus
   unique_id: mqtt_sauna_kosteus
@@ -15,7 +15,7 @@
   unit_of_measurement: "%"
   device_class: humidity
   expire_after: 900
-  value_template: '{{ value_json.humidity | float | round(1) }}'
+  value_template: "{{ value_json.humidity | float | round(1) }}"
 
 - object_id: mqtt_otso_temperature
   unique_id: mqtt_otso_temperature
@@ -23,7 +23,7 @@
   unit_of_measurement: "°C"
   device_class: temperature
   expire_after: 900
-  value_template: '{{ value_json.temperature | float | round(1) }}'
+  value_template: "{{ value_json.temperature | float | round(1) }}"
 
 - object_id: mqtt_otso_humidity
   unique_id: mqtt_otso_humidity
@@ -31,10 +31,40 @@
   unit_of_measurement: "%"
   device_class: humidity
   expire_after: 900
-  value_template: '{{ value_json.humidity | float | round(0) }}'
+  value_template: "{{ value_json.humidity | float | round(0) }}"
 
 - object_id: mqtt_otso_pressure
   unique_id: mqtt_otso_pressure
+  state_topic: "/home/ruuvi/otso"
+  unit_of_measurement: "hPa"
+  device_class: pressure
+  expire_after: 900
+  value_template: |
+    {% set value = value_json.pressure %}
+    {% if value == None %}
+      N/A
+    {% else %}
+      {{ (value * 0.01) | round(0) }}
+    {% endif %}
+
+- object_id: mqtt_terrace_temperature
+  unique_id: mqtt_terrace_temperature
+  state_topic: "/home/ruuvi/terrace"
+  unit_of_measurement: "°C"
+  device_class: temperature
+  expire_after: 900
+  value_template: "{{ value_json.temperature | float | round(1) }}"
+
+- object_id: mqtt_terrace_humidity
+  unique_id: mqtt_terrace_humidity
+  state_topic: "/home/ruuvi/otso"
+  unit_of_measurement: "%"
+  device_class: humidity
+  expire_after: 900
+  value_template: "{{ value_json.humidity | float | round(0) }}"
+
+- object_id: mqtt_terrace_pressure
+  unique_id: mqtt_terrace_pressure
   state_topic: "/home/ruuvi/otso"
   unit_of_measurement: "hPa"
   device_class: pressure
@@ -53,7 +83,7 @@
   unit_of_measurement: "°C"
   device_class: temperature
   expire_after: 900
-  value_template: '{{ value_json.temperature | float | round(1) }}'
+  value_template: "{{ value_json.temperature | float | round(1) }}"
 
 - object_id: mqtt_utility_room_leak_detector_humidity
   unique_id: mqtt_utility_room_leak_detector_humidity
@@ -61,7 +91,7 @@
   unit_of_measurement: "%"
   device_class: humidity
   expire_after: 900
-  value_template: '{{ value_json.humidity | float | round(0) }}'
+  value_template: "{{ value_json.humidity | float | round(0) }}"
 
 - object_id: mqtt_kitchen_leak_detector_temperature
   unique_id: mqtt_kitchen_leak_detector_temperature
@@ -69,7 +99,7 @@
   unit_of_measurement: "°C"
   device_class: temperature
   expire_after: 900
-  value_template: '{{ value_json.temperature | float | round(1) }}'
+  value_template: "{{ value_json.temperature | float | round(1) }}"
 
 - object_id: mqtt_kitchen_leak_detector_humidity
   unique_id: mqtt_kitchen_leak_detector_humidity
@@ -77,4 +107,4 @@
   unit_of_measurement: "%"
   device_class: humidity
   expire_after: 900
-  value_template: '{{ value_json.humidity | float | round(0) }}'
+  value_template: "{{ value_json.humidity | float | round(0) }}"
