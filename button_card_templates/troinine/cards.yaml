@@ -1,5 +1,4 @@
 ---
-
 # Pre-defined, ready-to-use cards
 
 heat_pump_state:
@@ -47,30 +46,30 @@ home_state:
     extra_entity: sensor.mqtt_electricity_consumption_monthly
     icon_glow: false
     state_colors:
-      'Kotona': '#66bb6a'
-      'Nukkumassa': '#0097a7'
+      "Kotona": "#66bb6a"
+      "Nukkumassa": "#0097a7"
   entity: input_select.home_state
 
 air_quality:
   entity: sensor.air_quality
-  name: Sisäilma
+  name: Ilmanlaatu
   variables:
     extra_entity: "[[[ return entity.attributes.reporting_entity ]]]"
     icon_glow: true
     state_colors:
-      "Hyvä": 'green'
-      "Radon nousussa": 'yellow'
-      "Radon korkealla": 'red'
-      "CO2 korkealla": 'yellow'
-      "Matala ilmankosteus": '#00ccf5'
-      "Korkea ilmankosteus": 'dodgerblue'
+      "Hyvä": "green"
+      "Radon nousussa": "yellow"
+      "Radon korkealla": "red"
+      "CO2 korkealla": "yellow"
+      "Matala ilmankosteus": "#00ccf5"
+      "Korkea ilmankosteus": "dodgerblue"
 
 front_door:
   entity: lock.ulko_ovi
   variables:
     icon_glow: true
     state_colors:
-      'unlocked': 'var(--warning-color)'
+      "unlocked": "var(--warning-color)"
 
 garage_door:
   entity: binary_sensor.mqtt_garage_door
@@ -79,7 +78,7 @@ garage_door:
     extra_entity: sensor.netatmo_garage_temperature
     icon_glow: true
     state_colors:
-      'on': 'var(--warning-color)'
+      "on": "var(--warning-color)"
 
 controls_card:
   template:
@@ -113,17 +112,17 @@ laundry:
   variables:
     icon_glow: true
     state_colors:
-      'Pyykkää ja kuivaa': 'var(--color-blue)'
-      'Pyykkää': 'var(--color-blue)'
-      'Kuivaa': 'var(--color-green)'
-      'Päällä': 'var(--warning-color)'
+      "Pyykkää ja kuivaa": "var(--color-blue)"
+      "Pyykkää": "var(--color-blue)"
+      "Kuivaa": "var(--color-green)"
+      "Päällä": "var(--warning-color)"
 
 networking:
   entity: binary_sensor.udm_internet
   variables:
     state_colors:
-      'on': 'var(--color-green)'
-      'off': 'var(--warning-color)'
+      "on": "var(--color-green)"
+      "off": "var(--warning-color)"
 
 tasks:
   entity: sensor.todoist_all_tasks
@@ -143,7 +142,7 @@ tasks:
   variables:
     icon_glow: true
     state_colors:
-      "on": 'var(--color-green)'
+      "on": "var(--color-green)"
 
 nordpool:
   entity: sensor.nordpool
