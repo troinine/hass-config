@@ -29,7 +29,7 @@ new_light:
         return 'var(--button-card-light-color)'
       ]]]
     state_colors:
-      'on': |
+      "on": |
         [[[
           var color = entity.attributes.rgb_color;
           var brightness = Math.round(entity.attributes.brightness / 2.54);
@@ -50,8 +50,7 @@ new_light:
         ]]]
     double_tap_action:
       action: toggle
-    hold_action:
-      !include ../../popups/common/light.yaml
+    hold_action: !include ../../popups/common/light.yaml
   show_state: false
   show_name: false
   show_icon: false
@@ -79,15 +78,22 @@ new_light:
         card_mod:
           style:
             mushroom-state-item$: |
-                .container.vertical {
-                  align-items: flex-start;
-                }
-                div.icon {
-                  margin-bottom: 0.5rem !important;
-                }
-                .actions {
-                  --mush-spacing: 0.2rem;
-                }
+              .container.vertical {
+                align-items: flex-start;
+                gap: 0;
+              }
+              .container {
+                padding: 0;
+              }
+              div.icon {
+                margin-bottom: 0.5rem !important;
+              }
+              .actions {
+                --mush-spacing: 0.2rem;
+              }
+              div.container {
+                padding: 0;
+              }
             mushroom-shape-icon$: |
               div.shape.disabled {
                 background-color: var(--custom-color-icon-background);
@@ -127,6 +133,7 @@ new_light:
               }
               div.actions {
                 --spacing: 0.3rem;
+                padding: 0;
               }
 
   styles:
@@ -161,15 +168,18 @@ new_compact_light:
         card_mod:
           style:
             mushroom-state-item$: |
-                .container.vertical {
-                  align-items: flex-start;
-                }
-                div.icon {
-                  margin-bottom: 0 !important;
-                }
-                .actions {
-                  --mush-spacing: 0.2rem;
-                }
+              .container.vertical {
+                align-items: flex-start;
+              }
+              div.icon {
+                margin-bottom: 0 !important;
+              }
+              div.container {
+                padding: 0;
+              }
+              .actions {
+                --mush-spacing: 0.2rem;
+              }
 
 light_no_action:
   variables:
@@ -201,7 +211,7 @@ light_no_action:
         return 'var(--button-card-light-color)'
       ]]]
     state_colors:
-      'on': |
+      "on": |
         [[[
           var color = entity.attributes.rgb_color;
           var brightness = Math.round(entity.attributes.brightness / 2.54);
@@ -365,8 +375,7 @@ light:
     - light_no_action
   tap_action:
     action: more-info
-  hold_action:
-    !include ../../popups/common/light.yaml
+  hold_action: !include ../../popups/common/light.yaml
 
 light_wide:
   template:
@@ -464,7 +473,7 @@ scene_icon:
           ]]]
       - border-radius: 50%
       - filter: "[[[ return `opacity(${variables.brightness}%)` ]]]"
-      - '-webkit-box-shadow': |
+      - "-webkit-box-shadow": |
           [[[
             var shadow_color = 'var(--custom-icon-color-not-active)'
             if (variables.color_rgb) {
