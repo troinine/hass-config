@@ -1041,18 +1041,21 @@
         tap_action: more-info
         tap_action_entity: input_boolean.automations_enabled
 
-    - name: "notification_hacs_update_available"
-      unique_id: "notification_hacs_update_available"
+    - name: "notification_update_available"
+      unique_id: "notification_update_available"
       icon: mdi:update
-      state: "{{ iif(states('sensor.hacs') | int(default=0) > 0, 'on', 'off') }}"
+      state: "{{ states.update | selectattr('state', 'equalto', 'on') | list | length }}"
       attributes:
         icon_color: "var(--color-green)"
-        text_summary: "HACS päivityksiä saatavilla"
+        text_summary: "Päivityksiä saatavilla"
         text_description: |
-          {% if state_attr('sensor.hacs', 'repositories') is not none %}
-            {% for repo in state_attr('sensor.hacs', 'repositories') %}
-              {{ repo['display_name'] }} {{ repo['installed_version'] }} -> {{ repo['available_version'] }}.
+          {% set updates = states.update | selectattr('state', 'equalto', 'on') | list %}
+          {% if updates | length > 0 %}
+            {% for update in updates %}
+              {{ update.name }} {{ update.attributes['installed_version'] }} -> {{ update.attributes['latest_version'] }}.
             {% endfor %}
+          {% else %}
+            Ei päivityksiä saatavilla.
           {% endif %}
         tap_action: navigate
         tap_action_navigation_path: /hacs
