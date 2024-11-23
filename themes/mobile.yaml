@@ -5,10 +5,10 @@ mobile:
 
   ### Card mod
   card-mod-theme: mobile
+  view-background: url('/local/img/background.png')
 
   card-mod-root: |
-    div#view {
-      background: url('/local/img/background.png');
+    hui-view-container#view {
       background-size: cover;
       margin-top: 0;
       padding-top: 0;
@@ -104,6 +104,7 @@ mobile:
   # Views
   view-side-margin: 1.5rem
   masonry-view-card-margin: 1rem
+  #header-height: 0
 
   modes:
     light:

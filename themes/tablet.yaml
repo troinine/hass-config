@@ -5,10 +5,10 @@ tablet:
 
   ### Card mod
   card-mod-theme: "tablet"
+  view-background: url('/local/img/background.png')
 
   card-mod-root: |
-    div#view {
-      background: url('/local/img/background.png');
+    hui-view-container#view {
       background-size: cover;
       margin-top: 0;
       padding-top: 0;
@@ -94,12 +94,12 @@ tablet:
       color-green-rgb: "128, 201, 148"
       color-yellow: "rgb(252, 214, 99)"
       color-blue: "rgb(137, 179, 248)"
-      color-blue-rgb: '137, 179, 248'
+      color-blue-rgb: "137, 179, 248"
       color-theme: "rgb(205, 217, 229)"
-      color-theme-rgb: '205, 217, 229'
+      color-theme-rgb: "205, 217, 229"
       color-purple: "rgb(102, 31, 255)"
       color-grey: "rgb(187, 187, 187)"
-      color-grey-rgb: '187, 187, 187'
+      color-grey-rgb: "187, 187, 187"
       color-pink: "rgb(233, 30, 99)"
       color-background-yellow: "var(--color-yellow)"
       color-background-blue: "var(--color-blue)"
@@ -166,7 +166,7 @@ tablet:
       mini-media-player-accent-color: "var(--google-blue)"
 
       # Bar card
-      bar-card-color: '#303435'
+      bar-card-color: "#303435"
 
       # Custom
       humidity-low-color: "#00ccf5"
@@ -175,11 +175,11 @@ tablet:
       primary-text-color-rgb: 205, 217, 229
       custom-icon-color: "dodgerblue"
       custom-icon-color-not-active: "rgba(var(--color-theme-rgb),0.2)"
-      custom-color-icon-background: '#181515'
+      custom-color-icon-background: "#181515"
       battery-full-color: "rgb(56, 142, 60)"
       button-color: "rgb(56, 142, 60)"
-      chart-first-series-color: 'dodgerblue'
-      chart-second-series-color: '#388E3C'
+      chart-first-series-color: "dodgerblue"
+      chart-second-series-color: "#388E3C"
 
       button-card-icon-drop-shadow-size: 0.2rem
       button-card-img-cell-box-shadow-size: 0.75rem
