@@ -4,99 +4,99 @@
 - type: conditional
   conditions:
     - entity: binary_sensor.notification_high_electricity_price
-      state: 'on'
+      state: "on"
   card:
-    type: 'custom:button-card'
+    type: "custom:button-card"
     template: auto_notification
     entity: binary_sensor.notification_high_electricity_price
 
 - type: conditional
   conditions:
     - entity: binary_sensor.notification_nordpool_pricing
-      state: 'on'
+      state: "on"
   card:
-    type: 'custom:button-card'
+    type: "custom:button-card"
     template: auto_notification
     entity: binary_sensor.notification_nordpool_pricing
 
 - type: conditional
   conditions:
     - entity: binary_sensor.notification_possible_utility_room_water_leak
-      state: 'on'
+      state: "on"
   card:
-    type: 'custom:button-card'
+    type: "custom:button-card"
     template: auto_notification
     entity: binary_sensor.notification_possible_utility_room_water_leak
 
 - type: conditional
   conditions:
     - entity: binary_sensor.notification_possible_kitchen_water_leak
-      state: 'on'
+      state: "on"
   card:
-    type: 'custom:button-card'
+    type: "custom:button-card"
     template: auto_notification
     entity: binary_sensor.notification_possible_kitchen_water_leak
 
 - type: conditional
   conditions:
     - entity: binary_sensor.notification_automations_disabled
-      state: 'on'
+      state: "on"
   card:
-    type: 'custom:button-card'
+    type: "custom:button-card"
     template: auto_notification
     entity: binary_sensor.notification_automations_disabled
 
 - type: conditional
   conditions:
     - entity: binary_sensor.notification_synology_security_warning
-      state: 'on'
+      state: "on"
   card:
-    type: 'custom:button-card'
+    type: "custom:button-card"
     template: auto_notification
     entity: binary_sensor.notification_synology_security_warning
 
 - type: conditional
   conditions:
     - entity: binary_sensor.notification_synology_update_available
-      state: 'on'
+      state: "on"
   card:
-    type: 'custom:button-card'
+    type: "custom:button-card"
     template: auto_notification
     entity: binary_sensor.notification_synology_update_available
 
 - type: conditional
   conditions:
     - entity: binary_sensor.notification_hass_update_available
-      state: 'on'
+      state: "on"
   card:
-    type: 'custom:button-card'
+    type: "custom:button-card"
     template: auto_notification
     entity: binary_sensor.notification_hass_update_available
 
 - type: conditional
   conditions:
-    - entity: binary_sensor.notification_hacs_update_available
-      state: 'on'
+    - entity: binary_sensor.notification_update_available
+      state: "on"
   card:
-    type: 'custom:button-card'
+    type: "custom:button-card"
     template: auto_notification
-    entity: binary_sensor.notification_hacs_update_available
+    entity: binary_sensor.notification_update_available
 
 - type: conditional
   conditions:
     - entity: binary_sensor.notification_udm_update_available
-      state: 'on'
+      state: "on"
   card:
-    type: 'custom:button-card'
+    type: "custom:button-card"
     template: auto_notification
     entity: binary_sensor.notification_udm_update_available
 
 - type: conditional
   conditions:
     - entity: binary_sensor.notification_heat_pump_alarm
-      state: 'on'
+      state: "on"
     - entity: sensor.nibe_alarm_number
-      state_not: 'unavailable'
+      state_not: "unavailable"
   card:
     type: custom:button-card
     template: auto_notification
@@ -108,7 +108,7 @@
 - type: conditional
   conditions:
     - entity: binary_sensor.notification_heat_pump_data_missing
-      state: 'on'
+      state: "on"
   card:
     type: custom:button-card
     template: auto_notification
@@ -117,7 +117,7 @@
 - type: conditional
   conditions:
     - entity: binary_sensor.notification_radon_warning
-      state: 'on'
+      state: "on"
   card:
     type: custom:button-card
     template: auto_notification
@@ -126,7 +126,7 @@
 - type: conditional
   conditions:
     - entity: binary_sensor.notification_garage_door_open
-      state: 'on'
+      state: "on"
   card:
     type: custom:button-card
     template: auto_notification
@@ -138,7 +138,7 @@
 - type: conditional
   conditions:
     - entity: binary_sensor.notification_front_door_open
-      state: 'on'
+      state: "on"
   card:
     type: custom:button-card
     template: auto_notification
@@ -150,7 +150,7 @@
 - type: conditional
   conditions:
     - entity: binary_sensor.notification_stiga_charger_charging
-      state: 'on'
+      state: "on"
   card:
     type: custom:button-card
     template: auto_notification
@@ -159,7 +159,7 @@
 - type: conditional
   conditions:
     - entity: binary_sensor.notification_stiga_charger_full
-      state: 'on'
+      state: "on"
   card:
     type: custom:button-card
     template: auto_notification
@@ -168,7 +168,7 @@
 - type: conditional
   conditions:
     - entity: binary_sensor.notification_garage_dehumidifier
-      state: 'on'
+      state: "on"
   card:
     type: custom:button-card
     template: auto_notification
@@ -177,7 +177,7 @@
 - type: conditional
   conditions:
     - entity: binary_sensor.notification_garage_dehumidifier_bucket_full
-      state: 'on'
+      state: "on"
   card:
     type: custom:button-card
     template: auto_notification
@@ -186,52 +186,52 @@
 - type: conditional
   conditions:
     - entity: binary_sensor.notification_replace_ventilation_filters
-      state: 'on'
+      state: "on"
   card:
-    type: 'custom:button-card'
+    type: "custom:button-card"
     template: auto_notification
     entity: binary_sensor.notification_replace_ventilation_filters
 
 - type: conditional
   conditions:
     - entity: binary_sensor.notification_clean_washing_machine
-      state: 'on'
+      state: "on"
   card:
-    type: 'custom:button-card'
+    type: "custom:button-card"
     template: auto_notification
     entity: binary_sensor.notification_clean_washing_machine
 
 - type: conditional
   conditions:
     - entity: binary_sensor.notification_clean_tumble_dryer
-      state: 'on'
+      state: "on"
   card:
-    type: 'custom:button-card'
+    type: "custom:button-card"
     template: auto_notification
     entity: binary_sensor.notification_clean_tumble_dryer
 
 - type: conditional
   conditions:
     - entity: binary_sensor.notification_ultraphase_1_level_low
-      state: 'on'
+      state: "on"
   card:
-    type: 'custom:button-card'
+    type: "custom:button-card"
     template: auto_notification
     entity: binary_sensor.notification_ultraphase_1_level_low
 
 - type: conditional
   conditions:
     - entity: binary_sensor.notification_ultraphase_2_level_low
-      state: 'on'
+      state: "on"
   card:
-    type: 'custom:button-card'
+    type: "custom:button-card"
     template: auto_notification
     entity: binary_sensor.notification_ultraphase_2_level_low
 
 - type: conditional
   conditions:
     - entity: binary_sensor.notification_sauna
-      state: 'on'
+      state: "on"
   card:
     type: custom:button-card
     template: auto_notification
@@ -240,16 +240,16 @@
 - type: conditional
   conditions:
     - entity: binary_sensor.notification_co2
-      state: 'on'
+      state: "on"
   card:
-    type: 'custom:button-card'
+    type: "custom:button-card"
     template: auto_notification
     entity: binary_sensor.notification_co2
 
 - type: conditional
   conditions:
     - entity: binary_sensor.notification_humidity
-      state: 'on'
+      state: "on"
   card:
     type: custom:button-card
     template: auto_notification
@@ -258,7 +258,7 @@
 - type: conditional
   conditions:
     - entity: binary_sensor.notification_living_room_humidifier
-      state: 'on'
+      state: "on"
   card:
     type: custom:button-card
     template: auto_notification
@@ -267,7 +267,7 @@
 - type: conditional
   conditions:
     - entity: binary_sensor.notification_sisu_humidifier
-      state: 'on'
+      state: "on"
   card:
     type: custom:button-card
     template: auto_notification
@@ -276,79 +276,79 @@
 - type: conditional
   conditions:
     - entity: binary_sensor.notification_on_vacation
-      state: 'on'
+      state: "on"
   card:
-    type: 'custom:button-card'
+    type: "custom:button-card"
     template: auto_notification
     entity: binary_sensor.notification_on_vacation
 
 - type: conditional
   conditions:
     - entity: binary_sensor.notification_vacuum_dustbin_full
-      state: 'on'
+      state: "on"
   card:
-    type: 'custom:button-card'
+    type: "custom:button-card"
     template: auto_notification
     entity: binary_sensor.notification_vacuum_dustbin_full
 
 - type: conditional
   conditions:
     - entity: binary_sensor.notification_vacuuming
-      state: 'on'
+      state: "on"
   card:
-    type: 'custom:button-card'
+    type: "custom:button-card"
     template: auto_notification
     entity: binary_sensor.notification_vacuuming
 
 - type: conditional
   conditions:
     - entity: binary_sensor.notification_time_to_vacuum
-      state: 'on'
+      state: "on"
   card:
-    type: 'custom:button-card'
+    type: "custom:button-card"
     template: auto_notification
     entity: binary_sensor.notification_time_to_vacuum
 
 - type: conditional
   conditions:
     - entity: binary_sensor.notification_todays_precipitation
-      state: 'on'
+      state: "on"
   card:
-    type: 'custom:button-card'
+    type: "custom:button-card"
     template: auto_notification
     entity: binary_sensor.notification_todays_precipitation
 
 - type: conditional
   conditions:
     - entity: binary_sensor.notification_raining
-      state: 'on'
+      state: "on"
   card:
-    type: 'custom:button-card'
+    type: "custom:button-card"
     template: auto_notification
     entity: binary_sensor.notification_raining
 
 - type: conditional
   conditions:
     - entity: binary_sensor.notification_washing_machine
-      state: 'on'
+      state: "on"
   card:
-    type: 'custom:button-card'
+    type: "custom:button-card"
     template: auto_notification
     entity: binary_sensor.notification_washing_machine
 
 - type: conditional
   conditions:
     - entity: binary_sensor.notification_tumble_dryer
-      state: 'on'
+      state: "on"
   card:
-    type: 'custom:button-card'
+    type: "custom:button-card"
     template: auto_notification
     entity: binary_sensor.notification_tumble_dryer
 
 - type: conditional
   conditions:
     - entity: binary_sensor.notification_low_battery
-      state: 'on'
+      state: "on"
   card:
     type: custom:button-card
     template: auto_notification
@@ -357,8 +357,8 @@
 - type: conditional
   conditions:
     - entity: binary_sensor.notification_current_home_task
-      state: 'on'
+      state: "on"
   card:
-    type: 'custom:button-card'
+    type: "custom:button-card"
     template: auto_notification
     entity: binary_sensor.notification_current_home_task
