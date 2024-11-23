@@ -34,7 +34,7 @@ blueprint:
     lights_on_below_level:
       name: Light level
       description: The light level below which the lights are turned on
-      default: 50
+      default: 25
       selector:
         number:
           min: 0
@@ -60,15 +60,15 @@ trigger:
 condition:
   - condition: state
     entity_id: input_boolean.automations_enabled
-    state: 'on'
+    state: "on"
   - condition: state
     entity_id: input_select.home_state
     state: Kotona
   - condition: or
     conditions:
       - condition: time
-        after: '07:00'
-        before: '22:00'
+        after: "07:00"
+        before: "22:00"
         weekday:
           - mon
           - tue
@@ -76,34 +76,34 @@ condition:
           - thu
           - fri
       - condition: time
-        after: '09:00'
-        before: '22:00'
+        after: "09:00"
+        before: "22:00"
         weekday:
           - sat
           - sun
 
 action:
   - choose:
-    - conditions:
-      - condition: template
-        value_template: "{{ states(light_level_sensor) | int < lights_on_below_level }}"
-      sequence:
-        - service: light.turn_on
-          target:
-            entity_id: !input target_light
+      - conditions:
+          - condition: template
+            value_template: "{{ states(light_level_sensor) | int < lights_on_below_level }}"
+        sequence:
+          - service: light.turn_on
+            target:
+              entity_id: !input target_light
   - wait_for_trigger:
-    - platform: state
-      entity_id: !input motion_sensor
-      from: "on"
-      to: "off"
-      for:
-        minutes: !input no_motion_wait
+      - platform: state
+        entity_id: !input motion_sensor
+        from: "on"
+        to: "off"
+        for:
+          minutes: !input no_motion_wait
   - choose:
-    - conditions:
-      - condition: time
-        after: '07:00'
-        before: '20:30'
-      sequence:
-        - service: light.turn_off
-          target:
-            entity_id: !input target_light
+      - conditions:
+          - condition: time
+            after: "07:00"
+            before: "20:30"
+        sequence:
+          - service: light.turn_off
+            target:
+              entity_id: !input target_light

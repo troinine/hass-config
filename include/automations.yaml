@@ -1479,6 +1479,7 @@
       motion_sensor: binary_sensor.office_motion_sensor
       target_light: light.group_office
       light_level_sensor: sensor.office_motion_sensor_illuminance
+      lights_on_below_level: 10
 
 - id: "1673798235231"
   alias: otsos_room_motion_lights
@@ -1540,6 +1541,7 @@
     path: troinine/outdoor_motion_lights.yaml
     input:
       motion_sensor: binary_sensor.side_yard_motion_sensor
+      no_motion_wait: 2
       target_light: light.group_side_yard
 
 - id: "1673793535249"
@@ -1549,7 +1551,16 @@
     path: troinine/outdoor_motion_lights.yaml
     input:
       motion_sensor: binary_sensor.backyard_motion_sensor
-      target_light: light.group_backyard
+      no_motion_wait: 5
+      target_light:
+        - light.backyard_1_down
+        - light.backyard_1_up
+        - light.backyard_2_down
+        - light.backyard_2_up
+        - light.backyard_3_down
+        - light.backyard_3_up
+        - light.backyard_4_down
+        - light.backyard_4_up
 
 - id: "1673798235233"
   alias: replace_ventilation_filters
