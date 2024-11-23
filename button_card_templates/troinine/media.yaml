@@ -4,8 +4,9 @@ media_player:
     - controls_card
   variables:
     tap_action: false
+    button1_tap_action: false
     state_colors:
-      'on': 'var(--color-green)'
+      "on": "var(--color-green)"
   tap_action:
     action: |
       [[[ return variables.tap_action ? variables.tap_action.action : 'more-info' ]]]
@@ -36,13 +37,18 @@ media_player:
           [[[ return entity.entity_id ]]]
         variables:
           is_active: true
-        tap_action:
-          action: call-service
-          service: |
-            [[[ return entity.state === 'off' ? 'media_player.turn_on' : 'media_player.turn_off' ]]]
-          data:
-            entity_id: |
-              [[[ return entity.entity_id ]]]
+        tap_action: |
+          [[[
+            if (variables.button1_tap_action) {
+              return variables.button1_tap_action
+            } else {
+              return {
+                action: 'call-service',
+                service: entity.state === 'off' ? 'media_player.turn_on' : 'media_player.turn_off',
+                data: { entity_id: entity.entity_id }
+              };
+            }
+          ]]]
 
     button2:
       card:
@@ -52,11 +58,11 @@ media_player:
         entity: |
           [[[ return entity.entity_id ]]]
         tap_action:
-            action: call-service
-            service: media_player.volume_down
-            data:
-              entity_id: |
-                [[[ return entity.entity_id ]]]
+          action: call-service
+          service: media_player.volume_down
+          data:
+            entity_id: |
+              [[[ return entity.entity_id ]]]
 
     button3:
       card:
@@ -66,8 +72,8 @@ media_player:
         entity: |
           [[[ return entity.entity_id ]]]
         tap_action:
-            action: call-service
-            service: media_player.volume_up
-            data:
-              entity_id: |
-                [[[ return entity.entity_id ]]]
+          action: call-service
+          service: media_player.volume_up
+          data:
+            entity_id: |
+              [[[ return entity.entity_id ]]]

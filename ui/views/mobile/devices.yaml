@@ -58,40 +58,13 @@ cards:
   - type: horizontal-stack
     cards:
       - type: custom:button-card
-        template: compact_info
-        entity: sensor.hacs
-        name: HACS päivitykset
-        icon: mdi:update
-        state_display: |
-          [[[
-            if (entity.state == 0) {
-              return 'Ajantasalla'
-            } else if (entity.state == 1) {
-              return 'Päivitys saatavilla'
-            } else {
-              return 'Päivityksiä saatavilla'
-            }
-          ]]]
-        show_last_changed: false
-        show_label: true
-        label: |
-          [[[
-            if (entity.state > 0) {
-               const repo = entity.attributes.repositories[0]
-
-               return `${repo.display_name} ${repo.available_version}`
-            }
-
-            return null
-          ]]]
+        template:
+          - cooker_hood
+          - compact_card
+        entity: sensor.liesituuletin_operation_state
+        icon: mdi:fan
         variables:
-          icon_color: |
-            [[[
-              return entity.state != 0 ? 'var(--color-green)' : ''
-            ]]]
-        tap_action:
-          action: navigate
-          navigation_path: /hacs
+          name: Liesituuletin
 
       - type: "custom:button-card"
         template: compact_info
@@ -166,6 +139,11 @@ cards:
           - compact_card
         entity: media_player.samsung_q90_series_65
         variables:
+          button1_tap_action:
+            action: call-service
+            service: remote.turn_off
+            data:
+              entity_id: remote.olohuone
           name: Olohuone TV
           tap_action: !include ../../../popups/mobile/remote-control.yaml
 

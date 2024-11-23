@@ -163,3 +163,49 @@ nordpool:
               return 'var(--warning-color)'
             }
           ]]]
+
+cooker_hood:
+  template:
+    - controls_card
+  variables:
+    tap_action: false
+  triggers_update:
+    - switch.liesituuletin_power
+    - light.siemens_cooker_hood
+  custom_fields:
+    icon_name_label:
+      card:
+        type: custom:button-card
+        template: icon_name_state
+        name: |
+          [[[ return variables.name ]]]
+        state_display: |
+          [[[
+            if (entity.state == 'Run') {
+              return 'Käynnissä'
+            } else {
+              return 'Pois päältä'
+            }
+          ]]]
+        entity: |
+          [[[ return entity.entity_id ]]]
+        variables:
+          is_active: |
+            [[[ return entity.state === 'Run' || states['light.siemens_cooker_hood'].state === 'on' ]]]
+          icon_glow: true
+          state_colors:
+            "Run": dodgerblue
+    button1:
+      card:
+        type: custom:button-card
+        template: base_icon_button
+        icon: mdi:power
+        entity: switch.liesituuletin_power
+        variables:
+          is_active: true
+    button3:
+      card:
+        type: custom:button-card
+        template: base_icon_button
+        icon: mdi:lightbulb
+        entity: light.siemens_cooker_hood
